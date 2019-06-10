@@ -1,0 +1,21 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -------------------------------------------------
+= Digital Audio Effects Implementation
+
+This page contains the implementation of digital audio effects. Most of the work are done by Yangang Cao, and Baboo J. Cui.
+
+==== Contents List:
+
+LP and HP Filter ([./doc/hp_lp/slide/main.pdf beamer], [./doc/hp_lp/doc/main.pdf pdf])
+
+- a quick implementation of first order digital filter for low-pass and high-pass
+
+BP and BR Filter ([./doc/bp_br/slide/main.pdf beamer], [./doc/bp_br/doc/main.pdf pdf])
+
+- a quick implementation of second order digital filter for band-pass and band-reject
+
+
+
+== License
+Copyright 2015-2019 Baboo J. Cui.

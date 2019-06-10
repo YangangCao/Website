@@ -1,0 +1,209 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+
+
+\author{Baboo J. Cui}
+\title{Topic 02 - Limits and Derivatives}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+
+A series of problems lead to limits and derivative, here are $2$ examples:
+\begin{itemize}
+	\item \textbf{tangent line}: use \textbf{secant line} to approach tangent line
+	\item \textbf{instantaneous velocity}: use \textbf{average velocity} in a shorter period time to estimate instantaneous velocity
+\end{itemize}
+
+\section{Limit of a Function}
+
+\subsection {Definition of Limit}
+Limit of a function is written as
+\[
+\lim _{x \rightarrow a} f(x) = L
+\]
+it means that the limit of $f$ as $x$ approaches $a$ equals $L$. Note that the limit has nothing to do with $f(a)$.
+
+\subsection{Term Approach}
+\begin{itemize}
+	\item informally, approach means getting closer to a certain value
+	\item formally definition will be introduced latter
+\end{itemize}
+
+\subsection{One-Sided Limits}
+For left-hand limit:
+\[
+\lim _{x \rightarrow a^{-}} f(x) = L 
+\]
+For right-hand limit:
+\[
+\lim _{x \rightarrow a^{+}} f(x) = L 
+\]
+Note that
+\[
+\lim _{x \rightarrow a} f(x) = L 
+\]
+exists only when both left-hand and right-hand side limits exist.
+
+\subsection{Infinite Limits}
+Let $f(x)$ is defined on $(a-\delta, a) \cup (a,a+\delta)$,
+\[
+\lim _{x \rightarrow a} f(x) = \infty
+\]
+leads to infinite limits. Note that:
+\begin{itemize}
+	\item here $\infty$ can be either $+\infty$ or $-\infty$
+	\item it often occurs when the function is not defined at $x = a$ or $a$ is pole of ration functions
+\end{itemize}
+
+\subsection{Vertical Asymptote}
+The line $x = a$ is called a vertical asymptote of $y = f(x)$ if
+\[
+\lim_{x \rightarrow a, a^{+} \text{ or } a^{-}} = \infty
+\]
+natural log has a vertical asymptote $x = 0$ since
+\[
+\lim_{x \rightarrow 0^{+}} \ln x = - \infty
+\]
+
+\section{Limit Laws and Theorem}
+
+\subsection{Limit Laws}
+Suppose $f$ and $g$ are two functions and $c$ is a constant:
+\begin{enumerate}
+	\item \textbf{sum}: $\lim (f+g) = \lim  f + \lim g$
+	\item \textbf{difference}: $\lim (f-g) = \lim  f - \lim g$
+	\item \textbf{constant multiplication}: $\lim (cf) = c \lim  f$
+	\item \textbf{product}: $\lim (fg) = (\lim  f)  (\lim g)$
+	\item \textbf{quotient}: $\lim (f/g) = \lim  f / \lim g$, if $\lim g \neq 0$
+\end{enumerate}
+From the laws above, the following laws can be obtained:
+\begin{itemize}
+	\item \textbf{power}: $\lim f^n = (\lim  f)^n$
+	\item \textbf{limit of constant}: $\lim c = c$
+\end{itemize}
+
+\subsection{Direct Substitution Property}
+If $f$ is a polynomial or rational function and $a$ is in the domain of $f$, then
+\[
+\lim_{x \rightarrow a} f(x) = f(a)
+\]
+In fact this property is true if the function is \textbf{continuous} at $x=a$.
+
+\subsection{A Useful Fact}
+If $f(x) = g(x)$ when $x \neq a$, then
+\[
+\lim_{x \rightarrow a} f(x) = \lim_{x \rightarrow a} g(x)
+\]
+provide the limit exists, this is very useful to get the limit of a ration function whose pole that can be canceled by its numerator factor.
+
+\subsection{Limit Theorems}
+\begin{itemize}
+	\item \textbf{two sides theorem}: $\lim_{x \rightarrow a} f(x) = L$ if and only if
+	\[
+	\lim_{x \rightarrow a^{+}} f(x) = \lim_{x \rightarrow a^{-}} f(x) = L
+	\]
+	\item \textbf{comparison theorem}: if $f(x) \leq g(x)$ and both function have limits at $x = a$, then
+	\[
+	\lim_{x \rightarrow a} f(x) \leq \lim_{x \rightarrow a} g(x) 
+	\]
+	\item \textbf{squeeze theorem}: if $f(x) \leq g(x) \leq h(x)$ and
+	\[
+	\lim_{x \rightarrow a} f(x) = \lim_{x \rightarrow a} h(x) = L
+	\]
+	then
+	\[
+	\lim_{x \rightarrow a} g(x) = L
+	\]
+\end{itemize}
+
+\section{Precise Definition of Limit}
+Let $f$ be a function defined on some open interval that contains the number $a$ except possibly at $a$ itself. Then we say the limit of $f$ as $x$ approaches $a$ is $L$:
+\[
+\lim_{x \rightarrow a} f(x) = L
+\]
+if for \textbf{every} number $\epsilon>0$ there is a number $\delta>0$ such that
+ \[
+ |x-a| < \delta \Longrightarrow |f(x) - L| < \epsilon
+ \]
+ Comment: range constrain leads to domain constrain.
+
+\subsection{Precise Definition of Left Hand and Right Hand Limit}
+Similar way can be applied to these $2$ definitions:
+\begin{itemize}
+	\item \textbf{Left-Hand Limit}:
+	\[
+	\lim_{x \rightarrow a^{-}} f(x) = L 
+	\]
+	if for every number $\epsilon>0$ there is a number $\delta>0$ such that
+	\[
+    a- \delta < x < a \Longrightarrow |f(x) - L| < \epsilon
+	\]
+	\item \textbf{Right-Hand Limit}:
+	\[
+	\lim_{x \rightarrow a^{+}} f(x) = L 
+	\]
+	if for every number $\epsilon>0$ there is a number $\delta>0$ such that
+	\[
+	a < x < a + \delta  \Longrightarrow |f(x) - L| < \epsilon
+	\]
+\end{itemize}
+
+\subsection{Precise Definition of Infinite Limit}
+Let $f$ be a function defined on some open interval that contains the number $a$ except possibly at $a$ itself. Then
+\[
+\lim_{x \rightarrow a} f(x) = +\infty
+\]
+if for \textbf{every} positive number $M$ there is $\delta>0$ such that
+\[
+|x-a| < \delta \Longrightarrow f(x)>M
+\]
+Similar definition can be applied to negative infinite limit.
+
+\section{Continuity of Functions }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Extra}
+
+\subsection{Greatest Integer Functions}
+It is defined as:
+\[
+y = f(x) =\lfloor x \rfloor
+\]
+\begin{itemize}
+	\item piece-wise function
+	\item continuous from right side  
+\end{itemize}
+
+\subsection{Triangle Inequality}
+It states that:
+\[
+|a+b| \leq |a| + |b|
+\]
+\end{document}

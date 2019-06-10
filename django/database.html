@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title></title>
+<!-- MathJax -->
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-item"><a href="../index.html" class="current">Home</a></div>
+<div class="menu-category">Topic Name</div>
+<div class="menu-item"><a href="start.html">Get&nbsp;Started</a></div>
+<div class="menu-item"><a href="database.html">Database</a></div>
+<div class="menu-item"><a href="poll_model.html">Model</a></div>
+<div class="menu-item"><a href="api.html">API</a></div>
+<div class="menu-item"><a href="admin.html">Admin</a></div>
+<div class="menu-item"><a href="view.html">View</a></div>
+<div class="menu-category">Others</div>
+<div class="menu-item"><a href="cheat.html">cheating</a></div>
+<div class="menu-category">Service</div>
+<div class="menu-item"><a href="../payment.html">Payment</a></div>
+<div class="menu-item"><a href="../contact.html">Contact</a></div>
+</td>
+<td id="layout-content">
+<h1></h1>
+<h1>Database</h1>
+<p>By default, django use SQLite. MySQL is used in our case and here is the config:</p>
+<div class="codeblock">
+<div class="blocktitle">MySQL Config</div>
+<div class="blockcontent"><pre>
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'poll',
+        'HOST': '',
+        'USER': 'root',
+        'PASSWORD': '00000000',
+        'PORT': '3306'
+    }
+}
+</pre></div></div>
+<p>Comments:</p>
+<ul>
+<li><p>NAME is the schema name</p>
+</li>
+<li><p>USER is the user name</p>
+</li>
+</ul>
+<p>VIP: when image not found add the following code in init.py:</p>
+<div class="codeblock">
+<div class="blocktitle">Adding code to site init.py</div>
+<div class="blockcontent"><pre>
+import pymysql
+pymysql.install_as_MySQLdb()
+</pre></div></div>
+<p>By default, Timezone is UTC.</p>
+<p>by default, INSTALLED_APPS contains(if not needed, just comment out items):</p>
+<div class="codeblock">
+<div class="blocktitle">INSTALLED_APPS</div>
+<div class="blockcontent"><pre>
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+</pre></div></div>
+<p>we need to create the tables in the database before we can use them. To to this:</p>
+<p><tt>$ python manage.py migrate</tt></p>
+<p>This step creates any necessary database tables according to the database settings setting.py</p>
+<h2>License</h2>
+<p>Copyright 2015-2018 Baboo J. Cui.</p>
+</td>
+</tr>
+</table>
+</body>
+</html>

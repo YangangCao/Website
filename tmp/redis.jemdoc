@@ -1,0 +1,19 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+== Redis
+
+On Mac, use brew to install redis with command:
+
++brew install redis+
+
+And then start the service
+
++brew services start redis+
+
+or run without background service:
+
++redis-server \/usr\/local\/etc\/redis.conf+
+
+
+== License
+Copyright 2015-2019 Baboo J. Cui.

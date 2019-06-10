@@ -1,0 +1,362 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+
+\author{Baboo J. Cui}
+\title{Part 02 - Discrete-Time Signals and Systems}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+In this part, LTI(linear time invariant) will be studied due to the $2$ important facts:
+\begin{itemize}
+	\item a large collection of math techniques can be applied to it
+	\item many practical complicate system can be approximated by LTI system
+\end{itemize}
+
+\section{Discrete-Time Signal}
+\textbf{Discrete time signal} is a function of an independent variable that is an integer, it is not defined at instants between two samples. The following $3$ methods are used to represent it:
+\begin{itemize}
+	\item \textbf{functional} representation
+	\item \textbf{tabular} representation
+	\item \textbf{sequence} representation(usually with arrow to indicate $t = 0$)
+\end{itemize}
+
+\subsection{Elementary DT signals}
+Here are some important basic signals:
+\begin{itemize}
+	\item \textbf{unit sample} signal(also known as \textbf{unit impulse}), denoted as $\delta(n)$
+	\[
+	\delta(n) = \left\{
+	\begin{array}{ll}
+	1, & n = 0 \\
+	0, & n \neq 0\\
+	\end{array}\right.
+	\]
+	\item \textbf{unit step} signal, denoted as $u(n)$
+	\[
+	u(n) = \left\{
+	\begin{array}{ll}
+	1, & n \geq 0 \\
+	0, & n < 0\\
+	\end{array}\right.
+	\]
+	\item \textbf{unit ramp} signal, denoted as $u_r(n)$
+	\[
+	u_r(n) = \left\{
+	\begin{array}{ll}
+	n, & n \geq 0 \\
+	0, & n < 0\\
+	\end{array}\right.
+	\]
+	\item \textbf{exponential} signal, denoted as $x(n)$
+	\[
+	x(n) = a^n
+	\]
+	$a$ can be either real or complex.
+\end{itemize}
+
+\subsection{Complex Exponential Signal}
+If $a$ is complex number and $x(n) = a^n, \forall n \in \mathbb{Z}$, $x$ is said to be complex exponential signal. $a$ generally can be expressed as
+\[
+a = re^{j\theta}
+\]
+therefore
+\begin{align*}
+x(n) = a^n = \left(re^{j\theta}\right)^n & = r^n e^{jn\theta}\\
+& = r^n\left(\cos (n\theta) + j \sin (n\theta) \right)
+\end{align*}
+Clearly, we can see that:
+\begin{itemize}
+	\item \textbf{real part} of the signal: $x_R(n)= r^n \cos(n \theta)$
+	\item \textbf{imaginary part} of the signal: $x_I(n)= r^n \sin(n \theta)$
+	\item \textbf{amplitude function} of the signal: $\left|x(n)\right|= A(n) = r^n$
+	\item \textbf{phase function} of the signal: $\angle x(n) = \phi(n) = n\theta$
+\end{itemize}
+
+\subsection{classification of DT Signals}
+Discrete time signal can be classified according to its characteristic.
+
+\subsubsection*{energy signal vs power signal}
+The energy $E$ of a signal is defined as:
+\[
+E = \sum_{n=-\infty}^{\infty} |x(n)|^2
+\]
+if $E$ is bounded, it is called \textbf{energy signal}, and its average power $P$ is defined as:
+\[
+P = \lim_{N \rightarrow \infty} \frac{1}{2N+1} \sum_{n=-N}^{N} |x(n)|^2
+\]
+if $P$ is finite and nonzero, it is called \textbf{power signal}, clearly:
+\begin{itemize}
+	\item finite $E$ leads to $P=0$
+	\item infinite $E$ may lead to either finite $P$ or infinite $P$
+\end{itemize}
+
+\subsubsection*{periodic signal vs aperiodic signal}
+A signal $x(n)$ is periodic with period $N$ if
+\[
+x(n+N) = x(n), \forall n \in \mathbb{Z}
+\]
+the smallest $N$ is called \textbf{fundamental period}, if such $N$ doesn't exist, it is aperiodic. Periodic signals are power signals(why?).
+
+\subsubsection*{even signal vs odd signal}
+For real signal $x(n)$, if $x(-n) = x(n)$ it is called even signal, and if $x(-n) = -x(n)$ it is called odd signal. Any signal $x(n)$ can be decomposed to the sum of an even and an odd signal, namely
+\[
+x(n) = x_e(n) + x_o(n)
+\]
+where
+\[
+x_e(n) = \frac{1}{2} [x(n) + x(-n)]
+\]
+and
+\[
+x_o(n) = \frac{1}{2} [x(n) - x(-n)]
+\]
+
+\subsection{Manipulation on DT Signals}
+Suppose the origin DT signal is $x(n)$, here are some basic manipulation on it:
+\begin{itemize}
+	\item $x(n) \rightarrow x(n-k)$: \textbf{delay} $k$ units if $k$ is positive, \textbf{advance} $k$ units if $k$ is negative. It's impossible to advance a signal in real time
+	\item $x(n) \rightarrow x(-n)$: \textbf{fold} or \textbf{reflect} the signal about time origin $n = 0$
+	\item $x(n) \rightarrow x(kn)$: \textbf{down-sampling} the signal by a factor of $k$
+	\item $x(n) \rightarrow kx(n)$: \textbf{amplify} the signal by factor of $k$
+\end{itemize}
+\textbf{VIP: delay and reflect are not commutative!}
+
+\section{DT Systems}
+A DT system is algorithm that operates on \textbf{input(excitation)} according to some well-defined rule to produce on \textbf{output(response)}. We say input is transformed by system into output, mathematically:
+\[
+y(n) = \mathcal{T}[x(n)]
+\]
+
+\subsection{IO Description}
+It defines the relation between input and output explicitly, here are some examples:
+\begin{itemize}
+	\item \textbf{identity system}:$y(n) = x(n)$
+	\item \textbf{delay system}: $y(n) = x(n-k)$
+	\item \textbf{advance system}: $y(n) = x(n+k)$
+	\item \textbf{moving average filter}: $y(n) = \frac{1}{3} [x(n+1) + x(n) + x(n-1)]$
+	\item \textbf{accumulator}: $y(n) = \sum_{k=-\infty}^{n} x(n)$
+\end{itemize}
+Note that some system output depends on \textbf{initial condition}.
+
+\subsection{Block Diagram Representation of DT System}
+This representation is intuitive and useful, here are basic blocks:
+\begin{itemize}
+	\item \textbf{adder}, it is \textbf{memory-less}
+	\item \textbf{constant multiplier}: also known as amplifier or attenuator
+	\item \textbf{signal multiplier}: multiply two signals
+	\item \textbf{unit delay}: denoted as $z^{-1}$
+	\item \textbf{advance system}: denoted as $z$
+\end{itemize}
+Some basic DT system can be realized by these blocks easily!
+
+\subsection{Classification of DT System}
+Systems can be classified based on some general properties that they satisfy.
+\begin{itemize}
+	\item \textbf{static} vs \textbf{dynamic} system: the output of static system only depends on the current input, meaning the system is memory-less, otherwise the system is said to be dynamic or has memory
+	\item \textbf{time-invariant} vs \textbf{time-variant}: a relaxed system is said to be time-invariant if $x(n) \rightarrow y(n)$ implies that $x(n-k) \rightarrow y(n-k)$, otherwise time-variant
+	\item \textbf{linear} vs \textbf{non-linear} system: a system is linear if and only if
+	\[
+	\mathcal{T}[a_1 x_1(n) + a_2 x_2(n)] = a_1 \mathcal{T}[x_1(n)] + a_2 \mathcal{T}[x_2(n)]
+	\]
+	this is also known as \textbf{superposition principle}(\textbf{multiplicative} and \textbf{additivity} properties), otherwise non-linear. Note that a relaxed linear system always give zero output if input is zero, which is known as \textbf{ZIZO}
+	\item \textbf{causal} vs \textbf{non-causal} system: a system is said to be causal if output only depends on current and past input, otherwise non-causal
+	\item \textbf{stable} vs \textbf{unstable} system: for relaxed system, if any bounded input produces an bounded output(\textbf{BIBO}), the system is said to be stable, otherwise unstable
+\end{itemize}
+
+\subsection{Interconnection of DT System}
+There are two ways to connect $2$ DT systems:
+\begin{itemize}
+	\item \textbf{cascade}(series): output is the composition of systems, usually $2$ systems are note commutative
+	\item \textbf{parallel}: sum of each output
+\end{itemize}
+These two methods are used to construct or decompose a system.
+
+\section{Analysis of DT LTI System}
+The reason why we focus on DT LTI systems is that they have lots of nice properties
+
+\subsection{Techniques for the Analysis of Linear System}
+There are $2$ methods for analyzing the response of the system:
+\begin{itemize}
+	\item \textbf{direct IO equation}: solve $y(n)$ explicitly by the following difference equation
+	\[
+	y(n) = - \sum_{k=1}^{N}a_k y(n-k) + \sum_{k=0}^{M} b_k x(n-k)
+	\]
+	\item \textbf{decompose method}: decompose a signal to elementary ones and get the corresponding response, then use linear property to construct the output, a signal can be decompose as:
+	\[
+	x(n) = \sum_{k} c_k x_k(n)
+	\]
+	and corresponding response is:
+	\[
+	y_k(n) = \mathcal{T}[x_k(n)]
+	\]
+	therefore
+	\[
+	y(n) = \mathcal{T}[x(n)] = \mathcal{T}\left[\sum_{k} c_k x_k(n)\right] = \sum_{k} c_k \mathcal{T} [x_k(n)]
+	\]
+	usually, \textbf{unit impulse} and \textbf{complex exponential} signals are chosen to be the elementary signal.
+\end{itemize} 
+
+\subsection{Decompose Signal into Sum of Impulses}
+Any signal can be decomposed into weighted sum of impulses, choose the elementary signal $x_k (n)$ to be:
+\[
+x_k (n) = \delta(n-k)
+\]
+which is the unit impulse delayed by $k$ units, note that:
+\[
+x(n) \delta(n-k) = x(k) \delta(n-k)
+\]
+so that the signal can be written as:
+\[
+x(n) = \sum_{k=-\infty}^{\infty} x(k) \delta(n-k)
+\]
+Comments:
+\begin{itemize}
+	\item $n$ is a \textbf{sequence} and $k$ is an integer
+	\item must be clear about the graphic interpretation of the formula 
+\end{itemize}
+
+\subsection{Convolution Sum}
+Define the system response to unit impulse at $n = k$ by $h(n, k)$:
+\[
+y(n,k) = h(n, k) = \mathcal{T}[\delta(n-k)]
+\]
+so that if the system is LTI:
+\begin{align*}
+y(n) &= \mathcal{T}[x(n)] = \mathcal{T} \left[ \sum_{k=-\infty}^{\infty} x(k) \delta(n-k) \right]\\
+&= \sum_{k=-\infty}^{\infty} x(k) \mathcal{T}[ \delta(n-k)] \quad \text{linearity}\\
+&= \sum_{k=-\infty}^{\infty} x(k) h(n,k)\\
+&= \sum_{k=-\infty}^{\infty} x(k) h(n-k) \quad \text{time invariant}
+\end{align*}
+Comments:
+\begin{itemize}
+	\item LTI system is completely characterized by function $h$
+	\item the output $y$ is called \textbf{convolution sum}
+	\item $x(k)$ is a real number, $h(n-k)$ is a sequence
+\end{itemize}
+There are several ways to calculate convolution:
+\begin{itemize}
+	\item software: Matlab(recommend)
+	\item folding method(just know this)
+	\item sequence sum method(highly recommended, intuitive)
+\end{itemize}
+
+\subsection{Convolution Properties}
+Convolution is denoted by $*$, and has some important properties:
+\begin{itemize}
+	\item \textbf{identity}: $x(n) * \delta(n) = x(n)$
+	\item \textbf{time shift}: $x(n) * \delta(n-k) = x(n-k)$
+	\item \textbf{commutative}: $x(n) * h(n) = h(n) * x(n)$
+	\item \textbf{associative}: $[x(n) * h_1(n)] *h_2(n) = x(n) * [h_1(n) *h_2(n)]$, related to cascading decomposition 
+	\item \textbf{distributive}: $x(n) * [h_1(n) + h_2(n)] = x(n) * h_1(n) + x(n) *h_2(n)]$, related to parallel decomposition 
+\end{itemize}
+
+\subsection{Causal LTI System}
+\textbf{Causality} can be translated to a condition on IR,an LTI system is causal if and only if its IR is zero for negative values of $n$. It can be implemented for real-time signal processing.
+
+\subsection{Stability of LTI System}
+Recall relaxed BIBO stable was introduced. For LTI system, it is \textbf{stable} if is IR is absolutely summable:
+\[
+\sum_{k=-\infty}^{\infty} |h(k)| < \infty
+\]
+this is the necessary and sufficient condition to ensure the stability of system, this also indicate that the unit impulse response to it decays with time and dies out eventually.
+
+\section{DT System Described by Difference Equation}
+The response of \textbf{FIR} LTI system can s implied be calculated by definition of convolution, however \textbf{IIR} LTI system cannot be. Difference equation can solve this problem.
+
+\subsection{Recursive and Non-recursive DT System}
+Two definition:
+\begin{itemize}
+	\item if the output of a system only depends on the past input, it is call \textbf{non-recursive sytem}, which is related to FIR
+	\item If the output of a system not only depends on the past input but also the past output(feedback), it is called \textbf{recursive system}, which is related to IIR
+\end{itemize}
+For recursive system, \textbf{initial condition} is required to determine the response, it summarize all past history of the system, it is also called \textbf{state variable} in control area.
+
+\subsection{LTI System Characterized by Constant-Coefficient Difference Equations}
+LTI system can be characterized by IR as mentioned before, it can also characterized by constant-coefficient difference equation, which is a subclass of the recursive and non-recursive systems. The general equation is:
+\[
+y(n) = - \sum_{k=1}^{N}a_k y(n-k) + \sum_{k=0}^{M}b_k x(n-k)
+\] 
+\begin{itemize}
+	\item $N$ is called the \textbf{order} of the system
+	\item the negative sign on the right-side first is for convenience to use
+\end{itemize}
+The response can be decomposed into $2$ parts:
+\begin{itemize}
+	\item \textbf{zero-input response}: also called \textbf{natural} response
+	\item \textbf{zero-state response}: also called \textbf{forced} response
+\end{itemize}
+Here is a list of properties:
+\begin{itemize}
+	\item \textbf{linearity}: $3$ requirements response can be decomposed into the two parts, superposition applies to both natural and forced response
+	\item \textbf{causality}: systems describe by constant-coefficient difference equation \textbf{must be} linear and time-invariant
+	\item \textbf{stability}: BIBO stable is satisfied if every bounded input and every bounded initial condition leads to bounded output
+\end{itemize}
+
+\subsection{Solution to Linear Constant-Coefficient Difference Equations}
+\textbf{Direct method} is given here(by z-transformation is called indirect method). The total solution is the sum of two parts:
+\[
+y(n) = y_h(n) + y_p(n)
+\] 
+\begin{itemize}
+	\item $y_h(n)$: \textbf{homogeneous} or complementary solution, it's the zero-input response, it is related to sum of exponential, it has general form:
+	\[
+	y_h(n) = C_1 \lambda_1^n + C_2 n \lambda_1^n + C_3 n^2 \lambda_1^n + \cdots + C_m n^{m-1} \lambda_1^n\\
+	+C_{m+1}\lambda_{m+1}^n + \cdots + C_N \lambda_N ^n
+	\]
+	\begin{itemize}
+		\item $n$ is the sequence index, it may be confusing to put it at position of power of $\lambda$
+		\item $\lambda_i$ are roots to the characteristic polynomial of the system, the number of roots is $N$, which is also the degree of the system
+		\item $\lambda_1$ has multiplicity of $m$, which shows the general situation
+		\item $C_i$ are determined by initial condition
+	\end{itemize}
+	\item $y_p(n)$: \textbf{particular} solution, which take the basic form of the input $x(n)$ and here is a list:
+	
+	\begin{tabular}{|c|c|}
+		\hline 
+		$x(n)$ & $y_p(n)$ \\ 
+		\hline 
+		$A$ (constant) & $K$(constant) \\ 
+		$AM^n$ & $KM^n$ \\ 
+		$An^M$ & $K_0 n^M + K_1 n^{M-1} + \dots+ K_M$ \\ 
+		$A^n n^M$ & $A^n(K_0 n^M + K_1 n^{M-1} + \dots+ K_M)$ \\ 
+		$A \cos \omega_0 n$ or $A \sin \omega_0 n$ & $K_1 \cos \omega_0 n + K_2 \sin \omega_0 n$ \\ 
+		\hline 
+	\end{tabular}
+
+	put the $y_p$ back to the difference equation and the constants $K$ can be solved, and $y_p$ is obtained.
+\end{itemize}
+One more thing: difference equation can be obtained from the zero-state response of the system.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Extra}
+\subsection{Complicate Signal Manipulation}
+\end{document}
+
+
+
+
+
+
+

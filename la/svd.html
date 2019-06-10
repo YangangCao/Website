@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title></title>
+<!-- MathJax -->
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-item"><a href="../index.html">Home</a></div>
+<div class="menu-category">Linear Algebra</div>
+<div class="menu-item"><a href="svd.html" class="current">SVD</a></div>
+<div class="menu-item"><a href="BBB.html">BBB</a></div>
+<div class="menu-item"><a href="CCC.html">CCC</a></div>
+<div class="menu-category">Service</div>
+<div class="menu-item"><a href="../payment.html">Payment</a></div>
+<div class="menu-item"><a href="../contact.html">Contact</a></div>
+</td>
+<td id="layout-content">
+<h1></h1>
+<h1>Baboo J. Cui Club – A place for academic carnival</h1>
+<p><a href="http://www.baboocui.club/" target=&ldquo;blank&rdquo;>崔健(Baboo J. Cui)</a> (<a href="mailto:baboo_cui@me.com" target=&ldquo;blank&rdquo;>baboo_cui@me.com</a>)</p>
+<h2>Singular Value Decomposition(SVD)</h2>
+<div class="infoblock">
+<div class="blocktitle">Problems Lead to Singular Value Decomposition</div>
+<div class="blockcontent">
+<p><b>Eigenvalues and eigenvectors of rectangular matrices</b>: use \(U\) and \(V^T\) replaceing \(Q\) and \(Q^T\) </p>
+</div></div>
+<div class="infoblock">
+<div class="blocktitle">Definition of the SVD</div>
+<div class="blockcontent">
+<p>Any \(m\) by \(n\) matrix \(A\) can be factored into</p>
+<p style="text-align:center">
+\[
+A = U\Sigma V^{T} = (m \times m\ orthogonal)(m \times n\ diagonal)(n \times n\ orthogonal)
+\]
+</p><p>The columns of \(U\)(\(m\) by \(m\)) are <b>eigenvectors</b> of \(AA^T\), and the columns of \(V\)(\(n\) by \(n\)) are <b>eigenvectors</b> of \(A^TA\). The \(r\) singular values on the diagonal of \(\Sigma\)(\(m\) by \(n\)) are the square roots of the <b>nonzero eigenvalues</b> of both \(AA^T\) and \(A^TA\).</p>
+</div></div>
+<div class="infoblock">
+<div class="blocktitle">Solution of the SVD</div>
+<div class="blockcontent">
+<ul>
+<li><p>To get \(U\), \(\Sigma\) and \(V\) of \(A\), we first calculate \(AA^{T}\)  and \(A^{T}A\).</p>
+</li>
+</ul>
+<p style="text-align:center">
+\[
+AA^{T}= (U\Sigma V^{T})(V\Sigma^{T}U^{T}) = U\Sigma\Sigma^{T}U^{T}\ (m\times m)
+\]
+</p><p style="text-align:center">
+\[
+A^{T}A=(V\Sigma^{T}U^{T}) (U\Sigma V^{T}) = V\Sigma^{T}\Sigma V^{T}\ (n\times n)
+\]
+</p><p>\(U\) must be the eigenvector matrix for \(AA^{T}\) and \(V\) for \(A^{T}A\). The eigenvalue matrix in the middle is \(\Sigma\Sigma^{T}\) &#8201;&mdash;&#8201; which is \(m\) by \(m\) with \(\sigma^{2}_{1},&hellip;,\sigma^{2}_{r}\) on the diagonal.</p>
+<ul>
+<li><p>The eigenvalues \(\lambda_{n}\) of \(AA^{T}\) can be calcuated by</p>
+</li>
+</ul>
+<p style="text-align:center">
+\[
+\left|AA^{T} - \lambda E \right| = 0,
+\]
+</p><p>and \(\Sigma\) is solved by \(\sigma_{n} = \sqrt{\lambda_{n}}\).</p>
+<ul>
+<li><p>The eigenvectors \(x_{m}\) that corresponding to the eigenvalues \(\lambda_{m}\) can be obtained by</p>
+</li>
+</ul>
+<p style="text-align:center">
+\[
+(AA^{T} - \lambda I)x = 0,
+\]
+</p><p>and \(U\) is set to <b>Schmidt orthogonalization</b> of \([x_{1},&hellip;,x_{m}]\).</p>
+<ul>
+<li><p>The eigenvectors \(x_{n}\) that corresponding to the eigenvalues \(\lambda_{n}\) can be obtained by</p>
+</li>
+</ul>
+<p style="text-align:center">
+\[
+(A^{T}A - \lambda I)x = 0,
+\]
+</p><p>and \(V\) is set to <b>Schmidt orthogonalization</b> of \([x_{1},&hellip;,x_{n}]\).</p>
+<p>For now, we complete the SVD to \(A\).</p>
+</div></div>
+<div class="infoblock">
+<div class="blocktitle">Applications of the SVD</div>
+<div class="blockcontent">
+<ul>
+<li><p>Image processing</p>
+</li>
+<li><p>The effective rank</p>
+</li>
+<li><p>Polar decomposition</p>
+</li>
+<li><p>Least squares</p>
+</li>
+</ul>
+</div></div>
+<h2>License</h2>
+<p>Copyright 2015-2019 Baboo J. Cui.</p>
+</td>
+</tr>
+</table>
+</body>
+</html>

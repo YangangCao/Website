@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title></title>
+<!-- MathJax -->
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-item"><a href="../index.html" class="current">Home</a></div>
+<div class="menu-item"><a href="../stuff.html">Stuff</a></div>
+<div class="menu-category">Shell Class</div>
+<div class="menu-item"><a href="index.html" class="current">index</a></div>
+<div class="menu-category">System Related</div>
+<div class="menu-item"><a href="envvar.html">environment&nbsp;var</a></div>
+<div class="menu-item"><a href="bashprofile.html">bash&nbsp;profile</a></div>
+<div class="menu-category">Basic Commands</div>
+<div class="menu-item"><a href="b1.html">basic&nbsp;1</a></div>
+<div class="menu-category">Command List</div>
+<div class="menu-item"><a href="nohup.html">nohup</a></div>
+<div class="menu-category">Service</div>
+<div class="menu-item"><a href="../payment.html">Payment</a></div>
+<div class="menu-item"><a href="../contact.html">Contact</a></div>
+</td>
+<td id="layout-content">
+<h1></h1>
+<h1>Basic Operation 1</h1>
+<h3>date</h3>
+<p><tt>$ date</tt></p>
+<p>display current time</p>
+<h3>who</h3>
+<p><tt>$ who</tt></p>
+<p>display the list of log in user, to find all users, go to <tt>/etc/passwd</tt>.</p>
+<p>to find who is current on, use <tt>$ who am i</tt></p>
+<h3>echo</h3>
+<p><tt>$ echo CONTENT</tt></p>
+<p>print the CONTENT, extra space will be compressed.</p>
+<h3>ls</h3>
+<p><tt>$ ls -alh PATH</tt></p>
+<p>disply the files in the PATH.</p>
+<p>comments on -alh:</p>
+<div class="codeblock">
+<div class="blocktitle">possible outcome</div>
+<div class="blockcontent"><pre>
+total 4
+drwxr-xr-x   8 baboo  staff   256B Mar  3 09:53 gitlab
+drwxr-xr-x  13 baboo  staff   416B Mar  2 22:17 miniconda3
+</pre></div></div>
+<ul>
+<li><p>header(total 4): current folder store block in KB</p>
+</li>
+<li><p>first mode letter: indicate type, &ldquo;d&rdquo; for directory, &ldquo;-&rdquo; for file, &ldquo;b&rdquo;, &ldquo;c&rdquo;, &ldquo;l&rdquo; and &ldquo;p&rdquo; for special file</p>
+</li>
+<li><p>rest mode letter: UGO model or 3 groups, r for read, w for write and x for execute</p>
+</li>
+<li><p>number follow the mode: number of hard link</p>
+</li>
+<li><p>rest: owner, group, size, last revised time, name</p>
+</li>
+</ul>
+<h3>cat</h3>
+<p><tt>$ cat FILE (ANOTHER_FILE)</tt></p>
+<p>Concatenate contents of files and print out.</p>
+<h3>wc </h3>
+<p><tt>$ wc -[lwc] text</tt></p>
+<p>count the number of lines, words and chars.</p>
+<h3>cp</h3>
+<p><tt>$ cp FILE_PATH FOLDER_PATH</tt></p>
+<p>copy the file to the folder</p>
+<h3>mv</h3>
+<p><tt>$ mv FILE_PATH FILE_PATH_NEW</tt></p>
+<p>move the file from the origin path to new, this can also be used to rename a file</p>
+<h3>rm</h3>
+<p><tt>$ rm FILE_PATH [FILE2_PATH&hellip;]</tt></p>
+<p>delete the file, this doesn't work for folder with contents</p>
+<p><tt>$ rm -r FOLDER_PATH</tt></p>
+<p>delete the folder recusively</p>
+<h3>pwd</h3>
+<p><tt>$ pwd</tt></p>
+<p>print working directory</p>
+<h3>cd</h3>
+<p><tt>$ cd PATH</tt></p>
+<p>change directory to the path</p>
+<p>extension for relative path:</p>
+<ul>
+<li><p><tt>.</tt> for current folder</p>
+</li>
+</ul>
+<ul>
+<li><p><tt>..</tt> for parent folder</p>
+</li>
+</ul>
+<ul>
+<li><p><tt>-</tt> for path visited last time</p>
+</li>
+</ul>
+<ul>
+<li><p>by default, cd will change directory to home folder</p>
+</li>
+</ul>
+<h3>mkdir</h3>
+<p><tt>$ mkdir PATH</tt></p>
+<p>create a folder at given path</p>
+<h3>ln</h3>
+<p><tt>$ ln <a href="-s" target=&ldquo;blank&rdquo;>-s</a> src des</tt></p>
+<p>create link des from src, option <tt>-s</tt> will create soft link, which will be invalid when src becomes invalid </p>
+<h3></h3>
+<h2>License</h2>
+<p>Copyright 2015-2019 Baboo J. Cui.</p>
+</td>
+</tr>
+</table>
+</body>
+</html>

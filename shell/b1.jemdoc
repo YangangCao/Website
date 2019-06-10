@@ -1,0 +1,144 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -----
+= Basic Operation 1
+
+=== date
+
++$ date+
+
+display current time
+
+
+
+=== who
+
++$ who+
+
+display the list of log in user, to find all users, go to +\/etc\/passwd+.
+
+to find who is current on, use +$ who am i+
+
+
+
+=== echo
+
++$ echo CONTENT+
+
+print the CONTENT, extra space will be compressed.
+
+
+
+=== ls
+
++$ ls -alh PATH+
+
+disply the files in the PATH.
+
+comments on -alh:
+
+~~~
+{possible outcome}{pyint}
+total 4
+drwxr-xr-x   8 baboo  staff   256B Mar  3 09:53 gitlab
+drwxr-xr-x  13 baboo  staff   416B Mar  2 22:17 miniconda3
+~~~
+- header(total 4): current folder store block in KB
+- first mode letter: indicate type, "d" for directory, "-" for file, "b", "c", "l" and "p" for special file
+- rest mode letter: UGO model or 3 groups, r for read, w for write and x for execute
+- number follow the mode: number of hard link
+- rest: owner, group, size, last revised time, name
+
+
+=== cat
+
++$ cat FILE \[ANOTHER\_FILE\]+
+
+Concatenate contents of files and print out.
+
+
+
+=== wc 
+
++$ wc -\[lwc\] text+
+
+count the number of lines, words and chars.
+
+
+
+=== cp
+
++$ cp FILE\_PATH FOLDER\_PATH+
+
+copy the file to the folder
+
+
+
+=== mv
+
++$ mv FILE\_PATH FILE\_PATH\_NEW+
+
+move the file from the origin path to new, this can also be used to rename a file
+
+
+
+=== rm
+
++$ rm FILE\_PATH \[FILE2\_PATH...\]+
+
+delete the file, this doesn't work for folder with contents
+
++$ rm -r FOLDER\_PATH+
+
+delete the folder recusively
+
+
+
+=== pwd
+
++$ pwd+
+
+print working directory
+
+
+
+=== cd
+
++$ cd PATH+
+
+change directory to the path
+
+extension for relative path:
+
+- +.+ for current folder
+
+- +..+ for parent folder
+
+- +-+ for path visited last time
+
+- by default, cd will change directory to home folder
+
+
+
+=== mkdir
+
++$ mkdir PATH+
+
+create a folder at given path
+
+
+
+=== ln
+
++$ ln [-s] src des+
+
+create link des from src, option +-s+ will create soft link, which will be invalid when src becomes invalid 
+
+
+
+
+=== 
+
+
+== License
+Copyright 2015-2019 Baboo J. Cui.

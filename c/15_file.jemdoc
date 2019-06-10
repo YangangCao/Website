@@ -1,0 +1,35 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+== C with File
+
+File can store data and can be easily transfered.
+
+=== Locate a File(File pointer)
+- locator for file
+- has type: +FILE+
+- example: +FILE *fp;+
+
+=== Open a File
+- use function +fopen();+
+- +fp = fopen("/etc/hosts", "r")+
+- first arg: file name
+- second arg: way of open(r-read, rb-read\_binary, w-write, wb-write\_binary, a-append, ab-append\_binary, r+ - read or write a text file, rb+, w+, a+, + back to start point)
+
+- if file doesn't exist, open that file with read mode(r) will cause error
+- if file doesn't exist, open that file with write mode(w) will create that file, if the file exists, then the file will be overwrite(dangerous!)
+
+=== Close a File
+- fclose(fp);
+
+=== I/O of File
+===== Read
+getc(fp)
+fgetc(fp)
+
+===== Write
+write a char ch to file fp points to.
+putc(ch, fp)
+fputc(ch, fp)
+
+== License
+Copyright 2015-2019 Baboo J. Cui.

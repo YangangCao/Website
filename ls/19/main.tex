@@ -1,0 +1,347 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphicx}
+
+
+\author{Baboo J. Cui}
+\title{Linear Quadratic Regulator(LQR) for Discrete-Time System}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+
+LQR is related to optimal control problem, many problems can be formulated into it. It's one of the fundamental way to achieve optimal control.
+
+\section{Problem Formulation}
+Given a discrete LTI system:
+\[
+x[k+1] = Ax[k] + Bu[k], x[0] = x_0
+\]
+given a time horizon $k \in \{0, 1, \dots, N\}$, where $N$ may be infinity, find the optimal input sequence $U = \{u[0], u[1], \dots, u[N-1]\}$ that minimize the \textbf{cost function}:
+\[
+J(U) = \sum_{k=0}^{N-1}\left(x^T[k] Qx[k] +u^T[k] Ru[k]\right) + x^T[N]Q_f x[N]
+\]
+
+\begin{itemize}
+	\item \textbf{state weight matrix}: $Q = Q^T \succeq 0$
+	\item \textbf{control weight matrix}: $R = R^T \succ 0$, indicate that there is no free control input
+	\item \textbf{final state weight matrix}: $Q_f = Q_f^T \succeq 0$
+	\item \textbf{running cost}: the value of the first term in $J(u)$
+	\item \textbf{terminal cost}: the value of the second term in $J(u)$
+	\item \textbf{infinite case}: $N$ is infinity, in this case, $Q_f = 0$
+\end{itemize}
+Note that all these case can be generalized into time-varying cases.
+
+\section{Examples of Implementations}
+Many problem can be formulated into LQR form, and here are some examples, though they look differently.
+
+\subsection{Energy Efficient Stabilization}
+Starting from $x[0] = x_0$, find control sequence $U$ that minimize
+\[
+J(U) = \alpha \sum_{k=0}^{n-1} || u[k] ||^2 + \beta \sum_{k=0}^{N} || x[k] ||^2
+\]
+to make it into LQR form, choose:
+\begin{itemize}
+	\item $Q = \beta I$
+	\item $R = \alpha I$
+	\item $Q_f = \beta I$
+\end{itemize}
+Note that:
+\begin{itemize}
+	\item cost function try to make state trajectory stay close to zero and use the least control energy simultaneously
+	\item $\alpha$ and $\beta$ determine the emphasis 
+\end{itemize}
+Sometime state cannot be obtained directly, in this case, system output $y$ can be used for evaluating running cost. Suppose output equation($Du$ part can be eliminate) is
+\[
+y = Cx
+\]
+in this case choose $Q = \beta C^T C$. Here is the proof:
+\begin{align*}
+\beta \sum_{k=0}^{N} || y[k] ||^2 &=  \sum_{k=0}^{N} y^T [k] \beta I y[k]\\
+&= \sum_{k=0}^{N} (Cx[k])^T \beta I Cx[k]\\
+&= \sum_{k=0}^{N} x^T[k] C^T \beta I Cx[k] = \sum_{k=0}^{N} x^T[k] (\beta C^T C)x[k]
+\end{align*}
+this is a very import conclusion.
+
+\subsection{Minimum Energy Steering}
+Starting from $x[0] = x_0$, find control sequence $U$ to use least energy to steer the final state to $x[N] = 0$ without lost generosity, the cost is:
+\[
+J(U) = \sum_{k=0}^{N-1} ||u[k]||^2
+\]
+to make it into LQR form, choose:
+\begin{itemize}
+	\item $Q = 0$
+	\item $R =  I$
+	\item $Q_f = \infty I$
+\end{itemize}
+By setting $Q_f \rightarrow \infty I$, there is a big penalty if $X[N]$ is far from $0$, note that this won't lead to a analytic solution, but the \textbf{approximation} is good enough. 
+
+\subsection{LQR for Tracking(VIP TOPIC)}
+Find efficient sequence $U$ for the state to track a given\textbf{ reference trajectory} $x_k^*$(may be time-varying):
+\[
+J(U) = \alpha \sum_{k=0}^{N-1} ||u[k]||^2 + \beta \sum_{k=0}^{N} ||x[k] - x_k^*||^2
+\]
+note that $||x[k] - x_k^*||^2$ is not homogeneous quadratic, it should be formulate. It can be expanded(refer math proof in last part):
+\begin{align*}
+||x[k] - x_k^*||^2 &= x^T[k] x[k] -2x^T[k]x_k^* + (x_k^*)^T x_k^*\\
+&=\begin{bmatrix}
+x[k] & 1
+\end{bmatrix}
+\begin{bmatrix}
+I & x_k^*\\
+(x_k^*)^T &  (x_k^*)^T x_k^*
+\end{bmatrix}
+\begin{bmatrix}
+x[k]\\ 1
+\end{bmatrix} \quad \text{dimension augmentation}
+\end{align*}
+construct new state variable $\tilde{x}[k] = [x[k]\quad 1]^T$, new system dynamic will be:
+\[
+\tilde{x}[k+1] = \begin{bmatrix}
+A & 0 \\ 0& 1
+\end{bmatrix} \tilde{x}[k] + \begin{bmatrix}
+B \\ 0
+\end{bmatrix} u[k]
+\]
+and the origin cost can be reformed as:
+\[
+J(U) = \alpha \sum_{k=0}^{N-1} ||u[k]||^2 + \beta \sum_{k=0}^{N} \tilde{x}^T[k] \tilde{Q}_k \tilde{x}[k] 
+\]
+where
+\[
+\tilde{Q}_k = \begin{bmatrix}
+I & x_k^*\\
+(x_k^*)^T &  (x_k^*)^T x_k^*
+\end{bmatrix}
+\]
+clearly, the system is LTI and the cost function is LTV.
+
+\subsection{LQR for System with Perturbation}
+Suppose system is:
+\[
+x[k+1] = Ax[k] + Bu[k] + w[k]
+\]
+To achieve LQR formulation, new state vector is constructed as:
+\[
+\tilde{x}[k] = [x[k] \quad z[k]] \quad \text{dimension augmentation}
+\]
+recall that $x \in \mathbb{R}^n$, and $z[k] \in \mathbb{R}$, set $z[k] = z[k+1] =1$, new system dynamic will be:
+\[
+\tilde{x}[k+1] = \begin{bmatrix}
+A & w[k] \\ 0& 1
+\end{bmatrix} \tilde{x}[k] + \begin{bmatrix}
+B \\ 0
+\end{bmatrix} u[k]
+\]
+and system initial condition is $\tilde{x}[0] = [x[0] \quad 1]$. $R$ will be the original one and $\tilde{Q}$ is:
+\[
+\tilde{Q}_k = \begin{bmatrix}
+Q & 0\\
+0 & 0
+\end{bmatrix}
+\]
+clearly, the system is LTV and the cost function is LTI. In this case, $u$ is not changed, $x$ is augmented.
+
+\section{Direct Approach to Solve LQR}
+LQR problem can be directly formulated as a least square problem
+
+
+
+\section{Extra}
+
+\subsection{Matlab Functions}
+\begin{itemize}
+	\item lqrd(): for discrete-time system
+	\item lqr(): for continuous-time system
+\end{itemize}
+
+\subsection{Quadratic Expansion}
+The general length of a vector $x \in \mathbb{R}^n$ is also called the $L_2$ norm. It is defined as:
+\[
+||x||^2 = x^T x = \sum_{i=1}^{n} x_i ^2, \text{ where } x_i \in \mathbb{R} 
+\]
+if another vector $y \in \mathbb{R}^n$, the norm of the difference is:
+\begin{align*}
+||x-y||^2 &= ||y-x||^2 \quad \text{identity property}\\
+& = (x-y)^T (x-y) \quad \text{definition}\\
+& = x^Tx - x^Ty - y^Tx + y^Ty \quad \text{distributive property}\\
+& = ||x||^2 -2x^Ty +||y||^2
+\end{align*}
+recall that:
+\[
+x^Ty = y^Tx \quad \text{property of inner product}
+\]
+\subsection{Direct Approach}
+Formulate the LQR problem as a least square problem:
+Under the constraint:
+$$
+\underbrace{\left[\begin{array}{c}{x[1]} \\ {x[2]} \\ {\vdots} \\ {x[N]}\end{array}\right]}_{\widetilde{X}}=\underbrace{\left[\begin{array}{cccc}{B} & {0} & {\cdots} & {} \\ {A B} & {B} & {0} & {\cdots} \\ {\vdots} & {\vdots} & {\ddots} & {} \\ {A^{N-1} B} & {A^{N-2} B} & {\cdots} & {B}\end{array}\right]}_{\widetilde{G}}\underbrace{\left[\begin{array}{c}{u[0]} \\ {u[1]} \\ {\vdots} \\ {u[N-1]}\end{array}\right]}_{\widetilde{U}}+\underbrace{\left[\begin{array}{c}{A} \\ {A^{2}} \\ {\vdots} \\ {A^{N}}\end{array}\right]}_{\widetilde{H}} x_{0}
+		$$
+Minimize the function:
+\[
+X^T\underbrace{\left[\begin{array}{cccc}{Q} & {} & {} & {} \\ {} & {Q} & {} & {} \\ {} & {} & {\ddots} & {} \\ {} & {} & {} & {Q_f}\end{array}\right]}_{\widetilde{Q}}X+U^T\underbrace{\left[\begin{array}{cccc}{R} & {} & {} & {} \\ {} & {R} & {} & {} \\ {} & {} & {\ddots} & {} \\ {} & {} & {} & {R}\end{array}\right]}_{\widetilde{R}}U
+\]
+\subsection{Limitations of Direct Approach}
+\begin{itemize}
+\item Matrix inversion needed to find optimal control
+\item Problem(matrices) dimension increases with time horizon $N$
+\item Imprarical for large $N$ let alone infinite horizon case
+\item Sensitivity of solutions to numerical errors
+
+\end{itemize}
+Observations:
+\begin{itemize}
+\item Problem easier to solve for shorter time horizon $N$
+\item $(N+1)$-horizon solution related to $N$-horizon solution
+\item Explpoit this relation to design an iterative solution procedure
+\end{itemize}
+Dynamic programming approach
+\begin{itemize}
+\item Reuse results for smaller $N$ to solve for large $N$ case
+\item In each iteration only need to deal with a problem of fixed size
+\end{itemize}
+\subsection{Movitating Example}
+\begin{itemize}
+\item Start from point A
+\item Try to reach point B
+\item Each step only move right
+\item Cost labeled on each edge
+\end{itemize}
+Problem: The least costly path from A to B?
+\subsection{Formulated as an Optimal Control Problem}
+\begin{itemize}
+\item $A=(0, 0),\ B=(3, 3)$
+\item State $x[k]$ with
+\[
+x[0]=A,\ x[6]=B
+\]
+\item Control $u[k]=\pm1$
+\item Dynamics:
+
+$$
+x[k+1]=\left\{\begin{array}{ll}{x[k]+(0,1)} & {u[k]=1} \\ {x[k]+(1,0)} & {u[k]=-1}\end{array}\right.
+$$
+\item Cost to be minimized:
+\[
+\sum_{k=0}^{5} \underbrace{w(x[k], u[k])}_{\text { edge weight }}
+\]
+\end{itemize}
+\subsection{Direct Solution}
+Enumerate all possible legal from $A$ to $B$ and compare their costs to find the one with the least cost.
+\begin{itemize}
+\item A total of 20 possible paths
+
+For $\ell$-by-$\ell$ grid, the total number of legal paths is
+$$
+\frac{(2 \ell) !}{(\ell !)^{2}}
+$$
+\item Grows extremely fast as problem size $\ell$ increases
+\item Solution impractical for large $\ell$
+\end{itemize}
+\subsection{Value Function}
+Definition: At any point $z$, the value function(optimal cast-to-go) $V(z)$ is the least possible cost to reach $B$ from $z$.
+\begin{itemize}
+\item Obtained by solve shorter time horizon problems
+\end{itemize}
+Original problem is to find $V(A)$
+\subsection{Value Function Property}
+{\bfseries Principle of Optimality: }If a least-cost path from $A$ to $B$ is
+\[
+x^*_0=A\rightarrow x^*_1\rightarrow x^*_2\rightarrow\dots\rightarrow x^*_6=B,
+\]
+Then any truncation of it at the end:
+\[
+x^*_t\rightarrow x^*_{t+1}\rightarrow \dots \rightarrow x^*_6=B
+\]
+is also a least-cost path from $x^*_t$ to B.
+
+\noindent As a result, value function at any point $z$ satisfies
+$$
+\begin{aligned} V(z) &=\min \left\{w_{u}+V\left(z_{u}^{\prime}\right), w_{d}+V\left(z_{d}^{\prime}\right)\right\} \\ &=\min _{u \in \pm 1}\left[w(z, u)+V\left(z^{\prime}\right)\right] \end{aligned}
+$$
+\begin{itemize}
+\item $V(z)$: Cost-to-go from current position
+\item $w(z,u)$: Running cost of current step
+\item $V(z^{\prime})$: Cost-to-go from next state position
+\end{itemize}
+\subsection{Value Function Iteration}
+{\bfseries Idea: }Use above to iteratively evaluate $V(z)$ from right to left
+\subsection{Value Function Iteration}
+{\bfseries Idea: }Use above to iteratively evaluate $V(z)$ from right to left
+\subsection{Value Function Iteration}
+{\bfseries Conclusion: }The least cost from $A$ to $B$ is 40
+\subsection{Recover the Optimal Control}
+Optimal control $u[0]$ is recovered from $V(A) = \min\{5+35,\ 7+36\}$ 
+\subsection{Advantages of Dynamic Programming}
+Reduced computational complexity: for $\ell$-by-$\ell$ grid
+\begin{itemize}
+\item Only need to compute $\ell^2$ value functions
+\item No need to enumerate $\frac{(2\ell)!}{(\ell!)^2}$ paths
+\item Solve an optimization problem of fixed size in each iteration
+\end{itemize}
+Provide solutions to a family of optimal control problems
+\begin{itemize}
+\item Even if starting from a different initial position (e.g. due to perturbation), there is no need for re-computation
+\end{itemize}
+\subsection{Back to LQR Problem}
+A discrete-time LTI system
+\[
+x[k+1]=Ax[k]+Bu[k], \ \ x[0]=x_0
+\]
+{\bfseries Problem: }Given a time horizon $k\in\{0,1,...,N\}$, find the optimal input sequence $U=\{u[0],...,u[N-1]\}$ that minimizes the cost function
+\[
+J(U)=\sum_{k=0}^{N-1}\underbrace{(x[k]^TQx[k]+u[k]^TRu[k])}_{\text running \ cost}+\underbrace{x[N]^TQ_fx[N]}_{\text terminal cost}
+\]
+{\bfseries Quenstions: }Can we apply dynamic programming method to LQR problem?
+\subsection{Value Function of LQR Problem}
+The value function at time $t\in\{0,1,...,N\}$ and state $x\in\mathbb{R}^n$ is
+\[
+V_t(x)=\min_{u[t],...,u[N-1]}\sum_{k=t}^{N-1}(x[k]^TQx[k]+u[k]^TRu[k])+x[N]^TQ_fx[N]
+\]
+with the initial condtion $x[t]=x$
+\begin{itemize}
+\item {\bfseries Cost-to-go}, namely, optimal cost of the LQR problem over the time horizon $\{t,t+1,...,N\}$, starting from $x[t]=x$.
+\end{itemize}
+\subsection{Solution of LQR Problem via Value Functions}
+{\bfseries Preview of results:}
+\begin{itemize}
+\item The value function at the final time is quadratic: $V_N(x)=x^TQ_fx$
+\item We will see that the value function at any time $t$ is also quadratic: $V_t(x)=x^TP_tx$ for some $P_t\geqslant0$
+\item $P_t$ can be obtained from $P_{t+1}$
+\end{itemize}
+{\bfseries Solution algorithm:}
+\begin{enumerate}[(1)]
+	\item Start from $P_N=Q_f$ at time $t=N$
+	\item For $t=N-1:0$ do
+	\begin{itemize}
+	\item Compute $P_t$ from $P_{t+1}$ by the above recursion
+	\end{itemize}
+	\item Recover optimal control sequence from value functions
+\end{enumerate}
+\subsection{How are Value Functions Related?}
+{\bfseries (Hamilton-Jacobi-)Bellman equation:}
+$$
+\begin{aligned}
+V_t(x)&=\min_{u[t]=v}[x^TQx+v^TRv+V_{t+1}(Ax+Bv)]\\&=x^TQx+\min_{u[t]=v}[v^TRv+V_{t+1}(Ax+Bv)]
+\end{aligned}
+$$
+{\bfseries Optimality principle: }For optimal case, cost-to-go form next state $x[t+1]$ should also be optimal, i.e., $V_{t+1}(x[t+1])$.
+\subsection{$t=N$ case}
+Value function at time $N$ is quadratic:
+\[
+V_N(x)=x^TP_Nx,\ \ \forall x\in \mathbb{R}^n,\ \ \text{where} \ P_N=Q_f
+\]
+\subsection{$t=N-1$ case}
+Value function at time $N-1$ is:
+$$
+\begin{aligned}
+V_{N-1}(x)&=x^TQx+\min_{v}[v^TRv+V_{N}(Ax+Bv)]\\&=x^TQx+\min_{v}[v^TRv+(Ax+Bv)^TP_N(Ax+Bv)]
+\end{aligned}
+$$
+\end{document}

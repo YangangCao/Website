@@ -1,0 +1,60 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage{tikz} % system block diagram
+\usepackage{textcomp}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{shapes,arrows} % system block diagram
+\usepackage{booktabs}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} % matlab code block
+\author{Yangang Cao}
+\date{June 3, 2019}
+\newcommand{\degree}{^\circ}
+\tikzset{
+	delay/.style    = {draw, thick, rectangle, minimum height = 3em,
+		minimum width = 3em},
+	sum/.style      = {draw, circle, node distance = 2cm}, 
+	prod/.style     = {draw, circle, node distance = 2cm},
+	input/.style    = {coordinate}, % Input
+	output/.style  = {coordinate} % Output
+}
+% Defining string as labels of certain blocks.
+\newcommand{\product}{$\displaystyle \times$}
+\newcommand{\delay}{\large$z^{-1}$}
+\begin{document}
+
+\title{Computations with Matrices}
+\maketitle 
+For a positive definite matrix, the solution $x=A^{-1}b$ and the error $\delta x=A^{-1}\delta b$ always satisfy
+\[
+||x||\geqslant\frac{||b||}{\lambda_{max}}\ \text{and}\ ||\delta x||\leqslant\frac{\delta b}{\lambda_{min}}\ \text{and}\ \frac{||\delta x||}{||x||}\leqslant\frac{\lambda_{max}}{\lambda_{min}}\frac{||\delta b||}{||b||}
+\]
+Ratio $c=\lambda_{max}/\lambda_{min}$ is the {\bfseries condition number} of a positive definite matrix $A$.
+
+The {\bfseries norm} of  $A$ is the number $||A||$ defined by
+\[
+||A||=\max_{x \not= 0}\frac{||Ax||}{||x||}
+\]
+In other words, $||A||$ bounds the anplifying power of the matrix:
+\[
+||Ax||\leqslant||A||\ ||x||\ \ \ \text{for all vectors $x$}
+\]
+
+In the symmetric case, $||A||$ is the same as $\lambda_{max}$, and $||A^{-1}||$ is the same as $1/\lambda_{min}$. The correct replacement for $\lambda_{max}/\lambda_{min}$ is the product $||A||\ ||A^{-1}||$. The {\bfseries condition number} of $A$ is $c=||A||\ ||A^{-1}||$. The relative error satisfies
+\[
+ \delta x\ from\ \delta b\ \ \ \frac{||\delta x||}{x}\leqslant c\frac{\delta b }{b}
+\]
+If we perturb the matrix $A$ instead of the right-hand side $b$, then
+\[
+\delta x\ from\ \delta A\ \ \ \frac{||\delta x||}{||x+\delta x||}\leqslant c\frac{\delta A }{A}
+\]
+
+$||A||$ is the square root of the largest eigenvalue of $A^TA$: $||A||^2=\lambda_{max}(A^TA)$. The vector that $A$ amplifies the most is the corresponding eigenvector of $A^TA$:
+$$
+\frac{x^{\mathrm{T}} A^{\mathrm{T}} A x}{x^{\mathrm{T}} x}=\frac{x^{\mathrm{T}}\left(\lambda_{\max } x\right)}{x^{\mathrm{T}} x}=\lambda_{\max }\left(A^{\mathrm{T}} A\right)=\|A\|^{2}
+$$
+\end{document}

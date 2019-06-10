@@ -1,0 +1,319 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+
+\author{Baboo J. Cui}
+\title{Topic 01 - Functions and Models}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Functions and Representation}
+
+\subsection{Definition of Function}
+A \textbf{function} $f$ is a rule that assigns to each element $x$ in a set $D$ exactly one element, called $y = f(x)$, in a set $R$.
+\begin{itemize}
+	\item \textbf{domain}: $D$
+	\item \textbf{range}: $R$
+	\item value of function: $f(x)$ is the value of the function at $x$
+	\item \textbf{independent variable}: $x$
+	\item \textbf{dependent variable}: $y$
+\end{itemize}
+
+\subsection{4 Ways to represent a function}
+There are 4 ways to represent a function:
+\begin{itemize}
+	\item verbally by description
+	\item numerically by table
+	\item visually by graph
+	\item algebraically by formula
+\end{itemize}
+
+\subsection{Vertical Line Test}
+It is used to determine if a graph represent a function. A function must be \textbf{one-to-one}, so any vertical line can only pass at most one point to function graph.
+
+\subsection{Piece-wise Defined Function(Review)}
+A function is called piece-wise defined function if different formula describe the it in different domain. Here are $2$ examples:
+\begin{itemize}
+	\item \textbf{Absolute value Function}: $f(x) = |x|$, which is defined as:
+	\[
+	f(x) = \left\{
+	\begin{array}{ll}
+	x, & x \geq 0 \\
+	-x, & x < 0. \\
+	\end{array}\right.
+	\]
+	\item \textbf{Step function}: also known as Heaviside function, which is defined as:
+	\[
+	f(x) = \left\{
+	\begin{array}{ll}
+	1, & x > 0 \\
+	0.5, & x = 0\\
+	0, & x < 0. \\
+	\end{array}\right.
+	\]
+\end{itemize}
+
+\subsection{Symmetry of Functions}
+A function is said to be \textbf{even} if $\forall x \in D$:
+\[
+f(-x) = f(x)
+\]
+A function is said to be \textbf{odd} if $\forall x \in D$:
+\[
+f(-x) = -f(x)
+\]
+A function that doesn't satisfy any condition above is said neither even nor odd. Here are some properties:
+\begin{itemize}
+	\item both even and odd functions should have symmetric domain w.r.t y-axis
+	\item if $f(x)$ is odd and defined at $x=0$, then $f(0)=0$
+\end{itemize}
+
+\subsection{Increasing and Decreasing Function}
+\begin{itemize}
+	\item A function $f$ is \textbf{increasing} on an interval $I$ if $f(x_1) < f(x_2)$, whenever $x_1<x_2$ in $I$.
+	\item A function $f$ is \textbf{decreasing} on an interval $I$ if $f(x_1) > f(x_2)$, whenever $x_1<x_2$ in $I$.
+\end{itemize}
+
+
+\section{Essential Functions}
+\subsection{Mathematical Model}
+A \textbf{mathematical model} is a math description(often by functions or equations) of a real-world phenomenon.
+
+\subsection{Linear Model}
+Linear model has form of:
+\[
+y = f(x) = mx+b
+\]
+\begin{itemize}
+	\item $m$ is the \textbf{slope}
+	\item $b$ is the \textbf{$y$-intercept}
+\end{itemize}
+
+\subsection{Polynomials}
+A polynomial has form of:
+\[
+y = P(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_2 x^2 + a_1 x + a_0
+\]
+\begin{itemize}
+	\item $a_i$ are called \textbf{coefficients}
+	\item if $a_n \neq 0$, $n$ is the \textbf{degree} or $d$ of the polynomial
+	\item when $d = 2$, it is a \textbf{quadratic function}
+	\item when $d = 3$, it is a \textbf{cubic function}
+\end{itemize}
+
+\subsection{Power Functions}
+Power function is of form $f(x) = x^a$, where $a$ is constant. It has the following properties:
+\begin{itemize}
+	\item when $a$ is positive integer, function is odd if $n$ is odd and even if $n$ is even
+	\item when $a = 1/n$, where $n$ is a positive integer, function is called \textbf{root function}
+	\item when $n$ is even, the domain is $(0, +\infty)$, namely not defined for negative value
+	\item when $a = -1$, this is \textbf{reciprocal function}
+\end{itemize}
+
+\subsection{Rational Function}
+A rational function is a ratio of two polynomials:
+\[
+f(x) = \frac{P(x)}{Q(x)}
+\]
+the domain $f(x)$ is $\{D(P)\} \cap \{D(Q(x))\} - \{x|Q(x) = 0\}$, where $D(\cdot)$ is domain function
+
+\subsection{Algebraic Functions}
+It is defined as functions that can be constructed using algebraic operations starting from polynomials.
+
+\subsection{Trigonometric Functions}
+There are $6$ basic trig functions:
+\begin{itemize}
+	\item $\sin(x)$
+	\item $\cos(x)$
+	\item $\tan(x)$
+	\item $\cot(x)$
+	\item $\sec(x)$, reciprocal of $\cos$
+	\item $\csc(x)$, reciprocal of $\sin$
+\end{itemize}
+be clear about their domain, range and \textbf{fundamental period}!
+
+\subsection{Exponential Functions}
+Exponential functions are of form $f(x) = a^x$ where $a$ is positive constant. It has the following properties:
+\begin{itemize}
+	\item domain is $(-\infty, +\infty)$
+	\item range is $(0, +\infty)$
+	\item function is increasing if $a > 1$ and decreasing if $a < 1$
+\end{itemize}
+
+\subsection{Logarithmic Functions}
+Logarithmic functions are of form $f(x) = \log _a x$ where $a$ is positive constant.  It has the following properties:
+\begin{itemize}
+	\item domain is $(0, +\infty)$
+	\item range is $(-\infty, +\infty)$
+	\item function is increasing if $a > 1$ and decreasing if $a < 1$
+	\item logarithmic and exponential are \textbf{inverse function} to each other
+\end{itemize}
+
+\section{Build New Functions from Old Ones}
+
+\subsection{Translation(Shifts)}
+Given $y = f(x)$ and $c > 0$:
+\begin{itemize}
+	\item $y = f(x) + c$ moves $f(x)$ upward $c$ units
+	\item $y = f(x) - c$ moves $f(x)$ downward $c$ units
+	\item $y = f(x + c)$ moves $f(x)$ to left $c$ units
+	\item $y = f(x - c)$ moves $f(x)$ to right $c$ units, also known as \textbf{delay}
+\end{itemize}
+
+\subsection{Stretching and Reflecting}
+Given $y = f(x)$ and $c > 1$:
+\begin{itemize}
+	\item $y = c f(x)$ stretch $f(x)$ vertically by a factor of $c$
+	\item $y = (1/c) f(x)$ shrink $f(x)$ vertically by a factor of $c$
+	\item $y = f(cx)$ shrink $f(x)$ horizontally by a factor of $c$
+	\item $y = f(x/c)$ stretch $f(x)$ horizontally by a factor of $c$
+	\item $y = -f(x)$ reflect $f(x)$ about $x$-axis
+	\item $y = f(-x)$ reflect $f(x)$ about $y$-axis
+\end{itemize}
+
+\subsection{Combination of Functions}
+Given $2$ functions $f(x)$ and $g(x)$, the following functions can be constructed:
+\begin{itemize}
+	\item $f + g = f(x) + g(x)$
+	\item $f - g = f(x) - g(x)$
+	\item $fg = f(x) g(x)$
+	\item $f/g = f(x)/g(x)$
+	\item $f \circ g = f(g(x))$
+\end{itemize}
+Comments on combination of functions:
+\begin{itemize}
+	\item be careful about the domain of combined functions
+	\item usually $f\circ g \neq g\circ f$
+\end{itemize}
+
+\section{Exponential Functions}
+Exponential functions have form$y = a^x$, where $a$ is constant.
+
+\subsection{Laws of Exponent}
+The following laws apply to exponential functions:
+\begin{itemize}
+	\item $a^{-n} = \frac{1}{a^n}$
+	\item $a^{p/q} = (\sqrt[q]{a})^p = \sqrt[q]{a^p}$
+	\item $a^{x+y} = a^x a^y$
+	\item $a^{x-y} = \frac{a^x}{a^y}$
+	\item $(a^x)^y = a^{xy}$
+	\item $(ab)^x = a^x b^x$  
+\end{itemize}
+
+\subsection{Number $e$}
+Essentially, $e$ is a real number
+\begin{itemize}
+	\item $e$ is approximately equal to $2.718$
+	\item function $y = e^x$ is called \textbf{natural exponential} whose slope is $1$ at $x=0$
+\end{itemize}
+
+\section{Inverse Functions}
+\subsection{One-to-one Function}
+A function $f$ is called a one-to-one if $f(x_1) \neq f(x_2)$ whenever $x_1 \neq x_2$. It has the following properties:
+\begin{itemize}
+	\item can be checked by \textbf{horizontal line test}, recall that function only need to satisfy vertical line test
+	\item also known as \textbf{bijective}(related to linear mapping)
+\end{itemize}
+
+\subsection{Definition of Inverse Functions}
+Let $f$ be a one-to-one function with domain $D$ and range $R$, then its inverse function $f^{-1}$ has domain $R$ and range $D$, it is defined as:
+\[
+f^{-1}(y) = x \Leftrightarrow f(x) = y
+\]
+for any $y$ in $R$. And it has the following properties:
+\begin{itemize}
+	\item $D(f)$ is $R(f^{-1})$
+	\item $D(f^{-1})$ is $R(f)$
+	\item $f^{-1}(x) = y \Leftrightarrow f(y) = x$
+	\item \textbf{cancellation equation}: $f^{-1}(f(x)) = x$ and $f(f^{-1}(x)) = x$ (attention to domain!)
+	\item $f$ and $f^{-1}$ are symmetric about $y=x$
+\end{itemize}
+
+\subsection{How to Find Inverse Function}
+$3$ steps are required:
+\begin{enumerate}
+	\item write $y = f(x)$
+	\item solve the equation for $x$ in terms of $y$
+	\item interchange $x$ and $y$, the resulting equation is $y = f^{-1}(x)$
+\end{enumerate}
+
+\subsection{Inverse Trigonometric Functions}
+There are $6$ trigonometric functions, so there are $6$ corresponding inverses. Here is a list:
+\begin{itemize}
+	\item $y = \sin^{-1} x$, $D \in [-1, 1]$, $R \in [-\pi/2, \pi/2]$
+	\item $y = \cos^{-1} x$, $D \in [-1, 1]$, $R \in [0, \pi]$
+	\item $y = \tan^{-1} x$, $D \in \mathbb{R}$, $R \in [-\pi/2, \pi/2]$
+	\item $y = \cot^{-1} x$, $D \in \mathbb{R}$, $R \in [0, \pi]$
+	\item $y = \sec^{-1} x$, $D \in \{x | |x| \geq 1\}$, $R \in [0, \pi/2) \cup [\pi, 3\pi /2)$
+	\item $y = \csc^{-1} x$, $D \in \{x | |x| \geq 1\}$, $R \in (0, \pi/2] \cup (\pi, 3\pi /2]$
+\end{itemize}
+
+\section{Logarithmic Functions}
+Recall that logarithmic functions are of form $f(x) = \log _a x$ where $a$ is positive constant. It has the following properties:
+\begin{itemize}
+	\item Logarithmic function and exponential functions are inverse function to each other
+	\item $\log_a x = y \Leftrightarrow a^y = x$
+	\item $\log_a (a^x) = x, \forall x \in \mathbb{R}$
+	\item $a^{\log_a x} = x, x \in (0, +\infty)$
+\end{itemize}
+
+\subsection{Natural Logarithmic Function}
+When $a=e$, $\log_e x = \ln x$, this is known as natural logarithmic function.
+
+\subsection{Laws of Logarithms}
+\begin{itemize}
+	\item $\log_a (xy) = \log_a x + \log_a y$
+	\item $\log_a (x/y) = \log_a x - \log_a y$
+	\item $\log_a (x^r) = r \log_a x$, where $r$ is real number
+	\item $\ln x = y \Leftrightarrow e^y = x$
+	\item $\ln e = 1$
+	\item $\log_a x = \frac{\ln x}{\ln a}$, this is \textbf{change of base formula}
+	
+\end{itemize}
+
+\section{Extra(Optional Contents)}
+\subsection{Principle of Mathematical Induction}
+Let $S_n$ be statement about the positive integer $n$, suppose that
+\begin{enumerate}
+	\item $S_1$ is true
+	\item $S_{k+1}$ is true whenever $S_k$ is true
+\end{enumerate}
+then $S_n$ is true for all possible integers $n$.
+
+\subsection{More About Step Function}
+Recall that step function is defined as:
+\[
+y = f(x) = \epsilon(t) = \left\{
+\begin{array}{ll}
+1, & x > 0 \\
+0.5, & x = 0\\
+0, & x < 0. \\
+\end{array}\right.
+\]
+Generally, it is defined as:
+\[
+\int_{-\infty}^{\infty} \epsilon(x) \phi(x) dx = \int_{0}^{\infty} \phi(x) dx
+\]
+Its Laplace transformation is
+\[
+\mathcal{L}[\epsilon(t)] = \int_{0}^{+\infty}e^{-st} dt = \frac{1}{s}
+\]
+Unit impulse equals to the derivative of step function:
+\[
+\delta(t) = \frac{d \epsilon(t)}{dt}
+\]
+which indicate that step function is the integration of unit impulse function:
+\[
+\epsilon(t) = \int_{0}^{t}\delta(s)ds
+\]
+
+
+\end{document}

@@ -1,0 +1,51 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{breqn}
+\author{Yangang Cao}
+\date{January 24, 2019}
+\begin{document}
+
+\title{Singular Value Decomposition}
+\maketitle
+The singular value decomposition (SVD) is closely associated with eigenvalue-eigenvector factorization $Q\Lambda Q^{T}$ of a positive definite matrix. The eigenvalues are in the diagonal matrix $\Lambda$ and the eigenvector matrix $Q$ is orthohonal ($Q^{T}Q = I$) because eigenvectors matrix can be chosen to be orthogonal. \\\\
+However,for most matrices that is not true. Now we allow the $Q$ on the left and the $Q^{T}$ on the right to be any orthogonal matrices $U$ and $V^{T}$. Then every matrix will be split into $A = U\Sigma V^{T}$.\\\\
+Any $m$ by $n$ matrix $A$ can be factored into
+\[
+A = U\Sigma V^{T} = (m \times m\ orthogonal)(m \times n\ diagonal)(n \times n\ orthogonal).
+\]
+The diagonal (but rectangular) matrix $\Sigma$ has eigenvalues from $AA^{T}$. Those positive entries will be $\sigma_{1},...,\sigma_{r}$. They are the singluar values of $A$. They fill the first $r$ places on the main diagonal of $\Sigma$ --- when $A$ has rank $r$. The rest of $\Sigma$ is zero.
+\begin{itemize}
+
+\item To get $U$, $\Sigma$ and $V$ of $A$, we first calculate $AA^{T}$  and $A^{T}A$.
+\[
+AA^{T}= (U\Sigma V^{T})(V\Sigma^{T}U^{T}) = U\Sigma\Sigma^{T}U^{T}\ (m\times m)
+\]
+\[
+A^{T}A=(V\Sigma^{T}U^{T}) (U\Sigma V^{T}) = V\Sigma^{T}\Sigma V^{T}\ (n\times n)
+\]
+$U$ must be the eigenvector matrix for $AA^{T}$ and $V$ for $A^{T}A$. The eigenvalue matrix in the middle is $\Sigma\Sigma^{T}$ --- which is $m$ by $m$ with $\sigma^{2}_{1},...,\sigma^{2}_{r}$ on the diagonal.
+\item The eigenvalues $\lambda_{n}$ of $AA^{T}$ can be calcuated by
+\[
+\left|AA^{T} - \lambda E \right| = 0,
+\]
+and $\Sigma$ is solved by $\sigma_{n} = \sqrt{\lambda_{n}}$.
+\item The eigenvectors $x_{m}$ that corresponding to the eigenvalues $\lambda_{m}$ can be obtained by
+\[
+(AA^{T} - \lambda I)x = 0,
+\]
+and $U$ is set to Schmidt orthogonalization of $[x_{1},...,x_{m}]$.
+\item The eigenvectors $x_{n}$ that corresponding to the eigenvalues $\lambda_{n}$ can be obtained by
+\[
+(A^{T}A - \lambda I)x = 0,
+\]
+and $V$ is set to Schmidt orthogonalization of $[x_{1},...,x_{n}]$.
+\end{itemize}
+For now, we complete the SVD to $A$.
+
+
+
+\end{document}

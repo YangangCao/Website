@@ -1,0 +1,16 @@
+Matlab code:
+\begin{lstlisting}
+function y = aphighpassunit(audio, para)
+% y = aphighpass(audio, para)
+% Author: Yangang Cao
+% Applies a highpass filter to the input signal.
+% para is the normalized cut-off frequency in (0,1)
+c = (tan(pi*para/2)-1) / (tan(pi*para/2)+1);
+x = 0;
+x_1 = 0;
+for n = 1:length(audio)
+    x_1 = -c * x + audio(n);
+    y(n) = ((c^2-1)/2) * x + (1-c)/2 * audio(n);
+    x = x_1;
+end
+\end{lstlisting}

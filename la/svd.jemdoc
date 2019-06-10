@@ -1,0 +1,69 @@
+# jemdoc: menu{MENU}{svd.html}, nofooter
+
+= -------------------------------------------------
+= Baboo J. Cui Club – A place for academic carnival
+[http://www.baboocui.club/ 崔健(Baboo J. Cui)] ([baboo_cui@me.com])
+
+
+== Singular Value Decomposition(SVD)
+
+~~~
+{Problems Lead to Singular Value Decomposition}
+*Eigenvalues and eigenvectors of rectangular matrices*: use $U$ and $V^T$ replaceing $Q$ and $Q^T$ 
+~~~
+
+
+~~~
+{Definition of the SVD}
+Any $m$ by $n$ matrix $A$ can be factored into
+\(
+A = U\Sigma V^{T} = (m \times m\ orthogonal)(m \times n\ diagonal)(n \times n\ orthogonal)
+\)
+The columns of $U$($m$ by $m$) are *eigenvectors* of $AA^T$, and the columns of $V$($n$ by $n$) are *eigenvectors* of $A^TA$. The $r$ singular values on the diagonal of $\Sigma$($m$ by $n$) are the square roots of the *nonzero eigenvalues* of both $AA^T$ and $A^TA$.
+~~~
+
+~~~
+{Solution of the SVD}
+
+- To get $U$, $\Sigma$ and $V$ of $A$, we first calculate $AA^{T}$  and $A^{T}A$.
+\(
+AA^{T}= (U\Sigma V^{T})(V\Sigma^{T}U^{T}) = U\Sigma\Sigma^{T}U^{T}\ (m\times m)
+\)
+\(
+A^{T}A=(V\Sigma^{T}U^{T}) (U\Sigma V^{T}) = V\Sigma^{T}\Sigma V^{T}\ (n\times n)
+\)
+$U$ must be the eigenvector matrix for $AA^{T}$ and $V$ for $A^{T}A$. The eigenvalue matrix in the middle is $\Sigma\Sigma^{T}$ --- which is $m$ by $m$ with $\sigma^{2}_{1},...,\sigma^{2}_{r}$ on the diagonal.
+- The eigenvalues $\lambda_{n}$ of $AA^{T}$ can be calcuated by
+\(
+\left|AA^{T} - \lambda E \right| = 0,
+\)
+and $\Sigma$ is solved by $\sigma_{n} = \sqrt{\lambda_{n}}$.
+- The eigenvectors $x_{m}$ that corresponding to the eigenvalues $\lambda_{m}$ can be obtained by
+\(
+(AA^{T} - \lambda I)x = 0,
+\)
+and $U$ is set to *Schmidt orthogonalization* of $[x_{1},...,x_{m}]$.
+- The eigenvectors $x_{n}$ that corresponding to the eigenvalues $\lambda_{n}$ can be obtained by
+\(
+(A^{T}A - \lambda I)x = 0,
+\)
+and $V$ is set to *Schmidt orthogonalization* of $[x_{1},...,x_{n}]$.
+
+For now, we complete the SVD to $A$.
+
+
+~~~
+
+
+~~~
+{Applications of the SVD}
+- Image processing
+- The effective rank
+- Polar decomposition
+- Least squares
+~~~
+
+
+
+== License
+Copyright 2015-2019 Baboo J. Cui.

@@ -1,0 +1,29 @@
+# jemdoc: menu{MENU}{baboo.html}, nofooter
+
+= ------------------
+= Xinwen Xu (徐新文)
+
+~~~
+{}{img_left}{xinwen_pic.png}{alt text}{WIDTHpx}{HEIGHTpx}{IMGLINKTARGET}
+
+- Python Web Engineer @ Vfine Music
+~~~
+
+=== Contact
+- Phone: (+86) 1-3-1-2-1-6-5-5-0-2-4
+- E-mail: coderWen@126.com
+- Location: Beijing, China
+
+=== Working Experiences
+
+*DNV Group* [[https://vfinemusic.com/ (/Link/)]
+
+- Position: TeamLeader ()
+
+=== IT Skills
+
+
+- programming languages: C, Python, Java, SQL
+- databases tools: Mysql, PostgreSQL, Sqlite, Redis
+- Programming In The Linux Environment
+- Use Python Build Web sites 

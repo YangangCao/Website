@@ -1,0 +1,48 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+== Bitwise Operation in C
+
+It only works with int or char(by ASCII code) type.
+
+=== Operators(4)
+
+===== AND (\&)
+- all conditions(bits) are true, the output is true
+- one condition is false, output is false
+
+===== OR (\|)
+- one condition is true, the output is true
+- all conditions are false, the output is false
+
+===== XOR (\^)
+- if conditions are the same, output is false
+- if conditions are different, output is true 
+
+===== NOT (\~)
+- 1 -> 0
+- 0 -> 1
+
+=== Shift(2)
+
+===== Right shift (\>\>)
+- add $0$ in the beginning
+- eliminate the right most bit
+- right shift by n bit is equivalent to divide by $2^n$ and round down
+- eg: $24$\>\>$2$ -> $6$
+
+===== Left shift (\<\<)
+- add $0$ in the end
+- eliminate the left most bit
+- left shift by n bit is equivalent to multiply $2^n$
+- eg: $6$\<\<$2$ -> $24$
+
+=== Bitwise corresponds to logical operation
+
+- bitwise(&) -> logic(&&)
+- bitwise(|) -> logic(||)
+- bitwise(^) -> logic(!=)
+- bitwise(\~) -> logic(!)
+
+
+== License
+Copyright 2015-2019 Baboo J. Cui.

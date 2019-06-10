@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title></title>
+<!-- MathJax -->
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-item"><a href="../index.html" class="current">Home</a></div>
+<div class="menu-category">Topic Name</div>
+<div class="menu-item"><a href="start.html">Get&nbsp;Started</a></div>
+<div class="menu-item"><a href="database.html">Database</a></div>
+<div class="menu-item"><a href="poll_model.html">Model</a></div>
+<div class="menu-item"><a href="api.html">API</a></div>
+<div class="menu-item"><a href="admin.html">Admin</a></div>
+<div class="menu-item"><a href="view.html">View</a></div>
+<div class="menu-category">Others</div>
+<div class="menu-item"><a href="cheat.html">cheating</a></div>
+<div class="menu-category">Service</div>
+<div class="menu-item"><a href="../payment.html">Payment</a></div>
+<div class="menu-item"><a href="../contact.html">Contact</a></div>
+</td>
+<td id="layout-content">
+<h1></h1>
+<h1>Django Tutorial</h1>
+<p>This is a class derived from django official website and my personal experience.</p>
+<p>And let's get started!</p>
+<p>There is a quick link on the left side.</p>
+<h3>Installation: </h3>
+<p>Just use anaconda or miniconda for fast deployment! Pip is not recommanded though it is good!</p>
+<h3>Version Check:</h3>
+<p>To check python version:</p>
+<p><tt>$ python —-version</tt></p>
+<p>To check django version: </p>
+<p><tt>$ python -m django —-version</tt></p>
+<p>That's all for preparation!</p>
+<h3>Create a project:</h3>
+<p>Create project at current folder with name MYSITE</p>
+<p><tt>$ django-admin startproject MYSITE</tt></p>
+<p>Tips:</p>
+<ul>
+<li><p>don’t use keywords like “django” to name the project</p>
+</li>
+<li><p>don’t put files at “/var/www”, which may expose your code</p>
+</li>
+</ul>
+<p>In the folder there are some files and here is the structure:</p>
+<ul>
+<li><p>mysite/ : root directory, name can be renamed</p>
+</li>
+<li><p>/manage.py :  cmd utility for interaction</p>
+</li>
+<li><p>/mysite/ : actual the python package for the project</p>
+</li>
+<li><p>/mysite/__init__.py : python package declaration</p>
+</li>
+<li><p>/mysite/setting.py: config of the project</p>
+</li>
+<li><p>/mysite/urls.py : table of contents, related to URL dispatcher</p>
+</li>
+<li><p>/mysite/wsgi.py : entry-point for WSGI-compatible web servers</p>
+</li>
+</ul>
+<h3>Run project:</h3>
+<p><tt>$ python manage.py runserver</tt></p>
+<p>And you can visit http://127.0.0.1:8000/ to see the rocket!</p>
+<p>Tips:</p>
+<ul>
+<li><p>development server is started! It's is not for production!!!</p>
+</li>
+</ul>
+<ul>
+<li><p>there will be warnings about migration, which is related to database.</p>
+</li>
+</ul>
+<ul>
+<li><p>by default, 8000 port will be used. To run other port like 8080: use command <tt>python manage.py runserver 8080</tt></p>
+</li>
+</ul>
+<ul>
+<li><p>server automatically reloads python code</p>
+</li>
+</ul>
+<h3>Create a App</h3>
+<p>We've created a project and we need to add an app(polls app) in the project. A project can contain multiple apps. An app can be in multiple projects.</p>
+<p>Usually(make everything easy), we create app in the same directory as manage.py. Infact any valid python path will be okay.</p>
+<p>To create an app, use command:</p>
+<p><tt>$ python manage.py startapp APPNAME(polls)</tt></p>
+<p>This will create a folder named &ldquo;polls&rdquo; with file structure like:</p>
+<p>/<u></u>init<u></u>.py</p>
+<p>/admin.py</p>
+<p>/apps.py</p>
+<p>/migrations/</p>
+<p>/migrations/__init__.py</p>
+<p>/models.py</p>
+<p>/tests.py</p>
+<p>/views.py</p>
+<h3>Write View (Really matter here!)</h3>
+<p>add code in views.py:</p>
+<div class="codeblock">
+<div class="blocktitle">polls/views.py</div>
+<div class="blockcontent"><pre>
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Hello, world. You're at the polls index.")
+</pre></div></div>
+<p>To call the view, we need to map it to a URL, create urls.py file in the app folder and add the code:</p>
+<div class="codeblock">
+<div class="blocktitle">polls/urls.py</div>
+<div class="blockcontent"><pre>
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+</pre></div></div>
+<p>Next, need to point the root URL att the poll.urls module:</p>
+<div class="codeblock">
+<div class="blocktitle">mysite/urls.py</div>
+<div class="blockcontent"><pre>
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('polls/', include('polls.urls')),
+    path('admin/', admin.site.urls),
+]
+</pre></div></div>
+<p>Comments:</p>
+<ul>
+<li><p>The include() function allows referencing other URLconfs. Sends the remaining string to the included URLconf for further processing.</p>
+</li>
+</ul>
+<ul>
+<li><p>include() make it easy to plug-and-play URLs.</p>
+</li>
+</ul>
+<ul>
+<li><p>Should always use include() when you include other URL patterns. admin.site.urls is the only exception to this.</p>
+</li>
+</ul>
+<ul>
+<li><p>run server <tt>$ python manage.py runserver</tt> and go to page http://localhost:8000/polls</p>
+</li>
+</ul>
+<h2>License</h2>
+<p>Copyright 2015-2018 Baboo J. Cui.</p>
+</td>
+</tr>
+</table>
+</body>
+</html>

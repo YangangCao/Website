@@ -1,0 +1,22 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -------------------------------------------------
+= Cheating Sheet
+
+- To start a project
+
++$ django-admin startproject MYSITE+
+
+
+- To run project
+
++$ python manage.py runserver [portnumber]+
+
+
+- To create an App
+
++$ python manage.py startapp APPNAME(polls)+
+
+
+== License
+Copyright 2015-2018 Baboo J. Cui.

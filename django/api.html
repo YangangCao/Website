@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title></title>
+<!-- MathJax -->
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-item"><a href="../index.html" class="current">Home</a></div>
+<div class="menu-category">Topic Name</div>
+<div class="menu-item"><a href="start.html">Get&nbsp;Started</a></div>
+<div class="menu-item"><a href="database.html">Database</a></div>
+<div class="menu-item"><a href="poll_model.html">Model</a></div>
+<div class="menu-item"><a href="api.html">API</a></div>
+<div class="menu-item"><a href="admin.html">Admin</a></div>
+<div class="menu-item"><a href="view.html">View</a></div>
+<div class="menu-category">Others</div>
+<div class="menu-item"><a href="cheat.html">cheating</a></div>
+<div class="menu-category">Service</div>
+<div class="menu-item"><a href="../payment.html">Payment</a></div>
+<div class="menu-item"><a href="../contact.html">Contact</a></div>
+</td>
+<td id="layout-content">
+<h1></h1>
+<h1>Basic API</h1>
+<p>To invoke the python shell:</p>
+<p><tt>$ python manage.py shell</tt></p>
+<p>The difference between python shell and this one is that manage.py sets the DJANGO<u>SETTINGS</u>MODULE environment variable, which gives Django the Python import path to your mysite/settings.py file.</p>
+<div class="codeblock">
+<div class="blocktitle">One Demo</div>
+<div class="blockcontent"><pre>
+<span class="pycommand">&gt;&gt;&gt; from polls.models import Choice, Question</span>
+<span class="pycommand">&gt;&gt;&gt; Question.objects.all()</span>
+&lt;QuerySet []&gt;
+<span class="pycommand">&gt;&gt;&gt; from django.utils import timezone</span>
+<span class="pycommand">&gt;&gt;&gt; q = Question(question_text="What's new?", pub_date=timezone.now())</span>
+q.save()
+<span class="pycommand">&gt;&gt;&gt; q.id</span>
+1
+<span class="pycommand">&gt;&gt;&gt; q.pub_date</span>
+datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=&lt;UTC&gt;)
+<span class="pycommand">&gt;&gt;&gt; q.question_text = "What's up?"</span>
+<span class="pycommand">&gt;&gt;&gt; q.save()  <span class = "comment"># must save the var to take effects on database</span></span>
+<span class="pycommand">&gt;&gt;&gt; Question.objects.all()</span>
+&lt;QuerySet [&lt;Question: Question object (1)&gt;]&gt;
+</pre></div></div>
+<p>The final return value isn't helpful, let's add __str__() method to class.</p>
+<div class="codeblock">
+<div class="blocktitle">__str__() revision in poll/models.py</div>
+<div class="blockcontent"><pre>
+from django.db import models
+
+class Question(models.Model):
+    <span class = "comment"># ...</span>
+    def __str__(self):
+        return self.question_text
+
+class Choice(models.Model):
+    <span class = "comment"># ...</span>
+    def __str__(self):
+        return self.choice_text
+</pre></div></div>
+<p>It’s important to add <u></u>str<u></u>() methods to your models because objects’ representations are used throughout Django’s automatically-generated admin, which generates useless message.</p>
+<p>To add some normal method, take time issue as an example(time zone support docs):</p>
+<div class="codeblock">
+<div class="blocktitle">Add time model in polls/models.py</div>
+<div class="blockcontent"><pre>
+import datetime
+from django.utils import timezone
+
+class Question(models.Model):
+    <span class = "comment"># ...</span>
+    def was_published_recently(self):
+        return self.pub_date &gt;= timezone.now() - datetime.timedelta(days=1)
+</pre></div></div>
+<p>And now take a another try:</p>
+<div class="codeblock">
+<div class="blocktitle">Django shell Again</div>
+<div class="blockcontent"><pre>
+<span class="pycommand">&gt;&gt;&gt; from polls.models import Choice, Question</span>
+<span class="pycommand">&gt;&gt;&gt; Question.objects.all()</span>
+&lt;QuerySet [&lt;Question: What's up?&gt;]&gt;
+<span class="pycommand">&gt;&gt;&gt; Question.objects.filter(id=1)</span>
+&lt;QuerySet [&lt;Question: What's up?&gt;]&gt;
+<span class="pycommand">&gt;&gt;&gt; Question.objects.filter(question_text__startswith='What')  <span class = "comment"># note 2 underscore</span></span>
+&lt;QuerySet [&lt;Question: What's up?&gt;]&gt;
+<span class="pycommand">&gt;&gt;&gt; from django.utils import timezone</span>
+<span class="pycommand">&gt;&gt;&gt; current_year = timezone.now().year</span>
+<span class="pycommand">&gt;&gt;&gt; Question.objects.get(pub_date__year=current_year)</span>
+&lt;Question: What's up?&gt;
+Question.objects.get(id=2)  <span class = "comment"># get by id, will lead to overflow</span>
+DoesNotExist: Question matching query does not exist.
+<span class="pycommand">&gt;&gt;&gt; Question.objects.get(pk=1)  <span class = "comment"># get by primary key</span></span>
+&lt;Question: What's up?&gt;
+<span class="pycommand">&gt;&gt;&gt; q = Question.objects.get(pk=1)</span>
+<span class="pycommand">&gt;&gt;&gt; q.was_published_recently()</span>
+True
+<span class="pycommand">&gt;&gt;&gt; q = Question.objects.get(pk=1)</span>
+<span class="pycommand">&gt;&gt;&gt; q.choice_set.all()  <span class = "comment"># choice_set is automatically generated by django</span></span>
+&lt;QuerySet []&gt;
+<span class="pycommand">&gt;&gt;&gt; q.choice_set.create(choice_text='Not much', votes=0)</span>
+&lt;Choice: Not much&gt;
+<span class="pycommand">&gt;&gt;&gt; q.choice_set.create(choice_text='The sky', votes=0)</span>
+&lt;Choice: The sky&gt;
+<span class="pycommand">&gt;&gt;&gt; c = q.choice_set.create(choice_text='Just hacking again', votes=0)</span>
+<span class="pycommand">&gt;&gt;&gt; c.question  <span class = "comment"># the choice is explicitly linked to question</span></span>
+&lt;Question: What's up?&gt;
+<span class="pycommand">&gt;&gt;&gt; q.choice_set.all()</span>
+&lt;QuerySet [&lt;Choice: Not much&gt;, &lt;Choice: The sky&gt;, &lt;Choice: Just hacking again&gt;]&gt;
+<span class="pycommand">&gt;&gt;&gt; q.choice_set.count()</span>
+3
+<span class = "comment"># Use double underscores to separate relationships.</span>
+<span class="pycommand">&gt;&gt;&gt; Choice.objects.filter(question__pub_date__year=current_year)</span>
+&lt;QuerySet [&lt;Choice: Not much&gt;, &lt;Choice: The sky&gt;, &lt;Choice: Just hacking again&gt;]&gt;
+<span class = "comment"># Let's delete one of the choices. Use delete() for that.</span>
+<span class="pycommand">&gt;&gt;&gt; c = q.choice_set.filter(choice_text__startswith='Just hacking')</span>
+<span class="pycommand">&gt;&gt;&gt; c.delete()</span>
+</pre></div></div>
+<h2>License</h2>
+<p>Copyright 2015-2018 Baboo J. Cui.</p>
+</td>
+</tr>
+</table>
+</body>
+</html>

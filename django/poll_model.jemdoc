@@ -1,0 +1,88 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -------------------------------------------------
+= Create Poll Model
+
+models – essentially, your database layout, with additional metadata.
+
+we’ll create two models: Question and Choice. 
+
+A Question has a question and a publication date. 
+
+A Choice has two fields: the text of the choice and a vote tally. 
+
+~~~
+{polls\/models.py}{pyint}
+from django.db import models
+
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+~~~
+
+Comments on code:
+
+- each class is subclass from django.db.models.Model
+
+- each field is represented by an instance of a Field class, show what type of data it is
+
+- Filed class will create a column in table
+
+- relationship is defined using ForeignKey. The relationships could be many-to-one, many-to-many, and one-to-one
+
+- create a database schema (CREATE TABLE statements) for this app.
+
+- create a Python database-access API for accessing Question and Choice objects.
+
+
+= Install App
+
+Need to add apps to project setting:
+
+~~~
+{settings.py}{pyint}
+INSTALLED_APPS = [
+    'polls.apps.PollsConfig'
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+~~~
+
+after register the app, migration should be run by:
+
++$ python manage.py makemigrations polls+
+
+There will be some files stored in migration folder.
+
+By running makemigrations, you’re telling Django that you’ve made some changes to your models and that you’d like the changes to be stored as a migration.
+
+This will automatically manage database schema, and the corresponding SQL can be obtained by:
+
++$ python manage.py sqlmigrate polls 0001+
+
+run migrate again to create those model tables in your database:
+
++$ python manage.py migrate+
+
+this command synchroniz the changes you made to your models with the schema in the database. You don't need to deal with database anymore.
+
+*Summary* of make model change:
+
+- change your models (in models.py).
+
+- run +$ python manage.py makemigrations+ to create migrations for those changes
+
+- run +$ python manage.py migrate+ to apply those changes to the database.
+
+
+== License
+Copyright 2015-2018 Baboo J. Cui.

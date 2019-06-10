@@ -1,0 +1,52 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -------------------------------------------------
+= Views
+
+
+view is about public interface!
+
+- a view is a “type” of Web page
+
+- generally serves a specific function 
+
+- has a specific template.
+
+- web pages and other content are delivered by views
+
+- each view is represented by a simple Python function or method
+
+- view is chosen by examining the URL that’s requested
+
+- URLconfs is used to get from a URL to view, URLconf maps URL patterns to views
+
+- URLconfs info can be refered to URL dispatcher
+
+The poll application has 4 views:
+
+- question “index” page
+
+- question “detail” page
+
+- question “results” page
+
+- vote action
+
+=== Coding part
+
+~~~
+{polls\/view.py}{pyint}
+def detail(request, question_id):
+    return HttpResponse("You're looking at question %s." % question_id)
+
+def results(request, question_id):
+    response = "You're looking at the results of question %s."
+    return HttpResponse(response % question_id)
+
+def vote(request, question_id):
+    return HttpResponse("You're voting on question %s." % question_id)
+~~~
+
+
+== License
+Copyright 2015-2018 Baboo J. Cui.

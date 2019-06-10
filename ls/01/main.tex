@@ -1,0 +1,276 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+
+\author{Baboo J. Cui}
+\title{Systems and State Variables}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{System}
+
+\subsection{Examples of Systems}
+There are many systems around us, here are some examples:
+\begin{itemize}
+	\item electrical system
+	\item mechanical system
+	\item transportation system
+	\item biological system
+	\item ecological system
+	\item stock market
+\end{itemize}
+
+\subsection{Structure of Studying System}
+\begin{itemize}
+	\item \textbf{modeling}: difference equation(direct way), transfer functions(undergraduate), state-space models(graduate), etc
+	\item \textbf{analysis}(about the properties): solution, stability, controllability, observability, stabilizability, detectability, etc
+	\item \textbf{design}: feedback control, optimal control, robust control, etc
+\end{itemize}
+
+\subsection{System Models}
+System essentially is a signal processor:
+\[
+y = \mathcal{T}(u)
+\]
+\begin{itemize}
+	\item $u$: \textbf{input}
+	\item $y$: \textbf{output}
+	\item $\mathcal{T}$: IO \textbf{mapping}, could be described by \textbf{ODE}(ordinary), \textbf{PDE}(partial), \textbf{SDE}(stochastic) or difference equations.
+\end{itemize}
+
+\subsection{Signals}
+Signals are talked more in DSP, here is a brief summary. Mathematically, signal is functions over time index $\mathcal{I}$:
+\begin{itemize}
+	\item $u: \mathcal{I} \rightarrow \mathbb{R}^m$, a $m$-dimension input signal
+	\item $y: \mathcal{I} \rightarrow \mathbb{R}^p$, a $p$-dimension output signal
+\end{itemize}
+Signals are be classified based on characteristics of $\mathcal{I}$:
+\begin{itemize}
+	\item $\mathcal{I} = \mathbb{R}$ leads to continuous-time signal, denote as $u(t)$
+	\item $\mathcal{I} = \mathbb{Z}$ leads to discrete-time signal, denoted as $u[k]$
+	\item $\mathcal{I}=[0, +\infty)$ or $\mathcal{I}=\{0, 1, \dots,\}$ leads to \textbf{causal} signal
+\end{itemize}
+Mathematically a mapping can be written in $2$ ways:
+\begin{itemize}
+	\item set mapping: $u: \mathcal{I} \rightarrow \mathbb{R}^m$
+	\item set mapping with detailed info: $u: i \in \mathcal{I} \mapsto u(i) \in \mathbb{R}^m$
+\end{itemize}
+\textbf{Admissible signals} are allowed to put into systems, the admissible input set $\mathcal{U}$ must have the following properties for space state systems:
+\begin{itemize}
+	\item it is a vector space
+	\item closed to time right shift operation(delay)
+\end{itemize}
+For transfer function approach, the system must be
+\begin{itemize}
+	\item casual
+	\item exponentially bounded
+\end{itemize} 
+
+\subsection{Classification of Systems}
+This part is explained in details in DSP class, here is a quick summary:
+\begin{itemize}
+	\item \textbf{discrete} vs \textbf{continuous}-time system: 
+	\begin{itemize}
+		\item continuous if both IO are continuous signal
+		\item discrete if both IO are discrete signal
+		\item \textbf{hybrid} if IO have both types of signals
+	\end{itemize}
+	\item \textbf{linear} vs \textbf{nonlinear} system: 
+	\begin{itemize}
+		\item linear if \textbf{superposition principle} is satisfied
+		\[
+		\mathcal{T}(\lambda_1 u_1 + \lambda_2 u_2) = \lambda_1 \mathcal{T} (u_1) +  \lambda_2 \mathcal{T}(u_2)
+		\]
+		\item nonlinear otherwise
+	\end{itemize}
+	\item \textbf{discrete} vs \textbf{continuous}-time system: 
+	\begin{itemize}
+		\item continuous if both IO are continuous signal
+		\item discrete if both IO are discrete signal
+		\item \textbf{hybrid} if IO have both types of signals
+	\end{itemize}
+	\item \textbf{time varying} vs \textbf{time invariant} system: 
+	\begin{itemize}
+		\item invariant: if $\forall u \in \mathcal{U}$ and $\tau \in \mathcal{I}$:
+		\[
+		y(\cdot) = \mathcal{T}(u(\cdot)) \Longrightarrow y(\cdot - \tau)  \quad = \quad \mathcal{T}(u(\cdot - \tau))
+		\]
+		\item varying: otherwise
+	\end{itemize}
+	\item \textbf{causal} vs \textbf{non-causal} system: 
+	\begin{itemize}
+		\item causal: if  output only depends on past input
+		\item non-causal:  otherwise
+	\end{itemize}
+	\item \textbf{lump} vs \textbf{distributed} system: 
+	\begin{itemize}
+		\item lump: if the system has finite number of state variables
+		\item distributed: otherwise, namely infinite number state variable
+	\end{itemize}
+	Usually, lumped system are typically modeled by ODE, while distributed systems arise due to PDE or the presence of delay(require infinite memory).
+\end{itemize}
+
+\section{State Variables}
+The \textbf{state variables} of a system is a set of internal variables whose values at any moment $t_0$ together with future input $u(t)$, $t>t_0$, are sufficient to determine the system output $y(t)$, $t>t_0$.
+\begin{itemize}
+	\item it summarize the past input history
+	\item also called initial condition in mathematical perspective
+\end{itemize}
+
+\subsection{Implication of System with State Variables}
+A new IO relation can be obtained by introducing state variables:
+\[
+y(t) | _{t \geq t_0} = \mathcal{T} \left(u(t) | _{t\geq t_0} , x(t_0)\right)
+\]
+
+\subsection{Decomposition of Response}
+The response of a linear system can be decomposed as:
+\begin{align*}
+y(n) &= \mathcal{T} \left(u(t) | _{t\geq t_0} , x(t_0)\right)\\
+&=\mathcal{T} \left(u(t) | _{t\geq t_0} , 0\right) +\mathcal{T} \left(0, x(t_0)\right)
+\end{align*}
+\begin{itemize}
+	\item the first term is called \textbf{zero-state} response
+	\item the second term is called \textbf{zero-input} response
+\end{itemize}
+
+\subsection{General State-Space Model of Lumped System}
+Suppose the system has state variable $x \in \mathbb{R}^n$, input $u \in \mathbb{R}^m$ and output $\mathbb{R}^p$:
+\begin{itemize}
+	\item a continuous system:
+	\[
+	\left\{
+	\begin{array}{ll}
+	\frac{dx(t)}{dt} = f(x(t), u(t), t)\\
+	y(t) = g(x(t), u(t), t)\
+	\end{array}\right.
+	\]
+	\item a discrete system:
+	\[
+	\left\{
+	\begin{array}{ll}
+	x[k+1] = f(x[k], u[k], k)\\
+	y(k) = g(x[k], u[k], k)\
+	\end{array}\right.
+	\]
+\end{itemize}
+
+\subsection{State-Space Model of Linear Lumped System}
+Suppose the system has state variable $x \in \mathbb{R}^n$, input $u \in \mathbb{R}^m$ and output $\mathbb{R}^p$:
+\begin{itemize}
+	\item a continuous system:
+	\[
+	\left\{
+	\begin{array}{ll}
+	\frac{dx(t)}{dt} = A(t)x(t) + B(t)u(t)\\
+	y(t) = C(t)x(t) + D(t)u(t)\\
+	\end{array}\right.
+	\]
+	\item a discrete system:
+	\[
+	\left\{
+	\begin{array}{ll}
+	x[k+1] = A[k]x[k] + B[k]u[k]\\
+	y(k) = C[k]x[k] + D[k]u[k])\\
+	\end{array}\right.
+	\]
+\end{itemize}
+Note that the general $f$ and $g$ now is a function linear to $x$ and $u$.
+
+\subsection{State-Space Model of Lumped Linear Time-Invariant(LTI) System}
+Suppose the system has state variable $x \in \mathbb{R}^n$, input $u \in \mathbb{R}^m$ and output $\mathbb{R}^p$:
+\begin{itemize}
+	\item a continuous system:
+	\[
+	\left\{
+	\begin{array}{ll}
+	\frac{dx(t)}{dt} = Ax(t) + Bu(t)\\
+	y(t) = Cx(t) + Du(t)\\
+	\end{array}\right.
+	\]
+	\item a discrete system:
+	\[
+	\left\{
+	\begin{array}{ll}
+	x[k+1] = Ax[k] + Bu[k]\\
+	y(k) = Cx[k] + Du[k])\\
+	\end{array}\right.
+	\]
+\end{itemize}
+Note that the $(A, B, C, D)$ are constants. Graphically, the system can be directly realized by the following diagram:
+\begin{itemize}
+	\item continuous:
+	\item discrete:
+\end{itemize}
+
+\subsection{Two Important Blocks}
+Integration for CT system and unit delay for DT system are two most important block units:
+\begin{itemize}
+	\item integration for CT:
+	\item unit delay for DT:
+\end{itemize}
+
+\section{Examples}
+\subsection{Differential Equation}
+\subsection{RLC Circuit}
+\subsection{Mechanical System}
+
+
+\section{Extension}
+\subsection{General Linear Mechanical System}
+A mechanical system with $n$ DOF (degree of freedom)can be written as:
+\[
+M\ddot{q} + D\dot{q} + Kq = F
+\]
+\begin{itemize}
+	\item $q$: general displacement vector
+	\item $M$: mass
+	\item $D$: damping
+	\item $K$: stiffness
+	\item $F$: external force
+\end{itemize}
+choose $x$ to be:
+\[
+x = \begin{bmatrix}
+q\\
+\dot{q}
+\end{bmatrix}
+\]
+the state equation can be deduced as:
+\[
+\dot{x} = \begin{bmatrix}
+0 & I\\ -M^{-1}K & -M^{-1}D
+\end{bmatrix}x
++ \begin{bmatrix}
+0 \\ M^{-1}????
+\end{bmatrix}
+\]
+Proof:
+?????
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

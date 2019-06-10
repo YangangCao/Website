@@ -1,0 +1,106 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{breqn}
+\author{Baboo J. Cui}
+
+\begin{document}
+
+\title{Classification and Logistic Regression}
+\maketitle
+
+Classification problem is just like linear regression except the output are discrete value. When output only has 2 types of values, it is called binary classification problem, usually, $0$(negative class) and $1$(positive class) are used to denote the outputs.
+
+\section{Logistic Regression}
+For logistic regression, we choose hypothesis to be
+\[
+h_\theta (x) = g(\theta^T x) = \frac{1}{1 + e^{-\theta^T x}}
+\]
+where 
+\[
+g(x) = \frac{1}{1+e^{-x}}
+\]
+the function $g$ is the logistic function or the sigmoid function. It has the following properties:
+\begin{itemize}
+	\item $g(\infty) \rightarrow 1$
+	\item $g(-\infty) \rightarrow 0$
+	\item range of $g$ is $(0, 1)$
+	\item derivative is  $g'(x) = g(x)(1-g(x))$
+	\item other functions may also have the listed properties, the sigmoid function is the most natural one(related to maximum likelihood)
+\end{itemize}
+The parameters can be obtained via maximum likelihood. Assume that
+\begin{align*}
+P(y = 1 | x; \theta) &= h_\theta(x)\\
+P(y = 0 | x; \theta) &= 1 - h_\theta(x)
+\end{align*}
+Note, this is related to Bernoulli distribution. This can be compactly written as
+\[
+P(y|x; \theta) = (h_\theta(x))^y(1 - h_\theta(x))^{1-y}
+\]
+Assume there are $m$ training example, the likelihood function can be written as
+\begin{align*}
+L(\theta) &= P(Y | X; \theta)\\
+&= \prod_{i=1}^{m} p(y^{(i)}|x^{(i)};\theta)\\
+&= \prod_{i=1}^{m} (h_\theta(x^{(i)}))^{y^{(i)}}(1 - h_\theta(x^{(i)}))^{1-y^{(i)}}
+\end{align*}
+It's easier to maximize the log likelihood function
+\begin{align*}
+l(\theta) &= \ln L(\theta)\\
+&= \sum_{i=1}^{m} y^{(i)}\ln h_\theta(x^{(i)}) + (1-y^{(i)}) \ln(1- h_\theta(x^{(i)}) )
+\end{align*}
+To find the maximum(NOT minimum here), gradient ascending should be used
+\[
+\theta := \theta + \alpha\nabla_\theta l(\theta)
+\]
+One derivation is
+\[
+\frac{\partial}{\partial \theta_j} = (y - h_\theta(x))x_j
+\]
+Note that, $\nabla_\theta l(\theta)$ is quiet like what's in the linear regression case, however, the function $h$ not linear anymore! And the reason why the look so close to each other can be explained by GLM(general linear model).
+
+\section{The Perceptron  Algorithm}
+To force the output of logistic regression to be either $0$ or $1$, it's natural to change $g(\cdot)$ to be threshold function
+\begin{equation*}
+g(z) = \left\{
+\begin{array}{lr}
+1 \quad \text{if } z \geq 0\\
+0 \quad \text{if } z < 0\\
+\end{array}
+\right.
+\end{equation*}
+Then let $h_\theta(x)= g(\theta^T x)$ and use the update algorithm
+\[
+\theta_j := \theta_j + \alpha(y^{(i)}- h_\theta(x^{(i)}))x_j^{(i)}
+\]
+Then we have perceptron learning algorithm.
+\begin{itemize}
+	\item it is simple
+	\item a model for how brain works
+	\item totally different from linear regression and logistic regression
+	\item hardly can we relate it to probabilistic interpretation 
+\end{itemize}
+
+\section{Newton's Method}
+Newton's method give a way of finding zeros of a function by linearizion. Given a function $f: \mathbb{R} \mapsto \mathbb{R}$, let's say $y = f(x)$. To find $f(x)=0$, we need to follow the update:
+\[
+x := x - \frac{f(x)}{f'(x)}
+\]
+To find the minimum of maximum, we need to find $f'(x)$ to be zero:
+\[
+x := x - \frac{f'(x)}{f''(x)}
+\]
+For the case where $x \in \mathbb{R}^n$
+\[
+x := x- H_f^{-1} \nabla_x f(x)
+\]
+where $H$ is the Hessian, this is also called Newton-Raphson method.
+\begin{itemize}
+	\item it converges quadratically
+	\item computational expensive to get the inverse of Hessian
+	\item when Newton's method is applied to maximize the logistic regression log likelihood function, the resulting method is also called \textbf{Fisher scoring}
+\end{itemize}
+
+\end{document}

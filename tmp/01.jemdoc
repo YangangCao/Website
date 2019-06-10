@@ -1,0 +1,46 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -------------------------------------------------
+= Baboo J. Cui Club – A place for academic carnival
+
+== Bootstrap Aggregating
+- bootstrap aggregating is also called bagging
+- improve stability and accuracy of machine learning
+- aimed at classification and regression
+- reduce variance and avoid overfitting
+- usually applied to decision tree method
+- a special case of the model averaging approach
+- can mildly degrade the performance of stable methods such as K-nearest neighbors
+
+==== Bagging algorithm
+. given a training set $D$ of size $n$
+. by samping uniformly from $D$ with replacement to get $m$ new training set $D_i$ with $n_i \leq n$, where $i \in [1,m]$
+. the $m$ models are fitted using the $m$ samples and combined by averaging the output
+
+==== Bootstrap
+Procedure is the same as bagging algorithm except when construct $D_i$:
+- by samping uniformly from $D$ with replacement to get $m$ new training set $D_i$ with +$n_i=n$+, where $i \in [1,m]$
+
+And without proof, if $n$ is large, the percentage of unique element is going to be $63.2\%$, which is $1-1/e$.
+
+
+== K-nearest-neighbors
+
+== Python Virtual enviroment
+To create a virtuial enviroment
+- virtualenv -p PYTHON\_PATH ENV\_PATH
+- virtualenv ENV\_PATH (this will use the default python delared in +virtualenv+)
+
+To active the virtual enviroment
+- source \/...\/ENV_PATH\/bin\s/active
+
+About source:
+- source can be repalced by dot '.'
+- reload configuration file
+
+Tip:
+- to see package installed: +pip list+ or +conda list+
+- 
+
+== License
+Copyright 2015-2019 Baboo J. Cui.

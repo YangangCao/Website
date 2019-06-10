@@ -1,0 +1,151 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -------------------------------------------------
+= Django Tutorial
+
+This is a class derived from django official website and my personal experience.
+
+And let's get started!
+
+There is a quick link on the left side.
+
+
+=== Installation: 
+
+Just use anaconda or miniconda for fast deployment! Pip is not recommanded though it is good!
+
+
+=== Version Check:
+
+To check python version:
+
++$ python \—\-version+
+
+To check django version: 
+
++$ python -m django \—\-version+
+
+
+That's all for preparation!
+
+
+=== Create a project:
+
+Create project at current folder with name MYSITE
+
++$ django-admin startproject MYSITE+
+
+Tips:
+
+- don’t use keywords like “django” to name the project
+- don’t put files at “\/var\/www”, which may expose your code
+
+In the folder there are some files and here is the structure:
+
+- mysite\/ : root directory, name can be renamed
+- \/manage.py :  cmd utility for interaction
+- \/mysite\/ : actual the python package for the project
+- \/mysite\/\_\_init\_\_.py : python package declaration
+- \/mysite\/setting.py: config of the project
+- \/mysite\/urls.py : table of contents, related to URL dispatcher
+- \/mysite\/wsgi.py : entry-point for WSGI-compatible web servers
+
+
+=== Run project:
+
++$ python manage.py runserver+
+
+And you can visit http:\/\/127.0.0.1:8000\/ to see the rocket!
+
+Tips:
+
+- development server is started! It's is not for production!!!
+
+- there will be warnings about migration, which is related to database.
+
+- by default, 8000 port will be used. To run other port like 8080: use command +python manage.py runserver 8080+
+
+- server automatically reloads python code
+
+
+
+=== Create a App
+
+We've created a project and we need to add an app(polls app) in the project. A project can contain multiple apps. An app can be in multiple projects.
+
+Usually(make everything easy), we create app in the same directory as manage.py. Infact any valid python path will be okay.
+
+To create an app, use command:
+
++$ python manage.py startapp APPNAME(polls)+
+
+This will create a folder named "polls" with file structure like:
+
+
+\/__init__.py
+
+\/admin.py
+
+\/apps.py
+
+\/migrations\/
+
+\/migrations\/\_\_init\_\_.py
+
+\/models.py
+
+\/tests.py
+
+\/views.py
+
+
+=== Write View (Really matter here!)
+
+add code in views.py:
+
+~~~
+{polls\/views.py}{pyint}
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Hello, world. You're at the polls index.")
+~~~
+
+To call the view, we need to map it to a URL, create urls.py file in the app folder and add the code:
+
+~~~
+{polls\/urls.py}{pyint}
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]
+~~~
+
+Next, need to point the root URL att the poll.urls module:
+
+
+~~~
+{mysite\/urls.py}{pyint}
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path('polls/', include('polls.urls')),
+    path('admin/', admin.site.urls),
+]
+~~~
+
+Comments:
+
+- The include() function allows referencing other URLconfs. Sends the remaining string to the included URLconf for further processing.
+
+- include() make it easy to plug-and-play URLs.
+
+- Should always use include() when you include other URL patterns. admin.site.urls is the only exception to this.
+
+- run server +$ python manage.py runserver+ and go to page http:\/\/localhost:8000\/polls
+
+== License
+Copyright 2015-2018 Baboo J. Cui.

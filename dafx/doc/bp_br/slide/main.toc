@@ -1,0 +1,6 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Definition of Bandpass/Bandreject Filter}{3}{0}{1}
+\beamer@sectionintoc {2}{Second-Order Allpass Filter}{5}{0}{2}
+\beamer@sectionintoc {3}{Second-Order Bandpass/Bandreject Filter}{10}{0}{3}
+\beamer@subsectionintoc {3}{1}{second-order bandpass filter}{13}{0}{3}
+\beamer@subsectionintoc {3}{2}{second-order bandreject filter}{15}{0}{3}

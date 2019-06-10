@@ -1,0 +1,34 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -----
+= Enviroment Variable
+
+An environment variable is a dynamic-named value that can affect the way running processes will behave on a computer.
+
+Example:
+
+- +\$ echo \$HOME+
+
+- +\$ echo \$PATH+
+
++export+ command is used to update enviroment variable.
+
+
+
+=== export
+
++$ export envNAME=VALUE+
+
+Example: +export PATH="\/usr\/local\/mysql\/bin:\$PATH"+
+
+Comments:
+
+- export is a shell builtin command
+
+- bash use +:+ as deliminator
+
+
+
+
+== License
+Copyright 2015-2019 Baboo J. Cui.

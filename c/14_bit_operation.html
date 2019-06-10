@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title></title>
+<!-- MathJax -->
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-item"><a href="index.html" class="current">Home</a></div>
+<div class="menu-item"><a href="stuff.html">Stuff</a></div>
+<div class="menu-category">VIP Members</div>
+<div class="menu-item"><a href="./members/baboo.html">Baboo&nbsp;Cui</a></div>
+<div class="menu-item"><a href="index_xw.html">Xinwen&nbsp;Xu</a></div>
+<div class="menu-item"><a href="index_p1.html">someone1</a></div>
+<div class="menu-item"><a href="index_p2.html">someone2</a></div>
+<div class="menu-category">Classes</div>
+<div class="menu-item"><a href="AAA.html">AAA</a></div>
+<div class="menu-item"><a href="BBB.html">BBB</a></div>
+<div class="menu-item"><a href="CCC.html">CCC</a></div>
+<div class="menu-category">Projects</div>
+<div class="menu-item"><a href="AAA.html">AAA</a></div>
+<div class="menu-item"><a href="BBB.html">BBB</a></div>
+<div class="menu-item"><a href="CCC.html">CCC</a></div>
+<div class="menu-category">Service</div>
+<div class="menu-item"><a href="payment.html">Payment</a></div>
+<div class="menu-item"><a href="contact.html">Contact</a></div>
+</td>
+<td id="layout-content">
+<h2>Bitwise Operation in C</h2>
+<p>It works for int type. So char type works, too.</p>
+<h3>Operators</h3>
+<h5>AND (&)</h5>
+<ul>
+<li><p>all conditions(bits) are true, the output is true</p>
+</li>
+<li><p>one condition is false, output is false</p>
+</li>
+</ul>
+<h5>OR (|)</h5>
+<ul>
+<li><p>one condition is true, the output is true</p>
+</li>
+<li><p>all conditions are false, the output is false</p>
+</li>
+</ul>
+<h5>XOR (^)</h5>
+<ul>
+<li><p>if conditions are the same, output is false</p>
+</li>
+<li><p>if conditions are different, output is true </p>
+</li>
+</ul>
+<h5>NOT (~)</h5>
+<ul>
+<li><p>1 -&gt; 0</p>
+</li>
+<li><p>0 -&gt; 1</p>
+</li>
+</ul>
+<h3>Shift</h3>
+<h5>Right shift (>>)</h5>
+<ul>
+<li><p>add \(0\) in the beginning</p>
+</li>
+<li><p>eliminate the right most bit</p>
+</li>
+<li><p>right shift by n bit is equivalent to divide by \(2^n\) and round down</p>
+</li>
+<li><p>eg: \(24\)>>\(2\) -&gt; \(6\)</p>
+</li>
+</ul>
+<h5>Left shift (<<)</h5>
+<ul>
+<li><p>add \(0\) in the end</p>
+</li>
+<li><p>eliminate the left most bit</p>
+</li>
+<li><p>left shift by n bit is equivalent to multiply \(2^n\)</p>
+</li>
+<li><p>eg: \(6\)<<\(2\) -&gt; \(24\)</p>
+</li>
+</ul>
+<h3>Bitwise corresponds to logical operation</h3>
+<ul>
+<li><p>bitwise(&amp;) -&gt; logic(&amp;&amp;)</p>
+</li>
+<li><p>bitwise(|) -&gt; logic(||)</p>
+</li>
+<li><p>bitwise(^) -&gt; logic(!=)</p>
+</li>
+<li><p>bitwise(~) -&gt; logic(!)</p>
+</li>
+</ul>
+<h2>License</h2>
+<p>Copyright 2015-2019 Baboo J. Cui.</p>
+</td>
+</tr>
+</table>
+</body>
+</html>

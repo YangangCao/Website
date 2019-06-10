@@ -1,0 +1,33 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -----
+= Common Commands for Bash Profile
+
+=== alias
+
++$ alias NAME=COMMAND+
+
+make an alias for a long command
+
+Example:
+
+- +$ alias ll='ls -alh'+
+
+Here's quick setup for git:
+
+- +$ alias gst="git status"+
+
+- +$ alias gad="git add ."+
+
+- +$ alias gcm="git commit -m"+
+
+- +$ alias gps="git push"+
+
+Warning: there is no space before and after "="
+
+
+
+=== coming soon!
+
+== License
+Copyright 2015-2019 Baboo J. Cui.

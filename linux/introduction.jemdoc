@@ -1,0 +1,137 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -------------------------------------------------
+== Introduction to Linux
+
+=== Operating System(OS)
+Informally, OS is a special software that +connect hardware and applications+. It can directly control the hardware and it also offer services for applications.
+
+An OS is +not+ necessay for a computer system, e.g. application written by assembly language can be directly executed by microprocessor.
+
+=== History of Linux
+Very long and complicate, but remember the following important things:
+
+- Linux is originally from Unix
+
+- Linux is open source, it is free
+
+- The history of Linux is highly related to commercial problem of Unix
+
+- Linux is the main OS for server, and some people use it in desktop enviroment
+
+If you want to know more, read [https://en.wikipedia.org/wiki/History_of_Linux history of linux] in Wiki.
+
+=== Terminal
+Terminal is the interface that we use linux, most of the time will be spent on it.
+
+Want it work in a fashion way right now? Type +tree+ and press enter! You can stop it by +ctrl\+c+.
+
+- +tree+: display the structure of file
+- +ctrl\+c+: stop the current task
+
+To adjust the size of contents in terminal:
+- +ctrl\+'\+'+: make letters bigger
+- +ctrl\+'\-'+: make letters smaller
+
+Use TAB key to optimize input task.
+
+=== File Structure of Linux
+- everything in Linux are +files+
+- all files has one root: +/+
+- home foler is located at: +\/home\/username+
+- extension name in Linux is not important(different from NT)
+
+Some more details:
+- +/bin+: for system binary file
+- +/dev+: contains device info
+- +/etc+: contains all kinds of configuration
+
+Important representation
+- +.(dot)+: represent current folder
+- +..(two dots)+: represent parent folder
+- +\~(sim)+: represent user home folder
+- +-(hype)+: go back to last time folder. Tip: to go to the parent folder of the parent folder: +cd ../..+
+
+
+=== Quick Linux Commands
+- +ls+: list, show current folder content
+- +pwd+: print working directory
+- +cd+: change directory to
+- +clear+: clear the screen
+- +mv+: move file, can be used to rename a file
+- +cp+: copy a file, add +-r+ for folder
+
+- +touch FILENAME+: create a file called FILENAME
+- +mkdir DIRNAME+: create a folder called DIRNAME
+- +rmdir DIRNAME+: remove empty folder called DIRNAME
+- +rm FILENAME+: remove FILENAME
+- +rm -r DIRNAME+: remove DIRNAME folder and its contents, r represent recursive
+
+Tip:
+- \$mkdir -p A/B/C/D/E: create folders if not exit
+
+=== Command Format
+All command follow the structure
+
+~~~
+command \[-options\] \[parameters\]
+~~~
+
+- options start with - or \-\-
+- single letter parameter starts with - and words start with \-\-
+- parameters don't start with start with - or \-\-
+- the order of options and parameters does't matter
+- use +;+ to input more than 2 commands(not recommand)
+ 
+ Here are some examples:
+ - +ls -alh \/dev+: here -alh are options, and \/dev is the parameter
+ - +ls /dev -alh+: order of parameter and options doesn't matter
+
+=== Help Document
+- +help+ option: e.g. ls -\-help
+- +man+: e.g. man ls, man 2 open, man is short for manual
+
+=== Pipe
+Use +|+ to represent a pipe, pipe always connect commands. It takes output from left command as the input of command on the right.
+
+=== Display Content
+- +echo+: display the argument
+- +cat+: display content of the arguments all at once, short for catenate
+- +more+: display from begining to the end, press +F+ to forward, +B+ to go backward, +Q+ to quit, e.g +\$ls -alh /bin | more+, pipe implementation
+
+=== History
+- +history+: show history command
+- +\!NUM+: execute command with NUM index in history
+
+=== Wildcard(Regular Expression)
+- +*+: represent everything including nothing
+- +?+: represent exact one letter or number(one position)
+- +\[12...\]+: bracket represent exact one position with contents in it(not general), or \[1-5\], which means from 1 to 5
+
+=== Redirection
+
+example: +\$ls > out.txt+, +overwrite+ all output info in terminal into a file(like new file), in this example out.txt, if out.txt doesn't exisit, it will be created.
+
+example: +\$ls >> out.txt+, +concatenate+ all output info in terminal into a file(add to the end of the file), in this example out.txt, if out.txt doesn't exisit, it will be created.
+
+=== Link(ln)
+- +\$ln -s source link+: soft link, link to file name
+- +\$ln source link+: hard link, link to file data
+VIP:
+- hard link will increase the number of node
+- system will delete file data if number of node is zero
+
+=== Grep
+Grep will find out contents with certain constraints
+
+e.g. \$grep -n "abc" file.txt
+
+- +\-n+: display corresponding row
+- +"abc"+: constrain condition, contain "abc"
+- +"\^abc"+: constrain condition, start with "abc"
+- +"abc\$"+: constrain condition, end with "abc"
+- +\-v+: display contents that doesn't satisty the constraints
+- +file.txt+: from which file to find
+
+== License
+Copyright 2015-2018 Baboo J. Cui.

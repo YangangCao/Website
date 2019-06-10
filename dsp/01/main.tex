@@ -1,0 +1,160 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage{tikz} % system block diagram
+\usepackage{textcomp}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{shapes,arrows} % system block diagram
+\usepackage{booktabs}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} % matlab code block
+\author{Yangang Cao}
+\date{May 28, 2019}
+\newcommand{\degree}{^\circ}
+\tikzset{
+	delay/.style    = {draw, thick, rectangle, minimum height = 3em,
+		minimum width = 3em},
+	sum/.style      = {draw, circle, node distance = 2cm}, 
+	prod/.style     = {draw, circle, node distance = 2cm},
+	input/.style    = {coordinate}, % Input
+	output/.style  = {coordinate} % Output
+}
+% Defining string as labels of certain blocks.
+\newcommand{\product}{$\displaystyle \times$}
+\newcommand{\delay}{\large$z^{-1}$}
+\begin{document}
+
+\title{Part 01 - Introduction}
+\maketitle 
+\tableofcontents
+\newpage
+\section{Basics}
+\subsection{Signals, Systems, and Signal Processing}
+\begin{itemize}
+\item  Signal: Physical quantity that varies independent variable or variables
+\item  System: Device that performs an operation on a signal
+\item Algrithm: Method or set of rules for implementing the system
+\item Signal Processing: Passing a signal through a system
+\item A/D Converter: Converting the signal from analog to digital
+\item D/A Converter: Converting the signal from digital to analog
+\end{itemize}
+\subsection{Classification of Signals}
+\begin{itemize}
+
+\item Multichannel and Multidimensional Signals
+\begin{itemize}
+	\item  Multichannel Signals: Signal with one independent variable
+	\item  Multidimensional Signals: Signal with multiple independent variables
+\end{itemize}
+\item Continuous-Time Versus Discrete-Time Signals
+\begin{itemize}
+	\item  Continuous-time Signals: Signal with every value of time
+	\item  Discrete-time Signals: Signal with specific values of time
+\end{itemize}
+\item Continuous-Valued Versus Discrete -Valued Signals
+\begin{itemize}
+	\item  Continuous-valued Signals: Signal with continuous values
+	\item  Discrete-valued Signals: Signal with discrete values
+\end{itemize}
+\item Deterministic Versus Random Signals
+\begin{itemize}
+	\item  Deterministic  Signals: Signals that can be uniquely described 
+	\item  Random Signals: Signals evolve in an unpredictable manner
+\end{itemize}
+\end{itemize}
+
+\section{The Concept of Frequency in Continuous-Time and Discrete-Time Signals}
+We expect that the nature of time (continuous or discrete) would affect the nature of the frequency accordingly.
+\subsection{Continuous-Time Sinusoidal Signals}
+A simple harmonic oscillation:
+\[
+x_a(t) = A\cos(\Omega t+\theta), -\infty<t<\infty
+\]
+$A$ is the amplitude of sinuoid, $\Omega$ is the frequency, and $\theta$ is the phase in radians. Instead of $\Omega$, we often use the frequency $F$ in cycles per second or hertz(Hz), where
+\[
+\Omega = 2\pi F
+\]
+The analog sinusoidal signal is characterized by the following properties:
+\begin{itemize}
+\item  $x_a(t)$ is periodic if 
+$
+x_a(t+T_p)=x_a(t)
+$, 
+where $T_p=1/F$ is the fundamental period of the sinusoidal signal.
+\item Continuous-time sinusoidal signals with distinct frequencies are themselves distinct.
+\item Increasing the frequency $F$ results in an increase in the rate of oscillation of the signal.
+\end{itemize}
+Corresponding complex exponential form
+\[
+x_a(t) = Ae^{j(\Omega t+\theta)}
+\]
+This can easily be seen by expressing these signals in terms of sinusoids using the Euler indentity
+\[
+e^{\pm j\phi}=\cos \phi\pm j\sin \phi
+\]
+\subsection{Discrete-Time Sinusoidal Signals}
+A discrete-time sinusoidal signal:
+\[
+x(n)=A\cos (\omega n+\theta), -\infty<n<\infty
+\]
+where $n$ is an integer variable, called the sample number, $A$ is the amplitude of the sinusoid, $\omega$ is the frequency in radians per sample, and $\theta$ is the phase in radians.
+
+The discrete-time sinusoids are characterized by following properties:
+\begin{itemize}
+	\item  A discrete-time sinusoid is periodic only if its frequency $f$ is a rational number.
+	\item Discrete-time sinusoids whose frequencies are separated by an integer multiple of $2\pi$ are identical.
+	\item The highest rate of oscillation in a discrete-time sinusoid is attained when $\omega=\pi$(or $\omega=-\pi$) or, equivalently, $f=\frac{1}{2}$ (or $f=-\frac{1}{2}$).
+\end{itemize}
+Usually, we choose the range $0\leqslant\omega\leqslant2\pi$ or $-\pi\leqslant\omega\leqslant\pi$ ($0\leqslant f\leqslant1, -\frac{1}{2}\leqslant f\leqslant\frac{1}{2}$), which we call the $fundamental\ range$.
+\subsection{Harmonically Related Complex Exponentials}
+These are sets of periodic complex exponentials with fundamental frequencies that are multiples of a single positive frequency. We can construct a linear combination of harmonically related complex exponentials by adding continuous-time, harmonically related exponentials, which is called $Fourier\ series\ expansion$. For discrete-time, $f_0=1/N$, they are only $N$ distinct periodic complex exponentials, this is called $Fourier\ series$.
+\section{Analog-to-Digital and Digital-to-Analog Conversion}
+We view A/D conversion as a three-step process: sampling, quantization and coding. The accuracy of D/A conversion depends on the quality of D/A conversion, a simple form of D/A conversion is called zero-order hold or staircase approximation. The sampling rate is sufficiently high to avoid the problem commonly called $aliasing$.
+\subsection{Sampling of Analog Signals}
+We limit our discussion to $periodic$ or $uniform\ sampling$, $F_s=1/T$ is called the $sampling\ rate$(hertz). $F$ is frequency of analog signal, the frequency variables $F$ and $f$ are linearly related as
+\[
+f=\frac{F}{F_s}
+\]
+and $f$ is also called $relative$ or $normlized\ frequency$.
+
+We observe that the fundamental difference between continuous-time and discrete-time signals is in their range of values of the frequency variable $F$ and $f$, or $\Omega$ and $\omega$.
+\[
+F_{max}=\frac{F_s}{2}=\frac{1}{2T}
+\]
+\[
+\Omega_{max} = \pi F_s = \frac{\pi}{T}
+\]
+For example, $F_2=10Hz$ is an alias of the frequency $F_1=50Hz$ when $F_s=40Hz$. The relationship is
+\[
+F_k = F_0+kF_s,\ k=\pm1,\pm2,...
+\]
+$F_s/2$ is called $folding\ frequency$.
+\subsection{The Sampling Theorem}
+$F_s$ is selected that 
+\[
+F_s>2F_{max}
+\]
+ where $F_{max}$ is the largest frequency component in the analog signal. The sampling rate $F_N=2B=2F_{max}$ is called the $Nyquist\ rate$. 
+\subsection{Quantization of Continuous-Amplitude Signals}
+\begin{itemize}
+\item Quantization: The process of converting a discrete-time continuous-amplitude signal into a digital signal by expressing each sample value as a finite number of digits
+\item Quantization Error:  Difference between the quantized value and the actual sample value
+\item Quantization Level: Values allowed in the digital signal
+\item Quantization step \ size or resolution: Distance $\delta$ between two successive quantization levels
+\item Two ways of quantization: Truncation and rounding
+\end{itemize}
+\subsection{Quantization of Sinusoidal Signals}
+Sinusoids are used as test signals in A/D converters. If the sampling rate $F_s$ satisfies the sampling theorem, quantization is the only error in the A/D conversion process. The quality of the output of the A/D converter is usually measured by the $signal-to-quantization\ noise\ ratio(SQNR)$.
+\[
+\text{SQNR}=\frac{P_x}{P_q}=\frac{3}{2}\cdot2^{2b}
+\]
+Expressed in decibels(dB), the SQNR is
+\[
+\text{SQNR(dB)} = 10\log_{10}\text{SQNR}=1.76+6.02b
+\]
+\subsection{Coding of Quantized Samples}
+The number of bits required in the coder is the smallest integer greater than or equal to $\log_2L$.
+\end{document}

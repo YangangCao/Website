@@ -1,0 +1,54 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage{tikz} % system block diagram
+\usepackage{textcomp}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{shapes,arrows} % system block diagram
+\usepackage{booktabs}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} % matlab code block
+\author{Yangang Cao}
+\date{June 3, 2019}
+\newcommand{\degree}{^\circ}
+\tikzset{
+	delay/.style    = {draw, thick, rectangle, minimum height = 3em,
+		minimum width = 3em},
+	sum/.style      = {draw, circle, node distance = 2cm}, 
+	prod/.style     = {draw, circle, node distance = 2cm},
+	input/.style    = {coordinate}, % Input
+	output/.style  = {coordinate} % Output
+}
+% Defining string as labels of certain blocks.
+\newcommand{\product}{$\displaystyle \times$}
+\newcommand{\delay}{\large$z^{-1}$}
+\begin{document}
+
+\title{Positive Definite Matrices}
+\maketitle 
+For any symmetric matrix $A$, the product $x^TAx$ is a pure quadratic form $f(x_1,...,x_n)$:
+$$
+\left[\begin{array}{llll}{x_{1}} & {x_{2}} & {\cdot} & {x_{n}}\end{array}\right]\left[\begin{array}{cccc}{a_{11}} & {a_{12}} & {\cdot} & {a_{1 n}} \\ {a_{21}} & {a_{22}} & {\cdot} & {a_{2 n}} \\ {\cdot} & {\cdot} & {\cdot} & {\cdot} \\ {a_{n 1}} & {a_{n 2}} & {\cdot} & {a_{n n}}\end{array}\right]\left[\begin{array}{c}{x_{1}} \\ {x_{2}} \\ {\cdot} \\ {x_{n}}\end{array}\right]=\sum_{i=1}^{n} \sum_{j=1}^{n} a_{i j} x_{i} x_{j}
+$$
+
+Each of the following tests is a {\bfseries necessary and sufficient} condition for the real symmetric matrix $A$ to be {\bfseries positive definite}:
+\begin{itemize}
+\item $x^TAx > 0$ for all nonzero real vectors $x$
+\item All the eigenvalues of $A$ satisfy $\lambda_i>0$
+\item All the upper left submatrices $A_k$ have positive determinants
+\item All the pivots (without row exchanges) satisfy $d_k>0$
+\item There is a matrix $R$ with independent columns such that $A=R^TR$ 
+\end{itemize}
+
+Each of the following tests is a {\bfseries necessary and sufficient} condition for the real symmetric matrix $A$ to be {\bfseries positive semidefinite}:
+\begin{itemize}
+\item $x^TAx\geqslant 0$ for all vectors $x$
+\item All the eigenvalues of $A$ satisfy $\lambda_i\geqslant0$
+\item No principal submatrices have negative determinants
+\item No pivots are negative
+\item There is a matrix $R$, possibly with dependent columns, such that $A=R^TR$
+\end{itemize}
+\end{document}

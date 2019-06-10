@@ -1,0 +1,18 @@
+\contentsline {section}{\numberline {1}Limit of a Function}{2}% 
+\contentsline {subsection}{\numberline {1.1}Definition of Limit}{2}% 
+\contentsline {subsection}{\numberline {1.2}Term Approach}{2}% 
+\contentsline {subsection}{\numberline {1.3}One-Sided Limits}{2}% 
+\contentsline {subsection}{\numberline {1.4}Infinite Limits}{2}% 
+\contentsline {subsection}{\numberline {1.5}Vertical Asymptote}{3}% 
+\contentsline {section}{\numberline {2}Limit Laws and Theorem}{3}% 
+\contentsline {subsection}{\numberline {2.1}Limit Laws}{3}% 
+\contentsline {subsection}{\numberline {2.2}Direct Substitution Property}{3}% 
+\contentsline {subsection}{\numberline {2.3}A Useful Fact}{3}% 
+\contentsline {subsection}{\numberline {2.4}Limit Theorems}{4}% 
+\contentsline {section}{\numberline {3}Precise Definition of Limit}{4}% 
+\contentsline {subsection}{\numberline {3.1}Precise Definition of Left Hand and Right Hand Limit}{4}% 
+\contentsline {subsection}{\numberline {3.2}Precise Definition of Infinite Limit}{5}% 
+\contentsline {section}{\numberline {4}Continuity of Functions }{5}% 
+\contentsline {section}{\numberline {5}Extra}{5}% 
+\contentsline {subsection}{\numberline {5.1}Greatest Integer Functions}{5}% 
+\contentsline {subsection}{\numberline {5.2}Triangle Inequality}{5}% 

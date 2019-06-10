@@ -1,0 +1,118 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+
+\author{Baboo J. Cui}
+\title{Sequences and Series}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Sequence}
+A sequence is a list of numbers written in a definite order:
+\[
+a_1, a_2, \cdots, a_n
+\]
+\begin{itemize}
+	\item  $n$ could be either \textbf{finite} or \textbf{infinite}
+	\item $a_i$ is the $i$-th \textbf{term} of the sequence
+	\item  can be defined as a function whose domain is $\mathbb{Z^+}$
+	\item can be written as $\{a_n\}$ or $\{a\}_{n=1}^{+\infty}$
+\end{itemize}
+
+\subsection{Limit and Convergence}
+A sequence $\{a_n\}$ has the \textbf{limit} $L$, and it is denoted as
+\[
+\lim_{n \rightarrow \infty} a_n = L
+\]
+if we can make $a_n$ as close to $L$ as taking $n$ sufficiently large. If $L$ exists, the sequence is said to be \textbf{convergent}, otherwise \textbf{divergent}.
+
+\subsection{Precise Definition of Limit of Sequence}
+A sequence $\{a_n\}$ has the \textbf{limit} $L$, and it is denoted as
+\[
+\lim_{n \rightarrow \infty} a_n = L
+\]
+if for every $\epsilon>0$, there is a corresponding integer $N$ such that if $n>N$
+\[
+|a_n - L| < \epsilon
+\]
+And 
+\[
+\lim_{n \rightarrow \infty} a_n = \infty
+\]
+indicates that for every positive number $M$, there is an integer $N$ such that if $n>N$, then $a_n > M$
+
+\subsection{Limit of a Sequence by Function}
+If
+\[
+\lim_{x \rightarrow \infty} f(x) = L
+\]
+and
+\[
+f(n) = a_n, \forall n \in \mathbb{Z^+}
+\]
+then
+\[
+\lim_{n \rightarrow \infty} a_n = L
+\]
+
+\subsection{Limit Laws for Sequences}
+If $\{a_n\}$ and $\{b_n\}$ are convergent and $c$ is a constant:
+\begin{itemize}
+	\item $\lim c = c$
+	\item $\lim (a \pm b) = \lim a \pm \lim b$
+	\item $\lim ca = c \lim a$
+	\item $\lim (ab) = \lim a \lim b$
+	\item $\lim (a/b) = \lim a / \lim b$
+	\item $\lim a^p = (\lim a)^p$
+\end{itemize}
+
+\subsection{Squeeze Theorem}
+If $a_n \leq b_n \leq c_n$, for $n>n_0$ and
+\[
+\lim_{n \rightarrow \infty} a_n = \lim_{n \rightarrow \infty} c_n = L 
+\]
+then
+\[
+\lim_{n \rightarrow \infty} b_n = L
+\]
+
+\subsection{Absolute Convergence}
+If
+\[
+\lim_{n \rightarrow \infty} |a_n| = 0
+\]
+then
+\[
+\lim_{n \rightarrow \infty} a_n = 0
+\]
+
+\subsection{Convergence of a Sequence Applied to Function}
+If
+\[
+\lim_{n \rightarrow \infty} a_n = L
+\]
+and a function $f$ is continuous at $L$, then
+\[
+\lim_{n \rightarrow \infty} f(a_n) = f(L)
+\]
+
+\subsection{title}
+\subsection{title}
+\subsection{title}
+
+
+\section{Extra}
+\subsection{Fibonacci Sequence}
+It is defined recursively by the conditions:
+\[
+a_1 = 1 \qquad a_2 =1 \qquad a_n = a_{n-1} + a_{n-2}, n\geq3
+\]
+\end{document}

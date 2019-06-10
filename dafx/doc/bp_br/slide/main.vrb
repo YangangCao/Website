@@ -1,0 +1,22 @@
+Matlab code:
+\begin{lstlisting}
+function y = apbandreject(audio, para)
+% y = apbandreject(audio, para)
+% Author: Yangang Cao
+% Applies a bandreject filter to the input signal.
+% para(1) is the normalized center frequency in (0,1), i.e. 2*fc/fS.
+% para(2) is the normalized bandwidth in (0,1) i.e. 2*fb/fS.
+c = (tan(pi*para(2)/2)-1) / (tan(pi*para(2)/2)+1);
+d = -cos(pi*para(1));
+x = [0; 0];
+x_1 = 0;
+A = [-d*(1-c), c; 1, 0];
+B = [1; 0];
+C = [d*(1-c^2)/2, (1-c^2)/2];
+D = (1-c)/2;
+for n=1:length(audio)
+    x_1 = A * x + B * audio(n);
+    y(n) = C * x + D * audio(n);
+    x = x_1;
+end
+\end{lstlisting}

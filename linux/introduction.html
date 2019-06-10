@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title></title>
+<!-- MathJax -->
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-item"><a href="../../index.html" class="current">Home</a></div>
+<div class="menu-item"><a href="index.html" class="current">Linux</a></div>
+<div class="menu-category">Contents</div>
+<div class="menu-item"><a href="introduction.html">Linux&nbsp;Basic</a></div>
+<div class="menu-item"><a href="BBB.html">BBB</a></div>
+<div class="menu-item"><a href="CCC.html">CCC</a></div>
+</td>
+<td id="layout-content">
+<h1></h1>
+<h2>Introduction to Linux</h2>
+<h3>Operating System(OS)</h3>
+<p>Informally, OS is a special software that <tt>connect hardware and applications</tt>. It can directly control the hardware and it also offer services for applications.</p>
+<p>An OS is <tt>not</tt> necessay for a computer system, e.g. application written by assembly language can be directly executed by microprocessor.</p>
+<h3>History of Linux</h3>
+<p>Very long and complicate, but remember the following important things:</p>
+<ul>
+<li><p>Linux is originally from Unix</p>
+</li>
+</ul>
+<ul>
+<li><p>Linux is open source, it is free</p>
+</li>
+</ul>
+<ul>
+<li><p>The history of Linux is highly related to commercial problem of Unix</p>
+</li>
+</ul>
+<ul>
+<li><p>Linux is the main OS for server, and some people use it in desktop enviroment</p>
+</li>
+</ul>
+<p>If you want to know more, read <a href="https://en.wikipedia.org/wiki/History_of_Linux" target=&ldquo;blank&rdquo;>history of linux</a> in Wiki.</p>
+<h3>Terminal</h3>
+<p>Terminal is the interface that we use linux, most of the time will be spent on it.</p>
+<p>Want it work in a fashion way right now? Type <tt>tree</tt> and press enter! You can stop it by <tt>ctrl+c</tt>.</p>
+<ul>
+<li><p><tt>tree</tt>: display the structure of file</p>
+</li>
+<li><p><tt>ctrl+c</tt>: stop the current task</p>
+</li>
+</ul>
+<p>To adjust the size of contents in terminal:</p>
+<ul>
+<li><p><tt>ctrl+&rsquo;+&rsquo;</tt>: make letters bigger</p>
+</li>
+<li><p><tt>ctrl+&rsquo;-&rsquo;</tt>: make letters smaller</p>
+</li>
+</ul>
+<p>Use TAB key to optimize input task.</p>
+<h3>File Structure of Linux</h3>
+<ul>
+<li><p>everything in Linux are <tt>files</tt></p>
+</li>
+<li><p>all files has one root: <tt>/</tt></p>
+</li>
+<li><p>home foler is located at: <tt>/home/username</tt></p>
+</li>
+<li><p>extension name in Linux is not important(different from NT)</p>
+</li>
+</ul>
+<p>Some more details:</p>
+<ul>
+<li><p><tt>/bin</tt>: for system binary file</p>
+</li>
+<li><p><tt>/dev</tt>: contains device info</p>
+</li>
+<li><p><tt>/etc</tt>: contains all kinds of configuration</p>
+</li>
+</ul>
+<p>Important representation</p>
+<ul>
+<li><p><tt>.(dot)</tt>: represent current folder</p>
+</li>
+<li><p><tt>..(two dots)</tt>: represent parent folder</p>
+</li>
+<li><p><tt>~(sim)</tt>: represent user home folder</p>
+</li>
+<li><p><tt>-(hype)</tt>: go back to last time folder. Tip: to go to the parent folder of the parent folder: <tt>cd ../..</tt></p>
+</li>
+</ul>
+<h3>Quick Linux Commands</h3>
+<ul>
+<li><p><tt>ls</tt>: list, show current folder content</p>
+</li>
+<li><p><tt>pwd</tt>: print working directory</p>
+</li>
+<li><p><tt>cd</tt>: change directory to</p>
+</li>
+<li><p><tt>clear</tt>: clear the screen</p>
+</li>
+<li><p><tt>mv</tt>: move file, can be used to rename a file</p>
+</li>
+<li><p><tt>cp</tt>: copy a file, add <tt>-r</tt> for folder</p>
+</li>
+</ul>
+<ul>
+<li><p><tt>touch FILENAME</tt>: create a file called FILENAME</p>
+</li>
+<li><p><tt>mkdir DIRNAME</tt>: create a folder called DIRNAME</p>
+</li>
+<li><p><tt>rmdir DIRNAME</tt>: remove empty folder called DIRNAME</p>
+</li>
+<li><p><tt>rm FILENAME</tt>: remove FILENAME</p>
+</li>
+<li><p><tt>rm -r DIRNAME</tt>: remove DIRNAME folder and its contents, r represent recursive</p>
+</li>
+</ul>
+<p>Tip:</p>
+<ul>
+<li><p>$mkdir -p A<i>B</i>C<i>D</i>E: create folders if not exit</p>
+</li>
+</ul>
+<h3>Command Format</h3>
+<p>All command follow the structure</p>
+<div class="infoblock">
+<div class="blockcontent">
+<p>command [-options] [parameters]</p>
+</div></div>
+<ul>
+<li><p>options start with - or --</p>
+</li>
+<li><p>single letter parameter starts with - and words start with --</p>
+</li>
+<li><p>parameters don't start with start with - or --</p>
+</li>
+<li><p>the order of options and parameters does't matter</p>
+</li>
+<li><p>use <tt>;</tt> to input more than 2 commands(not recommand)</p>
+</li>
+</ul>
+<p>Here are some examples:</p>
+<ul>
+<li><p><tt>ls -alh /dev</tt>: here -alh are options, and /dev is the parameter</p>
+</li>
+<li><p><tt>ls /dev -alh</tt>: order of parameter and options doesn't matter</p>
+</li>
+</ul>
+<h3>Help Document</h3>
+<ul>
+<li><p><tt>help</tt> option: e.g. ls --help</p>
+</li>
+<li><p><tt>man</tt>: e.g. man ls, man 2 open, man is short for manual</p>
+</li>
+</ul>
+<h3>Pipe</h3>
+<p>Use <tt>|</tt> to represent a pipe, pipe always connect commands. It takes output from left command as the input of command on the right.</p>
+<h3>Display Content</h3>
+<ul>
+<li><p><tt>echo</tt>: display the argument</p>
+</li>
+<li><p><tt>cat</tt>: display content of the arguments all at once, short for catenate</p>
+</li>
+<li><p><tt>more</tt>: display from begining to the end, press <tt>F</tt> to forward, <tt>B</tt> to go backward, <tt>Q</tt> to quit, e.g <tt>$ls -alh /bin | more</tt>, pipe implementation</p>
+</li>
+</ul>
+<h3>History</h3>
+<ul>
+<li><p><tt>history</tt>: show history command</p>
+</li>
+<li><p><tt>!NUM</tt>: execute command with NUM index in history</p>
+</li>
+</ul>
+<h3>Wildcard(Regular Expression)</h3>
+<ul>
+<li><p><tt>*</tt>: represent everything including nothing</p>
+</li>
+<li><p><tt>?</tt>: represent exact one letter or number(one position)</p>
+</li>
+<li><p><tt>[12&hellip;]</tt>: bracket represent exact one position with contents in it(not general), or [1-5], which means from 1 to 5</p>
+</li>
+</ul>
+<h3>Redirection</h3>
+<p>example: <tt>$ls &gt; out.txt</tt>, <tt>overwrite</tt> all output info in terminal into a file(like new file), in this example out.txt, if out.txt doesn't exisit, it will be created.</p>
+<p>example: <tt>$ls &gt;&gt; out.txt</tt>, <tt>concatenate</tt> all output info in terminal into a file(add to the end of the file), in this example out.txt, if out.txt doesn't exisit, it will be created.</p>
+<h3>Link(ln)</h3>
+<ul>
+<li><p><tt>$ln -s source link</tt>: soft link, link to file name</p>
+</li>
+<li><p><tt>$ln source link</tt>: hard link, link to file data
+VIP:</p>
+</li>
+<li><p>hard link will increase the number of node</p>
+</li>
+<li><p>system will delete file data if number of node is zero</p>
+</li>
+</ul>
+<h3>Grep</h3>
+<p>Grep will find out contents with certain constraints</p>
+<p>e.g. $grep -n &ldquo;abc&rdquo; file.txt</p>
+<ul>
+<li><p><tt>-n</tt>: display corresponding row</p>
+</li>
+<li><p><tt>&ldquo;abc&rdquo;</tt>: constrain condition, contain &ldquo;abc&rdquo;</p>
+</li>
+<li><p><tt>&ldquo;^abc&rdquo;</tt>: constrain condition, start with &ldquo;abc&rdquo;</p>
+</li>
+<li><p><tt>&ldquo;abc$&rdquo;</tt>: constrain condition, end with &ldquo;abc&rdquo;</p>
+</li>
+<li><p><tt>-v</tt>: display contents that doesn't satisty the constraints</p>
+</li>
+<li><p><tt>file.txt</tt>: from which file to find</p>
+</li>
+</ul>
+<h2>License</h2>
+<p>Copyright 2015-2018 Baboo J. Cui.</p>
+</td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,163 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{breqn}
+\author{Baboo J. Cui}
+
+\begin{document}
+
+\title{Generative Learning Algorithm}
+\maketitle
+
+Learning algorithm can be classified in to $2$ categories based on the approach
+\begin{itemize}
+	\item discriminative learning algorithm: try to learn $P(y|x)$ directly, that is given feature, try to evaluate label
+	\item generative learning algorithm: try to find $P(y|x)$ by finding $P(x|y)$ in the beginning, that is given label, try to model feature. Here $P(y)$ is called class priors, and if $P(x|y)$ is known, Bayes rule can be applied to find $P(y|x)$
+	\[
+	P(y|x) = \frac{P(x|y)P(y)}{P(x)} =  \frac{P(x|y)P(y)}{\sum_{i=1}^{k} P(x| y=i)P(y=i)} 
+	\]
+	In fact we only need to maximize the numerator to have the problem solved since
+	\[
+	\arg \max _{y} P(y|x) = \arg \max _y P(x|y) P(y)
+	\]
+\end{itemize}
+
+\section{Gaussian Discriminant Analysis(GDA)}
+Assume $P(x|y) \sim \mathcal{N}(\mu, \Sigma)$, where $\mu \in \mathbb{R}^n$ is the mean vector and $\Sigma \in \mathbb{R}^{n\times n}$ is the covariance matrix. And standard standard normal distribution is defined as $\mathcal{N}(\textbf{0}, I)$.
+
+\subsection{GDA Algorithm}
+The model is:
+\begin{align*}
+y &\sim \text{Bernoulli}(phi)\\
+x|(y=0) &\sim \mathcal{N}(\mu_0, \Sigma)\\
+x|(y=1) &\sim \mathcal{N}(\mu_1, \Sigma)
+\end{align*}
+So that
+\begin{align*}
+P(y) &= \phi^y (1-\phi)^{1-y}\\
+P(x|y=0) &= \frac{1}{\sqrt{(2\pi)^n|\Sigma|}} \exp \left(-\frac{1}{2}(x-\mu_0)^T \Sigma^{-1}(x-\mu_0)\right)\\
+P(x|y=1) &=  \frac{1}{\sqrt{(2\pi)^n|\Sigma|}} \exp \left(-\frac{1}{2}(x-\mu_1)^T \Sigma^{-1}(x-\mu_1)\right)
+\end{align*}
+The likelihood function(for $m$ training example) is
+\begin{align*}
+L(\phi, \mu_0, \mu_1, \Sigma) &= \prod_{i=1}^{m}P(x^{(i)}, y^{(i)}; \phi, \mu_0, \mu_1, \Sigma)\\
+&= \prod_{i=1}^{m}P(x^{(i)}|y^{(i)}; \mu_0, \mu_1, \Sigma) P(y^{(i)};\phi)
+\end{align*}
+By maximizing its log likelihood function, we can find the parameters to be
+\begin{align*}
+\phi &= \frac{1}{m} \sum_{i=1}^{m} 1\{y^{(i)}=1\} \\
+\mu_0 &= \frac{\sum_{i=1}^{m} 1\{y^{(i)}=0\}x^{(i)}}{\sum_{i=1}^{m} 1\{y^{(i)}=0\}}\\
+\mu_1 &= \frac{\sum_{i=1}^{m} 1\{y^{(i)}=1\}x^{(i)}}{\sum_{i=1}^{m} 1\{y^{(i)}=1\}}\\
+\Sigma &= \frac{1}{m} \sum_{i=1}^{m} (x^{(i)} - \mu_{y^{(i)}}) (x^{(i)} - \mu_{y^{(i)}})^T
+\end{align*}
+And the boundary will be $x$ such that
+\[
+P(y=1|x) = P(y=0|x) = 0.5
+\]
+
+\subsection{GDA vs Logistic Regression}
+If we view $P(y=1|x; \phi, \mu_0,\mu_1, \sigma)$ as a function of $x$, then
+\[
+P(y=1|x; \phi, \mu_0,\mu_1, \sigma) = \frac{1}{1+\exp(-\theta^T x)}, \quad \text{where } \theta = \theta(\phi, \mu_0,\mu_1, \Sigma)
+\]
+This is the exact form of logistic regression used to model $P(y=1|x)$. And two algorithm will give different hypothesis on the same data, so which is better?
+\begin{itemize}
+	\item GDA has a stronger modeling assumption: if $P(x|y)$ is multivariate Gaussian, then $P(y|x)$ necessarily follows logistic regression, but converse is not true
+	\item when modeling assumption is correct, GDA works better than logistic. Specifically, when $P(x|y)$ is Gaussian, GDA is \textbf{asymptotically efficient}.
+	\item logistic regression is better for weak assumption, namely, more robust. e.g. it works for Poisson distribution, practically, logistic regression is used more often
+\end{itemize}
+
+\section{Naive Bayes}
+Here we take determining if an e-mail is spam mail or not as one example of broader set of problems called \textbf{text classification}. An e-mail is represented via a feature vector whose length is equal to the number of words in a dictionary. if the word appears, the corresponding element is set to $x_i = 1$, otherwise, $x_i = 0$. The set of words is called vocabulary and 
+\[
+\dim x = \text{length}(\text{vocabulary})
+\]
+We can't use multinomial distribution since a large number of vocabulary are computationally expensive. We will assume that $x_i$ are conditionally independent given $y$. This \textbf{doesn't} mean $x_i$ are independent! This is called \textbf{naive Bayes assumption}, and the resulting algorithm is called the \textbf{naive Bayes classifier}. So we have:
+\begin{align*}
+P(x_1, x_2,\cdots, x_n|y) &= P(x_1|y)P(x_2|y,x_1)\cdots P(x_n|y,x_1,x_2\cdots x_{n-1})\\
+&=P(x_1|y)P(x_2|y)\cdots P(x_n|y) \quad \text{Bayes assumption}\\
+&= \prod_{i=1}^{n}P(x_i|y)
+\end{align*}
+Even though Bayes assumption is extremely strong, the algorithm works very well in many cases.The Model is parametrized by(Note that $y=1$ represent spam e-mail)
+\begin{align*}
+\phi_{i|y=1} &= P(x_i=1| y=1)\\
+\phi_{i|y=0} &= P(x_i=1| y=0)\\
+\phi_y &= P(y=1)
+\end{align*} 
+Suppose we have $m$ training set, the likelihood of the data is
+\[
+L(\phi_y, \phi_{j|y=0}, \phi_{j|y=1}) = \prod_{i=1}^{m} P(x^{(i)}, y^{(i)})
+\]
+and the maximum likelihood estimation is
+\begin{align*}
+\phi_y &= \frac{1\{y^{(i)} =1\}}{m}\\
+\phi_{j|y=0}&=\frac{\sum_{i=1}^{m} 1\{x_j ^{(i)} =1 \wedge y^{(i)}=0 \}}{\sum_{i=1}^{m} 1\{y^{(i)} =1\}}\\
+\phi_{j|y=1}&=\frac{\sum_{i=1}^{m} 1\{x_j ^{(i)} =1 \wedge y^{(i)}=1 \}}{\sum_{i=1}^{m} 1\{y^{(i)} =1\}}\\
+\end{align*}
+Note that
+\begin{itemize}
+	\item $\wedge$(wedge) represent logic AND
+	\item $\vee$(vee) represent logic OR
+\end{itemize}
+And now we can simply calculate
+\begin{align*}
+P(y=1| x) &= \frac{P(x|y=1)P(y=1)}{P(x)}\\
+&= \frac{(\prod_{i=1}^{n} P(x_i|y=1))P(y=1)}{(\prod_{i=1}^{n} P(x_i|y=1))P(y=1)+(\prod_{i=1}^{n} P(x_i|y=0))P(y=0)}
+\end{align*}
+Then just pick up the one with higher posterior probability. Here are comments on naive Bayes:
+\begin{itemize}
+	\item  it can be generalized to $k$ outputs by substituting Bernoulli distribution to multinomial distribution
+	\item continuous features can be applied to naive Bayes by discretizing 
+	\item when data is not Gaussian, naive Bayes works better than GDA
+\end{itemize}
+Summary: Naive Bayes here uses \textbf{multi-variate Bernoulli event model} since given $y$, $x$ can take $2$ values. It follows the steps:
+\begin{enumerate}
+	\item an e-mail is given and whether it is spam or not is given
+	\item decide whether to include each word
+	\item get probability of message is given by(suppose $n$ words) $P(y)\prod_{i=1}^{n} P(x_i|y)$
+\end{enumerate}
+
+\section{Laplace Smoothing}
+When new words occurs, $P(x|y)=0$, that will lead the posterior probability to be $P(y=1|x)=0/0$. Laplace smoothing can solve this problem. Earlier, the parameter of multinomial of random variable $z\in\{1,2, \cdots, k\}$ with $m$ independent observation by maximum likelihood is given by
+\[
+\phi_j = \frac{\sum_{i=1}^{m} 1 \{z^{(i)} = j\}}{m}
+\]
+Laplace smoothing replace the above estimator to
+\[
+\phi_j = \frac{\sum_{i=1}^{m} 1 \{z^{(i)} = j\} + 1}{m+k}
+\]
+It actually gives the optimal estimator of the $\phi_j$. For cases in which the probability of each situation are large enough(almost impossible to be $0$), we don't need laplace smoothing.
+
+\section{Event Models}
+This is usually for text classification. Suppose a message contains $n$ words, and the vocabulary has size $|V|$. Then, the message can be described by a vector $(x_1, x_2, \cdots, x_n)$ where $x_i \in \{1, 2, \cdots, |V|\}$. Note that $x_i$ now is multinomial distribution in stead of Bernoulli which occurs in naive Bayes. And over all the probability of the message is
+\[
+P(y)\prod_{i=1}^{n} P(x_i|y)
+\]
+This looks like the one in naive Bayes, but essentially different! Again, $x$ here has multinomial distribution. And the parameter are:
+\begin{align*}
+\phi_{k|y=1} &= P(x_j=k| y=1)\\
+\phi_{k|y=0} &= P(x_j=k| y=0)\\
+\phi_y &= P(y=1)
+\end{align*} 
+Note that $P(x_j|y)$ is the same for all value of $j$ since whether a word occurs or not doesn't depend on its position. If $m$ training examples are given and each has length $n_i$, the likelihood of data is given by
+\begin{align*}
+L(\phi, \phi_{k|y=0}, \phi_{k|y=1}) &= \prod_{i=1}^{m}P(x^{(i)}, y^{(i)})\\
+&= \prod_{i=1}^{m}\left(\prod_{j=1}^{n_1} P(x_j^{(i)}|y; \phi_{k|y=0},\phi_{k|y=1})\right)P(y^{(i)};\phi_y)
+\end{align*} 
+And the following parameters maximize the likelihood:
+\begin{align*}
+\phi_{k|y=1} &= P(x_j=k| y=1) &= \frac{\sum_{i=1}^{m} \sum_{j=1}^{n_i} 1\{x_j^{(i)} = k \wedge y^{(i)} =1\}}{\sum_{i=1}^{m} 1 \{y^{(i)} = 1\} n_i}\\
+\phi_{k|y=0} &= P(x_j=k| y=0) &= \frac{\sum_{i=1}^{m} \sum_{j=1}^{n_i} 1\{x_j^{(i)} = k \wedge y^{(i)} =0\}}{\sum_{i=1}^{m} 1 \{y^{(i)} = 0\} n_i}\\
+\phi_y &= P(y=1) &= \frac{\sum_{i=1}^{m} 1\{y^{(i)} =1\}}{m}
+\end{align*} 
+And of course, Laplace smoothing can be used to optimize the parameter:
+\begin{align*}
+\phi_{k|y=1} &= \frac{\sum_{i=1}^{m} \sum_{j=1}^{n_i} 1\{x_j^{(i)} = k \wedge y^{(i)} =1\} + 1}{\sum_{i=1}^{m} 1 \{y^{(i)} = 1\} n_i + |V|}\\
+\phi_{k|y=0} &= \frac{\sum_{i=1}^{m} \sum_{j=1}^{n_i} 1\{x_j^{(i)} = k \wedge y^{(i)} =0\}+1}{\sum_{i=1}^{m} 1 \{y^{(i)} = 0\} n_i + |V|}\\
+\end{align*} 
+In fact naive Bayes can work very well and easy. Try it first!
+\end{document}
+

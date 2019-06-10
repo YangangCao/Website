@@ -1,0 +1,43 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -------------------------------------------------
+= Django Admin
+
+Django entirely automates creation of admin interfaces for models. It is for site manager.
+
+To create admin site:
+
++$ python manage.py createsuperuser+
+
+then follow instruction to finish the configuration. Here use username "baboo".
+
+To enter the admin site, run the server and go to +127.0.0.1:8000\/admin+ and enter the username and password.
+
+Editable content are provided by +django.contrib.auth+, the authentication framework shipped by django.
+
+=== Make App Modifiable in Admin(VIP for development efficiency)
+
+Add question model to admin page:
+
+~~~
+{polls\/admin.py}{pyint}
+from django.contrib import admin
+
+# Register your models here.
+from .models import Question
+from .models import Choice
+
+admin.site.register(Question)
+admin.site.register(Choice)
+~~~
+
+Comments:
+
+- control page is generated from the model
+
+- html display is determined by field types(automatic way)
+
+- the bottom contains the control
+
+== License
+Copyright 2015-2018 Baboo J. Cui.

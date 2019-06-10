@@ -1,0 +1,59 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -------------------------------------------------
+= Preview of Calculus
+
+The idea of calculus is in our daily life, the origin goes back at least 2500 years to the ancient Greeks.
+
+- Approximate the area of a circle by polygon
+
+- Approximate the slope of a curve by secant line
+
+- Approximate the velocity by average velocity in a short time
+
+- Find the limit of a sequence
+
+- Sum of a series
+
+= There are 18 chapters based on textbook
+
+- Functions and Models
+
+- Limits and Derivatives
+
+- Differentiation Rules
+
+- Application of Differentiation
+
+- Integrals
+
+- Application of Integration
+
+- Techniques of Integration
+
+- Future Application of Integration
+
+- Differential Equations
+
+- Parametric Equations and Polar Coordinates
+
+- Sequences and Series
+
+- Vectors and The Geometry of Space
+
+- Vector Functions
+
+- Partial Derivative
+
+- Multiple Integration
+
+- Vector Calculus
+
+- Second-Order Differential Equation
+
+- Extra
+
+
+
+== License
+Copyright 2015-2018 Baboo J. Cui.

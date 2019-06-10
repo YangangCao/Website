@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title></title>
+<!-- MathJax -->
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-item"><a href="../index.html" class="current">Home</a></div>
+<div class="menu-category">Topic Name</div>
+<div class="menu-item"><a href="start.html">Get&nbsp;Started</a></div>
+<div class="menu-item"><a href="database.html">Database</a></div>
+<div class="menu-item"><a href="poll_model.html">Model</a></div>
+<div class="menu-item"><a href="api.html">API</a></div>
+<div class="menu-item"><a href="admin.html">Admin</a></div>
+<div class="menu-item"><a href="view.html">View</a></div>
+<div class="menu-category">Others</div>
+<div class="menu-item"><a href="cheat.html">cheating</a></div>
+<div class="menu-category">Service</div>
+<div class="menu-item"><a href="../payment.html">Payment</a></div>
+<div class="menu-item"><a href="../contact.html">Contact</a></div>
+</td>
+<td id="layout-content">
+<h1></h1>
+<h1>Create Poll Model</h1>
+<p>models – essentially, your database layout, with additional metadata.</p>
+<p>we’ll create two models: Question and Choice. </p>
+<p>A Question has a question and a publication date. </p>
+<p>A Choice has two fields: the text of the choice and a vote tally. </p>
+<div class="codeblock">
+<div class="blocktitle">polls/models.py</div>
+<div class="blockcontent"><pre>
+from django.db import models
+
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+</pre></div></div>
+<p>Comments on code:</p>
+<ul>
+<li><p>each class is subclass from django.db.models.Model</p>
+</li>
+</ul>
+<ul>
+<li><p>each field is represented by an instance of a Field class, show what type of data it is</p>
+</li>
+</ul>
+<ul>
+<li><p>Filed class will create a column in table</p>
+</li>
+</ul>
+<ul>
+<li><p>relationship is defined using ForeignKey. The relationships could be many-to-one, many-to-many, and one-to-one</p>
+</li>
+</ul>
+<ul>
+<li><p>create a database schema (CREATE TABLE statements) for this app.</p>
+</li>
+</ul>
+<ul>
+<li><p>create a Python database-access API for accessing Question and Choice objects.</p>
+</li>
+</ul>
+<h1>Install App</h1>
+<p>Need to add apps to project setting:</p>
+<div class="codeblock">
+<div class="blocktitle">settings.py</div>
+<div class="blockcontent"><pre>
+INSTALLED_APPS = [
+    'polls.apps.PollsConfig'
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+</pre></div></div>
+<p>after register the app, migration should be run by:</p>
+<p><tt>$ python manage.py makemigrations polls</tt></p>
+<p>There will be some files stored in migration folder.</p>
+<p>By running makemigrations, you’re telling Django that you’ve made some changes to your models and that you’d like the changes to be stored as a migration.</p>
+<p>This will automatically manage database schema, and the corresponding SQL can be obtained by:</p>
+<p><tt>$ python manage.py sqlmigrate polls 0001</tt></p>
+<p>run migrate again to create those model tables in your database:</p>
+<p><tt>$ python manage.py migrate</tt></p>
+<p>this command synchroniz the changes you made to your models with the schema in the database. You don't need to deal with database anymore.</p>
+<p><b>Summary</b> of make model change:</p>
+<ul>
+<li><p>change your models (in models.py).</p>
+</li>
+</ul>
+<ul>
+<li><p>run <tt>$ python manage.py makemigrations</tt> to create migrations for those changes</p>
+</li>
+</ul>
+<ul>
+<li><p>run <tt>$ python manage.py migrate</tt> to apply those changes to the database.</p>
+</li>
+</ul>
+<h2>License</h2>
+<p>Copyright 2015-2018 Baboo J. Cui.</p>
+</td>
+</tr>
+</table>
+</body>
+</html>

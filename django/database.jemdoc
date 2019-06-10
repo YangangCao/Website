@@ -1,0 +1,61 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -------------------------------------------------
+= Database
+
+By default, django use SQLite. MySQL is used in our case and here is the config:
+
+~~~
+{MySQL Config}{pyint}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'poll',
+        'HOST': '',
+        'USER': 'root',
+        'PASSWORD': '00000000',
+        'PORT': '3306'
+    }
+}
+~~~
+
+Comments:
+
+- NAME is the schema name
+- USER is the user name
+
+
+VIP: when image not found add the following code in init.py:
+
+~~~
+{Adding code to site init.py}{pyint}
+import pymysql
+pymysql.install_as_MySQLdb()
+~~~
+
+
+By default, Timezone is UTC.
+
+
+by default, INSTALLED_APPS contains(if not needed, just comment out items):
+
+~~~
+{INSTALLED_APPS}{pyint}
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+~~~
+
+we need to create the tables in the database before we can use them. To to this:
+
++$ python manage.py migrate+
+
+This step creates any necessary database tables according to the database settings setting.py
+
+== License
+Copyright 2015-2018 Baboo J. Cui.

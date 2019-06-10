@@ -1,0 +1,42 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+
+== Alphabetic List
+It's easy, but we do need to remember them!
+
+- A --- Alpha
+- B --- Bravo
+- C --- Charlie
+- D --- Delta
+- E --- Echo
+- F --- Foxtrot
+- G --- Golf
+
+- H --- Hotel
+- I --- India
+- J --- Juliett
+- K --- Kilo
+- L --- Limma
+- M --- Mike
+- N --- November
+
+- O --- Oscar
+- P --- Papa
+- Q --- Quebec
+
+- R --- Romeo
+- S --- Sierra
+- T --- Tango
+
+- U --- Uniform
+- V --- Victor
+- W --- Whiskey
+
+- X --- X-ray
+- Y --- Yankee
+- Z --- Zulu
+
+Hopefully this works for you!
+
+== License
+Copyright 2015-2019 Baboo J. Cui.

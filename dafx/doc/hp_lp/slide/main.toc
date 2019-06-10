@@ -1,0 +1,6 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Definition of Low/Highpass Filters}{3}{0}{1}
+\beamer@sectionintoc {2}{First-Order Allpass Filter}{5}{0}{2}
+\beamer@sectionintoc {3}{First-Order Low/Highpass Filter}{9}{0}{3}
+\beamer@subsectionintoc {3}{1}{first-order lowpass filter}{12}{0}{3}
+\beamer@subsectionintoc {3}{2}{first-order highpass filter}{14}{0}{3}

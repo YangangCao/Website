@@ -1,0 +1,49 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= ----------------------
+= nohup
+
+- nohup is short for "no hang up", the process won't be killed when terminal is closed
+
+- it has format: +$ nohup COMMAND \[Arg\] \[&\]+
+
+- by default, the output info will be written into  +nohup.out+
+
+
+=== "&", run in background
+
+- usually nohup ended up with "&"
+
+- "&" indicates to run program in background
+
+- prevent terminal from being occupied by the program
+
+
+=== Related
+
+It is highly related to standard IO, and here is a quick reminder:
+
+- "\/dev\/null": null device
+
+- 0: stdin
+
+- 1: stdout
+
+- 2: stderr
+
+
+Extension:
+
+- use +$ jobs -l+ to check the process in backgroud, only works for current terminal
+
+- use +$ ps -ef+ to check the proecee if the terminal is closed
+
+- use +$ kill -9 PROCESS_NUMBER+ to kill the process in background
+
+Here are some example:
+
+
+
+
+== License
+Copyright 2015-2019 Baboo J. Cui.

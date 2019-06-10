@@ -1,0 +1,104 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage{tikz} % system block diagram
+\usepackage{textcomp}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{shapes,arrows} % system block diagram
+\usepackage{booktabs}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} % matlab code block
+\author{Yangang Cao}
+\date{June 6, 2019}
+\newcommand{\degree}{^\circ}
+\tikzset{
+	delay/.style    = {draw, thick, rectangle, minimum height = 3em,
+		minimum width = 3em},
+	sum/.style      = {draw, circle, node distance = 2cm}, 
+	prod/.style     = {draw, circle, node distance = 2cm},
+	input/.style    = {coordinate}, % Input
+	output/.style  = {coordinate} % Output
+}
+% Defining string as labels of certain blocks.
+\newcommand{\product}{$\displaystyle \times$}
+\newcommand{\delay}{\large$z^{-1}$}
+\begin{document}
+
+\title{Eigenvalues and Eigenvectors}
+\maketitle
+Consider this equation
+\[
+(A-\lambda I)x=0
+\]
+It is called {\bfseries eigenvalue equation} of matrix $A$, $\lambda$ and $x$ are called {\bfseries eigenvalues} and {\bfseries eigenvectors} respectively, we are interested only in those particular values $\lambda$ for which there is a nonzero eigenvector $x$, so {\bfseries$A-\lambda I$ must be singular}. We emphasize the steps in solving $(A-\lambda I)x=0$:
+\begin{itemize}
+\item {\bfseries Compute the determinant of $A-\lambda I$.} With $\lambda$ subtracted along the diagonal, this determinant is a polynomial of degree $n$. It starts with $(-\lambda)^n$.
+\item {\bfseries Find the roots of this polynomial.} The $n$ roots are the eigenvalues of $A$.
+\item {\bfseries For each eigenvalues solve the equation $(A-\lambda I)x=0$.} Since the determinant is zero, there are solutions other than $x=0$. Those are eigenvectors.
+\end{itemize}
+There are some properties about $\lambda$ and $x$:
+\begin{itemize}
+\item$
+\text{Trace of $A$} = \lambda_1+\cdots+\lambda_n=a_{11}+\cdots+a_{nn}
+$
+\item$
+\lambda_1\cdot \  \cdots \ \cdot\lambda_n= |A|
+$
+\item If $x_1,\cdots,x_k$ correspond to {\bfseries different} sigenvalues $\lambda_{1},\cdots,\lambda_{k}$, then those eigenvectors are linearly independent.
+\end{itemize}
+
+Suppose the $n$ by $n$ matrix $A$ has $n$ linearly independent eigenvectors. If these eigenvectors are the columns of a matrix $S$, then $S^{-1}AS$ is a diagonal matrix $\Lambda$. The eigenvalues of $A$ are on the diagonal of $\Lambda$: 
+\[
+S^{-1} A S=\Lambda=\left[\begin{array}{cccc}{\lambda_{1}} & {} & { } & {} \\ { } & {\lambda_{2}} & {} & {} \\ {} & {} & {\ddots} & { } \\ { } & { } & { } & {\lambda_{n}}\end{array}\right]
+\]
+We call $S$ the {\bfseries eigenvector matrix} and $\Lambda$ the {\bfseries eigenvalue matrix}. According to diagonalization, we can calculate powers and products easily:
+\[
+\Lambda^k=(S^{-1}AS)(S^{-1}AS)\cdots(S^{-1}AS)=S^{-1}A^kS
+\]
+
+Generally, the matrix $A$ and $M^{-1}AM$ ($M$ is any invertible matrix) are {\bfseries similar}, Going form one to the other is a {\bfseries similarity transformation.} $\Lambda$ is a special similar form. Similar matrices share the same eigenvalues. 
+
+
+If columns of $Q$ contain orthonormal eigenvectors of $A$, we can get:
+\[
+\Lambda = Q^TAQ=Q^{-1}AQ
+\]
+\section{Complex Matrices}
+\subsection{Basics}
+A review of complex numbers is easy to give:
+\[
+i^2=-1
+\]
+\[
+a+i b=\overline{a-i b}=r e^{i \theta}
+\]
+\[
+r = |a+ib| = \sqrt{a^2+b^2}
+\]
+\[
+\theta=arctan(\frac{b}{a})
+\]
+\subsection{Transposes in the Complex Case}
+By definition, the {\bfseries complex vector space $C^n$} contains all vectors $x$ with $n$ complex components:
+$$
+x=\left[\begin{array}{c}{x_{1}} \\ {x_{2}} \\ {\vdots} \\ {x_{n}}\end{array}\right] \text{with components } x_j = a_j + ib_j
+$$
+For complex matrices, a superscript H (or a star) combines both conjugate and tranpose, and it is called $A$ {\bfseries Hermitian}.
+\[
+\overline{A}^T=A^H=A^*
+\]
+\subsection{Hermitian Matrices}
+{\bfseries Hermitian matrices} si defined:
+\[
+A=A^H
+\]
+If $A=A^H$:
+\begin{itemize}
+\item For all complex vector $x$, the number $x^HAx$ is real.
+\item Every eigenvalue is real.
+\item Two eigenvectors of a real symmetric matrix or a Hermitian matrix, if they come from different eigenvalues. are orthogonal to one another.
+\end{itemize}
+\end{document}

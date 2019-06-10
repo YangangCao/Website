@@ -1,0 +1,69 @@
+# jemdoc: menu{MENU}{index.html}, nofooter
+
+= -------------------------------------------------
+= System and Control Theorem
+
+This is designed for graduate school students.
+
+== Prerequisites
+
+- Linear Algebra
+
+- Calculus
+
+- Signal and System
+
+= Contents
+
+=== Math Review(Optional)
+
+[./a1/main.pdf a1 - xx]
+
+=== System
+
+[./01/main.pdf 01 - Systems]
+
+=== Optimal Control
+
+=== State Estimation
+
+- Functions and Models
+
+- Limits and Derivatives
+
+- Differentiation Rules
+
+- Application of Differentiation
+
+- Integrals
+
+- Application of Integration
+
+- Techniques of Integration
+
+- Future Application of Integration
+
+- Differential Equations
+
+- Parametric Equations and Polar Coordinates
+
+- Sequences and Series
+
+- Vectors and The Geometry of Space
+
+- Vector Functions
+
+- Partial Derivative
+
+- Multiple Integration
+
+- Vector Calculus
+
+- Second-Order Differential Equation
+
+- Extra
+
+
+
+== License
+Copyright 2015-2018 Baboo J. Cui.
