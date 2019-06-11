@@ -6,7 +6,7 @@
 \usepackage{amssymb}
 \usepackage{enumerate}
 \usepackage{graphicx}
-
+\usepackage{framed} 
 
 \author{Baboo J. Cui}
 \title{Linear Quadratic Regulator(LQR) for Discrete-Time System}
@@ -344,4 +344,104 @@ $$
 V_{N-1}(x)&=x^TQx+\min_{v}[v^TRv+V_{N}(Ax+Bv)]\\&=x^TQx+\min_{v}[v^TRv+(Ax+Bv)^TP_N(Ax+Bv)]
 \end{aligned}
 $$
+\subsection{General Case}
+Suppose value function at time $t+1$ is quadratic: $V_{t+1}(x)=x^TP_{t+1}x$
+\begin{itemize}
+\item Value function at time $t$ is also quadratic:
+\[
+V_t(x)=x^TP_tx,\ \  \forall x\in \mathbb{R}^n,
+\]
+\item $P_t$ obtained from $P_{t+1}$ according to the {\bfseries Riccati recursion}:
+\[
+P_t=Q+A^TP_{t+1}A - A^TP_{t+1}B(R+B^TP_{t+1}B)^{-1}B^TP_{t+1}A
+\]
+\item Optimal control at time $t$ for the given state $x[t]=x$ is:
+\[
+u^*[t] = -(R+B^TP_{t+1}B)^{-1}B^TP_{t+1}Ax=-K_tx
+\]
+which is a linear state feedback control!
+\end{itemize}
+\subsection{LQR Solution Algorithm}
+\begin{framed}
+\noindent Set $P_N=Q_f$\\
+\noindent{\bfseries for} $t=N-1,N-2,...,0$ {\bfseries do}\\
+\indent Compute the value functions backward in time:\\
+\indent $P_t=Q+A^TP_{t+1}A - A^TP_{t+1}B(R+B^TP_{t+1}B)^{-1}B^TP_{t+1}A$\\
+{\bfseries end for}\\
+Return $V_0(x_0)$ as the optimal cost\\
+Set $x^*[0]=x_0$\\
+{\bfseries for} $t=0,1,...,N-1$ {\bfseries do}\\
+\indent Recover the optimal control and state trajectory forward in time:\\
+\indent $u^*[t]=-(R+B^TP_{t+1}B)^{-1}B^TP_{t+1}Ax^*[t]$\\
+\indent $x^*[t+1]=Ax^*[t]+Bu^*[t]$\\
+{\bfseries end for}\\
+Return $u^*$ and $x^*$ as the optimal control and state sequences
+\end{framed}
+\subsection{Remarks}
+\begin{itemize}
+\item Value function at any time is quadratic (easy numeric representation)
+\item Optimal control strategy is of the state feedback form (though with time-varying gains)
+\item Yield the optimal solutions for all initial conditions $x_0$ and all initial times $t_0\in\{0,1,...,N\}$ simultaneously
+\item Easily extended to time-varying dynamics and costs cases
+\end{itemize}
+\subsection{Example}
+$$
+x[k+1]=\left[\begin{array}{ll}{1} & {1} \\ {0} & {1}\end{array}\right] x[k]+\left[\begin{array}{l}{0} \\ {1}\end{array}\right] u[k], \quad x[0]=\left[\begin{array}{l}{1} \\ {0}\end{array}\right]
+$$
+$$
+y[k]=\left[\begin{array}{ll}{1} & {0}\end{array}\right] \times[k]
+$$
+Cost function to be minimized
+$$
+J(U)=\sum_{k=0}^{N-1}\|u[k]\|^{2}+\rho \sum_{k=0}^{N}\|y[k]\|^{2}
+$$
+\begin{itemize}
+\item Time horizon $N=20$
+\item State weights $Q=Q_f=\rho C^TC$
+\item Control weight $R=1$
+\item Optimal control is of the form $u^*[t]=[a_t\ \ b_t]\ x^*[t]$ 
+\end{itemize}
+\subsection{Optimal Solution of Example}
+\subsection{Steady State Optimal Control}
+Plot of the Kalman gain $K(k)=[K_1(k)\ \ K_2(k)]$ for $\rho=0.1$:
+
+\noindent After sufficient number of iterations in the example
+\begin{itemize}
+\item The value function converages to the solution of the matrix equation:
+\[
+P_{ss}=Q+A^TP_{ss}A - A^TP_{ss}B(R+B^TP_{ss}B)^{-1}B^TP_{ss}A
+\]
+\item The Kalman gain converges to
+\[
+K_{ss} =(R+B^TP_{ss}B)^{-1}B^TP_{ss}A
+\]
+\end{itemize}
+\subsection{Convergence of Riccati Recursion}
+{\bfseries Theorem: }If $(A,B)$ is stabilizable, then Riccati recursion starting from any $P_N$:
+\[
+P_t=Q+A^TP_{t+1}A - A^TP_{t+1}B(R+B^TP_{t+1}B)^{-1}B^TP_{t+1}A
+\]
+will converge to a solution $P_{ss}$ of the {\bfseries Algebraic Riccati Equation(ARE)}
+\[
+P_{ss}=Q+A^TP_{ss}A - A^TP_{ss}B(R+B^TP_{ss}B)^{-1}B^TP_{ss}A
+\]
+If further $Q=C^TC$ for some $C$ such that $(C,A)$ is detectable, then the ARE has a unique positive semidefinite $P_{ss}$. Also, in this case by applying the steady-state optimal control with gain
+\[
+K_{ss}=(R+B^TP_{ss}B)^{-1}B^TP_{ss}A
+\]
+the closed-loop system $A_{cl}=A-BK_{ss}$ is stable.
+\subsection{Infinite Horizon LQR Problem}
+{\bfseries Problem: }Find optimal $U=\{u[0],u[1],...\}$ to minimize
+$$
+J(U)=\sum_{k=0}^{\infty}\left(x[k]^{T} Q x[k]+u[k]^{T} R u[k]\right)
+$$
+\begin{itemize}
+\item Problem invariant to time-shift: same problem faced again and again
+\item Thus, value function is indepedent of time. with Bellman equation:
+$$
+V(x)=x^{T} Q x+\min _{v}\left[v^{T} R v+V(A x+B v)\right]
+$$
+\item Infinite value function possible
+\end{itemize}
+{\bfseries Theorem: }If $(A,B)$ is stabilizable and $(C,A)$ is detectable where $Q=C^TC$, then the value function $V(x)$ of the infinite horizon problem is $V(x)=x^TP_{ss}x$ where $P_{ss}$ is the unique positive semidefinite solution to the discrete-time ARE and the optimal control is stationary $u^*(t)=-K_{ss}x^*(t)$.
 \end{document}

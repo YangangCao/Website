@@ -335,9 +335,20 @@ y(n) = y_h(n) + y_p(n)
 \end{itemize}
 One more thing: difference equation can be obtained from the zero-state response of the system.
 
-
-
-
+\subsection{The IR of LTI Recursive System}
+Essentially, the response of a unit impulse to relaxed system is the special zero-state output(IR):
+\[
+y_{zs}(n) =h(n)
+\]
+consequently, the response of system to a unit impulse consists only of the solution to homogeneous equation. When the system is $N$-th order, the solution is:
+\[
+y_h (n) = \sum_{k=1}^{N} C_k \lambda^n k
+\]
+when the roots $\lambda_k$ are distinct, the IR is:
+\[
+h (n) = \sum_{k=1}^{N} C_k \lambda^n_k
+\]
+So the necessary and sufficient condition for stability of causal IIR system is that all roots of characteristic polynomial are less than unity in magnitude. 
 
 
 

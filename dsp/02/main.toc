@@ -19,5 +19,6 @@
 \contentsline {subsection}{\numberline {4.1}Recursive and Non-recursive DT System}{8}
 \contentsline {subsection}{\numberline {4.2}LTI System Characterized by Constant-Coefficient Difference Equations}{8}
 \contentsline {subsection}{\numberline {4.3}Solution to Linear Constant-Coefficient Difference Equations}{9}
-\contentsline {section}{\numberline {5}Extra}{9}
-\contentsline {subsection}{\numberline {5.1}Complicate Signal Manipulation}{9}
+\contentsline {subsection}{\numberline {4.4}The IR of LTI Recursive System}{9}
+\contentsline {section}{\numberline {5}Extra}{10}
+\contentsline {subsection}{\numberline {5.1}Complicate Signal Manipulation}{10}

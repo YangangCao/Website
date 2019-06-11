@@ -2,21 +2,22 @@
 
 VIP Members
     Baboo Cui           [./members/baboo.html]
-    Xinwen Xu           [./members/xw.html]
+    Xinwen Xu           [./members/xinwen.html]
+    Yangang Cao         [./members/yangang.html]
 
 Classes(UGS)
-    Calculus            [./calculus/00.html]
-    Linear Algebra      [./calculus/00.html]
+    Calculus            [./calculus/index.html]
+    Linear Algebra      [./la/index.html]
 
 Classes(GS)
-	Linear System		[Tmp.html]
-    DSP					[Tmp.html]
+    Linear System	[./ls/index.html]
+    DSP			[./dsp/index.html]
     Optimal Control     [tmp.html]
 
 Classes(CS)
     Shell               [./shell/index.html]
-	C Programming		[Tmp.html]
-	Python 				[Tmp.html]
+    C Programming	[Tmp.html]
+    Python 		[Tmp.html]
 
 Projects
     DAFX                [/dafx/dafx.html]
