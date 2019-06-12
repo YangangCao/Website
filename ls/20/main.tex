@@ -1,0 +1,220 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{framed} 
+
+\author{Baboo J. Cui, Yangang Cao}
+\title{Linear Quadratic Regulation: II}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{C-T LQR Problem Formulation}
+A continuous-time LTI system
+\[
+\dot{x} = Ax+Bu,\ \ x(0)=x_0
+\]
+{\bfseries Problem: }Given a time horizon $t\in [ 0,t_f]$, find the optimal input $u(t)$, $t\in[0,t_f]$, that minimizes the cost function
+$$
+J(u)=\int_{0}^{t_{f}} \underbrace{\left(x(t)^{T} Q x(t)+u(t)^{T} R u(t)\right)}_{\text { running cost }} d t+\underbrace{x\left(t_{f}\right)^{T} Q_{f} x\left(t_{f}\right)}_{\text { terminal cost }}
+$$
+\begin{itemize}
+\item State weight matrix $Q=Q^T\geqslant0$
+\item Control weight matrix $R=R^T\geqslant0$
+\item Final state weight matrix $Q_f=Q^T_f\geqslant0$ 
+\item Time horizon $t_f$(could be infinity)
+\end{itemize}
+\section{Value Function of C-T LQR Problem}
+The value function at time $t\in[0,t_f]$ and state $x\in \mathbb{R}^n$ is
+$$
+V_{t}(x)=\min _{u(\tau), \tau \in\left[t, t_{f}\right]} \int_{t}^{t_{f}}\left(x(s)^{T} Q x(\tau)+u(\tau)^{T} R u(\tau)\right) d \tau+x\left(t_{f}\right)^{T} Q_{f} x\left(t_{f}\right)
+$$
+with the initial condition $x(t)=x$
+\begin{itemize}
+\item Optimal cost of LQR problem on a shorter time horizon $[t,t_f]$
+\item Optimal cost-to-go assuming the state starts from $x$ at time $t$
+\item $V_0(x_0)$ is the optimal cost of the original LQR problem
+\end{itemize}
+\section{Solution Overview}
+\begin{itemize}
+\item Value function at terminal time is quadratic: $V_{t_f}(x)=x^TQ_fx$
+\item Value function at any time $t\in[0,t_f]$ is also quadratic:
+\[
+V_t(x)=x^TP(t)x
+\]
+\item Value functions at different times are related by the (continuous-time Riccati) matrix differential equation
+\[
+\dot{-P(t)}=Q+P(t)A + A^TP(t)-P(t)BR^{-1}B^TP(t)
+\]
+\item Integrating the differential equation backward in time to yield $P(0)$
+\item Solution to the original problem is given by $V_0(x_0)=x^T_0P(0)x_0$
+\item Optimal control is a linear state feedback controller:
+$$
+u^{*}(t)=-R^{-1} B^{T} P(t) x^{*}(t)
+$$
+\end{itemize}
+\section{Heuristic Derivation of Value Functions}
+\begin{itemize}
+\item Assume the system state starts from $x$ at time $t$:$x(t)=x$
+\item Assume the control input is kept constant briefly:
+$$
+u(s) \equiv w, \quad \forall s \in[t, t+\delta]
+$$
+\item At time $t+\delta$ for $\delta$ small, we have
+$$
+x(t+\delta)=e^{A \delta} x(t)+\int_{t}^{t+\delta} e^{A(t+\delta-\tau)} B u(\tau) d \tau \simeq x+\delta(A x+B w)
+$$
+\end{itemize}
+\section{Dynamic Programming Principle}
+{\bfseries Bellman equation:} The (optimal) cost-to-go at time $t$ from $x$ is
+$$
+V_{t}(x) \simeq \min _{w}\left[\underbrace{\delta\left(x^{T} Q x+w^{T} R w\right)}_{\text { running cost during }[t, t+\delta)}+\underbrace{V_{t+\delta}(x+\delta(A x+B w))}_{\text { cost-to-go from time } t+\delta}\right]
+$$
+Expand and let $\delta\rightarrow0$, we have
+$$
+-x^{T} \dot{P}(t) x=\min _{w}\left\{x^{T} Q x+w^{T} R w+x^{T} P(t)(A x+B w)+(A x+B w)^{T} P(t) x\right\}
+$$
+\section{Continuous-Time Riccati Equation}
+As a result, the optimal control for state $x$ at time $t$ is
+$$
+u^{*}(t)=w^{*}=-K(t) x=
+-\underbrace{R^{-1} B^{T} P(t)x}_{\text { Kalman gain }}
+$$
+and $P(t)$ satisfies the {\bfseries continuous-time Riccati differential equation}
+$$
+-\dot{P}(t)=Q+P(t) A+A^{T} P(t)-P(t) B R^{-1} B^{T} P(t), \quad 0 \leqslant t \leqslant t_{f}
+$$
+with (terminal) condition $P(t_f)=Q_f$
+\section{C-T LQR Solution Algorithm}
+\begin{enumerate}[1.]
+\item Set $P(t_f)=Q_f$
+\item Solve the Riccati equation backward in time:
+\[
+-\dot{P}(t)=Q+P(t) A+A^{T} P(t)-P(t) B R^{-1} B^{T} P(t)
+\]
+\item Return $V_0(x_0)=x_0^TP(0)x_0$ as the optimal cost
+\item Solve forward in time the closed-loop system dynamics under the linear state feedback control $u(t)=-K(t)x(t):$
+$$
+\dot{x}^{*}(t)=(A-B K(t)) x^{*}(t), \quad x^{*}(0)=x_{0}
+$$
+where $K(t)$ is the Kalman gain $K(t)=R^{-1}B^TP(t)$
+\item Return $x^*(t)$ as the optimal state trajectory and return $u^*(t)=-K(t)x^*(t)$ as the optimal control input
+\end{enumerate}
+\section{Infinite Horizon Problem}
+{\bfseries Problem: }Find the optimal control $u(t),t\geqslant0$, to
+$$
+\text { minimize } \int_{0}^{\infty}\left(x(t)^{T} Q x(t)+u(t)^{T} R u(t)\right) d t
+$$
+subject to the constraint $\dot{x}=Ax+Bu, x(0)=x_0$
+\begin{itemize}
+\item State weight $Q\geqslant0$ and control weight $R>0$
+\item No terminal cost
+\end{itemize}
+{\bfseries Value function:}
+$$
+V(x)=\min _{u} \int_{0}^{\infty}\left(x(t)^{T} Q x(t)+u(t)^{T} R u(t)\right) d t
+$$
+subject to  $\dot{x}=Ax+Bu, x(0)=x_0$
+\begin{itemize}
+\item Value function is independent of the starting time
+\item Optimal cost of the original problem: $V(x_0)$
+\end{itemize}
+\section{Infinite Horizon Problem}
+{\bfseries Fact:} If $(A, B)$  is stabilizable, then $V(x)=x^{T} P x$   for some $P=P^{T}>0$ is a finite quadratic function, and the optimal control is a static state feedback control $u(t)=-Kx(t)$, where $K=R^{-1}B^TP$.
+\begin{itemize}
+\item $P$ solves the Continuous-time Algrbraic Riccati Equation(CARE)
+$$
+Q+P A+A^{T} P-P B R^{-1} B^{T} P=0
+$$
+\item $P$ can be approximated by solving the LQR problem over sufficiently large time horizon (with $Q_f=0$), or by Matlab command care
+\end{itemize}
+{\bfseries Fact:} If $(A, B)$  is stabilizable and $Q=C^TC$ with $(C,A)$ detectable, then closed-loop system $A-BK$ under the optimal control $u=-Kx$ is stable.
+\section{Alternative Solution by Lagrange Multiplier}
+Finite horizon LQR problem posed as {\bfseries constrained optimization problem}:
+$$
+\text { minimize } J(u)=\frac{1}{2} \int_{0}^{t_{f}}\left(x(t)^{T} Q x(t)+u(t)^{T} R u(t)\right) d t+\frac{1}{2} x\left(t_{f}\right)^{T} Q_{f} x\left(t_{f}\right)
+$$
+subject to $\dot{x}(t)=Ax(t)+Bu(t),t\in[0,t_f]$
+\begin{itemize}
+\item Optimization variables are $u(t),t\in[0,t_f]$
+\item Infinite number of equality constraints, one for each $t\in[0,t_f]$
+\end{itemize}
+Convert the above problem to {\bfseries unconstrained optimization problem}
+$$
+L(u, x, \lambda)=J(u)+\int_{0}^{t_{f}} \lambda(t)^{T}(A x(t)+B u(t)-\dot{x}(t)) d t
+$$
+\begin{itemize}
+\item Lagrange multiplier function $\lambda:[0,t_f]\rightarrow\mathbb{R}^n$
+\item Original problem solution:
+$$
+\min _{u} J(u)=\min _{u, x} \max _{\lambda} L(u, x, \lambda)=\max _{\lambda} \min _{u, x} L(u, x, \lambda)
+$$
+\end{itemize}
+\section{Optimality Conditions}
+Optimal solution $(u^*,x^*,\lambda^*)$ must satisfy $\frac{\partial L}{\partial u}=0, \frac{\partial L}{\partial x}=0$\\
+Use integration by part to rewrite $L$ as
+$$
+L=J(u)+\int_{0}^{t_{f}}\left[\lambda(t)^{T}(A x(t)+B u(t))+\dot{\lambda}(t)^{T} x(t)\right] d t-\lambda(t)^{T} x\left.(t)\right|_{0} ^{t_{f}}
+$$
+{\bfseries Needle-like variations}: for each $t\in[0,t_f]$, perturb $u(t)$ and $x(t)$ locally
+$$
+\begin{aligned} \nabla_{u(t)} L=R u(t)+B^{T} \lambda(t)=0 &  \quad\Rightarrow \quad u(t)=-R^{-1} B^{T} \lambda(t) \\ \nabla_{x(t)} L=Q x(t)+A^{T} \lambda(t)+\dot{\lambda}(t)=0 &  \quad\Rightarrow \quad \lambda(t)=-A^{T} \lambda(t)-Q x(t) \\ \nabla_{x\left(t_{f}\right)} L=Q_{f} x\left(t_{f}\right)-\lambda\left(t_{f}\right)=0 &  \quad\Rightarrow \quad \lambda\left(t_{f}\right)=Q_{f} x\left(t_{f}\right) \end{aligned}
+$$
+\begin{itemize}
+\item $\lambda$ is called the co-state, and satisfies the {\bfseries co-state equation}:
+$$
+\dot{\lambda}(t)=-A^{T} \lambda(t)-Q x(t), \quad t \in\left[0, t_{f}\right]
+$$
+with terminal boundary condition $\lambda(t_f)=Q_fx(t_f)$
+\end{itemize}
+\section{Hamiltonian Equation}
+{\bfseries Fact}: The optimal control $u^*(t)$ is given by
+$$
+u^{*}(t)=-R^{-1} B^{T} \lambda^{*}(t), \quad t \in\left[0, t_{f}\right]
+$$
+while the optimal state $x^*$ and co-state $\lambda^*$ satisfies
+$$
+\frac{d}{d t}\left[\begin{array}{l}{x^{*}(t)} \\ {\lambda^{*}(t)}\end{array}\right]=\underbrace{\left[\begin{array}{cc}{A} & {-B R^{-1} B^{T}} \\ {-Q} & {-A^{T}}\end{array}\right]}_{\text { Hamiltonian }}\left[\begin{array}{c}{x^{*}(t)} \\ {\lambda^{*}(t)}\end{array}\right], \quad t \in\left[0, t_{f}\right]
+$$
+with two-point boundary condition: $x^{*}(0)=x_{0}, \lambda^{*}\left(t_{f}\right)=Q_{f} x^{*}\left(t_{f}\right)$
+\begin{itemize}
+\item Two-point boundary value problem
+\item Solved numerically using the shooting method
+\end{itemize}
+\section{Connecting Riccati and Hamiltonian Solutions}
+\begin{itemize}
+\item Dynamicial programming method says $u^{*}(t)=-R^{-1} B^{T} P(t) x^{*}(t)$ where $P(t)$ solves the Riccati differential equation
+$$
+-\dot{P}(t)=Q+P(t) A+A^{T} P(t)-P(t) B R^{-1} B^{T} P(t), P\left(t_{f}\right)=Q_{f}
+$$
+\item Variational method says that $u^{*}(t)=-R^{-1} B^{T} \lambda^{*}(t)$ where $\lambda^*(t)$ solves the co-state equation
+$$
+\dot{\lambda}^{*}(t)=-A^{T} \lambda^{*}(t)-Q x^{*}(t), \quad \lambda^{*}\left(t_{f}\right)=Q_{f} x^{*}\left(t_{f}\right)
+$$
+\item A natural guess is 
+$$
+\lambda^{*}(t)=P(t) x^{*}(t), \quad t \in\left[0, t_{f}\right]
+$$
+\item Indeed, this is the case: if $P(t)$ solves the Riccati equation, then $
+\lambda^{*}(t) :=P(t) x^{*}(t)
+$ must solve co-state equation
+\end{itemize}
+\section{Matrix Hamiltonian Equations}
+Consider the matrix Hamiltonian differential equation
+$$
+\frac{d}{d t}\left[\begin{array}{l}{X(t)} \\ {Y(t)}\end{array}\right]=\left[\begin{array}{cc}{A} & {-B R^{-1} B^{T}} \\ {-Q} & {-A^{T}}\end{array}\right]\left[\begin{array}{l}{X(t)} \\ {Y(t)}\end{array}\right]
+$$
+where $X(t),Y(t)\in\mathbb{R}^{n\times n}$\\
+{\bfseries Fact}: Suppose $X(t),Y(t)\in\mathbb{R}^{n\times n}$ solve the matrix Hamiltonian differential equation with boundary condition $X(t_f)=I$ and $Y(t_f)=Q_f$. Then $
+P(t) :=Y(t) X(t)^{-1}
+$ is the solution to the Riccati differential equation.
+\begin{itemize}
+\item Hence the (nonlinear) Riccati differential equation can be solved via solving the (linear) matrix Hamiltonian differential equation
+\end{itemize}
+\end{document}
