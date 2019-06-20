@@ -1,0 +1,495 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\date{June 20, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Python Q\&A}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Python Itself}
+\begin{enumerate}[1.]
+\item How to install python?\\
+Use conda directly or use brew etc
+\item How to run a python code in cosole?\\
+\$ python file\_name.py
+\item Types of python execution mode?\\
+Interactive mode ($>>>$) and command line mode (directly run python file by interpretor)
+\item Strong type vs weak typrs?\\
+If type needs to be specify when declaring the var
+\item Python3 default coding?\\
+UTF-8 for code and unicode in memory
+\item Legal variable naming?\\
+Letter, number and underscore, can't started with a number
+\item How to declare a constant?\\
+Use all capital letters, still fake constant
+\item Camel-case vs underscore naming?\\
+Just choose the one you like
+\item Basic I/O control?\\
+2 func, input() to get str and print() for output
+\item What is duck typing?\\
+Way of object inference, it is a type if it looks like it
+\end{enumerate}
+\section{Pythob Basics}
+\begin{enumerate}[1.]
+\item``//''  operator?\\
+For getting the whole part of the division
+\item ``\%'' operator?\\
+For getting the residue
+\item How to calculate a to the power of b?\\
+2 ways: a**b or pow(a, b), tip pow() is built-in
+\item Multiplication between int and str?\\
+Just repeat the str for int times
+\item Type coercion?\\
+Type(o), change o to Type, may cause error
+\item Type of value from input()?\\
+Must be str, even number from this way will be str
+\item How to get the type of an object?\\
+Function type() will return the type
+\item How to get keywords of python?\\
+$>>>$ from keyword import kwlist, and print it
+\item How many kw in python?\\
+33
+\item While else structure?\\
+Else part will be execute if break statement in while is not executed
+\item Which is faster “while 1” or “while True”?\\
+“while 1” because bool is a subclass of int, similarly “if x” is faster than “if x=True”
+\item How bool can be coerced to int?\\
+True to 1 and False to 0
+\item How number can be coerced to bool?\\
+0 to False and others are True
+\item Logic AND OR and XOR?\\
+Corresponds to \&, | and \^\ , in terms of bit
+\item Python print() format control?\\
+Placeholder: \%, string: \%s, number: \%d, \%f, \%x(hex), string canonical: \%r, tip r is for repr. Then follow \%(var1, var2…)
+\item Python print() format control with format()?\\
+Use \{\} as place holder and follow .format(var1, var2…)
+\item Common coding?\\
+UTF-8, ASCII, GBK, unicode
+\item Relationship between bit and Byte\\
+1 Byte = 8 bit, bit is the smallest unit in computer
+\item x or y?\\
+If x is true, return x, otherwise return y
+\item x and y?\\
+If x is true, return y, otherwise return x, easy for bool var, may be complicate for numbers
+\item Priority of NOT, AND, OR?\\
+NOT > AND > OR
+\item How many bits are there if decimal -> binary?\\
+Use int.bit\_length() to get
+\item How str can be coerced to bool?\\
+Empty str to false and others to True
+\item How bool can be coerced to str?\\
+True to `True' and False to `False'
+\item Does comma has effects in print()?\\
+There will be a white space, print(``a'', ``b'') -> ``a b'', there is a comma
+\item Usual input and output function of python?\\
+I: input(), O: print()
+\item Is python case-sensitive?\\
+Yes
+\item How indent is achieved in python?\\
+4 white space, not TAB! And don't mix them together
+\item How to comment code in python?\\
+Multiline: ``````xxx'''''', single line: \# xxx
+\item How to build up a block?\\
+ Start with colon (:) and block code with indent
+ \item Data type that python can directly deal with?\\
+ int, float, str, bool, None(not 0), list, dict, etc
+ \item Notion of number in binary, oct and hex?\\
+ 0b, 0o and 0x
+ \item Essential of assignment to a var?\\
+ Let the var point to a certain value(be clear about the mechanism)
+ \item Coding of str in python?\\
+ Unicode in memory, note that python code is in utf-8 for storage
+ \item Size of ASCII?\\
+ I Byte = 8bit, 256 cases
+ \item Size of Unicode?\\
+ 2 Bytes = 16bit, 65536 cases
+ \item Convert char to unicode number?\\
+ ord()
+ \item Convert unicode number to char?\\
+ chr()
+ \item How to declare str in byte?\\
+ Prefix:  b`xxx', each one occupy 1 byte
+ \item How to get size of an object in memory?\\
+ Use sys.getsizeof() function, note this will return the size of an object, which may be quite big! Str is very complicate
+ \item How to use python to run bash command?\\
+ Use os.system(“COMMAND”)
+ \item How to decoding a binary to string?\\
+ Use str.decode() method, arg could be ``ascii'', ``utf-8'', ``gb2312'', to ignore errors, add errors=`ignore'
+ \item How to encode a string to binary?\\
+ Use str.encode() method
+ \item How to format a decimal?\\
+ Use \{num:a.b f\} where num is the position, a is num of integer bit, b is for decimal, f represent float
+ \item How to find length of a list?\\
+ Use len() function, len(LIST) will return
+ \item How to find the last element of a list?\\
+ Use LIST[-1], index of -1 represent the last element, -2 for the second last one, etc
+ \item Difference between list and tuple?
+ List is mutable, declared by [ ] and tuple is immutable and declared by ()
+ \item List.append(o)?\\
+ Append obj o to the end of list
+ \item List.insert(idx, o)?\\
+ Insert obj o to index idx
+ \item List.pop() or list.pop(i)?\\
+ Pop out the last element, and pop(i) pop the element with index i
+ \item Acquire the idx element of list?\\
+ List[idx]
+\item How to init a tuple with one element?\\
+T = (obj1, ), the key is to add a comma after obj1
+\item How to understand immutability of tuple?\\
+Each element that points to won't be mutable, but the content that each points may be mutable
+\item Condition control structure?\\
+If else, or if elif else
+\item How to loop an iterable object by for?\\
+Use for loop, for item in iterable\_obj
+\item How to loop by while?\\
+Use while structure: while condition: block\_exe
+\item How to generate a range?\\
+Use range() function, range(a) will generate [0\dots a-1] and range(a, b) will generate [a, a+1\dots b-1]
+\item Difference between break and continue?\\
+Break will stop the loop and continue will simply jump to next loop, usually both are related to if condition
+\item How to terminate a python program directly?\\
+Use ctrl + c to kill the process
+\item What is dict?\\
+A key-value mechanism, also known as map in other languages
+\item How to declare a dict?\\
+Format: \{key1: val1, key2: val2, \dots\}, curly braces, comma separation, colon separation, key must be immutable
+\item Why dict can find a key value so fast?\\
+Use binary tree mechanism, which lead to log(n) time scale
+\item How to determine if a dict has a key?\\
+Use code: if key\_val in dict, or: dict.get(key\_val)
+\item How to delete a key-value in dict?\\
+Use code: dict.pop(key)
+\item Trade off between list and dict?\\
+List is slower but occupy smaller memory, dict is faster but requires more memory
+\item How to create a set?\\
+Use curly braces:\{item1, item2, \dots\} or use code set(list), which will turn a list to set
+\item Properties of set?\\
+It has no order and there is no repeats
+\item Add and remove key of a set?\\
+Corresponding to set.add(key) and set.remove(key)
+\item Common operation on sets?\\
+Union ``|'' and intersection ``\&''
+\item Difference between dict and set?\\
+Share the same mechanism but set doesn’t have value, can't put mutable obj in
+\item Is str mutable? What about list?\\
+Str is immutable and list is mutable
+\item Immutable objects?\\
+Number, string and tuple. Contents in certain add can't be changed
+\item How to find the memory address of an object?\\
+Use function id(), id(o) will return the memory add
+\item How to get console args?\\
+By import sys, and then use sys.argv[idx]
+\item What is configurative programming?\\
+A framework is created such that coding is like setting configuration
+\item Mechanism of importing a module? \\
+Python interpreter just go through line by line(interview question)
+\end{enumerate}
+\section{Functions}
+\begin{enumerate}[1.]
+\item How to define a function?\\
+Easy\dots
+\item How to specify the return type of a function?\\
+Use syntax def FUN\_NAME () -> RETURN\_TYPE:
+\item Disadvantages of declaration like def func(a=[1,2])?\\
+Args are mutable, may cause unpredicted errors!
+\end{enumerate}
+\section{OOP-Object Oriented Programming}
+\begin{enumerate}[1.]
+\item What is OOP?\\
+Take object as the basic unit for programming, OOP vs procedure-oriented-programming(set of instruction)
+\item Why OOP?\\
+Everything are objects(a set of objects) and execution becomes the interaction between instances
+\item What does an object include?\\
+2 parts, properties(data) and methods(functions)
+\item Class vs instance?\\
+Class is template, instance is the specified class, instance is based on class
+\item 3 characteristics of OOP?\\
+Encapsulation, inheritance, polymorphism
+\item How to add properties to an instance dynamically?\\
+Use form instance.var\_name = val to dynamically add a property, this won't work for other instances
+\item How to add method to class dynamically?\\
+Use form class.method\_name = func\_name, this may arise warning from the IDE
+\item What is \_\_slots\_\_ for?\\
+A var in class which control the possible property names
+\item What is the range of \_\_slots\_\_?\\
+Only work for current class, won't work for subclass
+\item What is the type of \_\_slots\_\_?\\
+It is a tuple
+\item What if both a class and its base have \_\_slots\_\_?\\
+The possible property will be the union of the two \_\_slots\_\_
+\item What is @property for?\\
+A decorator which may help us to take a method like property
+\item How many ways are there to define class methods?\\
+3 ways, regular definition(related to self), decorated by @classmethod(related to cls) and @staticmethod
+\item Difference between self and cls?\\
+Self is bound to instance of class and cls is bound to class
+\item Call of a regular method in a class?\\
+Can be called by object but not class, or by class with first arg to be an instance of that class
+\item Call of a class method in a class?\\
+Can be called by both instance and class directly
+\item Call of a static method in a class?\\
+Can be called by both instance and class directly
+\item Why static method in class instead of an independent func?\\
+To indicate that the method belongs to the class and by inheritance, code can be managed better
+\item What is MRO?\\
+Method resolve order, a mechanism for inheritance
+\end{enumerate}
+\section{Metaclass}
+\begin{enumerate}[1.]
+\item Biggest difference between static and dynamic language?\\
+Static: definition is done during compiling process. Dynamic: definition are created during runtime
+\item How class can be defined?\\
+Two ways, by general declaration and by type() method
+\item How to define a class by type()?\\
+Use form CLASS\_NAME = type(`NAME', (BASE\_CLASS,), dic(METHOD1=FUNC1,\dots)), dynamic way to define a class
+\item What does type() do?\\
+It can show the type of an object. It also can be used to define a class
+\item Difference between \_\_new\_\_() and \_\_init\_\_()?\\
+\_\_new\_\_() create the obj and \_\_init\_\_() initialize the obj. Initialization comes after creation
+\item How class is created(not asking how defined)?\\
+During running time, essentially by function type(), tip: not from declaration!!!
+\item Difference between general class definition and type()?\\
+First one is in static way, the second one can be used in dynamic process, essentially, both share the same purpose
+\item Dynamically create a class by static or dynamic language?\\
+Easier for dynamic language(itself support), static language requires constructing the source code in the beginning.
+\item What is the type of a class?\\
+All class name itself has type: ``type''
+\item Relationship between type and object?\\
+Type is subclass of object, metaclass of object is type. Both are created during the execution of interpreter
+\item What is metaclass?\\
+An class that controls how another class is defined, can be considered as template for other classes
+\item What is the parent class of metaclass?\\
+Must be type, cannot be object
+\item How class derived from metaclass is created?\\
+By calling type.\_\_new\_\_(mcs, name, bases, attrs), it is the return of \_\_new\_\_() function in the metaclass!
+\item How metaclass is defined?\\
+Name end with Metaclass by convention(not necessary), inherit from type, define \_\_new\_\_() to control how other classes are created
+\item What type is name in \_\_new\_\_(mcs, name, bases, attrs)?\\
+It is str, who has value of the name of the class that take it as template
+\item What type is bases in \_\_new\_\_(mcs, name, bases, attrs)?\\
+It is tuple, a tuple that contains the parent classes in the target class
+\item What type is attrs in \_\_new\_\_(mcs, name, bases, attrs)?\\
+It is dict, has form var\_name: value, var could be either function or properties
+\item How are args in \_\_new\_\_(mcs, name, bases, attrs) passed?\\
+When interpreter reading a class, it will use type() to create a class, and args are passed in the conventional way
+\item Does any class has a corresponding metaclass?\\
+Yes, and the metaclass is usually implicitly inherited
+\item What is abstract class?(Not that important in python)\\
+Class abstraction from many classes with certain similarities, it has a higher abstraction, a template for other classes
+\item How to declare an abstract class in python?\\
+First from abc import abstractmethod, ABCMeta, then declare a class with arg metaclass=ABCMeta and decorate method with @abstractmethod
+\item Characteristics of abstract class?\\
+Methods only have declaration, no implementation. Cannot be instantiated. Must have abstract method and must be overridden latter.
+\item What is interface class?\\
+Like header, can’t be instantiated, only contains method declaration, contains methods, properties, event etc\dots Doesn’t contain constants etc\dots
+\end{enumerate}
+\section{Enum}
+\begin{enumerate}[1.]
+\item What is enum class?\\
+A enumeration, just list everything, like a key value system linked by equality, usually for constants
+\item How to create a enum class?\\
+First from enum import Enum, and then create a class inherit from Enum
+\item How to get key of enum?\\
+Directly use dot ``.'' or by enum\_name[`KEY\_VAL']
+\item How to get key value in a enum?\\
+By enum.KEY\_VAL.value
+\item What is @unique for?\\
+Make sure that both key and value won't repeat! (bi-jective)
+\item How to import unique?\\
+Use statement from enum import unique
+\item What is enum generally for?\\
+For finding key by value
+\end{enumerate}
+\section{Error, Debug and Test}
+\begin{enumerate}[1.]
+\item What is bug?\\
+Any unexpected thing, bug must be repaired
+\item What causes bug?\\
+Programming error, wrong input, unexpected condition(disk is full\dots)
+\item What is python pdb?\\
+A way of debug, python debug
+\item What is error code(value)?\\
+When something go wrong, there will be a specific return value like return -1
+\item Disadvantages of error code?\\
+Mix the error code and general return value together
+\item Try, except, else, finally?\\
+Try to execute what’s in try, if any error, jump to except and else part will be execute if no error in try, then goes to finally(optional)
+\item What if there might be more than a type of error?\\
+One try can contain more than one expect block
+\item How to write except part?\\
+Write form except: or except ERROR\_TYPE as e:
+\item Except ZeroDivisionError as e:, what type are they?\\
+ZeroDivisionError has type: type since it is a class, e has type:<class `ZeroDivisionError'> since it is an instance of the error class
+\item What is the base class of all error classes?\\
+All are inherited from BaseException
+\item Range of try\dots except works?\\
+Function contains it and any outer part that contains them, catch the error at nice position will be okay, don't need to put it everywhere
+\item What if error does't caught by any except?\\
+It will be thrown upper until caught by Python interpreter to print error and stop the program
+\item How to read Traceback (most recent call last):\\
+It shows that there are error and goes from top to bottom, the last line show the real reason
+\item How to record error?\\
+Import logging and add logging.exception(e) to output error and finish the program
+\item What essentially an error is?\\
+It is an instance of a class
+\item How to throw an instance of error?\\
+Use raise, need to raise an instance of class that is well designed that inherit from some error class
+\item What could raise do if put into the block of except?\\
+Convert one error to other type, should be logically reasonable
+\item Easiest way of debugging?\\
+Use print(), have to delete it after debugging\dots sad
+\item Syntax of assert?\\
+Have form assert CONDITION, ERROR\_MESSAGE,  condition should be true, otherwise will be error
+\item How to stop assert statement during execution?\\
+Execute .py file with form \$ python -O xxx.py
+\item How to log info?\\
+Use form logging.info(STRING)
+\item How to config the level of logging?\\
+Add code logging.basicConfig(level=logging.INFO) after import logging
+\item Level of logging?\\
+There are 4: debug, info, warning, error, the higher level you set, the lower cases will be ignored
+\item How to start a program by pdb?\\
+Use form \$ python -m pdb xxx.py
+\item How to see code in pdb?\\
+Use command: ``1''
+\item How to execute code one line by another?\\
+Use command: ``n''
+\item How to get value of a var in pdb?\\
+Use command: ``p VAR\_NAME''
+\item How to quit pdb?\\
+Use command: ``q''
+\item How to use pdb.set\_trace()?\\
+Put it at position where might have error, it will pause the program there , use ``p Var'' to debug and press ``c'' to continue
+\item What is the best way of debugging?\\
+Ultimately\dots logging
+\item What is TDD?\\
+Short for Test-Driven-Development
+\item What is unit test?\\
+Check if a module, function or class work correctly, put all test conditions in a module, after revision, check if all conditions could pass the test
+\item Advantage of unit test?\\
+It can almost guarantee that the behavior of code is correct
+\item What does a test unit class inherit from?\\
+From unites.TestCase
+\item Purpose of methods in unit test?\\
+By convention, methods start with ``test'' are test methods, otherwise not test methods which won't be executed during test
+\item What does assertEqual() do?\\
+Has form self.assertEqual(abs(-1), 1), check if expected output equals to target output
+\item What does assertRaises() do?
+Has form with self.assertRaises(ERROR\_TYPE): BLOCK, if do anything in BLOCK, there will be ERROR\_TYPE will be thrown
+\item How to run unit test by coding?\\
+Directly use statement: unites.main()
+\item How to run unit test in console?\\
+By command: python -m unittest xxx.py
+\item What are setUp() and tearDown() functionality?\\
+They will be executed before and after a test
+\item Which module is used for doc test?\\
+Use import doctest
+\item How to run doc test?\\
+Use statement doctest.testmod()
+\item Where the doc test code should be?\\
+Within the triple comments: ``````xxx''''''
+\item How to write test doc?\\
+All statement start with $>>>$ STATEMENT(could be more than one) and then the next line follow the output
+\end{enumerate}
+\section{Others}
+\subsection{Virtual Environment}
+\begin{enumerate}[1.]
+\item What is virtual environment for?\\
+To build isolated environment for different programs. Different programs may depend on different python version and packages
+\item What command is used to build virtual env?\\
+Use virtualenv
+\item How to install virtualenv?\\
+Use command \$ pip3 install virtualenv by default,  or \$ conda install virtualenv(not recommend for conda, use create)
+\item How to build up a virtual env?\\
+Use command \$ virtualenv —no-site-packages ENV\_NAME, where the ENV\_NAME will generate a new folder that contains everything
+\item What is no-site-packages for?\\
+Avoid the copy of the third party package, make the env very clean
+\item How to activate virenv?\\
+Use command \$ source ENV\_PATH/bin/activate to activate
+\item Where the packages will be installed in virenv?\\
+At path: ./lib/pythonx.x/site-packages/
+\item How to deactivate a virtual env?\\
+Use command \$ deactivate
+\item How to show all installed packages?\\
+Use command \$ pip list
+\item How to check packages installed under conda?\\
+Use command \$ conda list
+\item How to check existing env?\\
+Use command \$ conda env list or \$ conda info -e
+\item How to check info of conda?\\
+Use command \$ conda info
+\item How to create virtual env by conda?\\
+Use command \$ conda create -n ENV\_NAME python=3.6, python version must be added!
+\item How to activate virenv by conda?\\
+Use command \$ conda activate ENV\_NAME
+\item How to quit virenv by conda?\\
+Use command \$ conda deactivate
+\item How to delete virenv by conda?\\
+Use command \$ conda remove -n ENV\_NAME —all (2 - before all)
+\item How to install a package?\\
+Use command \$ conda install PACK\_NAME
+\item How to delete a package?\\
+Use command \$ conda remove PACK\_NAME, this is intent to delete package under that environment 
+\item How to update conda?\\
+Use command \$ conda update -n base -c defaults conda
+\item How to install requirement.txt?\\
+Use command \$ pip install -r requirements.txt or by \$ conda install -file requirements.txt
+\item How to generate requirement.txt for virenv?\\
+Use command \$ pip freeze > requirement.txt
+\item How to add Tsinghua source?\\
+Use command \$ conda config - -add channels\\ https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/\\
+\$ conda config - -add channels \\https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/\\
+\$ conda config - -set show\_channel\_urls yes
+\item How to reset source?\\
+Use command \$ conda config - -remove-key channels
+\end{enumerate}
+\subsection{GUI}
+\begin{enumerate}[1.]
+\item Any packages for GUI?\\
+Tk, wxWidgets, QT, GTK\dots
+\item Advantage of TK?\\
+It can be used directly
+\item Which language is TK based on?\\
+Based on TCL
+\item How to import TK?\\
+Add statement from tkinter import *, MUST be *
+\item Which class is Application inherit from?\\
+Class Frame
+\item What args should \_\_init\_\_() of Application contains?\\
+Two args: self and master=None
+\item What is done in \_\_init\_\_()?\\
+3 things: Frame.\_\_init\_\_(self, master), self.pack(), self.createWidgets(), (declaration and pack)
+\item What is widget?\\
+Any GUI object in TK is known as widget
+\item What is pack() for?\\
+Add widget into GUI container and achieve layout, after declare a component, pack() function is mandatory
+\item Functions for layout?\\
+2 functions, pack() for easy layout and grid() for more complex ones
+\item What is label API?\\
+Use statement Label(self, text=``TEXT''), and then pack()
+\item What is button API?\\
+Use statement Button(self, text=``TEXT'', command=self.COMMAND), and then pack()
+\item What is entry API?\\
+Use statement Entry(self), and then pack()
+\item How to use messagebox?\\
+First import tkinter.messagebox as messagebox, and follow messagebox.showinfo(`TITLE', `MESS\_DISP')
+\item How to instantiate an application?\\
+3 steps, create instance, set instance.master.title(``TEXT'') and start instance.mainloop()
+\end{enumerate}
+\section{PyCharm}
+\begin{enumerate}[1.]
+\item How to search?\\
+Use shortcut cmd+O, then easy
+\item Meaning of set a folder as resources root?\\
+For searching file, will add the path to search path
+\end{enumerate}
+\end{document}

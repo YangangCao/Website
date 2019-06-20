@@ -1,0 +1,10 @@
+将mcode包复制进 /usr/local/texlive/2018/texmf-dist/tex/latex/ 
+然后 sudo texhash
+
+加上
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+
+\begin{lstlisting}
+\end{lstlisting}
+
+仅针对MacTex 2018版本，其他版本可能目录不匹配

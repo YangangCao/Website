@@ -8,8 +8,8 @@ This helps to control the website better
 - jemdoc is required to generate the html file
 
 # Required file(at least 5 files)
-- jemdoc:		for compiling the jemdoc file(can be put at /usr/bin)
-- MENU:			for controlling the sidebar
+- jemdoc:	for compiling the jemdoc file(can be put at /usr/bin)
+- MENU:		for controlling the sidebar
 - jemdoc.css 	for css control
 - deconf.conf 	for configuration control, make this easy
 - NAME.jemdoc 	the source code for generating the html, here NAME = index
@@ -24,4 +24,3 @@ This helps to control the website better
 - "+content+" put contents in ++ to highlight
 
 # Quick Cheatsheet for jemdoc
--

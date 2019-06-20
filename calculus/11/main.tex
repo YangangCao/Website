@@ -27,7 +27,7 @@ a_1, a_2, \cdots, a_n
 	\item can be written as $\{a_n\}$ or $\{a\}_{n=1}^{+\infty}$
 \end{itemize}
 
-\subsection{Limit and Convergence}
+\subsection{Limit and Convergence of Sequences}
 A sequence $\{a_n\}$ has the \textbf{limit} $L$, and it is denoted as
 \[
 \lim_{n \rightarrow \infty} a_n = L
@@ -104,9 +104,410 @@ and a function $f$ is continuous at $L$, then
 \lim_{n \rightarrow \infty} f(a_n) = f(L)
 \]
 
-\subsection{title}
-\subsection{title}
-\subsection{title}
+\subsection{Convergence of Exponential Sequence(DT Signal)}
+The sequence $\{r^n\}$ is convergent if $-1 < r \leq 1$ and divergent otherwise.
+
+\subsection{Monotonic Sequence}
+A sequence is called \textbf{increasing} if $a_n < a_{n+1}$ for all $n \geq 1$, and is called \textbf{decreasing} if $a_n > a_{n+1}$ for all $n \geq 1$. A sequence is \textbf{monotonic} if it is either increasing or decreasing.
+
+\subsection{Bounded Sequence}
+A sequence $\{a_n\}$ is \textbf{bounded above} if there exists a number $M$ such that
+\[
+a_n \leq M, \forall n \geq 1
+\]
+It is \textbf{bounded below} if there exists a number $N$ such that
+\[
+a_n\geq N, \forall n \geq 1
+\]
+If a sequence is bounded above and below, it is a \textbf{bounded sequence}.
+
+\subsection{Monotonic Sequence Theorem}
+Every bounded and monotonic sequence is convergent.
+
+\section{Series}
+A series is the sum(may be partial sum) of a sequence(may be either finite or infinite), it is denoted as:
+\[
+\sum_{n=1}^{\infty} a_n \qquad \text{or} \qquad \sum a_n
+\]
+
+\subsection{Partial Sum and Convergence}
+Given a series $\sum a_n$ and let $s_n$ denote its $n$-th\textbf{ partial sum}:
+\[
+s_n = \sum_{i=1}^{n} a_i
+\]
+If the sequence $\{s_n\}$ is convergent, and
+\[
+\lim\limits_{n \rightarrow \infty} s_n = s
+\]
+exists, then the series is called \textbf{convergent} and
+\[
+\sum_{n=1}^{\infty} a_n = s
+\]
+the number $s$ is called the \textbf{sum} of the series. If sequence $\{s_n\}$ is divergent, then the series is called \textbf{divergent}.
+
+\subsection{Geometric Series}
+The geometric series is defined as:
+\[
+\sum_{n=1}^{\infty} ar^{n-1} = a + ar + ar^2 + \cdots
+\]
+where $r$ is called the \textbf{common ratio}. Partial sum $s_n$ can be directly evaluated:
+\[
+\sum_{n=1}^{\infty} ar^{n-1}
+\]
+The series is convergent if $|r|<1$ and its value is:
+\[
+\sum_{n=1}^{\infty} ar^{n-1} = \frac{a}{1-r}, |r|<1
+\]
+If $|r|>1$, the geometric sequence is divergent.
+
+\subsection{Harmonic Series}
+Harmonic series is defined as:
+\[
+\sum_{n=1}^{\infty} \frac{1}{n} = 1 +\frac{1}{2} +\frac{1}{3} +\frac{1}{4}+\cdots
+\]
+it is divergent. To prove it, just need to prove that:
+\[
+s_{2^n} > 1+ \frac{n}{2} 
+\]
+
+\subsection{Properties of Convergence for Series}\begin{itemize}
+	\item if a series $\sum a_n$ is convergent, then $\lim\limits_{n \rightarrow \infty} a_n = 0$, and $\lim\limits_{n \rightarrow \infty} a_n = 0$ cannot lead to the convergence of $\sum a_n$
+	\item if $\lim\limits_{n \rightarrow \infty} a_n$ doesn't exist or $\lim\limits_{n \rightarrow \infty} a_n \neq 0$, then the series  $\sum a_n$ is divergent
+	\item finite number of terms doesn't affect the convergence or divergence of a series, because sum goes way up to infinity number of terms
+\end{itemize}
+
+\subsection{Combination of Series}
+If $\sum a_n$ and $\sum b_n$ are convergent, so are $\sum ca_n$($c$ is a constant),  and $\sum (a_n \pm b_n)$ and:
+\begin{itemize}
+	\item $\sum c a_n = c \sum a_n$
+	\item $\sum (a_n \pm b_n) = \sum a_n + \sum b_n$
+\end{itemize}
+
+\subsection{Rearrangement}
+If $\sum a_n$ is a conditional convergent series, its rearrangement has the same value.(proved by Riemann)
+
+\section{Integral Test and Estimations of Sum}
+Generally, it's difficult to find the exact sum of series, methods will be taken to determine if a series is convergent or divergent without finding the value.
+ 
+\subsection{Integral Test}
+Suppose $f$ is a continuous, positive, decreasing function on $[1, \infty)$ and let $f(n) = a_n$, then the series $\sum a_n$ is convergent if and only if the improper integration
+\[
+\int_{1}^{\infty} f(x) dx
+\]
+is convergent. Since finite number of terms doesn't affect the convergence, therefore the lower bound doesn't have to start from $1$.
+
+\subsection{p-Series}
+\textbf{p-series} is defined as:
+\[
+\sum_{n=1}^{\infty} \frac{1}{n^p}
+\]
+it is:
+\begin{itemize}
+	\item convergent if $p>1$
+	\item divergent if $p \leq 1$(Note that $p=1$ lead to harmonic series)
+\end{itemize}
+
+\subsection{Reminder Estimation(VIP for Numerical Analysis)}
+Reminder $R_n$ is defined as:
+\[
+R_n = s - s_n = \sum_{i=n+1}^{\infty} a_i
+\]
+Suppose $f(k) = a_k$, where  $f$ is a continuous, positive, decreasing function for $x \geq n$ and $\sum a_n$ is convergent, then:
+\[
+\int_{n+1}^{\infty} f(x) dx \leq R_n \leq \int_{n}^{\infty} f(x)dx
+\]
+by adding $s_n$ to the inequality, we can estimate $s$ as:
+\[
+s_n + \int_{n+1}^{\infty} f(x) dx \leq s \leq s_n \int_{n}^{\infty} f(x)dx
+\]
+Although the estimation won't give the accurate result, usually, the approximation is good enough. The proof is quiet straight forward.
+
+\section{Comparison}
+Compare a given series with a series that is known to be convergent or divergent.
+
+\subsection{Comparison Tests}
+ Suppose that $\sum a_n$ and $\sum b_n$ are series with \textbf{positive} terms and $N$ is some fixed integer:
+\begin{itemize}
+	\item if $\sum b_n$ is convergent and $a_n \leq b_n$, for all $n>N$, then $\sum a_n$ is also convergent
+	\item if $\sum b_n$ is divergent and $a_n \geq b_n$, for all $n>N$, then $\sum a_n$ is also divergent
+\end{itemize}
+usually, p-series and geometric series are used to be compared.
+
+\subsection{Limit Comparison Test }
+Suppose that $\sum a_n$ and $\sum b_n$ are series with \textbf{positive} terms, if
+\[
+\lim_{n \rightarrow \infty} \frac{a_n}{b_n} = c
+\]
+where $c$ is a finite number and $c>0$, then either both series converge or both diverge.
+
+\subsection{Estimate Sum by Comparison}
+Suppose that $\sum a_n$ and $\sum b_n$ are series with positive terms, and $a_n \leq b_n$, then the reminder of $a_n$ must be less than $b_n$. Although this won't give the analytic solution, but a more accurate reminder can be estimated if the reminder of $b_n$ is known.
+
+\section{Alternating Series}
+An alternating series is a series whose terms are alternately positive and negative.
+
+\subsection{Alternating Series Test}
+If the alternating series:
+\[
+\sum_{n=1}^{\infty} (-1)^{n-1} b_n = b_1 - b_2 + b_3 +  \cdots \qquad b_n>0
+\]
+satisfy that:
+\begin{itemize}
+	\item $b_{n+1} \leq b_n$, for all $n$
+	\item $\lim_{n \rightarrow \infty} b_n = 0$ 
+\end{itemize}
+then the series is convergent. Note that harmonic series is divergent, but alternating harmonic series is convergent(converge to $\ln 2 \approxeq 0.693$). The proof is in extra part.
+
+\subsection{Alternating Series Estimation Theorem}
+If $s = \sum (-1)^{n-1} b_n$ is the sum of an alternating series that is converge, then:
+\[
+R_n = |s - s_n| \leq b_{n+1}
+\]
+Proof:
+\[
+R_n = |s - s_n| \leq |s_{n+1} - s_n| = b_{n+1}
+\]
+Again, this theorem is for accuracy control.
+
+\section{Absolute vs Conditional Convergence}
+\begin{itemize}
+	\item A series $\sum a_n$ is called \textbf{absolute convergent} if the series $\sum |a_n|$ is convergent
+	\item  A series $\sum a_n$ is called \textbf{conditional convergent} if it is convergent but not absolute convergent
+\end{itemize}
+Note that absolute convergent lead to convergent but the reverse is not necessarily true.
+
+\section{Ration and Root Test}
+These are two useful test to determine the convergence.
+
+\subsection{Ratio Test}
+If
+\[
+\lim_{n \rightarrow \infty} \left| \frac{a_{n+1}}{a_n} \right| = L
+\]
+and if
+\begin{itemize}
+	\item $L < 1$, then $\sum a_n$ is absolute convergent, therefore convergent
+	\item $L > 1$, then $\sum a_n$ is divergent
+	\item $L = 1$, ratio test is inconclusive
+\end{itemize}
+
+\subsection{Root Test}
+If
+\[
+\lim_{n \rightarrow \infty} \sqrt[n]{|a_n|} = L
+\]
+and if
+\begin{itemize}
+	\item $L < 1$, then $\sum a_n$ is absolute convergent, therefore convergent
+	\item $L > 1$, then $\sum a_n$ is divergent
+	\item $L = 1$, root test is inconclusive
+\end{itemize}
+It's useful for power series.
+
+\section{Strategy for Testing Series}
+\begin{enumerate}
+	\item check if it is $p$-series
+	\item check if it is geometric series
+	\item check if it is $p$ or geometric like series, if so use comparison test
+	\item check $\lim_{n \rightarrow \infty} a_n \neq 0$ for divergence
+	\item check if it is alternating series
+	\item check if factorial, product or power is involved, if so, use ratio test
+	\item check if $a_n$ is in form of $(b_n)^n$, if so, use root test
+	\item check if integration can be applied or not
+\end{enumerate}
+
+\section{Power Series}
+
+\subsection{Definition}
+A power series is of form:
+\[
+\sum_{n=0}^{\infty} c_n x^n = c_0 + c_1 x + c_2 x^2 + \cdots
+\]
+where $x$ is \textbf{variable} and $c_i$ are \textbf{coefficients}. In fact it is a function:
+\[
+f(x) = c_0 + c_1 x + c_2 x^2 + \cdots
+\]
+whose domain is the set of all $x$ for which the series \textbf{converges}. More generally:
+\[
+\sum_{n=0}^{\infty} c_n (x-a)^n = c_0 + c_1 (x-a) + c_2 (x-a)^2 + \cdots
+\]
+it is called a power series in $(x-a)$ or a \textbf{power series centered at} $a$ or \textbf{a power series about} $a$.
+
+\subsection{Convergence of Power Series}
+For given power series:
+\[
+\sum_{n=0}^{\infty} c_n (x-a)^n
+\]
+there are only $3$ possibilities:
+\begin{itemize}
+	\item converges only when $x=a$($R=0$), e.g. $\sum n!x^n$
+	\item converges for all $x$($R=\infty$), e.g. 
+	\[
+	\sum \frac{(-1)^n x^{2n}}{2^{2n} (n!)^2} \qquad \text{known as Bessel function}
+	\]
+	\item converges for if $|x-a|<R$ and diverge if $|x-a|>R$, and case $|x-a| = R$ should be specifically determined(namely, anything could happen), e.g. $\sum x^n$, whose interval of convergence is $(-1, 1)$
+\end{itemize}
+$R$ is called the \textbf{radius of convergence}.  Usually, \textbf{ratio test} is used to determine the value of $R$.
+
+\section{Function as Power Series and Taylor Expansion}
+Functions can be represents as power series.
+
+\subsection{An Important Case: $1/(1-x)$}
+Function $1/(1-x)$ can be directly written as the sum of power, namely
+\[
+\frac{1}{1-x} = \sum_{n=0}^{\infty} x^n = 1 + x + x^2 + \cdots \quad |x|<1 
+\]
+Any function that can be written in this form can directly be transformed into sum of power with \textbf{known} radius of convergence $R=1$(very helpful).
+
+\subsection{Differentiation and Integration of Power Series}
+If power series 
+\[
+\sum_{n=0}^{\infty} c_n (x-a)^n
+\]
+has radius of convergence $R>0$, then its corresponding function
+\[
+f(x) = \sum_{n=0}^{\infty} c_n (x-a)^n
+\]
+has
+\begin{itemize}
+	\item derivative:
+	\[
+	f'(x) = \sum_{n=0}^{\infty} n c_n (x-a)^{n-1}
+	\]
+	with ROC(radius of convergence) $R$
+	\item integration:
+	\[
+	\int f(x) dx = \sum_{n=0}^{\infty} c_n \frac{(x-a)^{n+1}}{n+1} + C
+	\]
+	with ROC $R$
+\end{itemize}
+Note that:
+\begin{itemize}
+	\item it is term-by-term integration and differentiation, easy for calculation
+	\item though differentiated and integrated function still have ROC to be $R$, it \textbf{doesn't mean the interval of convergence remains the same}
+	\item basis for a powerful method for solving differential equation
+\end{itemize}
+Here are some useful facts(quiet tricky):
+\begin{itemize}
+	\item $1/(1-x)^2$ should be considered as differentiation of $1/(1-x)$ to use power series
+	\item $\ln (1+x) $ should be considered as integration of $\frac{1}{1-(-x)}$ to use power series
+\end{itemize}
+
+\subsection{Taylor and Maclaurin Series}
+If function $f$ has a power series representation at $x=a$, that is, if
+\[
+f(x) = \sum_{n=0}^{\infty} c_n (x-a)^n \qquad |x-a|<R
+\]
+then coefficients are given by:
+\[
+c_n =  \frac{f^{(n)}(a)}{n!} \quad \text{recall that: } f^{(n)}(a) = \frac{d^n}{dx^n} f(x) | _{x=a}
+\]
+therefore
+\[
+f(x) = \sum_{n=0}^{\infty}  \frac{f^{(n)}(a)}{n!} (x-a)^n
+\]
+this is called the \textbf{Taylor series} of the function $f$ at $a$.  For special case $a=0$, it becomes:
+\[
+f(x) = \sum_{n=0}^{\infty}  \frac{f^{(n)}(0)}{n!} x^n
+\]
+this occurs a lot and it has a special name \textbf{Maclaurin series}. 
+\begin{itemize}
+	\item  if $f$ can be represented as a power series about $a$, then $f$ may \textbf{not} equal to the sum of its Taylor series for finite number of $x$. One example is that $f$ doesn't have \textbf{derivative of all orders}. More will be discussed in equality constraints
+	\item  the ROC is usually found by ratio test
+\end{itemize}
+
+\subsection{Decompose Taylor Series to Partial Sum and Reminder}
+The Taylor series can be decomposed as:
+\[
+f(x) = \sum_{i=0}^{\infty} c_i (x-a)^i = \sum_{i=0}^{n} c_i (x-a)^i  +  \sum_{i=n}^{\infty} c_i (x-a)^i 
+\]
+\begin{itemize}
+	\item the first term is called $n$-th \textbf{degree Taylor polynomial} of $f$ at $a$, denoted by:
+	\[
+	T_n(x) = \sum_{i=0}^{n} c_i (x-a)^i 
+	\]
+	clearly, in general:
+	\[
+	f(x) = \lim\limits_{n \rightarrow \infty} T_n(x)
+	\]
+	\item the second term is called \textbf{reminder} of Taylor series, clearly:
+	\[
+	R_n = \sum_{i=n}^{\infty} c_i (x-a)^i 
+	\]
+\end{itemize}
+
+\subsection{Equality Constraint}
+If $f(x) = T_n(x) + R_n(x)$ and
+\[
+\lim_{n \rightarrow \infty} R_n(x) = 0
+\]
+for $|x-a|<R$, then $f$ is equal to the sum of its Taylor series on the interval. Do \textbf{not} take this limit for granted.
+
+\subsection{Taylor's Inequality}
+If $|f^{(n)}|(x) \leq M$ for $|x-a|\leq d$, then the reminder $R_n(x)$ of the Taylor series satisfy the inequality:
+\[
+|R_n(x)| \leq \frac{M}{(n+1)!} |x-a|^{n+1}
+\]
+for $|x-a|\leq d$. One useful limit
+\[
+\lim_{n \rightarrow \infty} \frac{x^n}{n!} = 0
+\]
+is often applied with this inequality to prove function meets the requirement of equality constraints mentioned above.
+
+\subsection{Important Taylor Expansion List}
+Here is a list of VIP expansions, it can help us to find integration and differentiation easily :
+\begin{itemize}
+	\item $1/(1-x)$:
+	\[
+	\frac{1}{1-x} = \sum_{n=0}^{\infty} x^n  \quad |x|<1, R=1
+	\]
+	\item $e^x$(this can help us to evaluate $e$ by setting $x=1$):
+	\[
+	e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} \quad x \in \mathbb{R}, R = \infty
+	\]
+	\item $\sin x$:
+	\[
+	\sin x = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!} \quad x \in \mathbb{R}, R = \infty
+	\]
+	\item $\cos x$:
+	\[
+	\cos x = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n}}{(2n)!} \quad x \in \mathbb{R},R = \infty
+	\]
+	\item $(1+x)^k$, known as \textbf{binomial series}:
+	\[
+	(1+x)^k = \sum_{n=0}^{\infty} \begin{pmatrix}
+	k \\n
+	\end{pmatrix} x^n \quad |x| < 1, R= 1
+	\]
+	where
+	\[
+	\begin{pmatrix}
+	k \\n
+	\end{pmatrix} = \frac{k(k-1)\cdots(k-n+1)}{n!}
+	\]
+	\item $\tan^{-1} x$:
+	\[
+	\tan^{-1} x = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{2n+1} \quad |x| < 1, R= 1
+	\]
+	\item $\ln (1+x)$:
+	\[
+	\ln (1+x) = \sum_{n=0}^{\infty} (-1)^{n-1} \frac{x^n}{n} \quad |x| < 1, R= 1
+	\]
+	\item Two approximation by polynomial multiplication and division:
+	\[
+	e^x \sin x \approx x + x^2 +\frac{1}{3}x^3 + \cdots
+	\]
+	and
+	\[
+	\tan x \approx x + \frac{1}{3} x^3 +\frac{2}{15} x^5 + \cdots
+	\]
+\end{itemize}
+Though all equations look quite easy, it requires lots of experience to use all these well. Power series also can be used to approximate function and by incorporating with Taylor's inequality to find error bound.
+
+
+
+
+
 
 
 \section{Extra}
@@ -115,4 +516,22 @@ It is defined recursively by the conditions:
 \[
 a_1 = 1 \qquad a_2 =1 \qquad a_n = a_{n-1} + a_{n-2}, n\geq3
 \]
+
+\subsection{Convert a Rational Number into Fraction}
+Any rational number can be converted into its fraction form by geometric series method, here is one example:
+\begin{align*}
+2.3171717171717\dots &= 2.3 + \frac{17}{10^3} + \frac{17}{10^5} + \frac{17}{10^7} +\cdots\\
+&=2.3 + \frac{\frac{17}{10^3}}{1-\frac{1}{10^2}}\\
+&= \frac{1147}{495}
+\end{align*}
+Note that it's geometric series with $r=1/10^2<1$, it is convergent.
+
+\subsection{Proof of Alternating Series Test}
+728+
+
+\subsection{Proof of Taylor's Inequality}
+
+\subsection{Application in Einstein' s Theory of Special Relativity}
+
+\subsection{Application in Optics}
 \end{document}

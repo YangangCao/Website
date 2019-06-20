@@ -1,0 +1,45 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{breqn}
+\author{Baboo J. Cui}
+
+\begin{document}
+
+\title{Introduction}
+\maketitle
+\tableofcontents
+\newpage
+
+\begin{center}
+	\textbf{Welcome}!
+\end{center}
+
+\section{Basic Concept}
+\subsection{Types of Learning}
+\begin{itemize}
+	\item\textbf{ supervised learning}: data in training set contain expected outcomes(known as \textbf{labels})
+	\item \textbf{unsupervised learning}: data in training set don't contain labels
+	\item \textbf{reinforcement learning}: only have \textbf{reward}
+\end{itemize}
+
+\subsection{Classification vs Regression}
+\begin{itemize}
+	\item \textbf{regression}: when target variable is \textbf{continuous}
+	\item \textbf{classification}: when target variable is \textbf{discrete}
+\end{itemize}
+
+\section{Format of ML}
+\begin{itemize}
+	\item Input(features): denoted by $x^{(i)}$, where $i$ is index, not exponent
+	\item Output(target): denoted by $y^{(i)}$, this is what we need to predict
+	\item Training example: a pair of input and output $(x^{(i)}, y^{(i)})$, note that $x$, $y$  and $\theta$ can all be vectors
+	\item Training set: a list of training example, let's say it has length of $m$: $\{(x^{(i)}, y^{(i)}); i \in [1,m]\}$
+	\item Space notation: use $\mathcal{X}$ and $\mathcal{Y}$ to represent space of input and output
+	\item Hypothesis: a function $h:\mathcal{X} \mapsto \mathcal{Y}$, so that $h(\cdot)$ can predict $y$ given $x$ Function $h$ can be obtained by putting training set into learning algorithm
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,335 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphicx}
+
+\author{Baboo J. Cui, Yangang Cao}
+\title{Model Order Reduction}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Introduction by A Mechanical System}
+Suppose a four-mass mechanical system is described by the following dynamics:
+\begin{align*}
+\dot{x} &= \left[\begin{array}{cc}{0} & {1} \\ {-M^{-1} K} & {-M^{-1} G}\end{array}\right] x+\left[\begin{array}{c}{0} \\ {M^{-1} D}\end{array}\right]u\\
+y &= \left[\begin{array}{ll}{P} & {Q}\end{array}\right] x
+\end{align*}
+where
+\begin{align*}
+M &= \operatorname{diag}\left(m_{1}, m_{2}, m_{3}, m_{4}\right)\\
+G &= \operatorname{diag}\left(b_{1}, 0,0, b_{5}\right)\\
+K &= \left[\begin{array}{cccc}{k_{1}+k_{2}} & {-k_{2}} & {0} & {0} \\ {-k_{2}} & {k_{2}+k_{3}} & {-k_{3}} & {0} \\ {0} & {-k_{3}} & {k_{3}+k_{4}} & {-k_{4}} \\ {0} & {0} & {-k_{4}} & {k_{4}+k_{5}}\end{array}\right]\\
+D &=\left[\begin{array}{llll}{1} & {0} & {0} & {0} \\ {0} & {1} & {0} & {0}\end{array}\right]^{T}\\
+P &= \left[\begin{array}{cccc}{1} & {0} & {0} & {0} \\ {0} & {0} & {k_{4} / m_{4}} & {-\left(k_{4}+k_{5}\right) / m_{4}}\end{array}\right]\\
+Q &= \left[\begin{array}{cccc}{0} & {0} & {0} & {0} \\ {0} & {0} & {0} & {-b_{5} / m_{4}}\end{array}\right]\\
+x &=(q^T,\dot{q}^T)^T\in\mathbb{R}^8\\
+y &=(q_1,\ddot{q}_2)^T
+\end{align*}
+this is a two-input, \textbf{eight}-state, two-output system model. For real case, for example an airplane, a system could be \textbf{too complicate} because of \textbf{too many state variables}.
+
+\section{Model Order Reduction Problem}
+Given a model $(A, B, C)$, with order(state dimension) $n$, find a model $(A_r, B_r, C_r)$ with order $r<n$ whose transfer function satisfies:
+\begin{align*}
+C_{r}\left(s l-A_{r}\right)^{-1} B_{r} \simeq C(s l-A)^{-1} B \qquad \text {CT-case}\\
+C_{r}\left(z l-A_{r}\right)^{-1} B_{r} \simeq C(z l-A)^{-1} B \qquad \text {DT-case}
+\end{align*}
+To determine if two transfer functions are \textbf{close} to each other, given the same input $u$, they should produce \textbf{similar} outputs $y$ and $y_r$. Note that:
+\begin{itemize}
+\item similarity between $y$ and $y_r$ is quantified as $||y-y_r||$ using some norm on the vector space of all output signals
+\item since $y$ and $y_r$ are linear in $u$, $\left\|y-y_{r}\right\|$ can be very large due to large $u$
+\item evaluate system by looking for largest output difference under $u$ with bounded energy:
+\[
+\sup _{\|u\|=1}\left\|y-y_{r}\right\|
+\]
+where $||u||$ is \textbf{a}(sometimes may not be $\mathcal{L}_2$) norm on the vector space of all input signals
+\end{itemize}
+
+\section{Naive Attempt to Achieve Order Reduction}
+$3$ intuitive ways of reducing system order are given and later we will focus on how to make this process systematic rather than relying on intuition.
+\subsection{Kalman Approach}
+In Kalman form:
+\[
+\tilde{A}=T^{-1} A T=\left[\begin{array}{cc}{\tilde{A}_{11}} & {\tilde{A}_{12}} \\ {0} & {\tilde{A}_{22}}\end{array}\right], \tilde{B}=T^{-1} B=\left[\begin{array}{c}{\tilde{B}_{1}} \\ {0}\end{array}\right], \tilde{C}=C T=\left[\begin{array}{cc}{\tilde{C}_{1}} & {\tilde{C}_{2}}\end{array}\right]
+\]
+\begin{itemize}
+	\item if $(A,B)$ is not controllable, the controllable subsystem $
+	\left(\tilde{A}_{11}, \tilde{B}_{1}, \tilde{C}_{1}\right)
+	$ realizes the same transfer function as $(A,B,C)$ but with a lower order.
+	\item if $(C, A)$ is not observable, then the observable subsystem realizes the same transfer function with a lower order.
+\end{itemize}
+The problem is that most systems are both controllable and observable, meaning that this method won't work.
+
+\subsection{Drop Method}
+Given a DT system:
+\[
+A=\left[\begin{array}{cc}{0.7} & {0} \\ {0} & {0.8}\end{array}\right]
+,
+B=\left[\begin{array}{l}{10} \\ {0.1}\end{array}\right]
+,
+C=\left[\begin{array}{ll}{10} & {0.1}\end{array}\right]
+\]
+Mode associated with $\lambda_1=0.7$ is much more controllable and observable compared to mode associated with $\lambda_2=0.8$. Discarding mode $0.8$ results in $A_r=0.7, B_r=10, C_r=10,$ which lead to:
+\[
+C_{r}\left(z l-A_{r}\right)^{-1} B_{r}=\frac{100}{z-0.7} \quad \simeq \quad C(z l-A)^{-1} B=\frac{100}{z-0.7}+\frac{0.01}{z-0.8}
+\]
+Note that $0.01$ is quiet small compare to $100$.
+
+\subsection{Compromise Approximation}
+Given a DT system which is slightly different for $C$:
+\[
+A=\left[\begin{array}{cc}{0.7} & {0} \\ {0} & {0.8}\end{array}\right]
+,
+B=\left[\begin{array}{l}{10} \\ {0.1}\end{array}\right]
+,
+C=\left[\begin{array}{ll}{0.1} & {10}\end{array}\right]
+\]
+Mode for $\lambda_1=0.7$ is still much more controllable, but now much less observable, than mode for $\lambda_2=0.8$. Discarding either mode will result in a large error for approximating
+\[
+H(z)=C(z l-A)^{-1} B=\frac{1}{z-0.7}+\frac{1}{s-0.8}
+\]
+Noting that the two poles of $H(z)$ are very close to each other, we can first approximate $H(z)$ by
+\[
+H_{r}(z)=\frac{2}{z-0.75} \simeq H(z)
+\]
+and then find a first-order realization of $H_r(z)$, say, $A_r=0.75,B_r=2,C_r=1$, as the reduced-order model.
+
+
+\section{Lower-Rank(by SVD) Approximation of Matrix}
+A matrix $A\in\mathbb{R}^{m\times n}$ viewed as a map $A: \mathbb{R}^n\rightarrow\mathbb{R}^m$ with rank $p$. The problem is to find a matrix $A_r\in\mathbb{R}^{m\times n}$ with rank $r<p$ to
+\[
+\text { minimize } \sup _{u \in \mathbb{R}^{n},\|u\|=1}\left\|A u-A_{r} u\right\|
+\]
+\begin{itemize}
+\item $\left\|\cdot\right\|$ represent Euclidean norm
+\item Function to be minimized is equal to the $\mathcal{L}_2$-norm of matrix $A-A_r$
+\end{itemize}
+Suppose $A$ has singular value decomposition(SVD)
+\[
+A=U\left[\begin{array}{cc}{\Sigma+} & {0} \\ {0} & {0}\end{array}\right] V^{T}
+\] 
+with 
+\[
+\Sigma_{+}=\operatorname{diag}\left(\sigma_{1}, \ldots, \sigma_{p}\right), \sigma_{1} \geq \cdots \geq \sigma_{p}>0
+\]
+then
+\[
+A_{r}^{*}=U\left[\begin{array}{ccc}{\operatorname{diag}\left(\sigma_{1}, \ldots, \sigma_{r}, 0, \ldots, 0\right)} & {0} \\ {0} & {0}\end{array}\right] V^{T}
+\]
+with the approximation error
+\[
+\left\|A_{r}-A_{r}^{*}\right\|=\sigma_{r+1}
+\]
+This can be extended to linear systems.
+
+
+\subsection{LTI System as Linear Operator}
+Consider the discrete-time LTI system
+\[
+\begin{aligned} x[k+1] &=A x[k]+B u[k] \\ y[k] &=C x[k] \end{aligned}
+\]
+If $x[0]=0$(for convenience), the system maps the input sequence to the output sequence:
+\[
+\underbrace{\left[\begin{array}{c}{y[0]} \\ {y[1]} \\ {y[2]} \\ {y[3]} \\ {\vdots}\end{array}\right]}_{Y}=\underbrace{\left[\begin{array}{ccccc}{0} & { } \\ {C B} & {0} \\ {C A B} & {C B} & {0}\\ {C A^{2} B} & {C A B} & {C B} & {0} \\ {\vdots} & {} & { } &{}& {\ddots}\end{array}\right]}_\text{G}\underbrace{\left[\begin{array}{c}{u[0]} \\ {u[1]} \\ {u[2]} \\ {u[3]} \\ {\vdots}\end{array}\right]}_\text{$U$}
+\]
+\begin{itemize}
+\item $G$ is a \textbf{Toeplitz matrix} (constant along diagonal direction) because the system is time-invariant
+\item $G$ is lower triangular matrix because the system is causal
+\item $G$ is unchanged under coordinate transformation
+\end{itemize}
+
+\subsection{$\ell_2$-Gain}
+The $\ell_{2}$-gain of the system is the induced norm of $G$:
+\[
+\|G\|_{2}=\sup _{\mathbf{U} \neq 0} \frac{\|G \mathbf{U}\|}{\|\mathbf{U}\|}
+\]
+\begin{itemize}
+\item maximal energy magnification from input to output
+\item useful in robust control ($\mathbf{U}$ is the perturbation)
+\end{itemize}
+\section{Hankel Operator}
+The operator $G$ typically has rank infinity, hence difficult to study. Instead, look at the map from past into future output:
+\[
+\underbrace{\left[\begin{array}{c}{y[0]} \\ {y[1]} \\ {y[2]} \\ {\vdots}\end{array}\right]}_\text{$Y_{+}$}=\underbrace{\left[\begin{array}{cccc}{C B} & {C A B} & {C A^{2} B} & {\dots} \\ {C A B} & {C A^{2} B} & {C A^{3} B} & {\dots} \\ {C A^{2} B} & {C A^{3} B} & {C A^{4}} & {\cdots} \\ {\vdots} & {\vdots} & {\vdots} & {\ddots}\end{array}\right]}_\text{$\Gamma$}\underbrace{\left[\begin{array}{c}{u[-1]} \\ {u[-2]} \\ {u[-3]} \\ {\vdots}\end{array}\right]}_\text{$U_-$}
+\]
+\begin{itemize}
+\item $\Gamma$ is a \textbf{Hankel matrix}(constant along anti-diagonal direction)
+\item Each column represents the impulse response w.r.t. $u_j[-k]$ at time $k<0$, hence $\Gamma$ can be constructed from experimental data
+\item $\Gamma$ unchanged under coordinate changes
+\item $\Gamma$ has {\bfseries finite rank}!
+\end{itemize}
+
+\subsection{Decomposition of Hankel Operator}
+Since state $x[0]$ summarizes contributions of past input, we have
+\[
+\mathbf{U}_{-} \underbrace{\stackrel{\Psi_{c}}{\longrightarrow} x[0] \stackrel{\Psi_{o}}{\longrightarrow}}_\text{$\Gamma$} \mathbf{Y}_{+}
+\]
+In other words(VIP):
+\[
+\Gamma=\Psi_{o} \Psi_{c}=\underbrace{
+	\left[\begin{array}{c}{C} \\ {C A} \\ {C A^{2}} \\ {\vdots}\end{array}\right]
+	}_\text{$\Psi_{o}$}\cdot\underbrace{
+	\left[\begin{array}{llll}{B} & {A B} & {A^{2} B} & {\cdots}\end{array}\right]
+	}_\text{$\Psi_{c}$}
+\]
+After coordinate transformation:
+\begin{align*}
+x &= T \tilde{x}\\
+\tilde{\Psi}_{c} &= T^{-1} \Psi_{c}\\ 
+\tilde{\Psi}_{o} &= \Psi_{o} T\\ 
+\tilde{\Gamma} &= \Gamma
+\end{align*}
+Rank of $\Gamma$ is \textbf{at most} $n=\dim(x)$
+
+\subsection{Rank of Hankel Operator}
+\begin{itemize}
+\item Controllability operator $\Psi_{c}$ is full rank if $(A,B)$ is controllable
+\item Observability operator $\Psi_{o}$ is full rank if $(C,A)$ is observable
+\end{itemize}
+The Hankel operator $\Gamma$ has rank $n=\dim(x)$ if and only if the system $(A,B,C)$ is minimal.\\
+\textbf{Proof}: Use the two Sylvester rank inequalities for $\Gamma=\Psi_{o}\Psi_{c}$:
+\[
+\begin{array}{l}{\operatorname{rank}(\Gamma) \leq \min \left\{\operatorname{rank}\left(\Psi_{c}\right), \operatorname{rank}\left(\Psi_{o}\right)\right\}} \\ {\operatorname{rank}(\Gamma) \geq \operatorname{rank}\left(\Psi_{c}\right)+\operatorname{rank}\left(\Psi_{o}\right)-n}\end{array}
+\]
+
+\subsection{McMillan Degree}
+\begin{itemize}
+\item For a transfer function (or matrix) $H(s)$, the state dimension of its minimal realization is called its {\bfseries Mcmillan degree}
+\item McMillan degree is the rank of the Hankel operator $\Gamma$ 
+\end{itemize}
+
+\subsection{Hankel Singular Values}
+Suppose $A$ is stable and system $(A,B,C)$ is minimal. Then both controllability and observability gramians exist and are positive definite:
+\[
+W_{c}=\Psi_{c} \Psi_{c}^{T}=\sum_{k=0}^{\infty} A^{k} B B^{T}\left(A^{T}\right)^{k}, \quad W_{o}=\Psi_{o}^{T} \Psi_{o}=\sum_{k=0}^{\infty}\left(A^{T}\right)^{k} C^{T} C A^{k}
+\]
+$W_oW_c$ is \textbf{diagonalizable} with \textbf{positive} eigenvalues:
+\begin{itemize}
+\item this is because $W_oW_c$ is similar to $
+W_{c}^{1 / 2} W_{o} W_{c}^{1 / 2} \succeq 0
+$
+\item eigenvalues of $W_oW_c$ unchanged under coordinate change $x=T\widetilde{x}$:
+\[
+\widetilde{W}_{o}=T^{T} W_{o} T, \widetilde{W}_{c}=T^{-1} W_{c}\left(T^{-1}\right)^{T} \Rightarrow \widetilde{W}_{o} \widetilde{W}_{c}=T^{T} W_{o} W_{c}\left(T^{-1}\right)^{T}
+\]
+\end{itemize}
+\textbf{Hankel singular values}(VIP) of the system are (nonzero) singular values of $\Gamma$ or equivalently, the square roots of the eigenvalues of $W_oW_c$.
+\begin{itemize}
+	\item The singular values are typically sorted as $
+	\sigma_{1} \geq \sigma_{2} \geq \cdots \sigma_{n}>0$
+	\item Singular values do not depend on state coordinates
+\end{itemize}
+
+\subsection{Proof of Properties of Hankel Singular Values }
+Singular values of $\Gamma$ are sequare roots of nonzero enginvalues of
+\[
+\Gamma^{T} \Gamma=\left(\Psi_{o} \Psi_{c}\right)^{T}\left(\Psi_{o} \Psi_{c}\right)=\Psi_{c}^{T} W_{o} \Psi_{c}=(W_{o}^{1 / 2} \Psi_{c})^{T}(W_{o}^{1 / 2} \Psi_{c})
+\]
+which has the same nonzero eigenvalues as those of
+\[
+(W_{o}^{1 / 2} \Psi_{c})(W_{o}^{1 / 2} \Psi_{c})^{T}=W_{0}^{1 / 2} W_{c} W_{o}^{1 / 2}
+\]
+which in turn is similar to $W_oW_c$ (hence have identical eigenvalues).
+
+\subsection{Hankel Norm}
+Suppose $A$ is stable and system $(A,B,C)$ is minimal. Then $\Gamma$ maps finite energy input $\mathbf{U_-}$ to finite energy output $\mathbf{Y_+}$, \textbf{Hankel norm} of system is
+\[
+\|\Gamma\| :=\sup _{\mathbf{U_-} \neq 0 } \frac{\left\|\Gamma \mathbf{U_-}\right\|}{\left\|\mathbf{U}_{-}\right\|}=\sigma_{1}(\Gamma)
+\]
+It is the maximum energy amplification from past input to future output.
+
+\subsection{Lower-Rank Hankel Operator Approximation}
+Given a Hankel operator $\Gamma$ with rank $n$, for $r<n$, find a Hankel operator $\Gamma_r$ to
+\begin{align*}
+\text {minimize}\quad  & \left\|\Gamma-\Gamma_{r}\right\| \\ 
+\text {s.t.}\quad  & \operatorname{rank}\left(\Gamma_{r}\right)=r
+\end{align*}
+
+\begin{itemize}
+\item $\Gamma$ corresponds to a minimal system $(A,B,C)$ with state dimension $n$
+\item $\Gamma_r$ corresponds to a minimal system $(A_r,B_r,C_r)$ with state dimension $r$
+whose I/O operator is {\bfseries closest} to that of $(A,B,C)$
+\item recall lower-rank approximation of matrices using SVD truncation
+\end{itemize}
+The optimal solution $\Gamma^*_r$ satisfies $
+\left\|\Gamma-\Gamma_{r}^{*}\right\| \geq \sigma_{r+1}
+$, where $\sigma_{r+1}$ is the $(r+1)$-th largest sigular value of $\Gamma$. Lower bound may not be tight due to the Hankel constraint on $\Gamma_{r}^*$.
+
+\section{Balanced Realization}
+Given a minimal system $(A,B,C)$ with $A$ stable, there exists a coordinate transformation $x=T\widetilde{x}$ such that in the new coordinates, the controllability and observability Gramians are equal and diagonal:
+\[
+\widetilde{W}_{c}=\widetilde{W}_{o}=\Sigma=\operatorname{diag}\left(\sigma_{1}, \ldots, \sigma_{n}\right)
+\]
+where $
+\sigma_{1} \geq \cdots \geq \sigma_{n}
+$ are the Hankel singular values of the system.
+\begin{itemize}
+\item state space model with the above properties are called {\bfseries balanced}
+\item trongly controllable states are also strongly observable!
+\end{itemize}
+Tip:note that $W_{c}^{1 / 2} W_{o} W_{c}^{1 / 2}=U \Sigma^{2} U^{T}
+$ for some orthogonal $U$ and diagonal $\Sigma$. By choosing $
+T=W_{c}^{1 / 2} U \Sigma^{-1 / 2}
+$ we have
+\[
+\widetilde{W}_{o}=T^{T} W_{0} T=\Sigma, \quad \widetilde{W}_{c}=T^{-1} W_{c}\left(T^{-1}\right)^{T}=\Sigma
+\]
+\section{Balanced Truncation}
+Given a minimal system $(A,B,C)$ with stable $A$, first do a coordinate change $x=T\widetilde{x}$ so that $(\widetilde{A},\widetilde{B},\widetilde{C})$ is a balanced realization:
+\begin{itemize}
+\item $
+\widetilde{W}_{c}=\widetilde{W}_{o}=\operatorname{diag}\left(\sigma_{1}, \ldots, \sigma_{n}\right)
+$
+\item states $
+\tilde{x}_{1}, \ldots, \tilde{x}_{n}
+$ have decreasing controllability and observability
+\end{itemize}
+To find a reduced-order model of order $r<n$, keep only the first $r$ states:
+\[
+\left[\begin{array}{cc|c}{\tilde{A}_{11}} & {\tilde{A}_{12}} & {\tilde{B}_{1}} \\ {\tilde{A}_{21}} & {\tilde{A}_{22}} & {\tilde{B}_{2}} \\ \hline {\tilde{C_{1}}} & {\tilde{C_{2}}} & {0}\end{array}\right]
+\stackrel{(\tilde{x}_{1}, \ldots, \tilde{x}_{n}) \rightarrow(\tilde{x}_{1}, \ldots,\tilde{x}_{r})}{\longrightarrow}\left[\begin{array}{c|c}{\tilde{A}_{11}} & {\tilde{B}_{1}} \\ \hline \tilde{C}_{1} & {0}\end{array}\right]
+\]
+Reduced-order model $(\tilde{A}_{11},\tilde{B}_1,\tilde{C}_1)$ is called the $r$-th order {\bfseries balanced truncation} of (the transfer function of) the model $(A,B,C)$, and $(\tilde{A}_{11},\tilde{B}_1,\tilde{C}_1)$ is also balanced and $\tilde{A}_{11}$ is stable
+
+\section{Example}
+Again, given system: $
+A=\left[\begin{array}{cc}{0.7} & {0} \\ {0} & {0.8}\end{array}\right], B=\left[\begin{array}{c}{10} \\ {0.1}\end{array}\right], C=\left[\begin{array}{ll}{0.1} & {10}\end{array}\right]
+$, find first-order reduction.
+\begin{enumerate}
+\item controllability and observability gramians are
+\[
+W_{c}=\left[\begin{array}{cc}{196.0784} & {2.2727} \\ {2.2727} & {0.0278}\end{array}\right], \quad W_{o}=\left[\begin{array}{cc}{0.0196} & {2.2727} \\ {2.2727} & {277.7778}\end{array}\right]
+\]
+so
+\[
+W_{o} W_{c} = \left[\begin{array}{cc}{9.01} & {0.10769} \\ {1076.9} & {12.881}\end{array}\right]
+\]
+\item $W_oW_c$ has two eigenvalues $\lambda_{1}=21.888, \lambda_{2}=0.0036161$, whose square roots yield the Hankel singular values:
+\[
+\sigma_{1}=4.6784 \quad \sigma_{2}=0.060134
+\]
+alternatively, Matlab command \textit{hsvd} can be used
+\item As $\sigma_{1}$ is much larger than $\sigma_{2}$, a first order system can approximate the original system very well.
+\item Apply the linear transform $x=T \tilde{x}=\left[\begin{array}{cc}{-6.4152} & {7.671} \\ {-0.076711} & {-0.064152}\end{array}\right] \tilde{x}$
+\item A balanced realization is resulted:
+\[
+\tilde{A}= T^{-1} A T=\left[\begin{array}{cc}{0.75885} & {0.049211} \\ {0.049211} & {0.74115}\end{array}\right], \tilde{B}=T^{-1} B=\left[\begin{array}{l}{-1.4086} \\ {0.12559}\end{array}\right]\]
+\[
+\tilde{C}=C T =\left[\begin{array}{cc}{-1.4086} & {0.12559}\end{array}\right] 
+\]
+whose controllability and observability gramians are diag$(\sigma_{1},\sigma_{2})$
+\item A 1st-order balanced truncation is as follows
+\[
+\tilde{A}_{11}=0.75885, \quad \tilde{B}_{1}=-1.4086, \quad \tilde{C}_{1}=-1.4086
+\]
+whose transfer function is $\frac{1.9842}{z-0.75885}$, alternatively, Matlab command \textit{balred} can be used
+\end{enumerate}
+
+\end{document}

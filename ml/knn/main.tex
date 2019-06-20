@@ -1,0 +1,68 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage{pythonhighlight}
+\author{Baboo J. Cui}
+
+\begin{document}
+
+\title{KNN}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Introduction}
+KNN is short for K-nearest-neighbor:
+\begin{itemize}
+	\item supervised learning
+	\item very easy
+	\item classification is based on measuring distance between characteristics
+\end{itemize}
+Its advantages:
+\begin{itemize}
+	\item accurate(in terms of algorithm not result)
+	\item insensitive to extreme values
+	\item no training process
+\end{itemize}
+Its disadvantages:
+\begin{itemize}
+	\item computational costly(traverse the whole data set)
+	\item time consuming
+	\item high requirement for storage
+	\item data must be in the same dimension
+\end{itemize}
+
+\section{Ideology}
+Given a data set with label on each element, when a new sample arrives, find \textbf{top} $k$ elements in set that are \textbf{closest }to it. The label for new sample is simply set to be the mass label of the $k$ elements.
+\begin{itemize}
+	\item $k$ usually is less than $20$
+	\item $k$ should be odd number
+\end{itemize}
+
+\section{Algorithm}
+\textbf{KNN algorithm} is as follow:
+\begin{enumerate}
+	\item calculate \textbf{distance}(usually $\mathcal{L}_2$, may be others) between coming sample and all elements in data set
+	\item sorting data set by distance from closest to farthest
+	\item pick up the first $k$ elements in data set
+	\item get the label frequency in $k$ elements
+	\item the prediction is the label with highest frequency
+\end{enumerate}
+Here is a list of tricky situation:
+\begin{itemize}
+	\item when label is not number, assign each label with a number for convenience
+	\item when dynamic range of each characters differs too much, normalization is necessary, it can be done by:
+	\[
+	\text{newVal} = \frac{\text{oldVal} - \min}{\max - \min}
+	\]  
+\end{itemize}
+
+\section{Example}
+Here is a quick example of KNN for finding the type of point:
+\inputpython{bc_knn.py}{1}{32}
+This will print "B" as expected.
+\end{document}

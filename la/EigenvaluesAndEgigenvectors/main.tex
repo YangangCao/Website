@@ -29,6 +29,7 @@
 
 \title{Eigenvalues and Eigenvectors}
 \maketitle
+\section{Eigenvalues and Eigenvectors}
 Consider this equation
 \[
 (A-\lambda I)x=0
@@ -100,5 +101,15 @@ If $A=A^H$:
 \item For all complex vector $x$, the number $x^HAx$ is real.
 \item Every eigenvalue is real.
 \item Two eigenvectors of a real symmetric matrix or a Hermitian matrix, if they come from different eigenvalues. are orthogonal to one another.
+\end{itemize}
+\subsubsection{Unitary Matrices}
+If $U^HU=I(\text{or}\ \ UU^H=I,\ U^H=U^{-1})$, the complex matrix $U$ with orthonormal columns is called a {\bfseries unitary matrix}, and unitary matrix $U$ has following property:
+\begin{itemize}
+\item $(Ux)^H(Uy)=x^HU^HUy=x^Hy$ and lengths are preserved by $U$:
+\[
+||Ux||^2=x^HU^HUx=||x||^2
+\]
+\item Every eigenvalue of $U$ has absolute value $|\lambda|=1$
+\item Eigenvectors corresponding to different eigenvalues are orthonormal.
 \end{itemize}
 \end{document}

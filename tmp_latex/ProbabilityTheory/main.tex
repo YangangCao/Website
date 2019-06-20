@@ -1,0 +1,665 @@
+\documentclass[10pt,a4paper,oneside]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{pgfplots} % for matlab2tikz
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage{tikz} % system block diagram
+\usepackage{textcomp}
+\usetikzlibrary{shapes,arrows} % system block diagram
+\usepackage{booktabs}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} % matlab code block
+\author{Yangang Cao}
+\newcommand{\degree}{^\circ}
+\tikzset{
+	delay/.style    = {draw, thick, rectangle, minimum height = 3em,
+		minimum width = 3em},
+	sum/.style      = {draw, circle, node distance = 2cm}, 
+	prod/.style     = {draw, circle, node distance = 2cm},
+	input/.style    = {coordinate}, % Input
+	output/.style  = {coordinate} % Output
+}
+% Defining string as labels of certain blocks.
+\newcommand{\product}{$\displaystyle \times$}
+\newcommand{\delay}{\large$z^{-1}$}
+%\documentclass[aspectratio=169]{beamer}
+\usepackage[english]{babel}
+
+% 加导航条
+%\useoutertheme[width=3\baselineskip,right]{sidebar}
+% 目录标数字
+\setbeamertemplate{section in toc}[sections numbered] 
+% 无序列表用实心点
+\setbeamertemplate{itemize item}{$\bullet$}
+% 设置每页标题格式
+\setbeamertemplate{frametitle}
+{\vspace{-0.5cm}
+	\insertframetitle
+	\vspace{-0.5cm}}
+% 去掉下面没用的导航条
+\setbeamertemplate{navigation symbols}{}
+% 设置页脚格式
+\makeatother
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{%
+		\begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+			\usebeamerfont{author in head/foot}\insertshortauthor
+		\end{beamercolorbox}
+		
+		\begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+			\usebeamerfont{title in head/foot}\insertshorttitle\hspace*{13em}
+			\insertframenumber{} / \inserttotalframenumber\hspace*{0ex}
+	\end{beamercolorbox}}
+	
+	\vskip0pt%
+}
+\makeatletter
+
+
+% 定义颜色
+%\definecolor{alizarin}{rgb}{0.82, 0.1, 0.26} % 红色
+%\definecolor{DarkFern}{HTML}{407428} % 绿色
+%\colorlet{main}{DarkFern!100!white} % 第一种设置方法
+%\colorlet{main}{red!70!black} % 第二种设置方法
+\definecolor{bistre}{rgb}{0.24, 0.17, 0.12} % 黑色
+\definecolor{mygrey}{rgb}{0.52, 0.52, 0.51} % 灰色
+\colorlet{main}{green!50!black}
+\colorlet{text}{bistre!100!white}
+
+% 不同元素指定不同颜色，fg是本身颜色，bg是背景颜色，!num!改变数值提供渐变色
+\setbeamercolor{title}{fg=text}
+\setbeamercolor{frametitle}{fg=main}
+\setbeamercolor{section in toc}{fg=text}
+\setbeamercolor{normal text}{fg=text}
+\setbeamercolor{block title}{fg=main,bg=mygrey!14!white}
+\setbeamercolor{block body}{fg=black,bg=mygrey!10!white}
+\setbeamercolor{qed symbol}{fg=main} % 证明结束后的框颜色
+\setbeamercolor{math text}{fg=black}
+% 设置页脚对应位置颜色
+\setbeamercolor{author in head/foot}{fg=black, bg=mygrey!5!white}
+\setbeamercolor{title in head/foot}{fg=black, bg=mygrey!5!white}
+\setbeamercolor{structure}{fg=main, bg=mygrey!10!white} % 设置sidebar颜色
+
+% 左右页间距的排版
+\def\swidth{0cm}
+\setbeamersize{sidebar width right=\swidth}
+\setbeamersize{sidebar width left=\swidth}
+\setbeamerfont{title in sidebar}{size=\scriptsize}
+\setbeamerfont{section in sidebar}{size=\tiny}
+
+
+%-------------------正文-------------------------%
+
+\author{Yangang Cao}
+\title{Review of Probability Theory}
+\date{April 17, 2019}
+
+\begin{document}
+	
+\frame[plain]{\titlepage}
+
+\begin{frame}
+\vspace{0.5cm}
+{\bfseries 1 Elmemnts of probability}
+\begin{itemize}
+\item {\bfseries Sample space} $\Omega$: The set of all outcomes of a random experiment.
+\item {\bfseries Set of events} $\mathcal{F}$: A set whose elements $A \in \mathcal{F}$ are subsets of $\Omega$
+\item {\bfseries Probability measure}: A function $P$: $\mathcal{F}\rightarrow\mathbb{R}$ satisfies the following properties,
+\begin{itemize}
+\item $P(A) \geqslant 0$, for all $A\in \mathcal{F}$
+\item $P(\Omega)=1$
+\item if $A_1, A_2,...$ are disjoint events, then
+\[
+P\left(\cup_{i} A_{i}\right)=\sum_{i} P\left(A_{i}\right)
+\]
+\end{itemize}
+\end{itemize}
+These three properties are called the \bfseries Axioms of Probalitity
+
+\end{frame}
+
+\begin{frame}
+\vspace{0.5cm}
+{\bfseries Properties}
+\vspace{0.1cm}\\
+\begin{itemize}
+\item $\text { If } A \subseteq B \Longrightarrow P(A) \leq P(B)$
+\item $P(A \cap B) \leq \min (P(A), P(B))$
+\item $\text { (Union Bound) } P(A \cup B) \leq P(A)+P(B)$
+\item $ P(\Omega \backslash A)=1-P(A)$
+\item (Law of Total Probability) If $A_1,...A_k$ are a set of disjoint events such that $\cup_{i=1}^{k} A_{i}=\Omega$, 
+then $\sum_{i=1}^{k} P\left(A_{k}\right)=1$
+\end{itemize}
+{\bfseries Conditional probability and independence}
+\vspace{0.3cm}
+\\The conditional probability of any event $A$ given $B$ is defined as 
+\[
+P(A | B) \triangleq \frac{P(A \cap B)}{P(B)}
+\]
+\\Two events are called independent if and only if
+\[
+P(A \cap B)=P(A) P(B) \ or\  P(A | B) = P(A)
+\] 
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 2 Random variables}
+\vspace{0.3cm}
+\begin{itemize}
+\item Discrete random variable:
+\[
+P(X=k) :=P(\{\omega : X(\omega)=k\})
+\]
+\item Continuous random variable:
+\[
+P(a \leq X \leq b) :=P(\{\omega : a \leq X(\omega) \leq b\})
+\]
+\end{itemize}
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 2.1 Cumulative distribution functions (CDF)} 
+\vspace{0.3cm}
+\\A cumulative distribution function (CDF) is a function $F_{X} : \mathbb{R} \rightarrow[0,1]$ which specifies a probability measure as
+\[
+F_{X}(x) \triangleq P(X \leqslant x)
+\]
+{\bfseries Properties}
+\begin{itemize}
+\item $0 \leqslant F_{X}(x) \leqslant 1$
+\item $\lim\limits_{x\rightarrow-\infty} F_{X}(x)=0$ 
+\item $\lim\limits_{x\rightarrow\infty} F_{X}(x)=1$
+\item $x \leqslant y \Longrightarrow F_{X}(x) \leqslant F_{X}(y)$
+\end{itemize} 
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 2.2 Probability mass functions (PMF)} 
+\vspace{0.3cm}
+\\A probability mass functions (PMF) is a function $p_{X} : \Omega \rightarrow\mathbb{R}$ such that
+\[
+p_{X}(x) \triangleq P(X = x)
+\]
+{\bfseries Properties}
+\begin{itemize}
+	\item $0 \leqslant p_{X}(x) \leqslant 1$
+	\item $\sum_{x\in V al(X)}p_{X}(x)=1$ 
+	\item $\sum_{x\in A}p_{X}(x)=P(X\in A)$ 
+\end{itemize} 
+\vspace{0.5cm}
+We use the notation $Val(X)$ for the set of possible values that the random variable $X$ may assume.
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 2.3 Probability density functions (PDF)} 
+\vspace{0.3cm}
+\\For some continuous random variables, we define the Probability density functions (PDF) as the derivative of the CDF such that 
+\[
+f_{X}(x) \triangleq \frac{dF_X(x)}{dx}
+\]
+According to the properties of differentiation, for very small $\Delta x$
+\[
+P(x \leqslant X \leqslant x+\Delta x) \approx f_{X}(x) \Delta x
+\]
+{\bfseries Properties}
+\begin{itemize}
+	\item $f_{X}(x) \geqslant 0$
+	\item $\int_{-\infty}^{\infty} f_{X}(x)=1$ 
+	\item $\int_{x \in A} f_{X}(x) d x=P(X \in A)$
+\end{itemize} 
+\end{frame}
+\begin{frame}
+\vspace{0.1cm}
+{\bfseries 2.4 Expectation} 
+\vspace{0.3cm}
+\\X is a discrete random variable with PMF $p_X(x)$ and $g : \mathbb{R} \rightarrow \mathbb{R}$ is an arbitary function, $g(X)$ can be considered a random variable, we define the expectation of $g(X)$ as
+\[
+E[g(X)] \triangleq \sum_{x \in V a l(X)} g(x) p_{X}(x)
+\]
+X is a continuous random variable with PDF $f_X(x)$, then
+\[
+E[g(X)] \triangleq \int_{-\infty}^{\infty} g(x) f_{X}(x) d x
+\]
+{\bfseries Properties}
+\begin{itemize}
+	\item $E[a]=a$ for any constant $a\in \mathbb{R}$
+	\item $E[af(X)]=aE[f(X)]$ for any constant $a \in \mathbb{R}$
+	\item $E[f(X)+g(X)]=E[f(X)]+E[g(X)]$
+	\item For a discrete random variable $X$, $E[1\{X=k\}]=P(X=k)$
+\end{itemize} 
+\end{frame}
+\begin{frame}
+\vspace{0.1cm}
+{\bfseries 2.5 Variance} 
+\vspace{0.3cm}
+\\The variance of a random variable $X$ is a measure of how concentrated the distribution of $X$ is around its mean
+\[
+Var[X] \triangleq E\left[(X-E(X))^{2}\right]
+\]
+An alternate expression for the variance can be derived
+\[
+\begin{aligned} E\left[(X-E[X])^{2}\right] &=E\left[X^{2}-2 E[X] X+E[X]^{2}\right] \\ &=E\left[X^{2}\right]-2 E[X] E[X]+E[X]^{2} \\ &=E\left[X^{2}\right]-E[X]^{2} \end{aligned}
+\]
+{\bfseries Properties}
+\begin{itemize}
+	\item $Var[a]=0$ for any constant $a\in \mathbb{R}$
+	\item $Var[af(X)]=a^2Var[f(X)]$ for any constant $a \in \mathbb{R}$
+\end{itemize} 
+\end{frame}
+\begin{frame}
+\vspace{0.4cm}
+{\bfseries 2.6 Some common random variables} 
+\vspace{0.4cm}
+\\{\bfseries Discrete random variables} 
+\begin{itemize}
+	\item $X\sim Bernoulli(p)(0\leqslant p \leqslant1)$: one if a coin with heads probability $p$ comes up heads, zero otherwise
+	\[
+	p(x)=\left\{\begin{array}{ll}{p} & {\text { if } p=1} \\ {1-p} & {\text { if } p=0}\end{array}\right.
+	\]
+	\item $X\sim Binomial(n,p)(0\leqslant p \leqslant1)$: the number of heads in $n$ independent flips of a coin with heads probability $p$
+	\[
+	p(x)=\left( \begin{array}{l}{n} \\ {x}\end{array}\right) p^{x}(1-p)^{n-x}
+	\]
+\end{itemize} 
+\end{frame}
+\begin{frame}
+\vspace{0.4cm}
+\begin{itemize}
+	\item $X\sim Geometric(p)(p>0)$: the number of flips of a coin with heads probability $p$ until the first heads
+	\[
+	p(x)=p(1-p)^{x-1}
+	\]
+	\item $X\sim Poisson(\lambda)(\lambda>0)$: a probability distribution over the nonnegative integers used for modeling the frequency of rare events
+	\[
+	p(x)=e^{-\lambda} \frac{\lambda^{x}}{x !}
+	\]
+\end{itemize} 
+\end{frame}
+\begin{frame}
+\vspace{0.5cm}
+{\bfseries Continuous random variables} 
+\vspace{0.2cm}
+\begin{itemize}
+	\item $X\sim Uniform(a,b)(a<b)$: equal probability density to every value between $a$ and $b$ on the real line
+	\[
+	f(x)=\left\{\begin{array}{ll}{\frac{1}{b-a}} & {\text { if } a \leq x \leq b}\\{0} & {\text { otherwise }}\end{array}\right.
+	\]
+	\item $X\sim Exponential(\lambda)(\lambda>0)$: decaying probability density over the nonnegative reals
+	\[
+	f(x)=\left\{\begin{array}{ll}{\lambda e^{-\lambda x}} & {\text { if } x \geq 0}\\{0} & {\text { otherwise }}\end{array}\right.
+	\]
+	\item $X\sim Normal(\mu,\sigma^2)$: also known as the Gaussian distribution
+	\[
+	f(x)=\frac{1}{\sqrt{2 \pi} \sigma} e^{-\frac{1}{2 \sigma^{2}}(x-\mu)^{2}}
+	\]
+\end{itemize}
+\end{frame}
+\begin{frame}
+\vspace{0.1cm}
+{\bfseries 3 Two random variables} 
+\vspace{0.2cm}
+\\{\bfseries 3.1 Joint and marginal distributions} 
+\vspace{0.2cm}
+\\Suppose that we have two random variables $X$ and $Y$, A complicated structure known as the joint cumulative distribution function  define as
+\[
+F_{XY}(x,y)=P(X\leqslant x,Y\leqslant y)
+\]
+The relationship among $F_{XY}(x,y)$, $F_X(x)$ and $F_Y(y)$ are
+\[
+\begin{aligned} F_{X}(x) &=\lim _{y \rightarrow \infty} F_{X Y}(x, y) d y ,\ \   F_{Y}(y) =\lim _{x \rightarrow \infty} F_{X Y}(x, y) d x \end{aligned}
+\]
+We call $F_X(x)$ and $F_Y(y)$ the marginal cumulative distribution functions of $F_{XY}(x,y)$
+\vspace{0.2cm}
+\\{\bfseries Properties}
+\begin{itemize}
+	\item $0 \leqslant F_{X Y}(x, y) \leqslant 1$
+	\item $\lim _{x, y \rightarrow \infty} F_{X Y}(x, y)=1$
+	\item $\lim _{x, y \rightarrow-\infty} F_{X Y}(x, y)=0$
+	\item $F_{X}(x)=\lim _{y \rightarrow \infty} F_{X Y}(x, y) $
+\end{itemize} 
+\end{frame}
+\begin{frame}
+\vspace{0.5cm}
+{\bfseries 3.2 Joint and marginal probability mass functions} 
+\vspace{0.5cm}
+\\If $X$ and $Y$ are discrete random variables, then the joint probability mass function $p_{X Y} : \mathbb{R} \times \mathbb{R} \rightarrow[0,1]$ is defined by
+\[
+p_{X Y}(x, y)=P(X=x, Y=y)
+\]
+and  $0\leqslant P_{XY}(x,y)\leqslant1$ for all $x$, $y$,   $\sum_{x \in V a l(X)} \sum_{y \in V a l(Y)} P_{X Y}(x, y)=1$
+\vspace{0.7cm}
+\\We refer to $p_X(x)$ as the marginal probability mass function of $X$
+\[
+p_{X}(x)=\sum_{y} p_{X Y}(x, y)
+\]
+and similarly for $p_Y(y)$
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 3.3 Joint and marginal probability density functions} 
+\vspace{0.5cm}
+\\If $X$ and $Y$ are continuous random variables, then the joint probability density function $f_{X Y}(x,y)$ define as 
+\[
+f_{X Y}(x, y)=\frac{\partial^{2} F_{X Y}(x, y)}{\partial x \partial y}
+\]
+Like in the single-dimensional case
+\[
+\iint_{x \in A} f_{X Y}(x, y) d x d y=P((X, Y) \in A)
+\]
+Analagous to the discrete case, the marginal probability density function of $X$ is defined as
+\[
+f_{X}(x)=\int_{-\infty}^{\infty} f_{X Y}(x, y) d y
+\]
+and similarly for $f_Y(y)$
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 3.4 Conditional distributions} 
+\vspace{0.5cm}
+\\In the discrete case, the conditional probability mass function of $X$ given $Y$ is defined
+\[
+p_{Y | X}(y | x)=\frac{p_{X Y}(x, y)}{p_{X}(x)}
+\]
+assuming that $p_X{x}\neq0$
+\vspace{0.5cm}
+\\In the continuous case, the conditional probability density of $Y$ given $X=x$ is defined
+\[
+f_{Y | X}(y | x)=\frac{f_{X Y}(x, y)}{f_{X}(x)}
+\]
+provided $f_X(x)\neq 0$
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 3.5 Bayes's rule} 
+\vspace{0.5cm}
+\\A useful formula that often arises when trying to derive expression for the conditional probability of one variable given another, is Bayes's rule.
+\vspace{0.3cm}
+\\In the case of discrete random variables $X$ and $Y$
+\[
+P_{Y|X}(y | x)=\frac{P_{X Y}(x, y)}{P_{X}(x)}=\frac{P_{X|Y}(x | y) P_{Y}(y)}{\sum_{y^{\prime} \in V a l(Y)} P_{X | Y}\left(x | y^{\prime}\right) P_{Y}\left(y^{\prime}\right)}
+\]
+In the case of continuous random variables $X$ and $Y$
+\[
+f_{Y|X}(y | x)=\frac{f_{X Y}(x, y)}{f_{X}(x)}=\frac{f_{X|Y}(x | y) f_{Y}(y)}{\int_{-\infty}^{\infty} f_{X | Y}\left(x | y^{\prime}\right) f_{Y}\left(y^{\prime}\right) d y^{\prime}}
+\]
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 3.6 Independence} 
+\vspace{0.5cm}
+\\Two random variables $X$ and $Y$ are independent if $F_{XY}(x,y)=F_X(x)F_Y(y)$for al values of $x$ and $y$. \\Equivalently
+ \begin{itemize}
+ \item For discrete random variables, $p_{XY}(x,y)=p_X(x)p_Y(y)$ for all $x\in Val(X)$, $y\in Val(Y)$
+ \item For discrete random variables, $p_{Y|X}(x|y)=p_Y(y)$ whenever $p_X(x)\neq 0$ for all $y\in Val(Y)$
+ \item For continuous random variables, $f_{X Y}(x, y)=f_{X}(x) f_{Y}(y)$ for all $x,y \in \mathbb{R}$
+ \item For continuous random variables, $f_{Y | X}(y | x)=f_{Y}(y)$ whenever $f_X(x)\neq0$ for all $y\in \mathbb{R}$
+ \end{itemize}
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 3.7 Expectation} 
+\vspace{0.5cm}
+\\Suppose that we have two discrete random variables $X$,$Y$ and $g : \mathbf{R}^{2} \longrightarrow \mathbf{R}$ is a function of these two variables, the expected value of $g$ is defined as
+\[
+E[g(X, Y)] \triangleq \sum_{x \in V a l(X)} \sum_{y \in V a l(Y)} g(x, y) p_{X Y}(x, y)
+\]
+For continuous random variables $X$, $Y$, the analogous expression is
+\[
+E[g(X, Y)]=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x, y) f_{X Y}(x, y) d x d y
+\]
+{\bfseries Properties}
+\vspace{0.3cm}
+\begin{itemize}
+\item $E[f(X, Y)+g(X, Y)]=E[f(X, Y)]+E[g(X, Y)]$
+\item $\text { If } X \text { and } Y \text { are independent, then } E[f(X) g(Y)]=E[f(X)] E[g(Y)]$
+\end{itemize} 
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 3.8 Covariance} 
+\vspace{0.5cm}
+\\We can use the concept of expectation to study the relationship of two random variables with each other. The covariance of $X$ and $Y$ is defined as
+\[
+Cov[X, Y] \triangleq E[(X-E[X])(Y-E[Y])]
+\]
+Using an argument similar to that for variance, we can rewrite this as
+\[
+\begin{aligned} {Cov}[X, Y] &=E[(X-E[X])(Y-E[Y])] \\ &=E[X Y-X E[Y]-Y E[X]+E[X] E[Y]] \\ &=E[X Y]-E[X] E|Y|-E[Y] E[X]+E[X] E[Y] ] \\ &=E[X Y]-E[X] E[Y] \end{aligned}
+\]
+{\bfseries Properties}
+\vspace{0.3cm}
+\begin{itemize}
+	\item $Var[X+Y]=Var[X]+Var[Y]+2 Cov[X, Y]$
+	\item $\text { If } X \text { and } Y \text { are independent, then } Cov[X, Y]=0$
+\end{itemize} 
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 3.9 Correlation coefficient} 
+ \vspace{0.5cm}
+\\The concept of correlation is used to study the {\bfseries linear} relationship of two random variables with each other. The correlation coefficient of $X$ and $Y$ is defined as
+\[
+\rho_{XY}=\frac{Cov(X,Y)}{\sqrt{Var(X)}\sqrt{Var(Y)}}
+\]
+{\bfseries Properties}
+\vspace{0.3cm}
+\begin{itemize}
+	\item $|\rho_{XY}|\leqslant1$
+	\item $|\rho_{XY}|=1\Leftrightarrow P\{Y=a+bx\}=1$
+\end{itemize} 
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 4 Multiple random variables} 
+\vspace{0.3cm}
+\\{\bfseries 4.1 Basic properties}
+\vspace{0.2cm}
+\\We can define the joint distribution function of $X_1, X_2,...,X_n$, the joint probability density function of $X_1, X_2,...,X_n$, the marginal probability density function of $X_1$, and the conditional probability density function of $X_1$ given $X_2,...,X_n$, as
+\begin{gather*} 
+F_{X_{1}, X_{2}, \ldots, X_{n}}\left(x_{1}, x_{2}, \ldots x_{n}\right)=P\left(X_{1} \leqslant x_{1}, X_{2} \leqslant x_{2}, \ldots, X_{n} \leqslant x_{n}\right)
+\\ f_{X_{1}, X_{2}, \ldots, X_{n}}\left(x_{1}, x_{2}, \ldots x_{n}\right)=\frac{\partial^{n} F_{X_{1}, X_{2}, \ldots, X_{n}}\left(x_{1}, x_{2}, \ldots x_{n}\right)}{\partial x_{1} \ldots \partial x_{n}}
+\\f_{X_{1}}\left(X_{1}\right)=\int_{-\infty}^{\infty} \cdots \int_{-\infty}^{\infty} f_{X_{1}, X_{2}, \ldots, X_{n}}\left(x_{1}, x_{2}, \ldots x_{n}\right) d x_{2} \ldots d x_{n}
+\\f_{X_{1} | X_{2}, \ldots, X_{n}}\left(x_{1} | x_{2}, \ldots x_{n}\right)=\frac{f_{X_{1}, X_{2}, \ldots, X_{n}}\left(x_{1}, x_{2}, \ldots x_{n}\right)}{f_{X_{2}, \ldots, X_{n}}\left(x_{1}, x_{2}, \ldots x_{n}\right)}
+\\P\left(\left(x_{1}, x_{2}, \ldots x_{n}\right) \in A\right)=\int_{\left(x_{1}, x_{2}, \ldots x_{n}\right) \in A} f_{X_{1}, X_{2}, \ldots, X_{n}}\left(x_{1}, x_{2}, \ldots x_{n}\right) d x_{1} d x_{2} \ldots d x_{n}
+\end{gather*}
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+Chain rule: From the definition of conditional probability for multiple random variables, one can show that
+\begin{align*} 
+	&f\left(x_{1}, x_{2}, \ldots, x_{n}\right) =f\left(x_{n} | x_{1}, x_{2} \ldots, x_{n-1}\right) f\left(x_{1}, x_{2} \ldots, x_{n-1}\right) \\ &=f\left(x_{n} | x_{1}, x_{2} \ldots, x_{n-1}\right) f\left(x_{n-1} | x_{1}, x_{2} \ldots, x_{n-2}\right) f\left(x_{1}, x_{2} \ldots, x_{n-2}\right) \\ &=\ldots = f\left(x_{1}\right) \prod_{i=2}^{n} f\left(x_{i} | x_{1}, \ldots, x_{i-1}\right) 
+\end{align*}
+Independence: For multiple events, $A_1,...,A_k$, we say that $A_1,...,A_k$ are mutually independent if for any subset $S \subseteq\{1,2, \dots, k\}$, we have
+\[
+P\left(\cap_{i \in S} A_{i}\right)=\prod_{i \in S} P\left(A_{i}\right)
+\]
+Likewise, we say that random variables $X_1,...,X_n$ are independent if
+\[
+f\left(x_{1}, \ldots, x_{n}\right)=f\left(x_{1}\right) f\left(x_{2}\right) \cdots f\left(x_{n}\right)
+\]
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 4.2 Random vectors}
+\vspace{0.5cm}
+\\Suppose that we have $n$ random variables and put then in a vector $X=[X_1 X_2...X_n]^T$, we call it random vector, the joint PDF and CDF will apply to random vectors as well.
+\vspace{0.5cm}
+\\{\bfseries Expectation}: The expected value of an arbitrary function $g:\mathbb{R}^n\rightarrow\mathbb{R}$ is defined as
+\[
+E[g(X)]=\int_{\mathbb{R}^{n}} g\left(x_{1}, x_{2}, \ldots, x_{n}\right) f_{X_{1}, X_{2}, \ldots, X_{n}}\left(x_{1}, x_{2}, \ldots x_{n}\right) d x_{1} d x_{2} \dots d x_{n}
+\]
+If $g$ is
+\[
+g(x)=[g_1(x) \quad g_2(x)  \quad... \quad g_m(x)]^T
+\]
+then
+\[
+E[g(X)]=[E[g_1(x)] \quad E[g_2(x)]  \quad... \quad E[g_m(x)]]^T
+\]
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries Covariance matrix}: For a given random vector $X:\Omega\rightarrow\mathbb{R}^n$, its covariance matrix $\Sigma$ is the $n\times n$ square matrix whose entries are given by $\Sigma_{ij}=Cov[X_i,X_j]$. We have
+\begin{align*}
+\Sigma&=\left[ \begin{array}{ccc}{\operatorname{Cov}\left[X_{1}, X_{1}\right]} & {\cdots} & {\operatorname{Cov}\left[X_{1}, X_{n}\right]} \\ {\vdots} & {\ddots} & {\vdots} \\ {\operatorname{Cov}\left[X_{n}, X_{1}\right]} & {\cdots} & {\operatorname{cov}\left[X_{n}, X_{n}\right]}\end{array}\right] \\&=\left[ \begin{array}{ccc}{E\left[X_{1}^{2}\right]-E\left[X_{1}\right] E\left[X_{1}\right]} & {\cdots} & {E\left[X_{1} X_{n}\right]-E\left[X_{1}\right] E\left[X_{n}\right]} \\ {\vdots} & {\ddots} & {\vdots} \\ {E\left[X_{n} X_{1}\right]-E\left[X_{n}\right] E\left[X_{1}\right]} & {\cdots} & {E\left[X_{n}^{2}\right]-E\left[X_{n}\right] E\left[X_{n}\right]}\end{array}\right] \\&=\left[ \begin{array}{ccc}{E\left[X_{1}^{2}\right]} & {\cdots} & {E\left[X_{1} X_{n}\right]} \\ {\vdots} & {\ddots} & {\vdots} \\ {E\left[X_{n} X_{1}\right]} & {\cdots} & {E\left[X_{n}^{2}\right]}\end{array}\right]-\left[ \begin{array}{ccc}{E\left[X_{1}\right] E\left[X_{1}\right]} & {\cdots} & {E\left[X_{1}\right] E\left[X_{n}\right]} \\ {\vdots} & {\ddots} & {\vdots} \\ {E\left[X_{n}\right] E\left[X_{1}\right]} & {\cdots} & {E\left[X_{n}\right] E\left[X_{n}\right]}\end{array}\right] \\&=E\left[X X^{T}\right]-E[X] E[X]^{T}=\ldots=E\left[(X-E[X])(X-E[X])^{T}\right]
+\end{align*}
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 4.3 The multivariate Gaussian distribution}
+\vspace{0.3cm}
+\\A random vector $X\in\mathbb{R}^n$ is said to have a multivariate normal (or Gaussian) distribution with mean $\mu\in\mathbb{R}^n$ and covariance matrix $\Sigma\in\mathbb{S}^n_{++}$
+\[
+f_{X_{1}, X_{2}, \ldots, X_{n}}\left(x_{1}, x_{2}, \ldots, x_{n} ; \mu, \Sigma\right)=\frac{1}{(2 \pi)^{n / 2}|\Sigma|^{1 / 2}} e^{ -\frac{1}{2}(x-\mu)^{T} \Sigma^{-1}(x-\mu)}
+\]
+We write this as $X \sim \mathcal{N}(\mu, \Sigma)$.
+\vspace{0.3cm}
+\\In the case $n=1$, we get the regular definition of a normal distribution with mean parameter $\mu_1$ and variance $\Sigma_{11}$
+\[
+f(x)=\frac{1}{\sqrt{2 \pi} \sigma} e^{-\frac{(x-\mu)^{2}}{2 \sigma^{2}}}
+\]
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 5 Law of large numbers and Central limit theorems} 
+\vspace{0.3cm}
+\\{\bfseries 5.1 Law of large numbers}
+\vspace{0.2cm}
+\\{\bfseries Wiener-khinchin law of large numbers }: We suppose that random variables $X_1,X_2,...,X_n$ are independent and identically distributed, and  $E[X_k]=\mu(k=1,2,...,n)$, for any $\varepsilon>0$
+\[
+\lim _{n \rightarrow \infty} P\left\{\left|\frac{1}{n} \sum_{k=1}^{n} X_{k}-\mu\right|<\varepsilon\right\}=1
+\]
+{\bfseries Bernoulli law of large numbers }: We suppose that the incident $A$ occurs $f_A$ times in $n$ times independent replicated experiments, $p$ is the probability of incident $A$ occuring each time, for any $\varepsilon>0$
+\[
+\lim _{n \rightarrow \infty} P\left\{\left|\frac{f_{A}}{n}-p\right|<\varepsilon\right\}=1
+\]
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 5.2 Central limit theorems}
+\vspace{0.2cm}
+\\{\bfseries The central limit theorem of independent and identical distribution}: We suppose that random variables $X_1,X_2,...,X_n$ are independent and identically distributed, and  $E[X_k]=\mu(k=1,2,...)$, $Var[X_k]=\sigma^2>0(k=1,2,...,n)$, the standard variable of  $\sum_{k=1}^{n}X_k$ is
+\[
+Y_{n}=\frac{\sum_{k=1}^{n} X_{k}-E\left(\sum_{k=1}^{n} X_{k}\right)}{\sqrt{Var\left(\sum_{k=1}^{n} X_{k}\right)}}=\frac{\sum_{k=1}^{n} X_{k}-n \mu}{\sqrt{n} \sigma}
+\]
+the cumulative distribution function $F_n(x)$ to any $x$ satisfies
+\[
+\begin{aligned} \lim _{n \rightarrow \infty} F_{n}(x) &=\lim _{n \rightarrow \infty}\left\{\frac{\sum_{k=1}^{n} X_{k}-n \mu}{\sqrt{n} \sigma} \leqslant x\right\} \\ &=\int_{-\infty}^{x} \frac{1}{\sqrt{2 \pi}} \mathrm{e}^{-t^{2} / 2} \mathrm{d} t=\Phi(x) \end{aligned}
+\]
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries Lyapunov theorem}: We suppose that random variables $X_1,X_2,...,X_n$ are independent, and  $E[X_k]=\mu(k=1,2,...)$, $Var[X_k]=\sigma^2>0$ $(k=1,2,...,n)$,  $B_{n}^{2}=\sum_{k=1}^{n} \sigma_{k}^{2}$. When $n \rightarrow \infty$, if there is a positive number $\delta$ which satisfies
+\[
+\frac{1}{B_{n}^{2+\delta}} \sum_{k=1}^{n} E\left\{\left|X_{k}-\mu_{k}\right|^{2+\delta}\right\} \rightarrow 0
+\]
+then standard variable of  $\sum_{k=1}^{n}X_k$
+\[
+Z_{n}=\frac{\sum_{k=1}^{n} X_{k}-E\left(\sum_{k=1}^{n} X_{k}\right)}{\sqrt{D\left(\sum_{k=1}^{n} X_{k}\right)}}=\frac{\sum_{k=1}^{n} X_{k}-\sum_{k=1}^{n} \mu_{k}}{B_{n}}
+\]
+its cumulative distribution function $F_n(x)$ to any $x$ satisfies
+\[
+\begin{aligned} \lim _{n \rightarrow \infty} F_{n}(x) &=\lim _{n \rightarrow \infty}\left\{\frac{\sum_{k=1}^{n} X_{k}-\sum_{k=1}^{n} \mu_{k}}{B_{n}} \leqslant x\right\} \\ &=\int_{-\infty}^{x} \frac{1}{\sqrt{2 \pi}} \mathrm{e}^{-t^{2} / 2} \mathrm{d} t=\Phi(x) \end{aligned}
+\]
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries De Moivre-Laplace theorem}: We suppose that random variables $\eta_n(n=1,2,...,n)$ follows binomial distribution which parameters are $n$ and $p(0<p<1)$, then any $x$ satisfies
+\[
+\lim _{n \rightarrow \infty} P\left\{\frac{\eta_{n}-n p}{\sqrt{n p(1-p)}} \leqslant x\right\}=\int_{-\infty}^{x} \frac{1}{\sqrt{2 \pi}} \mathrm{e}^{-t^{2} / 2} \mathrm{d} t=\Phi(x)
+\]
+This theorem indicate that the normal distribution is the limit distribution of the binomial distribution.
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 6 Moment estimation and Maximum likelihood estimation} 
+\vspace{0.3cm}
+\\{\bfseries Idea of moment estimation}
+\vspace{0.2cm}
+\\We suppose that $X$ is random variable, $\theta$ are parameters to be evaluated, population k-order moment $\mu_{l}$ is
+\[
+\mu_{l}=E\left(X^{l}\right)=\int_{-\infty}^{\infty} x^{l} f\left(x ; \theta_{1}, \theta_{2}, \cdots, \theta_{k}\right) d x \ \text{  for continuous}
+\]
+\[
+\mu_{l}=E\left(X^{l}\right)=\sum_{x \in R_{X}} x^{l} p\left(x ; \theta_{1}, \theta_{2}, \cdots, \theta_{k}\right) \ \text{ for discrete}
+\]
+sample moment $A_l$ 
+\[
+A_{l}=\frac{1}{n} \sum_{i=1}^{n} X_{i}^{l}
+\]
+According to Wiener-khinchin law of large numbers, we have
+\[
+A_{l}\stackrel{P}{\longrightarrow} \mu_{l}, \quad l=1,2,...,n
+\]
+\end{frame}
+\begin{frame}
+\vspace{0.15cm}
+{\bfseries Method of moment estimation} 
+\vspace{0.15cm}
+\\Generally, $\mu_l$ is function of $\theta_1$,$\theta_{2}$,...,$\theta_{k}$, we suppose
+\[
+\left\{\begin{array}{c}{\mu_{1}=\mu_{1}\left(\theta_{1}, \theta_{2}, \cdots, \theta_{k}\right)} \\ {\mu_{2}=\mu_{2}\left(\theta_{1}, \theta_{2}, \cdots, \theta_{k}\right)} \\ {\vdots} \\ {\mu_{k}=\mu_{k}\left(\theta_{1}, \theta_{2}, \cdots, \theta_{k}\right)}\end{array}\right.
+\]
+and solve $\theta_1$,$\theta_{2}$,...,$\theta_{k}$
+\[
+\left\{\begin{aligned} \theta_{1} &=\theta_{1}\left(\mu_{1}, \mu_{2}, \cdots, \mu_{k}\right) \\ \theta_{2} &=\theta_{2}\left(\mu_{1}, \mu_{2}, \cdots, \mu_{k}\right) \\ & \vdots \\ \theta_{k} &=\theta_{k}\left(\mu_{1}, \mu_{2}, \cdots, \mu_{k}\right) \end{aligned}\right.
+\]
+using $A_l$ replace $\mu_l$, we get
+\[
+\hat{\theta}_{i}=\theta_{i}\left(A_{1}, A_{2}, \cdots, A_{l}\right), l=1,2,..., k
+\]
+$\hat{\theta}_i$ is called moment estimation of $\theta_i $
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries Idea of Maximum likelihood estimation} 
+\vspace{0.3cm}
+\\Population $X$ is random variable, $\theta$ are parameters to be evaluated and $\theta\in\Theta$. The joint distribution of sample $X_1$, $X_2$,...,$X_n$ is
+\[
+\prod_{i=1}^{n} p\left(x_{i} ; \theta\right) \text{ for discrete;  } \prod_{i=1}^{n} f\left(x_{i} ; \theta\right)dx_i \text{ for continuous}
+\]
+and the probability of $\{X_1=x_1,X_2=x_2,...,X_n=x_n\}$ is
+\[
+L(\theta)=L\left(x_{1}, x_{2}, \cdots, x_{n} ; \theta\right)=\prod_{i=1}^{n} p\left(x_{i} ; \theta\right) \text{  or  } \prod_{i=1}^{n} f\left(x_{i} ; \theta\right) 
+\]
+$L(\theta)$ is called likelihood function. Naturally, we should find $\hat{\theta}$ satisfy
+\[
+L\left(x_{1}, x_{2}, \cdots, x_{n} ; \hat{\theta}\right)=\max _{\theta \in \Theta} L\left(x_{1}, x_{2}, \cdots, x_{n} ; \theta\right)
+\]
+$\hat{\theta}$ is called maximum likelihood estimation of $\theta$
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries Method of Maximum likelihood estimation} 
+\vspace{0.3cm}
+\\Generally, $p(x;\theta)$ and $f(x;\theta)$ are differentiable to $\theta$, so we can solve $\hat{\theta}$ according to
+\[
+\frac{d}{d \theta} L(\theta)=0
+\]
+Further more, $L(\theta)$  and $lnL(\theta)$ get extreme value at same $\theta$, we often sovle $\hat{\theta}$ according to
+\[
+\frac{d}{d \theta} \ln L(\theta)=0
+\]
+and following equation is called logarithmic likelihood equation
+\end{frame}
+\begin{frame}
+\vspace{0.3cm}
+{\bfseries 7 Hypothesis testing about normal distribution} 
+\vspace{0.2cm}
+\\{\bfseries $\sigma^2$ is known, testing about $\mu$}, we use test statistics
+\[
+Z=\frac{\overline{X}-\mu_{0}}{\sigma / \sqrt{n}} \sim N(0,1)
+\]
+compare $|z|$ and parameter about rejection region
+\vspace{0.2cm}
+\\{\bfseries $\sigma^2$ isn't known, testing about $\mu$}, we use test statistics
+\[
+t=\frac{\overline{X}-\mu_{0}}{S / \sqrt{n}} \sim t(n-1)
+\]
+compare $|t|$ and parameter about rejection region
+\end{frame}
+\end{document}

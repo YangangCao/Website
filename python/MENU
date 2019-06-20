@@ -1,25 +1,10 @@
-    Home                [index.html]
-    Stuff               [stuff.html]
+    Home                [../index.html]
 
-VIP Members
-    Baboo Cui           [./members/baboo.html]
-    Xinwen Xu           [index_xw.html]
-    someone1            [index_p1.html]
-    someone2            [index_p2.html]
-
-Classes
-    AAA                 [AAA.html]
-    BBB                 [BBB.html]
-    CCC                 [CCC.html]
-
-Projects
-    AAA                 [AAA.html]
-    BBB                 [BBB.html]
-    CCC                 [CCC.html]
-
+Python
+    Index               [index.html]
 
 Service
-    Payment             [payment.html]
-    Contact             [contact.html]
+    Payment             [../payment.html]
+    Contact             [../contact.html]
 
 # vim: et

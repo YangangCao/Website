@@ -1,0 +1,206 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage{enumerate}
+\usepackage{tikz} % system block diagram
+\usepackage{textcomp}
+\usepackage{bm}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{shapes,arrows} % system block diagram
+\usepackage{booktabs}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} % matlab code block
+\author{Yangang Cao}
+\date{June 19, 2019}
+\newcommand{\degree}{^\circ}
+\tikzset{
+	delay/.style    = {draw, thick, rectangle, minimum height = 3em,
+		minimum width = 3em},
+	sum/.style      = {draw, circle, node distance = 2cm}, 
+	prod/.style     = {draw, circle, node distance = 2cm},
+	input/.style    = {coordinate}, % Input
+	output/.style  = {coordinate} % Output
+}
+% Defining string as labels of certain blocks.
+\newcommand{\product}{$\displaystyle \times$}
+\newcommand{\delay}{\large$z^{-1}$}
+\begin{document}
+
+\title{Matrix Calculus}
+\maketitle
+While the topics in the previous sections are typically covered in a standard course on linear algebra, one topic that does not seem to be covered very often (and which we will use extensively) is the extension of calculus to the vector setting. Despite the fact that all the actual calculus we use is relatively trivial, the notation can often make things look much more difficult than they are. In this section we present some basic definitions of matrix calculus and provide a few examples. 
+\section{The Gradient}
+ Suppose that $f : \mathbb{R}^{m \times n} \rightarrow \mathbb{R}$ is a function that takes as input a matrix of size $m \times n$ and returns a real value. Then the $\bm{gradient}$ of $f$ (with respect to  $A \in \mathbb{R}^{m \times n}$) is the matrix of partial derivatives, defined as:
+ \[
+ \nabla_{A} f(A) \in \mathbb{R}^{m \times n}=\left[\begin{array}{cccc}{\frac{\partial f(A)}{\partial A_{1}}} & {\frac{\partial f(A)}{\partial A_{12}}} & {\dots} & {\frac{\partial f(A)}{\partial A_{1}}} \\ {\frac{\partial f(A)}{\partial A_{21}}} & {\frac{\partial f(A)}{\partial A_{22}}} & {\cdots} & {\frac{\partial f(A)}{\partial A_{2 n}}} \\ {\vdots} & {\vdots} & {\ddots} & {\vdots} \\ {\frac{\partial f(A)}{\partial A_{m 1}}} & {\frac{\partial f(A)}{\partial A_{m 2}}} & {\cdots} & {\frac{\partial f(A)}{\partial A_{m n}}}\end{array}\right]
+ \]
+ i.e., an $m\times n$ matrix with
+ \[
+ \left(\nabla_{A} f(A)\right)_{i j}=\frac{\partial f(A)}{\partial A_{i j}}.
+ \]
+Note that the size of \(\nabla_{A} f(A)\) is always the same as the size of \(A .\) So if, in particular, \(A\) is just a vector \(x \in \mathbb{R}^{n}\),
+\[
+\nabla_{x} f(x)=\left[\begin{array}{c}{\frac{\partial f(x)}{\partial x_{1}}} \\ {\frac{\partial f(x)}{\partial x_{2}}} \\ {\vdots} \\ {\frac{\partial f(x)}{\partial x_{n}}}\end{array}\right].
+\]
+It is very important to remember that the gradient of a function is only defined if the function
+is real-valued, that is, it it returns a scalar value. We can not, for example, take the gradient
+of \(A x, A \in \mathbb{R}^{n \times n}\) with respect to \(x,\) since this quantity is vector-valued.
+
+It follows directly from the equivalent properties of partial derivatives that:
+\begin{itemize}
+\item $\nabla_{x}(f(x)+g(x))=\nabla_{x} f(x)+\nabla_{x} g(x)$
+\item $\text { For } t \in \mathbb{R}, \nabla_{x}(t f(x))=t \nabla_{x} f(x)$
+\end{itemize}
+
+In principle, gradients are a natural extension of partial derivatives to functions of multiple variables. In practice, however, working with gradients can sometimes be tricky for notational reasons. For example, suppose that \(A \in \mathbb{R}^{m \times n}\) is a matrix of fixed coefficients and suppose that \(b \in \mathbb{R}^{m}\) is a vector of fixed coefficients. Let \(f : \mathbb{R}^{m} \rightarrow \mathbb{R}\) be the function defined by \(f(z)=z^{T} z,\) such that \(\nabla_{z} f(z)=2 z .\) But now, consider the expression,
+\[
+\nabla f(A x).
+\]
+How should this expression be interpreted? There are at least two possibilities:
+\begin{enumerate}[1.]
+\item In the first interpretation, recall that \(\nabla_{z} f(z)=2 z\). Here, we interpret \(\nabla f(A x)\) as evaluating the gradient at the point \(A x,\) hence,
+\[
+\nabla f(A x)=2(A x)=2 A x \in \mathbb{R}^{m}
+\]
+\item In the second interpretation, we consider the quantity \(f(A x)\) as a function of the input
+variables \(x\) . More formally, let \(g(x)=f(A x)\) . Then in this interpretation,
+\[
+\nabla f(A x)=\nabla_{x} g(x) \in \mathbb{R}^{n}
+\]
+\end{enumerate}
+Here, we can see that these two interpretations are indeed different. One interpretation yields an \(m\)-dimensional vector as a result, while the other interpretation yields an \(n\)-dimensional vector as a result! How can we resolve this?
+
+Here, the key is to make explicit the variables which we are differentiating with respect to. In the first case, we are differentiating the function \(f\) with respect to its arguments \(z\) and then substituting the argument \(A x .\) In the second case, we are differentiating the composite function \(g(x)=f(A x)\) with respect to \(x\) directly. We denote the first case as \(\nabla_{z} f(A x)\) and the second case as \(\nabla_{x} f(A x) .\) Keeping the notation clear js extremely important (as you'll find out in your homework, in fact!).
+\section{The Hessian}
+Suppose that \(f : \mathbb{R}^{n} \rightarrow \mathbb{R}\) is a function that takes a vector in \(\mathbb{R}^{n}\) and returns a real number.
+Then the $\bm{Hessian}$ matrix with respect to \(x,\) written \(\nabla_{x}^{2} f(x)\) or simply as \(H\) is the \(n \times n\) matrix of partial derivatives,
+\[
+\nabla_{x}^{2} f(x) \in \mathbb{R}^{n \times n}=\left[\begin{array}{cccc}{\frac{\partial^{2} f(x)}{\partial x_{1}^{2}}} & {\frac{\partial^{2} f(x)}{\partial x_{1} \partial x_{2}}} & {\cdots} & {\frac{\partial^{2} f(x)}{\partial x_{1} \partial x_{n}}} \\ {\frac{\partial^{2} f(x)}{\partial x_{2} \partial x_{1}}} & {\frac{\partial^{2} f(x)}{\partial x_{2}^{2}}} & {\cdots} & {\frac{\partial^{2} f(x)}{\partial x_{2} \partial x_{n}}} \\ {\vdots} & {\vdots} & {\ddots} & {\vdots} \\ {\frac{\partial^{2} f(x)}{\partial x_{n} \partial x_{1}}} & {\frac{\partial^{2} f(x)}{\partial x_{n} \partial x_{2}}} & {\cdots} & {\frac{\partial^{2} f(x)}{\partial x_{n}^{2}}}\end{array}\right]
+\]
+In other words, \(\nabla_{x}^{2} f(x) \in \mathbb{R}^{n \times n},\) with
+\[
+\left(\nabla_{x}^{2} f(x)\right)_{i j}=\frac{\partial^{2} f(x)}{\partial x_{i} \partial x_{j}}
+\]
+Note that the Hessian is always symmetric, since
+\[
+\frac{\partial^{2} f(x)}{\partial x_{i} \partial x_{j}}=\frac{\partial^{2} f(x)}{\partial x_{j} \partial x_{i}}
+\]
+Similar to the gradient, the Hessian is defined only when \(f(x)\) is real-valued.
+
+It is natural to think of the gradient as the analogue of the first derivative for functions of vectors, and the Hessian as the analogue of the second derivative (and the symbols we use also suggest this relation). This intuition is generally correct, but there a few caveats to keep in mind.
+
+First, for real-valued functions of one variable \(f : \mathbb{R} \rightarrow \mathbb{R},\) it is a basic definition that the second derivative is the derivative of the first derivative, i.e.,
+\[
+\frac{\partial^{2} f(x)}{\partial x^{2}}=\frac{\partial}{\partial x} \frac{\partial}{\partial x} f(x).
+\]
+However, for functions of a vector, the gradient of the function is a vector, and we cannot take the gradient of a vector -- i.e.,
+\[
+\nabla_{x} \nabla_{x} f(x)=\nabla_{x}\left[\begin{array}{c}{\frac{\partial f(x)}{\partial x_{2}}} \\ {\frac{\partial f(x)}{\partial x_{2}}} \\ {\vdots} \\ {\frac{\partial f(x)}{\partial x_{n}}}\end{array}\right]
+\]
+and this expression is not defined. Therefore, it is not the case that the Hessian is the gradient of the gradient. However, this is almost true, in the following sense: If we look at the ith entry of the gradient \(\left(\nabla_{x} f(x)\right)_{i}=\partial f(x) / \partial x_{i},\) and take the gradient with respect to \(x\) we get
+\[
+\nabla_{x} \frac{\partial f(x)}{\partial x_{i}}=\left[\begin{array}{c}{\frac{\partial^{2} f(x)}{\partial x_{i} \partial x_{1}}} \\ {\frac{\partial^{2} f(x)}{\partial x_{i} \partial x_{2}}} \\ {\vdots} \\ {\frac{\partial f(x)}{\partial x_{i} \partial x_{n}}}\end{array}\right]
+\]
+which is the \(i\) th column (or row) of the Hessian. Therefore,
+\[
+\nabla_{x}^{2} f(x)=\left[\begin{array}{cccccc}{\nabla_{x}\left(\nabla_{x} f(x)\right)_{1}} & {\nabla_{x}\left(\nabla_{x} f(x)\right)_{2}} & {\cdots} & {\nabla_{x}\left(\nabla_{x} f(x)\right)_{n}}\end{array}\right]
+\]
+If we don't mind being a little bit sloppy we can say that (essentially) \(\nabla_{x}^{2}f(x)=\nabla_{x}\left(\nabla_{x} f(x)\right)^{T}\), so long as we understand that this really means taking the gradient of each entry of \(\left(\nabla_{x} f(x)\right)^{T}\), not the gradient of the whole vector.
+
+Finally, note that while we can take the gradient with respect to a matrix \(A \in \mathbb{R}^{n},\) for the purposes of this class we will only consider taking the Hessian with respect to a vector \(x \in \mathbb{R}^{n}\). This is simply a matter of convenience (and the fact that none of the calculations we do require us to find the Hessian with respect to a matrix), since the Hessian with respect to a matrix would have to represent all the partial derivatives \(\partial^{2} f(A) /\left(\partial A_{i j} \partial A_{k \ell}\right),\) and it is rather cumbersome to represent this as a matrix.
+\section{Gradients and Hessians of Quadratic and Linear Functions}
+Now let's try to determine the gradient and Hessian matrices for a few simple functions. It
+should be noted that all the gradients given here are special cases of the gradients given in
+the \(\mathrm{CS} 229\) lecture notes.
+
+For \(x \in \mathbb{R}^{n},\) let \(f(x)=b^{T} x\) for some known vector \(b \in \mathbb{R}^{n}\). Then
+\[
+f(x)=\sum_{i=1}^{n} b_{i} x_{i}
+\]
+so
+\[
+\frac{\partial f(x)}{\partial x_{k}}=\frac{\partial}{\partial x_{k}} \sum_{i=1}^{n} b_{i} x_{i}=b_{k}
+\]
+From this we can easily see that \(\nabla_{x} b^{T} x=b .\) This should be compared to the analogous situation in single variable calculus, where \(\partial /(\partial x) a x=a\).
+
+Now consider the quadratic function \(f(x)=x^{T} A x\) for \(A \in \mathbb{S}^{n}\). Remember that
+\[
+f(x)=\sum_{i=1}^{n} \sum_{j=1}^{n} A_{i j} x_{i} x_{j}
+\]
+To take the partial derivative, we'll consider the terms including \(x_{k}\) and \(x_{k}^{2}\) factors separately:
+\[
+\begin{aligned} \frac{\partial f(x)}{\partial x_{k}} &=\frac{\partial}{\partial x_{k}} \sum_{i=1}^{n} \sum_{j=1}^{n} A_{i j} x_{i} x_{j} \\ &=\frac{\partial}{\partial x_{k}}\left[\sum_{i \neq k} \sum_{j \neq k} A_{i j} x_{i} x_{j}+\sum_{i \neq k} A_{i k} x_{i} x_{k}+\sum_{j \neq k} A_{k j} x_{k} x_{j}+A_{k k} x_{k}^{2}\right] \\ &=\sum_{i \neq k} A_{i k} x_{i}+\sum_{j \neq k} A_{k j} x_{j}+2 A_{k k} x_{k} \\ &=\sum_{i=1}^{n} A_{i k} x_{i}+\sum_{j=1}^{n} A_{k j} x_{j}=2 \sum_{i=1}^{n} A_{k i} x_{i} \end{aligned}
+\]
+where the last equality follows since \(A\) is symmetric (which we can safely assume, since it is appearing in a quadratic form). Note that the kth entry of \(\nabla_{x} f(x)\) is just the inner product of the \(k\) th row of \(A\) and \(x .\) Therefore, \(\nabla_{x} x^{T} A x=2 A x\) . Again, this should remind you of the analogous fact in single-variable calculus, that \(\partial /(\partial x) a x^{2}=2 a x\).
+
+Finally, let's look at the Hessian of the quadratic function \(f(x)=x^{T} A x\) (it should be obvious that the Hessian of a linear function \(b^{T} x\) is zero). In this case,
+\[
+\frac{\partial^{2} f(x)}{\partial x_{k} \partial x_{\ell}}=\frac{\partial}{\partial x_{k}}\left[\frac{\partial f(x)}{\partial x_{\ell}}\right]=\frac{\partial}{\partial x_{k}}\left[2 \sum_{i=1}^{n} A_{\ell i} x_{i}\right]=2 A_{\ell k}=2 A_{k \ell}
+\]
+Therefore, it should be clear that \(\nabla_{x}^{2} x^{T} A x=2 A,\) which should be entirely expected (and again analogous to the single-variable fact that \(\partial^{2} /\left(\partial x^{2}\right) a x^{2}=2 a )\) .
+
+To recap,
+\begin{itemize}
+\item \(\nabla_{x} b^{T} x=b\)
+\item \(\nabla_{x} x^{T} A x=2 A x\) (if \(A\) symmetric)
+\item \(\nabla_{x}^{2} x^{T} A x=2 A(\text {if } A \text { symmetric})\)
+\end{itemize}
+\section{Least Square}
+Let's apply the equations we obtained in the last section to derive the least squares equations. Suppose we are given matrices \(A \in \mathbb{R}^{m \times n}\) (for simplicity we assume \(A\) is full rank) and a vector \(b \in \mathbb{R}^{m}\) such that \(b \notin \mathcal{R}(A)\) . In this situation we will not be able to find a vector \(x \in \mathbb{R}^{n},\) such that \(A x=b,\) so instead we want to find a vector \(x\) such that \(A x\) is as close as possible to \(b,\) as measured by the square of the Euclidean norm \(\|A x-b\|_{2}^{2}\).
+
+Using the fact that \(\|x\|_{2}^{2}=x^{T} x,\) we have
+\[
+\begin{aligned}\|A x-b\|_{2}^{2} &=(A x-b)^{T}(A x-b) \\ &=x^{T} A^{T} A x-2 b^{T} A x+b^{T} b \end{aligned}
+\]
+Taking the gradient with respect to \(x\) we have, and using the properties we derived in the previous section
+\[
+\begin{aligned} \nabla_{x}\left(x^{T} A^{T} A x-2 b^{T} A x+b^{T} b\right) &=\nabla_{x} x^{T} A^{T} A x-\nabla_{x} 2 b^{T} A x+\nabla_{x} b^{T} b \\ &=2 A^{T} A x-2 A^{T} b \end{aligned}
+\]
+Setting this last expression equal to zero and solving for \(x\) gives the normal equations
+\[
+x=\left(A^{T} A\right)^{-1} A^{T} b
+\]
+which is the same as what we derived in class.
+\section{Gradients of the Determinant}
+Now let's consider a situation where we find the gradient of a function with respect to a matrix, namely for \(A \in \mathbb{R}^{n \times n},\) we want to find \(\nabla_{A}|A| .\) Recall from our discussion of determinants that
+\[
+|A|=\sum_{i=1}^{n}(-1)^{i+j} A_{i j}\left|A_{\backslash i, \backslash j}\right| \quad(\text {for any } j \in 1, \ldots, n)
+\]
+so
+\[
+\frac{\partial}{\partial A_{k \ell}}|A|=\frac{\partial}{\partial A_{k \ell}} \sum_{i=1}^{n}(-1)^{i+j} A_{i j}\left|A_{\backslash i, \backslash j}\right|=(-1)^{k+\ell}\left|A_{\backslash k, \backslash\ell}\right|=(\operatorname{adj}(A))_{\ell k}
+\]
+From this it immediately follows from the properties of the adjoint that
+\[
+\nabla_{A}|A|=(\operatorname{adj}(A))^{T}=|A| A^{-T}
+\]
+Now let's consider the function \(f : \mathbb{S}_{++}^{n} \rightarrow \mathbb{R}, f(A)=\log |A|\). Note that we have to restrict the domain of \(f\) to be the positive definite matrices, since this ensures that \(|A|>0\), so that the log of \(|A|\) is a real number. In this case we can use the chain rule (nothing fancy, just the ordinary chain rule from single-variable calculus) to see that
+\[
+\frac{\partial \log |A|}{\partial A_{i j}}=\frac{\partial \log |A|}{\partial|A|} \frac{\partial|A|}{\partial A_{i j}}=\frac{1}{|A|} \frac{\partial|A|}{\partial A_{i j}}
+\]
+From this it should be obvious that
+\[
+\nabla_{A} \log |A|=\frac{1}{|A|} \nabla_{A}|A|=A^{-1}
+\]
+where we can drop the transpose in the last expression because \(A\) is symmetric. Note the similarity to the single-valued case, where \(\partial /(\partial x) \log x=1 / x\).
+\section{Eigenvalues as Optimization}
+Finally, we use matrix calculus to solve an optimization problem in a way that leads directly
+to eigenvalue/eigenvector analysis. Consider the following, equality constrained optimization
+problem:
+\[
+\max _{x \in \mathbb{R}^{n}} x^{T} A x \quad \text { subject to }\|x\|_{2}^{2}=1
+\]
+for a symmetric matrix \(A \in \mathbb{S}^{n}\). A standard way of solving optimization problems with equality constraints is by forming the $\bm{Lagrangian}$, an objective function that includes the equality constraints. The Lagrangian in this case can be given by
+\[
+\mathcal{L}(x, \lambda)=x^{T} A x-\lambda x^{T} x
+\]
+where \(\lambda\) is called the Lagrange multiplier associated with the equality constraint. It can be established that for \(x^{*}\) to be a optimal point to the problem, the gradient of the Lagrangian has to be zero at \(x^{*}\) (this is not the only condition, but it is required). That is,
+\[
+\nabla_{x} \mathcal{L}(x, \lambda)=\nabla_{x}\left(x^{T} A x-\lambda x^{T} x\right)=2 A^{T} x-2 \lambda x=0
+\]
+Notice that this is just the linear equation \(A x=\lambda x\) . This shows that the only points which
+can possibly maximize (or minimize) \(x^{T} A x\) assuming \(x^{T} x=1\) are the eigenvectors of \(A .\)
+\end{document}
