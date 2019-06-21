@@ -1,0 +1,49 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\date{June 21, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{HTML Q\&A}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Basic}
+\begin{enumerate}[1.]
+\item  What is HTML?   \\
+Hypertext markup language, a text file corresponds to a web page
+\item   The two main parts of HTML?  \\
+<head> and <body>, meta info should be in <head> and content info should be in <body>, both should be within <html>
+\item    How HTML is declared? \\
+<html> \dots </html>, all info should be inside of it
+\item  What a web page essentially is?   \\
+A text file
+\item  Static page vs dynamic page?   \\
+Static one can be directly viewed in browser and dynamic one needs to be parsed
+\item  What is tag?   \\
+Contents in <>, like <head>, <style>
+\item  What is the range of a tag?   \\
+Between the dual tag, like <body>…</body>, a start one and an end one
+\item  What does start tag includes?   \\
+The element name and its optional properties, both must be in start tag
+\item  What does element properties includes?   \\
+Property name and value(optional, should be in ``\dots''), if more than one, separated by white space <tag a=``v1'' b=``v2''>\dots</tag>
+\item   What is empty tag?  \\
+Not in dual ones, only start tag, no end one. It can contains properties
+\item    What is tag nesting? \\
+A tag content can be included in the other
+\item   HTML structural integrity?  \\
+4 parts: Doc type<!DOCTYPE\dots>, namespace<html xmlns=``\dots''>, coding<meta charset=``\dots''> and title<title>\dots</title>
+\item  Comments for code?   \\
+Put comments in <!--XXX-->
+\item  Extension name of HTML?   \\
+.htm or .html
+\item  How title is declared?   \\
+\end{enumerate}
+\end{document}

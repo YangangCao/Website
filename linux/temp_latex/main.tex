@@ -6,7 +6,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{enumerate}
-\date{June 20, 2019}
+\date{June 21, 2019}
 \author{Baboo J. Cui, Yangang Cao}
 \title{Linux Q\&A (CentOS Based)}
 \begin{document}
@@ -15,217 +15,44 @@
 
 \newpage
 
-\section{Django Related Installation}
+\section{Linux System}
 \begin{enumerate}[1.]
-\item How to install python?\\
-Use conda directly
-\item How to install Django?\\
-Use command \$ conda install django, Tip: pip may cause version problem
-\item How to check version of Django?\\
-Use command \$ python -m django - -version, this can be used for other package
-\item What is the default database for Django?\\
-It’s SQLite
-\item What 2 parts does Django project have?\\
-One is the production website another is the admin system
-\item How to create a Django project?\\
-Use command \$ django-admin startproject PRO\_NAME, this will create a Django project
-\item Where should project code be?\\
-Any path but not static path(code exposure may cause security problem)
-\item Any trick on project name?\\
-Do not use any keyword!
-\item How to start a Django service?\\
-Use command \$ python manage.py runserver, and it is started! (may be migration problems)
-\item How to quickly avoid migrate problem?\\
-Use command \$ python manage.py migrate(will be detailed latter)
+\item How to see kernel version?\\
+\$ uname -a
+\item How to see version of distribution?\\
+\$ cat /etc/redhat-release
+\item How to see general hardware info?\\
+\$ demidecode 
+\item How to see general CPU info?\\
+\$ lscpu
+\item How to see detailed CPU info?\\
+\$ cat /proc/cpuinfo
+\item How to count num of CPUs in terms of threads?\\
+\$ nproc
+\item How to see general memory info?\\
+\$ free -h
+\item How to see detailed memory info?\\
+\$ cat /proc/meminfo
+\item How to see disk info?\\
+\$ fdisk -l
 \end{enumerate}
-\section{Structure of Django Project}
+\section{Yum}
 \begin{enumerate}[1.]
-\item Does outmost folder name matter?\\
-No, it’s just a container
-\item What is manage.py file for?\\
-For python interaction in command line
-\item What does the package for the project contain?\\
-4 parts: \_\_init\_\_.py(empty), setting.py(config file), url.py(URL dispatcher, table of content), wsgi.py(WSGI service)
-\item Do we prefer WSGI?\\
-No, because of poor performance
-\item How to start a Django service with certain port?\\
-Use command \$ python manage.py runserver 8080, by default 8000 will be used
-\item What is automatic reloading?\\
-You don't need to restart the server to make the code to take effects
+\item How to see all possible installation?\\
+Use command \$ apt catch
 \end{enumerate}
-\section{View}
+\section{Internet Web Related}
 \begin{enumerate}[1.]
-\item How to create an app in Django?\\
-Use command \$ python manage.py startapp APP\_NAME, this will create a package
-\item What does the package for the app contain?\\
-\_\_init\_\_.py, admin.py, apps.py, models.py, test.py, urls.py, view.py and migrations folder
-\item What is view.py for?\\
-For controlling how and what the webpage is to display, a view is a ``type'' of webpage, represented by a function
-\item What does view do?\\
-Return a http response or raise an exception like Http404
-\item How to write a simple view?\\
-1. from django.http import HttpResponse\\
-2. def index(request): \#write index function\\
-\indent\quad \quad \quad return HttpResponse(``Hi, this is the poll index'')
-\item Comment on simple view?\\
-Function name can be anything, but must be registered in url(next one)
-\item How to register a view in urls.py?(Recommanded)\\
-1. create urls.py in the app package, by default, there is no url.py \\
-2. from django.urls import path\\
-3. from . import views \# import the corresponding view\\
-4. urlpatterns = [path(`', views.index, name=`index')] \# add url pattern list\\
-5. from django.urls import path, include \# register in project url by include() \indent\quad  function \\
-\indent\quad urlpatterns = [path(`admin/', admin.site.urls),\\
-\indent\quad path(`polls/', include(`polls.urls')),]
-\item Comments on registering in urls.py\\
-View needs to be registered to app url, app url needs to be registered to project urls, both by path function
-\item Why path for admin is different from the others?\\
-Admin case is the only one exception
-\item API of path() function?\\
-Route: regex contain url pattern(will be append!), view: a function, name: refer to it unambiguously in template
-\item How to use URL to pass arg to function?\\
-Use angle brackets <>, with format <TYPE: ARG>, e.g <int:question\_id>, url info will be used as arg to pass into func
+\item How to get IP address based on website?\\
+Use command \$ nslookup www.xxx.com
+\item How to restart network?\\
+Use command \$ /etc/init.d/networking restart, can follow start and stop
 \end{enumerate}
-\section{Settings}
+\section{User Related}
 \begin{enumerate}[1.]
-\item Where is database config info?\\
-In project setting.py, DATABASES dict
-\item Why Django use SQLite by default?\\
-SQLite is included in python, easier to use
-\item How to change database type?\\
-In ENGINE entry, start with django.db.backends.ENG\_TYPE, it can be sqlite3(default), mysql, oracle, postgresql
-\item How to setup NAME for SQLite3?\\
-Just use default
-\item What if RuntimeError: cryptography is required?\\
-Use command \$ pip install cryptography
-\item Preparation in MySQL?\\
-You must create a database schema with the target name before use it!
-\item How to setup NAME for MySQL?\\
-Set it to be the same as the database name in MySQL, e.g ``mysite''
-\item Other setup info for MySQL?\\
-\$ pip install pymysql is required for connection, (mysqlclient may have problem)
-\item How to init pymysql?\\
- Add import pymysql and pymysql.install\_as\_MySQLdb() in project \_\_init\_\_.py
-\item All config for MySQL?\\
-ENGINE, NAME, USER, PASSWORD, HOST, PORT, all var and value should be in string
-\item How to check if MySQL connection works?\\
-Use command \$ python manage.py migrate to see if data could be injected into the database
-\item How to make log display SQL command(Debug)?\\
-Add the following code in project setting.py: \\
-LOGGING = \{\\
-\indent\quad\quad	`version': 1,\\
-\indent\quad\quad	`disable\_existing\_loggers': False,\\
-\indent\quad\quad	`handlers': \{\\
-\indent\quad\quad\quad		`console': \{\\
-\indent\quad\quad\quad\quad		`level': `DEBUG',\\
-\indent\quad\quad\quad\quad		`class': `logging.StreamHandler',\\
-\indent\quad\quad\quad		\},\\
-\indent\quad\quad	\},\\
-\indent\quad\quad	`loggers': \{\\
-\indent\quad\quad\quad		`django.db.backends': \{\\
-\indent\quad\quad\quad\quad		`handlers': [`console'],\\
-\indent\quad\quad\quad\quad		`propagate': True,\\
-\indent\quad\quad\quad\quad		`level': `DEBUG',\\
-\indent\quad\quad\quad		\},\\
-\indent\quad\quad	\}\\
-\indent\quad\}
-\item What TIME\_ZONE setting should use?\\
-Always use TIME\_ZONE = `UTC', other time should be converted
-\item Where does all Apps registered?\\
-In INSTALLED\_APPS list in project settings, there are several apps by default for connivence 
-\item What does migrate command do?\\
-Look INSALLED\_APPS settings and create necessary database table according to project settings
-\end{enumerate}
-\section{Models}
-\begin{enumerate}[1.]
-\item What is model?\\
-Database layout and additional metadata, highly related to database
-\item How to import model class?\\
-In app models.py, add from django.db import models, and create class inherit from models.Model
-\item Mechanism of model class?\\
-Each var has a field type which is directly linked to field in database
-\item API for models.ForeignKey?\\
-Set a field as foreign key, has 2 args, first one is the class name as foreign key, second on\_delete=models.CASCADE
-\item How on\_delete works?\\
-Control if foreign key needs to be delete if primary key is delete, CASCADE will, and DO\_NOTHING will not
-\item API for models.CharField()?\\
-Create a string, have a arg max\_length=200, which set the max length
-\item API for models.DateTimeField()?\\
-Create a time field, arg is a string to give it name
-\item API for models.IntegerField()?\\
-Create a integer field, arg is default=0, default value should be set
-\item How to activate a model?\\
-In project setting, add `APP\_NAME.app.APP\_NAMEConfig' in INSTALLED\_APPS
-\item How to apply changes in models to database?\\
-Use command \$ python manage.py makemigrations [poll], app name is optional
-\item How to see corresponding SQL to migrations?\\
-Use command \$ python manage.py sqlmigrate APP\_NAME 000x, this will print SQL
-\item How to bring migrations into effects?\\
-Again, use command \$ python manage.py migrate, this will create corresponding tables in DB
-\item Migrate vs makemigrations?\\
-That createmigrate creates the changes in model and migrate apply changes to database
-\item How to change the model class representation?\\
-Use \_\_str\_\_() function, make the return value easy to read
-\item How to add method to a model?\\
-Directly add a method as general method
-\item How to get a model latest list?\\
-Use syntax list = CLASS\_NAME.object.order\_by(`-ATTR\_NAME')[num1:num2]
-\item How to get a model total list?\\
-Use syntax list = CLASS\_NAME.object.all()
-\end{enumerate}
-\section{Debug and Shell}
-\begin{enumerate}[1.]
-\item How to use shell to debug?\\
-Use command \$ python manage.py shell, which is not recommend
-\item How to get current time?\\
-Use from django.utils import timezone and use timezone.now() to get current time
-\item How to get current year?\\
-Use time.now().year
-\item More advanced way to debug?\\
-Use debug script with format: \\
-import os\\
-import django\\
-if \_\_name\_\_ == ``\_\_main\_\_'':\\
-\indent\quad\quad\#copy from manage.py\\
-\indent\quad\quad os.environ.setdefault(`DJANGO\_SETTINGS\_MODULE', `mysite.settings') \\
-\indent\quad\quad django.setup()
-\item How to see table details?\\
-Import corresponding class and use CLASS\_NAME.object.all() to get list
-\item How to see record count?\\
-Import corresponding class and use CLASS\_NAME.object.count() to num of record
-\item How to create a record?\\
-VAR = CLASS\_NAME(var1=val1\dots), then VAR.save()
-\item How to get field value from a record?\\
-VAR.FIELD\_NAME
-\item How to set field value for a record?\\
-Use VAR.FIELD\_NAME = new\_val, after this, must call VAR.save()
-\item How to use filter API?\\
-With syntax CLASS\_NAME.object.filter(condition)
-\item What condition could be implemented to filter?\\
-Value equality condition(id=1), relationship className\_property\_\_filterMethod=value, all should in low case
-\end{enumerate}
-\section{Django Admin}
-\begin{enumerate}[1.]
-\item What is Django admin?\\
-A site for stuff and management, site for manager
-\item How to create Django admin?\\
-Use command \$ python manage.py createsuperuser, and then follow instruction
-\item How to go to admin site?\\
-Use command \$ python manage.py runserver and then go to /admin to login
-\item Which app offer service to group and users?\\
-By app: django.contrib.auth
-\item How to make app modifiable in admin?\\
-In app admin.py, import needed class and use admin.site.register(CLASS\_NAME) to do, Tip: no indication on register() function and don’t register a class more than once!
-\end{enumerate}
-\section{Template}
-\begin{enumerate}[1.]
-\item What is template?\\
-Mechanism to separate design from python
-\item How to create template?\\
-Create a folder named ``template'' in app package and then a folder with the same name as app(namespacing issue)
-\item Where the template setting is?\\
-In project setting.py, TEMPLATES list, by default, `APP\_DIRS': True
-\item How to write a template?\\
-A Lot\dots coming soon, for now just copy and paste
+	\item How to add a new user?\\
+	\$ adduser [-d /home/baboo] baboo, [-d] is for home folder assignment 
+	\item How to set user’s password?\\
+	\$ passwd baboo, and then follow the instruction
 \end{enumerate}
 \end{document}

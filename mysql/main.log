@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2019.3.25)  21 JUN 2019 12:07
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2019.3.25)  21 JUN 2019 12:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -172,14 +172,67 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 ]
 Missing character: There is no ’ in font ec-lmr10!
- [2] (./main.aux) ) 
-Here is how much of TeX's memory you used:
- 1793 strings out of 492970
- 20852 string characters out of 6133938
- 83967 words of memory out of 5000000
- 5799 multiletter control sequences out of 15000+600000
- 26289 words of font info for 39 fonts, out of 8000000 for 9000
- 1348 hyphenation exceptions out of 8191
- 27i,6n,25p,221b,199s stack positions out of 5000i,500n,10000p,200000b,80000s
+ [2]
+Missing character: There is no … in font ec-lmr10!
 
-Output written on main.pdf (2 pages).
+Overfull \hbox (24.75066pt too wide) in paragraph at lines 72--74
+\T1/lmr/m/n/10 Field(name of col), Type(int, char), NULL(control if could be em
+pty), Key(primary
+ []
+
+[3]
+Overfull \hbox (23.1418pt too wide) in paragraph at lines 93--95
+\T1/lmr/m/n/10 Use ``.'' op-er-a-tor to spec-ify col-umn or ta-ble, e.g. > SE-L
+ECT ta-ble_name.col_name
+ []
+
+[4]
+Missing character: There is no ’ in font ec-lmr10!
+Missing character: There is no … in font ec-lmr10!
+Missing character: There is no ’ in font ec-lmr10!
+
+Overfull \hbox (5.06612pt too wide) in paragraph at lines 151--153
+\T1/lmr/m/n/10 By clause REG-EXP `reg-exp_statement' > SE-LECT col FROM ta-ble 
+WHERE
+ []
+
+[5]
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 164.
+
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [6]
+Missing character: There is no ’ in font ec-lmr10!
+Missing character: There is no ’ in font ec-lmr10!
+
+Overfull \hbox (9.91762pt too wide) in paragraph at lines 223--225
+\T1/lmr/m/n/10 DAY(date), MONTH(date), YEAR(date), Tip: HOUR(time), MINUTE(time
+),
+ []
+
+[7]
+Missing character: There is no … in font ec-lmr10!
+
+Overfull \hbox (15.87256pt too wide) in paragraph at lines 247--249
+\T1/lmr/m/n/10 Use key-word HAV-ING, e.g > SE-LECT COUNT(*), price FROM juno.ap
+p_order
+ []
+
+[8]
+Overfull \hbox (22.05038pt too wide) in paragraph at lines 277--279
+\T1/lmr/m/n/10 > SE-LECT a_c1, a_c2, b_c1, b_c2 FROM a IN-NER JOIN b ON a.a_c1=
+b.b_c;,
+ []
+
+Missing character: There is no ’ in font ec-lmr10!
+[9] [10] (./main.aux) ) 
+Here is how much of TeX's memory you used:
+ 1839 strings out of 492970
+ 21529 string characters out of 6133938
+ 84967 words of memory out of 5000000
+ 5839 multiletter control sequences out of 15000+600000
+ 28307 words of font info for 48 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 27i,6n,25p,226b,229s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on main.pdf (10 pages).

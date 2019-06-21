@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}MySQL Basic Concept}{2}
+\contentsline {section}{\numberline {2}MySQL Software}{2}
+\contentsline {section}{\numberline {3}Show Top-Level Info}{3}
+\contentsline {section}{\numberline {4}Retrieving Data}{3}
+\contentsline {section}{\numberline {5}Sorting Retrieving Data}{4}
+\contentsline {section}{\numberline {6}Data Filtering}{4}
+\contentsline {section}{\numberline {7}Wildcard Filtering}{5}
+\contentsline {section}{\numberline {8}Searching with Regular Expression}{5}
+\contentsline {section}{\numberline {9}Create Calculated Field}{7}
+\contentsline {section}{\numberline {10}Using Data Manipulation Function}{7}
+\contentsline {section}{\numberline {11}Summarizing Data(Aggregate Function)}{8}
+\contentsline {section}{\numberline {12}Grouping Data}{8}
+\contentsline {section}{\numberline {13}Subquery}{8}
+\contentsline {section}{\numberline {14}Joining Tables(inner join)}{9}
+\contentsline {section}{\numberline {15}Advanced Join(self join and outer join)}{9}
+\contentsline {section}{\numberline {16}Combining Queries}{10}
+\contentsline {section}{\numberline {17}Extra}{10}
