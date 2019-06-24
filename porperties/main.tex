@@ -1,0 +1,60 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\date{June 24, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Properties Q\&A}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{DNV Properties}
+\begin{enumerate}[1.]
+\item   Door passed    \\
+130522
+\item    Huawei Server   \\
+192.168.3.201 root 000000
+\item   Test Environment (Test-02)    \\
+39.107.154.158 root, directly verified by ssh-key
+\item    OSS readonly access   \\
+https://signin.aliyun.com/vfinemusic.onaliyun.com/login.htm with ID baboo\_cui@vfinemusic.onaliyun.com
+\item    Vfine Production SQL Readonly   \\
+IP: rr-2ze5c4j862180du76yo.mysql.rds.aliyuncs.com, -P:3306, -u vfine\_readonly, -p: VFine2015-=
+\item   Vfine Test SQL environment     \\
+IP: rm-2ze8t3n701n05oy74ao.mysql.rds.aliyuncs.com -P: 3306, -u vfine, -p: VFine2015-=
+\item   Aliyun admin account    \\
+-u: liqi@vfinestudio.com  -p: VfineMusic2019+=
+\item   Vfinemusic wifi passwd    \\
+woyaoshangwang
+\item    IP add of printer in second floor   \\
+192.168.3.254
+\end{enumerate}
+
+\section{Juno-Backend}
+\begin{enumerate}[1.]
+\item   How to deploy Juno project?    \\
+1. get code from git \\2. install all requirements by command \$ pip install -r requirements.txt \\3. (optional) create folder and chmod 777 at /var/log/vfine, for logging files(optional on mac) \\4. run debug mode by command \$ DJANGO\_DEBUG=True TEST=True python manage.py runserver Note that the env var are directly declared before the execution of the code"
+\item   Comment on Juno deployment?    \\
+Env var are necessary to start Juno project
+\item    How to check all users?   \\
+app\_user (about 22000 people)
+\item     How to check all transaction?  \\
+app\_certificateex(financial value related!)
+\end{enumerate}
+
+\section{Vfine - Frontend}
+\begin{enumerate}[1.]
+\item  How to deploy Vfine project?     \\
+1. get code from git\\
+2. install yarn by command \$ brew install yarn\\
+3. install dependency by command \$ yarn install, Tip: a folder named node\_modules will be created for packages\\
+4. start the project dev by command \$ yarn run dev -> for development\\
+5. start the project production by command \$ yarn run build -> for production
+\end{enumerate}
+\end{document}

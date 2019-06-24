@@ -1,0 +1,22 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\date{June 24, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{FFmpeg Q\&A}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Basic}
+\begin{enumerate}[1.]
+\item How to change sampling rate of an audio file?\\
+Use command \$ ffmpeg -i INPUT -ar 8000 OUTPUT, where 8000 can be changed to any value
+\end{enumerate}
+\end{document}

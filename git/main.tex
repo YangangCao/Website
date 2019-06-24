@@ -1,0 +1,42 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\date{June 24, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Properties Q\&A}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Basic}
+\begin{enumerate}[1.]
+\item    How to see all branches in git?   \\
+Use command \$ git branch
+\item    How to set global user info?   \\
+Use command \$ git config --global - -edit
+\item    How to set user name?    \\
+Use command \$ git config - -global user.name “NAME”
+\item   How to set user e-mail?    \\
+Use command \$ git config - -global user.email “EMAIL\_ADD”
+\item    How to install brew?   \\
+Use command \$ /usr/bin/ruby -e ``\$(curl -fsSL https://raw.githubusercontent.com\\/Homebrew/install/master/install)''
+\item    How to install bash-completion?   \\
+1.Use command \$ brew install bash-completion\\ 2.Add [[ -r ``/usr/local/etc/profile.d/bash\_completion.sh'' ]] \&\& . ``/usr/local\\/etc/profile.d/bash\_completion.sh''  to ./bash\_profile \\3.Then activate it by ~/.bash\_profile
+\item  How to create a new branch?     \\
+Use command \$ git checkout -b “NEW\_BRANCH\_NAME”
+\item   How to move to a branch?    \\
+Use command \$ git checkout “EXIST\_BRANCH\_NAME”
+\item   How to track an origin branch?    \\
+Use command \$ git branch -t LOCAL\_TRACKING\_NAME origin/REMOTE\_NAME (Don't create local that already exits)
+\item    How to push for the first time?   \\
+Use command \$ git push ORIGIN BC\_DEV, must be very specific
+\item    How to pull for the first time?   \\
+Use command \$ git pull ORIGIN MASTER, must be very specific
+\end{enumerate}
+\end{document}
