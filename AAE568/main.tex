@@ -1,0 +1,535 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} 
+\date{June 27, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{AAE 568 Applied Optimal Control and Estimation Problem Set 2}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\begin{document}
+\maketitle
+%\tableofcontents
+
+%\newpage
+\section*{Remark}
+You can use MATLAB but you need to explain the results (numbers and plot) as clear as possible.
+ \section* {Problem 1} 
+ Consider the optimal control problem with:
+ \[
+ \begin{array}{ll}{\text { Dynamics }} & { : \quad \dot{x}(t)=f(x(t), u(t), t),x(t_0)=x_0} \\ {\text { Cost }} & { : \min J(u)=\phi\left(x\left(t_{f}\right), t_{f}\right)+\int_{t_{0}}^{t_{f}} L(x(t), u(t), t) d t}\end{array}
+ \]
+ where $x \in \mathbb{R}^{n}$ and $u \in \mathbb{R}^{p} .$ Derive the necessary conditions for optimality of the above optimal control problem when:
+ \begin{enumerate}
+ \item $t_{f}$ is fixed and the final state lying on the surface defined by
+ \[
+ m(x(t))=0
+ \]
+ where $m(\cdot) \in \mathbb{R}^{k}$
+ \item $t_{f}$ is free and the final state lying on the moving point $\Theta(t) \in \mathbb{R}^{n}$
+ \end{enumerate}
+\section* {Solution} 
+Define $H \equiv L(x(t), u(t), t)+\lambda^{T}(t) f(x(t), u(t), t) .$ Then, augmented cost $J_{a}$ is
+\[
+J_{a}=\phi\left(x\left(t_{f}\right), t_{f}\right)+\int_{t_{0}}^{t_{f}}\left[H(x(t), \lambda(t), u(t), t)-\lambda^{T}(t) \dot{x}(t)\right] d t
+\]
+\begin{enumerate}
+\item The variation of the cost $\Delta J_{a}=J_{a}(x(t), \lambda(t), u(t), t)-J_{a}\left(x^{*}(t), \lambda^{*}(t), u^{*}(t), t\right)$ is computed as:
+\[
+\begin{array}{c}{\Delta J_{a}=\phi\left(x\left(t_{f}\right), t_{f}\right)-\phi\left(x^{*}\left(t_{f}\right), t_{f}\right)+\int_{t_{0}}^{t_{f}}\left[H(x(t), \lambda(t), u(t), t)-\lambda^{T}(t) \dot{x}(t)\right] d t} \\ {-\int_{t_{0}}^{t_{f}}\left[H\left(x^{*}(t), \lambda^{*}(t), u^{*}(t), t\right)-\lambda^{* T}(t) \dot{x}^{*}(t)\right] d t}\end{array}
+\]
+where superscript * means optimal value. The first order approximation of the variation is then
+\[
+\begin{split}
+\delta J_{a}=\left[\left.\frac{\partial \phi}{\partial x}\right|_{x^{*}\left(t_{f}\right)}-\lambda^{* T}\left(t_{f}\right)\right] \delta x\left(t_{f}\right)+ \int_{t_{0}}^{t_{f}}\left[\frac{\partial H}{\partial x} \delta x+\frac{\partial H}{\partial \lambda} \delta \lambda+\frac{\partial H}{\partial u} \delta u-\delta \lambda^{T}(t) \dot{x}^{*}(t)+\dot{\lambda}^{* T}(t) \delta x\right] d t\end{split}
+\]
+From the condition $m\left(x\left(t_{f}\right)\right)=0$,
+\[
+\left[\left.\frac{\partial m}{\partial x}\right|_{x^{*}\left(t_{f}\right)}\right]^{T} \delta x\left(t_{f}\right)=0
+\]
+This means that the final state lies on the hyper-plane spanned by $\left.\frac{\partial m}{\partial x}\right|_{x^{*}\left(t_{f}\right)}$ to which $\delta x\left(t_{f}\right)$ is orthogonal. Combine this with $\left[\left.\frac{\partial \phi}{\partial x}\right|_{x^{*}\left(t_{f}\right)}-\lambda^{* T}\left(t_{f}\right)\right] \delta x\left(t_{f}\right)=0$,
+\[
+\left[\left.\frac{\partial \phi}{\partial x}\right|_{x^{*}\left(t_{f}\right)}-\lambda^{* T}\left(t_{f}\right)\right]=\mu^{T}\left[\left.\frac{\partial m}{\partial x}\right|_{x^{*}\left(t_{f}\right)}\right], \qquad \mu \in \mathbb{R}^{k}
+\]
+For optimality, $\delta J_{a}=0$ for arbitrary $\delta x(t), \delta \lambda(t), \delta u(t),$ the necessary and boundary conditions are:
+\[
+\frac{\partial H}{\partial u}=0
+\]
+\[
+\dot{x}(t)=\left(\frac{\partial H}{\partial \lambda}\right)^{T}
+\]
+\[
+\dot{\lambda}(t)=-\left(\frac{\partial H}{\partial x}\right)^{T}
+\]
+\[
+\left[\left.\frac{\partial \phi}{\partial x}\right|_{x^{*}\left(t_{f}\right)}-\lambda^{* T}\left(t_{f}\right)\right]=\mu^{T}\left[\left.\frac{\partial m}{\partial x}\right|_{x^{*}\left(t_{f}\right)}\right], \quad \mu \in \mathbb{R}^{k}
+\]
+\[
+x^{*}\left(t_{0}\right)=x_{0}
+\]
+\[
+m\left(x\left(t_{f}\right)\right)=0
+\]
+\item The variation of $\Delta J_{a}=J_{a}(x(t), \lambda(t), u(t), t)-J_{a}\left(x^{*}(t), \lambda^{*}(t), u^{*}(t), t\right)$ is computed as:
+
+\begin{align*}
+\Delta J_{a}&=\phi\left(x\left(t_{f}\right), t_{f}\right)-\phi\left(x^{*}\left(t_{f}^{*}\right), t_{f}^{*}\right)
++ \int_{t_{0}}^{t_{f}^{*}+\delta t_{f}}\left[H(x(t), \lambda(t), u(t), t)-\lambda^{T}(t) \dot{x}(t)\right] d t\\ &-\int_{t_{0}}^{t_{f}^{*}}\left[H\left(x^{*}(t), \lambda^{*}(t), u^{*}(t), t\right)-\lambda^{* T}(t) \dot{x}^{*}(t)\right] d t\\&=\phi\left(x\left(t_{f}\right), t_{f}\right)-\phi\left(x^{*}\left(t_{f}^*\right), t_{j}^{*}\right)\\&+\int_{t_{0}}^{t_{f}^*}\left[H(x(t), \lambda(t), u(t), t)-\lambda^{T}(t) \dot{x}(t)-H\left(x^{*}(t), \lambda^{*}(t), u^{*}(t), t\right)+{\lambda^{*T}}(t) \dot{x}^*(t)\right] d t
+\\&+\int_{t_{f}^*}^{t_{f}^{*}+\delta t_{f}}\left[H(x(t), \lambda(t), u(t), t)-\lambda^{T}(t) \dot{x}(t)\right]dt
+\end{align*}
+where superscript * means optimal value. The first order approximation of the variation is then
+\begin{align*}
+\delta J_{a}&=\left.\frac{\partial \phi}{\partial x\left(t_{f}\right)}\right|_{x^{*}\left(t_{f}^*\right), t_{f}^{*}} \delta x\left(t_{f}\right)+\left.\frac{\partial \phi}{\partial t_{f}}\right|_{x^{*}\left(t_{f}^*\right), t_{f}^*} \delta t_{f}\\&+\int_{t_{0}}^{t_{f}^*}\left[\frac{\partial H}{\partial x} \delta x(t)+\frac{\partial H}{\partial \lambda} \delta \lambda(t)+\frac{\partial H}{\partial u} \delta u(t)-\delta \lambda^{T}(t) \dot{x}(t)+\dot{\lambda}^{T}(t) \delta x(t)\right] dt\\&-\lambda^{* T}\left(t_{f}^{*}\right) \delta x\left(t_{f}^{*}\right)+\left[H\left(x^{*}\left(t_{f}\right), \lambda^{*}\left(t_{f}\right), u^{*}\left(t_{f}\right), t_{f}^{*}\right)-\lambda^{* T}\left(t_{f}\right) \dot{x}^{*}\left(t_{f}\right)\right] \delta t_{f}
+\end{align*}
+Note that, the following approximation can be made for the relationship between $\delta x\left(t_{f}\right)$ and $\delta x\left(t_{f}^{*}\right) :$
+\[
+\delta x\left(t_{f}^{*}\right) \approx \delta x\left(t_{f}\right)-\dot{x}^{*}\left(t_{f}^{*}\right) \delta t_{f}
+\]
+Also, from the fact that the final state must lie on the moving point $\theta(t) \in \mathbb{R}^{n}$ , the condition between $\delta x\left(t_{f}\right)$ and $\delta t_{f}$ is approximated as:
+\[
+\delta x\left(t_{f}\right) \approx \dot{\theta}\left(t_{f}\right) \delta t_{f}
+\]
+From the above two relations the first order approximation $\delta J_{a}$ is rewritten as:
+\begin{align*}
+\delta J_{a}&=\left[\left.\frac{\partial \phi}{\partial x\left(t_{f}\right)}\right|_{x^{*}\left(t_{f}^{*}\right), t_{f}^*}-\lambda^{* T}\left(t_{f}^{*}\right)\right] \delta x\left(t_{f}\right)\\&+\left[\left.\frac{\partial \phi}{\partial t_{f}}\right|_{x^{*}\left(t_{f}^{*}\right), t_{f}^*}+\lambda^{* T}\left(t_{f}^{*}\right) \dot{x}^{*}\left(t_{f}^{*}\right)+H\left(x^{*}\left(t_{f}\right), \lambda^{*}\left(t_{f}\right), u^{*}\left(t_{f}\right), t_{f}^{*}\right)-\lambda^{* T}\left(t_{f}\right) \dot{x}^{*}\left(t_{f}\right)\right] \delta t_{f}\\&+\int_{t_{0}}^{t_{f}^*}\left[\frac{\partial H}{\partial x} \delta x(t)+\frac{\partial H}{\partial \lambda} \delta \lambda(t)+\frac{\partial H}{\partial u} \delta u(t)-\delta \lambda^{T}(t) \dot{x}(t)+\dot{\lambda}^{T}(t) \delta x(t)\right] dt\\&=\left[\left.\frac{\partial \phi}{\partial x\left(t_{f}\right)}\right|_{x^{*}\left(t_{f}^*\right), t_{f}^*}-\lambda^{* T}\left(t_{f}^{*}\right)\right] \dot{\theta}\left(t_{f}\right) \delta t_{f}+\left[\left.\frac{\partial \phi}{\partial t_{f}}\right|_{x^{*}\left(t_{f}^{*}\right), t_{f}^*}+H\left(x^{*}\left(t_{f}\right), \lambda^{*}\left(t_{f}\right), u^{*}\left(t_{f}\right), t_{f}^{*}\right)\right] \delta t_{f}\\&+\int_{t_{0}}^{t_{f}^*}\left[\frac{\partial H}{\partial x} \delta x(t)+\frac{\partial H}{\partial \lambda} \delta \lambda(t)+\frac{\partial H}{\partial u} \delta u(t)-\delta \lambda^{T}(t) \dot{x}(t)+\dot{\lambda}^{T}(t) \delta x(t)\right] d t\\&=\left[\left(\left.\frac{\partial \phi}{\partial x\left(t_{f}\right)}\right|_{x^{*}\left(t_{f}^{*}\right), t_{f}^{*}}\right) \dot{\theta}\left(t_{f}\right)+\left.\frac{\partial \phi}{\partial t_{f}}\right|_{x^{*}\left(t_{f}^*\right), t_{f}^{*}}+H\left(x^{*}\left(t_{f}\right), \lambda^{*}\left(t_{f}\right), u^{*}\left(t_{f}\right), t_{f}^{*}\right)\right] \delta t_{f}\\&+\int_{t_{0}}^{t_{f}^*}\left[\frac{\partial H}{\partial x} \delta x(t)+\frac{\partial H}{\partial \lambda} \delta \lambda(t)+\frac{\partial H}{\partial u} \delta u(t)-\delta \lambda^{T}(t) \dot{x}(t)+\dot{\lambda}^{T}(t) \delta x(t)\right] d t
+\end{align*}
+For optimality, $\delta J_{a}=0$ for arbitrary $\delta x(t), \delta \lambda(t), \delta u(t),$ and $\delta t_{f}$ . These yield the following necessary conditions and boundary conditions:
+\[
+\frac{\partial H}{\partial u}=0
+\]
+\[
+\dot{x}(t)=\left(\frac{\partial H}{\partial \lambda}\right)^{T}
+\]
+\[
+\dot{\lambda}(t)=-\left(\frac{\partial H}{\partial x}\right)^{T}
+\]
+\[
+\left(\left.\frac{\partial \phi}{\partial x\left(t_{f}\right)}\right|_{x^{*}\left(t_{f}^*\right), t_{f}^{*}}-\lambda^{* T}\left(t_{f}^{*}\right)\right) \dot{\theta}\left(t_{f}\right)
++\left.\frac{\partial \phi}{\partial t_{f}}\right|_{x^{*}\left(t_{f}^{*}\right), t_{f}^*}+H\left(x^{*}\left(t_{f}\right), \lambda^{*}\left(t_{f}\right), u^{*}\left(t_{f}\right), t_{f}^{*}\right)=0
+\]
+\[
+x^{*}\left(t_{0}\right)=x_{0}
+\]
+\[
+x\left(t_{f}^{*}\right)=\theta\left(t_{f}^{*}\right)
+\]
+\end{enumerate}
+ \section* {Problem 2} 
+Consider a double integral system:
+\[
+\dot{x}_{1}(t)=x_{2}(t)
+\]
+\[
+\dot{x}_{2}(t)=u(t), \quad \forall u(t)>0
+\]
+with the cost function:
+\[
+J(u)=\frac{1}{2} \int_{0}^{t_{f}} u(t)^{2} d t
+\]
+Given the boundary conditions as:
+\[
+x(0)=\left[\begin{array}{l}{1} \\ {2}\end{array}\right], \quad x_{1}\left(t_{f}\right)=3, \quad x_{2}\left(t_{f}\right)=\text { free, } \quad t_{f}=\text { free }
+\]
+Compute the optimal control that minimizes the cost function. (You can use the MATLAB function
+byp4c but need to carefully design state and co-state dynamics since the given problem is with
+free-final-time.)
+\section* {Solution} 
+For the optimal control problems with free-final-time, the final time $t_{f}$ itself is a variable. Thus, we have one additional boundary condition from:
+\[H\left(x^{*}\left(t_{f}\right), u^{*}\left(t_{f}\right), \lambda^{*}\left(t_{f}\right), t_{f}\right)+\left.\frac{\partial \phi}{\partial t}\right|_{x^{*}\left(t_{f}\right), t_{f}}=0\]
+Since $\phi\left(x^{*}\left(t_{f}\right), t_{f}\right) \equiv 0$ in this problem, the above condition yields:
+\[
+\lambda_{1}\left(t_{f}\right) x_{2}\left(t_{f}\right)-0.5 \lambda_{2}^{2}\left(t_{f}\right)=0
+\]
+Now we have 5 algebraic equations with 5 unknowns.
+\\One common treatment for the unknown time interval problem is to change the independent variable $t$ to $=\frac{t}{T},$ the
+augmented state and co-state equations will then become:
+\[\left[\begin{array}{l}{\dot{x}} \\ {\dot{\lambda}}\end{array}\right]=T f(x, \lambda, \tau)\]
+where the function $f$ denotes the ODEs for states and co-states. Then, the problem is posed on fixed interval $[0,1]$ and this can be implemented in $\mathbf{bvp4c}$ by treating $T$ as an auxiliary variable. The following MATLAB code shows the detail.
+\begin{lstlisting}
+solint = bvpinit(linspace(0,1),[2;3;1;1;2]);
+sol = bvp4c(@ode, @bc, solinit);
+y = sol.y;
+time = y(5) * sol.x;
+
+% ODE"s of augmanted states
+function dydt = ode(t,y)
+dydt = y(5) * [y(2); -y(4); 0; -y(3); 0];
+end
+
+% boundary conditions: x1(0)=1; x2(0)=2, x1(tf)=3, lambda2(tf)=0;
+% lambda1(tf)*x2(tf)-0.5*lambda2(2)^2
+function res = bc(ya,yb)
+res = [ya(1) - 1; ya(2) - 2; yb(1) - 3; yb(4); yb(3)*yb(2)-0.5*yb(4)^2];
+end
+\end{lstlisting}
+From the numerical simulation, the computed optimal final time is $t_{f}=3$ and the resulting optimal state, co-state, and control trajectories are shown as the figures below:
+\section* {Problem 3} 
+Consider a non-linear system:
+\[
+\dot{x}_{1}(t)=x_{2}(t)
+\]
+\[
+\dot{x}_{2}(t)=-x_{1}(t)+x_{2}(t)\left(1.4-0.14 x_{2}(t)^{2}\right)+4 u(t)
+\]
+with the cost function to be minimized:
+\[
+J(x, u)=\int_{0}^{t_{f}} u(t)^{2}+x_{1}(t)^{2} d t
+\]
+where $x_{1}(0)=-5, x_{2}(0)=-5,$ and the final time is fixed as $t_{f}=4.5 .$ Plot the optimal control, state, and co-state trajectories for the following three types of constraints:
+\begin{enumerate}
+\item No constraints
+\item Control constraint $-1 \leq u(t) \leq 1$
+\item Mixed control-state constraint $-1 \leq u(t)+\frac{x_{1}(t)}{6} \leq 0$
+\end{enumerate}
+\section* {Solution} 
+\begin{enumerate}
+\item The corresponding Hamiltonian is given by:
+\[
+H(x, \lambda, u)=u^{2}+x_{1}^{2}+\lambda_{1} x_{2}+\lambda_{2}\left(-x_{1}+x_{2}\left(1.4-0.14 x_{2}^{2}\right)+4 u\right)
+\]
+From the optimality condition $\dot{\lambda}=-\frac{\partial H}{\partial x},$ the co-state equations are:
+\[
+\dot{\lambda}_{1}=-2 x_{1}+\lambda_{2}
+\]
+\[
+\dot{\lambda}_{2}=-\lambda_{1}-\lambda_{2}\left(1.4-0.42 x_{2}^{2}\right)
+\]
+where the boundary condition is $\lambda\left(t_{f}\right)=0$ . And the optimal control input is:
+\[
+\frac{\partial H}{\partial u}=2 u+4 \lambda_{2}=0 \rightarrow u=-2 \lambda_{2}
+\]
+\item The corresponding Hamiltonian is given by:
+\[
+H(x, \lambda, u)=u^{2}+x_{1}^{2}+\lambda_{1} x_{2}+\lambda_{2}\left(-x_{1}+x_{2}\left(1.4-0.14 x_{2}^{2}\right)+4 u\right)+\mu_{1}(u-1)+\mu_{2}(-u-1)
+\]
+where the multipliers for inequality conditions $\mu_{1}, \mu_{2} \geq 0 .$ The co-state equations are same as the case 1 and the optimal control input is represented as
+\[
+\frac{\partial H}{\partial u}=2 u+4 \lambda_{2}+\mu_{1}-\mu_{2}=0 \rightarrow u=\left\{\begin{array}{ll}{1} & {\text { if } u>1} \\ {-2 \lambda_{2}} & {\text { if }-1 \leq u \leq 1} \\ {-1} & {\text { if } u<-1}\end{array}\right.
+\]
+\item The corresponding Hamiltonian is described as:
+\[
+H(x, \lambda, u)=u^{2}+x_{1}^{2}+\lambda_{1} x_{2}+\lambda_{2}\left(-x_{1}+x_{2}\left(1.4-0.14 x_{2}^{2}\right)+4 u\right)+\mu_{1}\left(u+\frac{x_{1}}{6}\right)+\mu_{2}\left(-u-\frac{x_{1}}{6}-1\right)
+\]
+Then, the co-state equations are:
+\[
+\dot{\lambda}_{1}=-2 x_{1}+\lambda_{2}-\frac{\mu_{1}}{6}+\frac{\mu_{2}}{6}
+\]
+\[
+\dot{\lambda}_{2}=-\lambda_{1}-\lambda_{2}\left(1.4-0.42 x_{2}^{2}\right)
+\]
+where the multipliers for inequality condition $\mu_{1} \geq 0, \mu_{2} \geq 0$ and the optimal control input is:
+\[
+u=\left\{\begin{array}{rr}{-\frac{x_{1}}{6}} & {\text { if } u+\frac{x_{1}}{6}>0} \\ {-2 \lambda_{2}} & {\text { if }-1 \leq u+\frac{x_{1}}{6} \leq 0} \\ {-1-\frac{x_{1}}{6}} & {\text { if } u+\frac{x_{1}}{6}<-1}\end{array}\right.
+\]
+Furthermore, from the condition $\frac{\partial H}{\partial u}=2 u+4 \lambda_{2}+\mu_{1}-\mu_{2}=0,$ we can obtain
+\[
+\mu_{1}=\left\{\begin{array}{ll}{-\frac{x_{1}}{3}+4 \lambda_{2}} & {\text { if } u+\frac{x_{1}}{6} \geq 0} \\ {0} & {\text { otherwise }}\end{array}\right.
+\]
+\[
+\mu_{2}=\left\{\begin{array}{ll}{-\frac{x_{1}}{3}-2+4 \lambda_{2}} & {\text { if } u+\frac{x_{1}}{6} \leq-1} \\ {0} & {\text { otherwise }}\end{array}\right.
+\]
+\begin{lstlisting}
+% P1. ODE"s for states and costates
+function dydt =BVP_ode(t, y)
+u = -2 * y(4);
+dydt = [y(2); 
+		-y(1) + y(2) * (1.4-0.14*y(2)^2)+4*u;
+		-2*y(1)+y(4);
+		-y(3)-y(4)*(1.4-0.42*y(2)^2)];
+end
+\end{lstlisting}
+\begin{lstlisting}
+% P2. ODE"s for states and costates
+function dydt =BVP_ode(t, y)
+if -2*y(4) > 1
+	u = 1;
+elseif -2*y(4)<-1
+	u=-1;
+else
+	u=-2*y(4);
+end
+
+dydt = [y(2); 
+		-y(1) + y(2) * (1.4-0.14*y(2)^2)+4*u;
+		-2*y(1)+y(4);
+		-y(3)-y(4)*(1.4-0.42*y(2)^2)];
+end
+\end{lstlisting}
+\begin{lstlisting}
+% P3. ODE"s for states and costates
+function dydt =BVP_ode_(t, y)
+if -2*y(4)+y(1)/6 > 0
+	u = -y(1)/6;
+	mu1 = -y(1)/3 + 4*y(4);
+	mu2 = 0;
+elseif -2*y(4)+y(1)/6 < -1
+	u = -1-y(1)/6;
+	mu1 = 0;
+	mu2 = -y(1)/3-2+4*y(4);
+else
+	u = -2*y(4);
+	mu1 = 0;
+	mu2 = 0;
+end
+
+dydt = [y(2); 
+		-y(1) + y(2) * (1.4-0.14*y(2)^2)+4*u;
+		-2*y(1)+y(4)-mu1/6+mu2/6;
+		-y(3)-y(4)*(1.4-0.42*y(2)^2)];
+end
+\end{lstlisting}
+\end{enumerate}
+\section* {Problem 4} 
+Consider a first-order dynamic system having the state equations
+\[
+x(k+1)=-0.5 x(k)+u(k)
+\]
+The cost functional to be minimized is
+\[
+J(u)=\sum_{k=0}^{2}|x(k)|
+\]
+and the admissible states and controls are constrained as:
+\[
+-0.2 \leq x(k) \leq 0.2 \quad, \quad k=0,1,2
+\]
+\[
+-0.1 \leq u(k) \leq 0.1 \quad, \quad k=0,1
+\]
+\begin{enumerate}
+\item Show the computational steps required to determine the optimal control law by using dynamic
+programming. Quantize both $u(k)$ and $x(k)$ in steps of 0.1 about zero and use linear interpola-
+tion, if necessary.
+\item What is the optimal sequence for an initial state value of 0.2?
+\end{enumerate}
+\section* {Solution} 
+\begin{enumerate}
+\item At $k=1$,
+
+	\begin{tabular}{cccccc}  %表格6列 全部居中显示
+	\hline
+	\tabincell{c}{Current \\ state \\ $x(1)$} & \tabincell{c}{Control \\ $u(1)$}& \tabincell{c}{Next \\ state\\ $x(2)$} & \tabincell{c}{Cost \\ $|x(2)|$} & \tabincell{c}{Optimal\\ cost\\ $J^*_{12}(x(1))$}& \tabincell{c}{Optimal \\control \\ $u^*(1)$}  \\
+	\hline
+	\multirow{3}*{-0.2}&-0.1&0&0&\multirow{3}*{$J^*_{12}(-0.2)=0$}&\multirow{3}*{-0.1}\\
+	\cline{2-4}
+	&0 & 0.1&0.1 \\
+	\cline{2-4}
+	&+0.1&0.2&0.2\\
+	\cline{1-6}
+	\multirow{3}*{-0.1}&-0.1&-0.05&0.05&\multirow{3}*{$J^*_{12}(-0.1)=0.05$}&\multirow{3}*{-0.1 or 1}\\
+	\cline{2-4}
+	&0 & 0.05&0.05 \\
+	\cline{2-4}
+	&+0.1&0.15&0.15\\
+	\cline{1-6}
+	\multirow{3}*{0}&-0.1&-0.1&0.1&\multirow{3}*{$J^*_{12}(0)=0$}&\multirow{3}*{0}\\
+	\cline{2-4}
+	&0 & 0&0 \\
+	\cline{2-4}
+	&+0.1&0.1&0.1\\
+	\cline{1-6}
+	\multirow{3}*{0.1}&-0.1&-0.15&0.15&\multirow{3}*{$J^*_{12}(0.1)=0.05$}&\multirow{3}*{+0.1 or 0}\\
+	\cline{2-4}
+	&0 & -0.05&0.05 \\
+	\cline{2-4}
+	&+0.1&0.05&0.05\\
+	\cline{1-6}
+	\multirow{3}*{0.2}&-0.1&-0.2&0.2&\multirow{3}*{$J^*_{12}(0.2)=0$}&\multirow{3}*{+0.1}\\
+	\cline{2-4}
+	&0 & -0.1&0.1 \\
+	\cline{2-4}
+	&+0.1&0&0\\
+	\hline
+	\end{tabular}\\
+\\
+At $k=0$,\\
+
+\begin{tabular}{cccccc}  %表格6列 全部居中显示
+	\hline
+	\tabincell{c}{Current \\ state \\ $x(0)$} & \tabincell{c}{Control \\ $u(0)$}& \tabincell{c}{Next \\ state\\ $x(1)$} & \tabincell{c}{Cost \\ $|x(1)|+$\\$J_{12}^*(x(1))$} & \tabincell{c}{Optimal\\ cost\\ $J^*_{02}(x(0))$}& \tabincell{c}{Optimal \\control \\ $u^*(0)$}  \\
+	\hline
+	\multirow{3}*{-0.2}&-0.1&0&0+0=0&\multirow{3}*{$J^*_{02}(-0.2)=0$}&\multirow{3}*{-0.1}\\
+	\cline{2-4}
+	&0 & 0.1&0.1+0.05=0.15 \\
+	\cline{2-4}
+	&+0.1&0.2&0.2+0=0.2\\
+	\cline{1-6}
+	\multirow{3}*{-0.1}&-0.1&-0.05&0.05+0.025=0.075&\multirow{3}*{$J^*_{02}(-0.1)=0.075$}&\multirow{3}*{-0.1 or 1}\\
+	\cline{2-4}
+	&0 & 0.05&0.05+0.025=0.075 \\
+	\cline{2-4}
+	&+0.1&0.15&0.15+0.025=0.175\\
+	\cline{1-6}
+	\multirow{3}*{0}&-0.1&-0.1&0.1+0.05=0.15&\multirow{3}*{$J^*_{02}(0)=0$}&\multirow{3}*{0}\\
+	\cline{2-4}
+	&0 & 0&0+0=0 \\
+	\cline{2-4}
+	&+0.1&0.1&0.1+0.05=0.15\\
+	\cline{1-6}
+	\multirow{3}*{0.1}&-0.1&-0.15&0.15+0.025=0.175&\multirow{3}*{$J^*_{02}(0.1)=0.075$}&\multirow{3}*{+0.1 or 0}\\
+	\cline{2-4}
+	&0 & -0.05&0.05+0.025=0.075 \\
+	\cline{2-4}
+	&+0.1&0.05&0.05+0.025=0.075\\
+	\cline{1-6}
+	\multirow{3}*{0.2}&-0.1&-0.2&0.2+0=0.2&\multirow{3}*{$J^*_{02}(0.2)=0$}&\multirow{3}*{+0.1}\\
+	\cline{2-4}
+	&0 & -0.1&0.1+0.05=0.15 \\
+	\cline{2-4}
+	&+0.1&0&0+0=0\\
+	\hline
+\end{tabular}\\
+
+where the values for $J^*_{12}(-0.05) \approx 0.025, J^*_{12}(0.05) \approx 0.025, J^*_{12}(-0.15) \approx 0.025, J^*_{12}(0.15) \approx 0.025$ are computed by using linear interpolation.
+\item When $x(0)=0.2,$ the optimal sequence is
+\[
+\begin{array}{l}{x(0)=0.2 \quad \rightarrow \quad x(1)=0 \quad \rightarrow \quad x(2)=0} \\ {u(0)=+0.1 \quad \rightarrow \quad u(1)=0}\end{array}
+\]
+\end{enumerate}
+\section* {Problem 5} 
+Consider the optimal control problem with:
+\[
+\min J(u)=\int_{0}^{t_{f}} \frac{a u(t)^{2}+b x(t)^{2}}{2} \exp [-c t] d t
+\]
+\[
+\text { s.t. } \quad \dot{x}(t)=u, \quad x(0)=x_{0}
+\]
+where $a, b, c>0$
+\begin{enumerate}
+\item Formulate the Hamilton-Jacobi-Bellman (HJB) equation of the above optimal control problem.
+\item Find the cost-to-go function $V(x, t)$ which is the solution to the HJB equation. (In general
+the HJB equation is difficult to solve but, we can obtain a significant simplification if we can
+separate the time dependent part in $V(x, t)$ from the state dependent part.)
+\end{enumerate}
+\section*{Solution}
+\begin{enumerate}
+\item The associated HJB equation can be represented as
+\[
+\frac{\partial V}{\partial t}=-\min _{u}\left[\frac{a u^{2}+b x^{2}}{2} \exp [-c t]+\frac{\partial V}{\partial x} u\right]
+\]
+\item The above HJB equation can be rewritten as
+\[
+\frac{\partial V}{\partial t} \exp [c t]=-\min _{u}\left[\frac{a u^{2}+b x^{2}}{2}+\frac{\partial V}{\partial x} \exp [c t] u\right]
+\]
+We observe that the only time dependence in the above partial differential equation is the exponential adjacent to the value function. Thus, we try the form $V(x, t)=\mathcal{V}(x) \exp [-c t] .$ Then, the original HJB equation is equivalent to the following equation:
+\[
+-c \mathcal{V}(x) \exp [-c t] \exp [c t]=-\min _{u}\left[\frac{a u^{2}+b x^{2}}{2}+\frac{\partial \mathcal{V}}{\partial x} \exp [-c t] \exp [c t] u\right]
+\]
+\[
+\Leftrightarrow c \mathcal{V}(x)=\min _{u}\left[\frac{a u^{2}+b x^{2}}{2}+\frac{\partial \mathcal{V}}{\partial x} u\right]
+\]
+The result is an ordinary differential equation in the state variable. Due to the minimization
+operator, the right-hand-side of the above equation is converted into
+\[
+\min _{u}\left[\frac{a u^{2}+b x^{2}}{2}+\frac{\partial \mathcal{V}}{\partial x} u\right] \Rightarrow a u+\frac{\partial \mathcal{V}}{\partial x}=0 \Rightarrow u^{*}=-\frac{1}{a} \frac{\partial \mathcal{V}}{\partial x}
+\]
+\[
+\Rightarrow \min _{u}\left[\frac{a u^{2}+b x^{2}}{2}+\frac{\partial \mathcal{V}}{\partial x} u\right]=-\frac{1}{2 a}\left(\frac{\partial \mathcal{V}}{\partial x}\right)^{2}+\frac{b x^{2}}{2}-\frac{1}{a}\left(\frac{\partial \mathcal{V}}{\partial x}\right)^{2}
+\]
+Therefore,
+\[
+c \mathcal{V}(x)=-\frac{1}{2 a}\left(\frac{\partial \mathcal{V}}{\partial x}\right)^{2}+\frac{b x^{2}}{2}-\frac{1}{a}\left(\frac{\partial \mathcal{V}}{\partial x}\right)^{2}=-\frac{3}{2 a}\left(\frac{\partial \mathcal{V}}{\partial x}\right)^{2}+\frac{b x^{2}}{2}
+\]
+This equation is called a Ricatti differential equation and the easiest approach to solve it is a good
+guess. Recall that we already know that a quadratic form of the cost function (in this problem,
+without exponential adjacent) has a quadratic value function, let $\mathcal{V}(x)=\alpha x^{2}$.  Then, the above equation can be rewritten as:
+\[
+c \alpha x^{2}+\frac{6 \alpha^{2} x^{2}}{a}=\frac{b x^{2}}{2} \Leftrightarrow\left(c \alpha+\frac{6 \alpha^{2}}{a}-\frac{b}{2}\right) x^{2}
+\]
+which is satisfied for all $x$ whenever
+\[
+\frac{6 \alpha^{2}}{a}+c \alpha-\frac{b}{2}=0 \Leftrightarrow \alpha=\frac{-a c \pm \sqrt{a^{2} c^{2}+12 a b}}{12}
+\]
+So our trail solution worked and
+\[
+\mathcal{V}(x)=\alpha x^{2}=\frac{-a c \pm \sqrt{a^{2} c^{2}+12 a b}}{12} x^{2}
+\]
+Given that our cost-to-go value function has to be non-negative, we know that the positive root is
+the correct one and we have
+\[
+V(x, t)=\mathcal{V}(x) \exp [-c t]=\frac{-a c+\sqrt{a^{2} c^{2}+12 a b}}{12} x^{2} \exp [-c t]
+\]
+\end{enumerate}
+\section* {Problem 6} 
+Consider the systems $x(k+1)=A x(k)+B u(k)$ and $y(k)=C x(k),$ with
+\[
+A=\left[\begin{array}{lll}{1} & {0} & {0} \\ {1} & {1} & {0} \\ {0} & {1} & {1}\end{array}\right], B=\left[\begin{array}{l}{1} \\ {0} \\ {0}\end{array}\right], C=\left[\begin{array}{lll}{0} & {0} & {1}\end{array}\right]
+\]
+We use LQR cost function
+\[
+J=\sum_{k=0}^{N-1} u(k)^{2}+\sum_{k=0}^{N} y(k)^{2}
+\]
+with $N=50$
+\begin{enumerate}
+\item Construct the associated Riccati equation and show that the Riccati recursion converges to a
+steady-state value in fewer than 10 steps. Find the optimal time-varying state feedback gain
+$K(k)$ and plot its components versus $k$ .
+\item Find the initial condition $x(0),$ with norm not exceeding one, that maximizes $J$ .
+\item Is there a choice of $C$ for which $K(k)$ is constant, i.e., $K(0)=\cdots=K(N-1) $?
+\end{enumerate}
+\section*{Solution}
+\begin{enumerate}
+\item From the cost function,
+\[
+Q_{f}=Q=C^{T} C, \quad R=1
+\]
+With the system matrices, $A$, $B$ and the weighting matrices, $Q$ and $R$, we can constuct the following Riccati recursion equation:
+\[
+\begin{array}{l}{S(N)=Q} \\ {S(k)=A^{T} S(k+1) A+Q-A^{T} S(k+1) B\left(R+B^{T} S(k+1) B\right)^{-1} B^{T} S(k+1) A}\end{array}
+\]
+Using the following MATLAB code, we can solve the Riccati equation:
+\begin{lstlisting}
+A = [1 0 0; 1 1 0; 0 1 1];
+B = [1 0 0]";
+C = [0 0 1];
+
+Q = C"*C;
+R = 1;
+
+S(:,:,51)=Q;
+
+for i = 1: 50
+Sc = S(:,:,51-(i-1));
+Sn = A"*Sc*A + Q - A"*Sc*B*inv(R+B"*Sc*B)*B"*Sc*A;
+S(:,:,51-i) = Sn;
+K(:,:,51-i) = inv(R+B"*Sc*B)*B"*Sc*A;
+end
+\end{lstlisting}
+From the numerical solution we can show that the solution to the Riccati recursion equation converges to a steady-state value in fewer than 10 steps as in the following figure.
+Also, corresponding optimal feedback gain $K(k)$ is computed as
+\[
+K(k)=\left[R+B^{T} S(k+1) B\right]^{-1} B^{T} S(k+1) A
+\]
+The behavior of $K(k)$ is shown in the following figure.
+\item Note that the cost is expressed as the following quadratic form:
+\[
+J\left(x_{0}\right)=x_{0}^{T} S(0) x_{0}
+\]
+where $S(0)$ is the solution to the Riccati equation at the initial step and computed from the numerical simulation as follows:
+\[
+S(0)=\left[\begin{array}{ccc}{6.764} & {7.689} & {2.786} \\ {7.689} & {11.527} & {5.187} \\ {2.786} & {5.187} & {3.759}\end{array}\right]
+\]
+Because $S(0)$ is a symmetric matrix, the following inequality holds:
+\[
+\lambda_{\min } \cdot\left\|x_{0}\right\|^{2} \leq x_{0}^{T} S(0) x_{0} \leq \lambda_{\max } \cdot\left\|x_{0}\right\|^{2}
+\]
+where $\lambda_{\text { min }}$ and $\lambda_{\max }$ denote the minimum and maximum eigenvalues of $S(0),$ respectively. Therefore, the initial value maximizing $J\left(x_{0}\right)$ is the normalized eigenvector corresponding to $\lambda_{\max } .$ Note that $\lambda_{\max }$ is 19.375 and the corresponding eigenvector $V_{\max }\left(\text { or } x_{0}\right)$ is $[-0.5428 \quad-0.7633 \quad-0.3504]^{T}$.
+\item Since $K(k)$ is defined by $K(k) :=-\left(R+B^{T} S(k+1) B\right)^{-1} B^{T} S(k+1) A$,
+\[
+S(1)=\cdots=S(N) \Leftrightarrow K(0)=\cdots=K(N-1)
+\]
+Also, we know that $C^{T} C=Q=Q_{f}=S(N)$ . The question now is how to pick $S(N)$ so that
+$S(N)=\cdots=S(1) .$ Such a $S(N)$ is the solution to the following algebraic Riccati equation:
+\[
+S(N)=A^{T} S(N) A+Q-A^{T} S(N) B\left(R+B^{T} S(N) B\right)^{-1} B^{T} S(N) A
+\]
+Therefore, the proper choice of $C$ is the one satisfying the following algebraic Riccati equation:
+\[
+C^{T} C=A^{T} C^{T} C A+C^{T} C-A^{T} C^{T} C B\left(R+B^{T} C^{T} C B\right)^{-1} B^{T} C^{T} C A
+\]
+\end{enumerate}
+\end{document}

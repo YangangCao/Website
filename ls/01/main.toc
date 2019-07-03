@@ -10,10 +10,6 @@
 \contentsline {subsection}{\numberline {2.3}General State-Space Model of Lumped System}{4}% 
 \contentsline {subsection}{\numberline {2.4}State-Space Model of Linear Lumped System}{5}% 
 \contentsline {subsection}{\numberline {2.5}State-Space Model of Lumped Linear Time-Invariant(LTI) System}{5}% 
-\contentsline {subsection}{\numberline {2.6}Two Important Blocks}{5}% 
-\contentsline {section}{\numberline {3}Examples}{6}% 
-\contentsline {subsection}{\numberline {3.1}Differential Equation}{6}% 
-\contentsline {subsection}{\numberline {3.2}RLC Circuit}{6}% 
-\contentsline {subsection}{\numberline {3.3}Mechanical System}{6}% 
-\contentsline {section}{\numberline {4}Extension}{6}% 
-\contentsline {subsection}{\numberline {4.1}General Linear Mechanical System}{6}% 
+\contentsline {section}{\numberline {3}Extension}{5}% 
+\contentsline {subsection}{\numberline {3.1}Equation for Circuits}{5}% 
+\contentsline {subsection}{\numberline {3.2}General Linear Mechanical System}{6}% 

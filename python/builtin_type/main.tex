@@ -1,0 +1,266 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pythonhighlight}
+
+
+\author{Baboo J. Cui}
+\title{Builtin}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Basic Properties of Python}
+\begin{itemize}
+	\item code \textbf{block} is identified by $4$ white space(not tab) following a line end up with "$:$"
+	\item \textbf{comments} are start with "$\#$", for multi-line case, use triple comma
+	\item python is \textbf{case sensitive}
+\end{itemize}
+Here is a list of size issue:
+\begin{itemize}
+	\item 1 Byte = 8 bit, bit is the smallest unit in computer
+	\item size of ASCII is 1 Byte = 8bit, 256 cases
+	\item size of Unicode is 2 Bytes = 16bit, 65536 cases
+	\item to get size of an object in memory, use \pyth{sys.getsizeof(o)} function, note this will return the size of an object, which may be quite big
+\end{itemize}
+
+\section{Keywords}
+There are $33$ keywords in Python.
+\begin{python}
+	from keyword import kwlist
+	print(len(kwlist))  # 33
+	print(kwlist)       
+\end{python}
+keyword list:
+\begin{itemize}
+	\item True, False, not, or, and (5)
+	\item def, pass, return, yield, lambda (5)
+	\item if, else, elif, while, for, in, finally, continue, break (9)
+	\item from, import, as (3)
+	\item try, except, raise, assert (4)
+	\item global, nonlocal (2)
+	\item class, None (2)
+	\item with, del, is (3)
+\end{itemize}
+
+\section{Variable}
+Variables in python may be any type, naming a var should follow that:
+\begin{itemize}
+	\item combination of letter, number and "\_"
+	\item cannot start with a number
+\end{itemize}
+Value can be assigned to a variable by "=" operator. Assignment do two things:
+\begin{itemize}
+	\item create value in memory
+	\item create variable name in memory and point it to corresponding value
+\end{itemize}
+To declare a constant, name the var with all capital letters(fake constant, just for reading). There are two types of methods for naming variables:
+\begin{itemize}
+	\item camel-case
+	\item underscore naming
+\end{itemize}  
+just choose the one you like.
+
+
+\section{Operations}
+Python offers lots of basic operations:
+\begin{itemize}
+	\item basic ones: "+, -, *, /"
+	\item exponential: "**", or use \textbf{pow()} function
+	\item floor division: "//", also known as whole part division
+	\item reminder division: "\%", to get the residue
+\end{itemize}
+
+\section{Type}
+A type is a kind of data structure in python. To find the type of an object, simply use \pyth{type(o)}.
+
+\subsection{Duck Type}
+Python is weak type language. If an object looks like a type, then methods for that type can be applied to it. This is one of the most important feather in Python.
+
+\subsection{Type Coercion}
+Force to convert any type to a certain type, this may cause error and some complicate problem.
+\begin{python}
+	print(int("123"))  # 123
+	print(int(12.34))  # round off error 12
+	# print(int("abc123"))  # error
+\end{python}
+here is a list of important type coercion
+\begin{itemize}
+	\item Boolean to int: True to 1 and False to 0
+	\item int to Boolean: 0 to False and the others to True
+	\item str to Boolean: empty str to False and non-empty str to True
+	\item Boolean to str: True to "True" and False to "False"
+\end{itemize}
+
+\subsection{Integer}
+it has type \pyth{int}:
+\begin{itemize}
+	\item \textbf{infinite} range(different from others), should avoid too \textbf{big} number
+	\item \textbf{hex} notation: add \pyth{0x} prefix, or use \pyth{hex()} to convert
+	\item \textbf{binary} notation: add \pyth{0b} prefix, or use \pyth{bin()} to convert
+	\item \textbf{oct} notation: add \pyth{0o} prefix, or use \pyth{oct()} to convert
+	\item has method \pyth{bit_length()} that return the bit length of an int
+\end{itemize}
+
+\subsection{Float}
+it has type \pyth{float}:
+\begin{itemize}
+	\item \textbf{round off error} may occur
+	\item \textbf{direct} notation: simply write the value
+	\item \textbf{scientific} notation: \textbf{mantissa} exp \textbf{order of magnitude}
+\end{itemize}
+
+\subsection{String}
+it has type \pyth{str}:
+\begin{itemize}
+	\item declare by putting string literal in single or double quotes
+	\item escape character: begin with $\backslash$(backslash)
+	\begin{python}
+		# commonly used
+		"\n"  # return
+		"\t"  # table
+	\end{python}
+	\item coding: python code is in \textbf{UTF-8}, data in memory is in \textbf{unicode}
+	\item direct string(simply what's inside): \pyth{r"..."} 
+	\item \textit{binary string}(has type \textbf{bytes}, it's ASCII code,NOT str): \pyth{b"..."}, every letter is 1 byte
+\end{itemize}
+
+\subsubsection{Coding Functions}
+Unicode is used for coding in python 3:
+\begin{itemize}
+	\item \pyth{ord()}: convert string to Unicode
+	\item \pyth{chr()}: convert Unicode to string
+\end{itemize}
+
+\subsubsection{Encode and Decode}
+To covert a string  literal to a certain code is called encoding, and the reverse process is call decoding. The common encoding methods are:
+\begin{itemize}
+	\item "ascii"
+	\item "utf-8"
+	\item "gb2312"
+	\item tip: for Unicode, use \textbf{ord()}
+\end{itemize}
+\begin{python}
+	str.encoding()  # encoding a string to binary
+	bytes.decoding()  # decode binary to string, has parameter errors="ignore" to avoid error
+\end{python}
+
+\subsubsection{Multiplication Between int and str}
+This will repeat the \textit{str} for \textit{int} times:
+\begin{python}
+	print("abc"*3)  # abcabcabc
+\end{python}
+
+
+\subsection{Boolean}
+It has type \pyth{bool}, it has only two value: \textbf{True} and \textbf{False}(case sensitive). Operator on Boolean: 
+\begin{itemize}
+	\item \textbf{and}(\&)
+	\item \textbf{or}(|)
+	\item \textbf{not}(\^)
+\end{itemize}
+operation properties:
+\begin{itemize}
+	\item priority order: not > and > or
+	\item x or y: if x is true, return x, otherwise return y
+	\item x and y: If x is true, return y, otherwise return x
+\end{itemize}
+
+\subsection{None}
+None is a special value in Python to indicate empty.
+
+\subsection{List}
+
+\subsection{Tuple}
+
+\section{Control Flow}
+
+\subsection{If}
+
+\subsection{While}
+in while-else structure, else part will be execute if break statement in while is not executed.
+"while 1" is faster than "while True" because bool is a subclass of int, similarly "if x" is faster than "if x=True"
+
+%---------
+\begin{enumerate}
+
+	\item How to use python to run bash command?\\
+	Use os.system(“COMMAND”)
+
+
+	\item How to format a decimal?\\
+	Use \{num:a.b f\} where num is the position, a is num of integer bit, b is for decimal, f represent float
+	\item How to find length of a list?\\
+	Use len() function, len(LIST) will return
+	\item How to find the last element of a list?\\
+	Use LIST[-1], index of -1 represent the last element, -2 for the second last one, etc
+	\item Difference between list and tuple?
+	List is mutable, declared by [ ] and tuple is immutable and declared by ()
+	\item List.append(o)?\\
+	Append obj o to the end of list
+	\item List.insert(idx, o)?\\
+	Insert obj o to index idx
+	\item List.pop() or list.pop(i)?\\
+	Pop out the last element, and pop(i) pop the element with index i
+	\item Acquire the idx element of list?\\
+	List[idx]
+	\item How to init a tuple with one element?\\
+	T = (obj1, ), the key is to add a comma after obj1
+	\item How to understand immutability of tuple?\\
+	Each element that points to won't be mutable, but the content that each points may be mutable
+	\item Condition control structure?\\
+	If else, or if elif else
+	\item How to loop an iterable object by for?\\
+	Use for loop, for item in iterable\_obj
+	\item How to loop by while?\\
+	Use while structure: while condition: block\_exe
+	\item How to generate a range?\\
+	Use range() function, range(a) will generate [0\dots a-1] and range(a, b) will generate [a, a+1\dots b-1]
+	\item Difference between break and continue?\\
+	Break will stop the loop and continue will simply jump to next loop, usually both are related to if condition
+	\item How to terminate a python program directly?\\
+	Use ctrl + c to kill the process
+	\item What is dict?\\
+	A key-value mechanism, also known as map in other languages
+	\item How to declare a dict?\\
+	Format: \{key1: val1, key2: val2, \dots\}, curly braces, comma separation, colon separation, key must be immutable
+	\item Why dict can find a key value so fast?\\
+	Use binary tree mechanism, which lead to log(n) time scale
+	\item How to determine if a dict has a key?\\
+	Use code: if key\_val in dict, or: dict.get(key\_val)
+	\item How to delete a key-value in dict?\\
+	Use code: dict.pop(key)
+	\item Trade off between list and dict?\\
+	List is slower but occupy smaller memory, dict is faster but requires more memory
+	\item How to create a set?\\
+	Use curly braces:\{item1, item2, \dots\} or use code set(list), which will turn a list to set
+	\item Properties of set?\\
+	It has no order and there is no repeats
+	\item Add and remove key of a set?\\
+	Corresponding to set.add(key) and set.remove(key)
+	\item Common operation on sets?\\
+	Union ``|'' and intersection ``\&''
+	\item Difference between dict and set?\\
+	Share the same mechanism but set doesn’t have value, can't put mutable obj in
+	\item Is str mutable? What about list?\\
+	Str is immutable and list is mutable
+	\item Immutable objects?\\
+	Number, string and tuple. Contents in certain add can't be changed
+	\item How to find the memory address of an object?\\
+	Use function id(), id(o) will return the memory add
+	\item How to get console args?\\
+	By import sys, and then use sys.argv[idx]
+	\item What is configurative programming?\\
+	A framework is created such that coding is like setting configuration
+	\item Mechanism of importing a module? \\
+	Python interpreter just go through line by line(interview question)
+\end{enumerate}
+
+\end{document}

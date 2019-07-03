@@ -9,6 +9,7 @@
 
 \author{Baboo J. Cui}
 \title{Systems and State Variables}
+\date{Fall, 2014}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -36,7 +37,7 @@ There are many systems around us, here are some examples:
 \end{itemize}
 
 \subsection{System Models}
-System essentially is a signal processor:
+System essentially is a signal \textbf{processor}:
 \[
 y = \mathcal{T}(u)
 \]
@@ -47,15 +48,15 @@ y = \mathcal{T}(u)
 \end{itemize}
 
 \subsection{Signals}
-Signals are talked more in DSP, here is a brief summary. Mathematically, signal is functions over time index $\mathcal{I}$:
+Signals are discussed in details in DSP, here is a brief summary. Mathematically, signal is functions over time index $\mathcal{I}$:
 \begin{itemize}
 	\item $u: \mathcal{I} \rightarrow \mathbb{R}^m$, a $m$-dimension input signal
 	\item $y: \mathcal{I} \rightarrow \mathbb{R}^p$, a $p$-dimension output signal
 \end{itemize}
 Signals are be classified based on characteristics of $\mathcal{I}$:
 \begin{itemize}
-	\item $\mathcal{I} = \mathbb{R}$ leads to continuous-time signal, denote as $u(t)$
-	\item $\mathcal{I} = \mathbb{Z}$ leads to discrete-time signal, denoted as $u[k]$
+	\item $\mathcal{I} = \mathbb{R}$ leads to \textbf{continuous}-time signal, denote as $u(t)$
+	\item $\mathcal{I} = \mathbb{Z}$ leads to \textbf{discrete}-time signal, denoted as $u[k]$
 	\item $\mathcal{I}=[0, +\infty)$ or $\mathcal{I}=\{0, 1, \dots,\}$ leads to \textbf{causal} signal
 \end{itemize}
 Mathematically a mapping can be written in $2$ ways:
@@ -149,7 +150,7 @@ Suppose the system has state variable $x \in \mathbb{R}^n$, input $u \in \mathbb
 	\[
 	\left\{
 	\begin{array}{ll}
-	\frac{dx(t)}{dt} = f(x(t), u(t), t)\\
+	\dot{x}= f(x(t), u(t), t)\\
 	y(t) = g(x(t), u(t), t)\
 	\end{array}\right.
 	\]
@@ -205,26 +206,34 @@ Suppose the system has state variable $x \in \mathbb{R}^n$, input $u \in \mathbb
 	\end{array}\right.
 	\]
 \end{itemize}
-Note that the $(A, B, C, D)$ are constants. Graphically, the system can be directly realized by the following diagram:
+Note that the $(A, B, C, D)$ are constants. Here are $2$ important processor in graphical representation:
 \begin{itemize}
-	\item continuous:
-	\item discrete:
+	\item integration for CT system:
+	\[
+	\frac{1}{s}
+	\]
+	usually, the input is state variable
+	\item delay for DT system
+	\[
+	z^{-1}
+	\]
+	usually, the input is term whose index is  $k+1$  and output with index $k$
 \end{itemize}
-
-\subsection{Two Important Blocks}
-Integration for CT system and unit delay for DT system are two most important block units:
-\begin{itemize}
-	\item integration for CT:
-	\item unit delay for DT:
-\end{itemize}
-
-\section{Examples}
-\subsection{Differential Equation}
-\subsection{RLC Circuit}
-\subsection{Mechanical System}
-
 
 \section{Extension}
+\subsection{Equation for Circuits}
+\begin{itemize}
+	\item capacitor has characteristic equation:
+	\[
+	i(t) = C \frac{dV}{dt}
+	\]
+	choose current $i$ as state variable
+	\item inducer has characteristic equation:
+	\[
+	V(t) = L \frac{di}{dt}
+	\]
+	choose voltage $V$ as state variable
+\end{itemize}
 \subsection{General Linear Mechanical System}
 A mechanical system with $n$ DOF (degree of freedom)can be written as:
 \[
@@ -244,33 +253,7 @@ q\\
 \dot{q}
 \end{bmatrix}
 \]
-the state equation can be deduced as:
-\[
-\dot{x} = \begin{bmatrix}
-0 & I\\ -M^{-1}K & -M^{-1}D
-\end{bmatrix}x
-+ \begin{bmatrix}
-0 \\ M^{-1}????
-\end{bmatrix}
-\]
-Proof:
-?????
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \end{document}
+
 
 

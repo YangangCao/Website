@@ -1,0 +1,461 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{CPPLight}  {HTML} {686868}
+\definecolor{CPPSteel}  {HTML} {888888}
+\definecolor{CPPDark}   {HTML} {262626}
+\definecolor{CPPBlue}   {HTML} {4172A3}
+\definecolor{CPPGreen}  {HTML} {487818}
+\definecolor{CPPBrown}  {HTML} {A07040}
+\definecolor{CPPRed}    {HTML} {AD4D3A}
+\definecolor{CPPViolet} {HTML} {7040A0}
+\definecolor{CPPGray}  {HTML} {B8B8B8}
+\lstset{
+	basicstyle=\ttfamily,
+	columns=fullflexible,
+	breakatwhitespace=false,      
+	breaklines=true,
+	captionpos=b,
+	columns=fixed,       
+	%numbers=left,                                        % 在左侧显示行号
+	frame=single,                                          % 不显示背景边框
+	%backgroundcolor=\color[RGB]{245,245,244},            % 设定背景颜色
+	keywordstyle=\color{blue},                % 设定关键字颜色
+	numberstyle=\footnotesize\color{darkgray},           % 设定行号格式
+	commentstyle=\color[RGB]{0,96,96},                % 设置代码注释的格式
+	stringstyle=\color[RGB]{128,0,0},   % 设置字符串格式
+	showstringspaces=false,                              % 不显示字符串中的空格
+	language=c++,                                       % 设置语言
+	morekeywords={alignas,continute,friend,register,true,alignof,decltype,goto,
+		reinterpret_cast,try,asm,defult,if,return,typedef,auto,delete,inline,short,
+		typeid,bool,do,int,signed,typename,break,double,long,sizeof,union,case,
+		dynamic_cast,mutable,static,unsigned,catch,else,namespace,static_assert,using,
+		char,enum,new,static_cast,virtual,char16_t,char32_t,explict,noexcept,struct,
+		void,export,nullptr,switch,volatile,class,extern,operator,template,wchar_t,
+		const,false,private,this,while,constexpr,float,protected,thread_local,
+		const_cast,for,public,throw,std},
+	emph={map,set,multimap,multiset,unordered_map,unordered_set,
+		unordered_multiset,unordered_multimap,vector,string,list,deque,
+		array,stack,forwared_list,iostream,memory,shared_ptr,unique_ptr,
+		random,bitset,ostream,istream,cout,cin,endl,move,default_random_engine,
+		uniform_int_distribution,iterator,algorithm,functional,bing,numeric,},
+	emphstyle=\color{CPPViolet}, 
+}
+    
+\date{June 25, 2019}
+\author{Yangang Cao}
+\title{C{}\texttt{++} Q\&A}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Basic Type}
+\begin{center}
+\begin{tabular}{cc}
+	\hline
+	Type& Size in Xcode\\
+	\hline
+	bool& 1\\
+	char& 1\\
+	wchar\_t&4\\
+	char16\_t&2\\
+	char32\_t&4\\
+	short&2\\
+	int&4\\
+	long&8\\
+	long long&8\\
+	float&4\\
+	double&8\\
+	long double&16\\
+	\hline
+\end{tabular}
+\end{center}
+and the code
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+
+int main()
+{
+cout << "bool:" << sizeof(bool) << endl;
+cout << "char:" << sizeof(char) << endl;
+cout << "wchar_t:" << sizeof(wchar_t) << endl;
+cout << "char16_t:" << sizeof(char16_t) << endl;
+cout << "char32_t:" << sizeof(char32_t) << endl;
+cout << "short:" << sizeof(short) << endl;
+cout << "int:" << sizeof(int) << endl;
+cout << "long:" << sizeof(long) <<  endl;
+cout << "long long:" << sizeof(long long) << endl;
+cout << "float:" << sizeof(float) << endl;
+cout << "double:" << sizeof(double) << endl;
+cout << "long double:" << sizeof(long double) << endl;
+
+return 0;
+}
+\end{lstlisting}
+\section{Pointer}
+\begin{enumerate}[1.]
+\item Why do we need pointer?
+\begin{itemize}
+\item 8 byte for any type in 64-bit system, 4 byte in 32-bit system
+\item CallByPtr can change the parameters or not
+\item Using ``new'' to allocate memory for dynamic memory
+\item Faster than callByVal for comlpex type
+\end{itemize}
+\item How to allocate and free memory using ``new'' and ``delete''?\\
+\begin{lstlisting}
+typeName * pointerName = new typeName;
+
+delete pointerName;
+\end{lstlisting}
+``delete'' will free the memory, but not delete the pointer.
+\begin{lstlisting}
+int *p = new int; // return memory address
+*p = 10; // assignment directly
+delete p; // free memory
+int a =3;
+*p = &a; // OK
+\end{lstlisting}
+\end{enumerate}
+\section{Overload}
+\begin{enumerate}[1.]
+\item When do we use overload?\\
+Funtion with different type parameters
+\item What's the key of overload?\\
+Function signature, contains three points: number, type and order of parameters, complier realize overload by name mangling
+\item How about reference in overload?\\
+Type and type reference share one function signature in complier, error will be raised if both of them exist
+\item What happen if no funtion signature matches?\\
+Compiler attempt to cast it to funtion signature already exists, if more than one ways it can cast, error will be raised
+\item How about keyword ``const'' in function signature ?\\
+Matching the corresponding function signature, if no match,  cast will happen, ``const'' signature can match modifiable and const parameter, however, signature without ``const'' only match modifiable parameter.
+\end{enumerate}
+\section{Function Template}
+\begin{enumerate}[1.]
+\item How to understand function template?\\
+Function with same algrithm for different type parameters
+\begin{lstlisting}
+// function template prototype
+template <typename T>
+void swap(T &a, T &b)
+
+// function template definition
+template <typename T>
+void swap(T &a, T &b)
+{
+  T temp;
+  temp = a;
+  a = b;
+  b = temp;
+}
+\end{lstlisting}
+\item How to understand overloaded function template?\\
+Function with different algrithms for different type parameters
+\begin{lstlisting}
+// original template prototype
+template <typename T>
+void swap(T &a, T &b);
+
+// new template prototype
+template <typename T>
+void swap(T *a, T *b, int n);
+
+\end{lstlisting}
+\item How to understand explicit specialization?\\
+Provides specific template definitions for specific types, prior to normal templates
+\begin{lstlisting}
+// explicit specialization for the job type
+template <>
+void swap(job &a, job &b);
+
+\end{lstlisting}
+\item How to understand explicit instantiattion?\\
+Generate a function from template directly, less detection, more efficient
+\begin{lstlisting}
+// explicit instantiattion for the job type in main()
+template 
+void swap(char &a, char &b);
+
+\end{lstlisting}
+\end{enumerate}
+\section{Copy Contructor}
+\begin{enumerate}[1.]
+\item How to use copy contructor?\\
+If there is a pointer variable initialized by ``new'' in class, {\bfseries deep copy} should be set in copy constructor and ``='' operator overload.
+\begin{lstlisting}
+StringBad::StringBad(const StringBad & st)
+{
+num_string++;
+len = st.len;
+str = new char [len + 1];
+std::strcpy(str, st.str);
+}
+\end{lstlisting}
+\begin{lstlisting}
+StringBad & StringBad::operator=(const StringBad & st) //  e.g. S0 = "fox", tip: = operator overload don't change num_string
+{
+if (this == &st) // in case S0 = S0
+return *this; // directly return
+delete [] str; // free S0 str
+len = str.len;
+str = new char [len + 1]; // get space for new string
+std::strcpy(str, st.str);
+return *this;
+}
+\end{lstlisting}
+4 statements will call copy constructor.
+\begin{lstlisting}
+StringBad ditto(motto);
+StringBad ditto = motto;
+StringBad ditto = Stringbad(motto);
+StringBad * ditto = new StringBad(motto);
+\end{lstlisting}
+Some tips:
+\begin{itemize}
+\item CallByVal and ReturnObj will call copy constructor(they both creates temporaty variable), we'd better to use reference.
+\item If there is a static data member in class, its value will change when new object is created, a explicit copy constructor should be set.
+\begin{lstlisting}
+String::StringBad(const StringBad &s)
+{
+  num_strings++;
+  ...// other code
+}
+\end{lstlisting}
+\item Default constructor in dynamic memoty:
+\begin{lstlisting}
+String::String()
+{
+  len = 0;
+  str = new char[1]; // Compatible with destructor "delete [] str"
+  str[0] = `\0' ;
+}
+\end{lstlisting}
+\item Static member functions can't use ``this'' pointer, non-static data member.
+\begin{lstlisting}
+static int HowMant() {return num_strings;} //declaration
+
+int count = String::HowMany(); // how to use
+\end{lstlisting}
+\end{itemize}
+\end{enumerate}
+\section{Return Object}
+Containing 4 ways of returning object.
+\begin{enumerate}[1.]
+\item when we return ``const ClassName \&''\\
+Return the object in parameters list
+\begin{lstlisting}
+const Vector & Vector::Max(const Vector & v1, const Vector & v2)
+{
+  if (v1.magval() > v2.magval())
+    return v1;
+  else
+    return v2;
+}
+\end{lstlisting}
+Three points:
+\begin{itemize}
+	\item Returning object will call copy constructor, but object reference won't.
+	\item The object should exists when we return the object reference.
+	\item If all the parameters is ``const ClassName \&'', one of them should be returned, we must return ``const ClassName \&''.
+\end{itemize}
+\item when we return ``ClassName \&''?\\
+2 conditions:
+\begin{itemize}
+\item overload assignment operator ``='', more efficient
+\begin{lstlisting}
+String & operator =(const String &);
+String & operator =(const char *);
+
+String s1("good stuff");
+String s2, s3;
+s1 = s2 = s3; // s2=s3 will change s2
+\end{lstlisting}
+\item overload output operator ``$\mathbf{<<}$'', must obey
+\begin{lstlisting}
+ostream & operator <<(ostream & os, const String & s1);
+\end{lstlisting}
+\end{itemize}
+\item When we return ``ClassName''?\\
+Return local variables, such as overload ``+'', ``-'', ``*''
+\begin{lstlisting}
+Vector Vector::operator+(const Vector &b) const
+{
+  return Vector(x+b.x, y+b.y);
+} 
+\end{lstlisting}
+\item When we return ``const ClassName''?\\
+If we have overloaded operator ``+'' using 3, a strange property appears:
+\begin{lstlisting}
+net = force1 + force2; // OK
+force1 + force2 = net; // also OK
+\end{lstlisting}
+When we want to forbid the second statement, ``const ClassName'' should be used
+\begin{lstlisting}
+const Vector Vector::operator+(const Vector &b) const
+{
+return Vector(x+b.x, y+b.y);
+} 
+\end{lstlisting}
+\end{enumerate}
+\section{Class Inheritance(is-a)}
+This is a base class.
+\begin{lstlisting}
+#include <string> // tabtenn0.h
+using std::string;
+
+class TableTennisPlayer
+{
+private:
+    string firstname;
+    string lastname;
+    bool hasTable;
+public:
+    TableTennisPlayer(const string &fn = "none", const string &ln = "none", bool ht = false);
+    void Name() const;
+    bool HasTable() const {return hasTable;};
+    void ResetTable(bool v) {hasTable = v;};
+}
+\end{lstlisting}
+\begin{lstlisting}
+#include "tabtenn0.h" // cpp file
+#include <iostream>
+
+class TableTennisPlayer
+{
+    TableTennisPlayer::TableTennisPlayer(const string &fn, const string &ln, bool ht): firstname(fn), lastname(ln), hasTable(ht) {} // efficient
+    
+    void TableTennisPlayer::Name() const
+    {
+        std::cout << lastname << "," << firstname;
+    }
+}
+\end{lstlisting}
+RatedPalyer class derives from the TableTennisPlayer base class.
+\begin{lstlisting}
+class RatedPlayer: public TableTennisPlayer // tabtenn1.h
+{
+private:
+    unsigned int rating; // add a new data member
+public:
+    RatedPlayer(unsigned int r = 0, const string &fn = firstname, const string &ln = lastname, bool ht = false); // new constructor
+    RatedPlayer(unsigned int r, const TableTennisPlayer & tp); // new constructor
+    unsigned int Rating() const {return rating;} // new member function
+    void ResetRating (unsigned int r) {rating = r;} //new member function
+};
+\end{lstlisting}
+The first constructor:
+\begin{lstlisting}
+RatedPlayer::RatedPlayer(unsigned int r, const string &fn, const string &ln, bool ht): TableTennisPlayer(fn, ln, ht)
+{
+    rating = r;
+}
+\end{lstlisting}
+or
+\begin{lstlisting}
+RatedPlayer::RatedPlayer(unsigned int r, const string &fn, const string &ln, bool ht): TableTennisPlayer(fn, ln, ht), rating(r)
+{
+}
+\end{lstlisting}
+The second constructor:
+\begin{lstlisting}
+RatedPlayer::RatedPlayer(unsigned int r, const TableTennisPlayer &tp): TableTennisPlayer(tp)
+{
+    rating = r;
+}
+\end{lstlisting}
+ or
+ \begin{lstlisting}
+ RatedPlayer::RatedPlayer(unsigned int r, const TableTennisPlayer &tp): TableTennisPlayer(tp),  rating(r)
+ {
+ }
+ \end{lstlisting}
+ Above all, 3 points can be obtained about constructor of derived class:
+ \begin{itemize}
+ \item Complier creates base class object before creating derived class object, the constructor of base class will called firstly as well
+ \item Initialization list should be used to deliver the parameters from derived class to base in derived class construtors
+ \item Derived class constructors should initial new data member
+ \end{itemize}
+{\bfseries Special relationship between base and drived class:}
+\begin{itemize}
+\item Derived class objects can call public base class methods
+ \begin{lstlisting}
+RatedPlayer rplayer(1140,"Mallory", "Duck", true);
+rplayer.Name(); // OK
+\end{lstlisting}
+\item Base class pointer and reference can point to derived class object, but not vice versa
+\begin{lstlisting}
+RatedPlayer rplayer(1140,"Mallory", "Duck", true);
+TableTennisPlayer &rt = rplayer; // OK
+TableTennisPlayer *pt = &rplayer; //OK
+
+TableTennisPlay player("Besty", "Bloop", true);
+RatedPlayer &rr = player; // not OK
+RatedPlayer *pr = &player; // not OK
+\end{lstlisting}
+\item The base class pointer and reference which point to derived class can't invoke the derived class methods
+\begin{lstlisting}
+RatedPlayer rplayer(1140,"Mallory", "Duck", true);
+TableTennisPlayer &rt = rplayer;
+TableTennisPlayer *pt = &rplayer;
+rt.Name(); // OK
+pt->Name(); // OK
+rt.Rating(); // not OK
+pt->Rating(); // not OK
+\end{lstlisting}
+\item If we set a base class pointer or reference on parameter, both base and derived class object pointer or reference can be appected as argument
+\begin{lstlisting}
+void Show(const TableTennisPlayer &rt)
+
+TableTennisPlayer Player("Tara","Boomdea", flase);
+RatedPlayer rplayer(1140,"Mallory", "Duck", true);
+Show(player); // OK
+Show(rplayer); // OK
+\end{lstlisting}
+\item We can initial base class by derive class and assign a deirve class to base class
+\begin{lstlisting}
+RatedPlayer olaf1(1140,"Mallory", "Duck", true);
+TableTennisPlayer olaf2(olaf1); // initialization
+\end{lstlisting}
+\begin{lstlisting}
+RatedPlayer olaf1(1140,"Mallory", "Duck", true);
+TableTennisPlayer winner
+winner = olaf1; // assignment
+\end{lstlisting}
+\end{itemize}
+\section{Public Inheritance Polymorphism}
+In this section, keyword ``vitual'' is introduced. 
+\begin{lstlisting}
+class Brass // base class
+{
+...
+public:
+    void ViewAcct() const;
+    virtual void Withdraw(double amt);
+    virtual ~Brass() {};
+...
+};
+
+class BrassPlus: public Brass // derived class
+{
+...
+public:
+	void ViewAcct() const;
+    virtual void Withdraw(double amt);
+...
+}
+\end{lstlisting}
+Two kinds of Polymorphism
+Keyword ``{\bfseries vitual}'' means two different in base and derived class.
+\begin{lstlisting}
+Brass::ViewAcct();
+BrassPlus::ViewAcct();
+\end{lstlisting}
+\end{document}

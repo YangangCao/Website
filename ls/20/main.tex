@@ -53,7 +53,7 @@ where $x \in \mathbb{R}^n$ is the state vector with the initial condition $x(t)=
 V_t(x)=x^T P(t) x
 \]
 can be proved by the way for DT case
-\item value functions at different times are related by the (\textbf{CT Riccati}) matrix differential equation
+\item value functions at different times are related by the (\textbf{CT Riccati}) matrix differential equation(on each term in the matrix)
 \[
 \dot{-P(t)}=Q + A^T P(t) + P(t)A - P(t)BR^{-1}B^T P(t)
 \]
@@ -63,6 +63,7 @@ can be proved by the way for DT case
 \[
 u^{*}(t)=-R^{-1} B^{T} P(t) x^{*}(t)
 \]
+tip: in DT case, gain depends on $P$ of next time, here the gain depend on current time $P_t$
 \end{itemize}
 
 \section{Derivation of Value Functions}
@@ -95,9 +96,6 @@ expand and let $\delta \rightarrow 0$, we have
 -x^{T} \dot{P}(t) x=\min _{w}\left\{x^{T} Q x+w^{T} R w+x^{T} P(t)(A x+B w)+(A x+B w)^{T} P(t) x\right\}
 \]
 
-\subsection{Proof}
-Here is the proof???
-
 \section{Conclusions}
 Here is the list of conclusions.
 
@@ -111,7 +109,7 @@ and $P(t)$ satisfies the {\bfseries continuous-time Riccati differential equatio
 $$
 -\dot{P}(t)=Q+P(t) A+A^{T} P(t)-P(t) B R^{-1} B^{T} P(t), 0 \leq t \leq t_{f}
 $$
-with (terminal) condition $P(t_f)=Q_f$.
+with (terminal) condition $P(t_f)=Q_f$. This is not easy to solve because nonlinear term $P(t) B R^{-1} B^{T} P(t)$. A CT system can be converted to DT to solve for simplicity.
 
 \subsection{CT LQR Solution Algorithm Summary}
 
@@ -184,12 +182,12 @@ L(u, x, \lambda)= J(u) + \int_{0}^{t_{f}} \lambda^{T}(t)(A x(t)+B u(t)-\dot{x}(t
 \]
 
 \begin{itemize}
-\item \textbf{Lagrange multiplier function}:$\lambda:[0,t_f]\rightarrow\mathbb{R}^n$, same dimension as state variable
+\item \textbf{Lagrange multiplier function}:$\lambda:[0,t_f]\rightarrow\mathbb{R}^n$, same dimension as state variable, infinite number of $\lambda$ for each $t$
 \item original problem solution:
 \[
-\min _{u} J(u)=\min _{u, x} \max _{\lambda} L(u, x, \lambda)=\max _{\lambda} \min _{u, x} L(u, x, \lambda)
+\min _{u} J(u)=\min _{u, x} \max _{\lambda} L(u, x, \lambda) \geq \max _{\lambda} \min _{u, x} L(u, x, \lambda)
 \]
-this is \textbf{strong duality} and detailed info are covered in \textbf{game theory}
+this is \textbf{strong duality} and detailed info are covered in \textbf{game theory}. A quick intuitive way to see this is big $\lambda$ force the state trajectory in track while at the same time treat $x$ and $u$ independently
 \end{itemize}
 Optimal solution $(u^*,x^*,\lambda^*)$ must satisfy:
 \[
@@ -209,7 +207,11 @@ $\lambda$ is called the \textbf{co-state}, and satisfies the \textbf{co-state eq
 \[
 \dot{\lambda}(t)=-A^{T} \lambda(t)-Q x(t), \quad t \in\left[0, t_{f}\right]
 \]
-with terminal boundary condition $\lambda(t_f)=Q_fx(t_f)$
+with terminal boundary condition $\lambda(t_f)=Q_fx(t_f)$.
+\begin{itemize}
+	\item can be adopted for state or input constraints
+	\item known as Pontryagin's maximum principle
+\end{itemize}
 
 \section{Hamiltonian Equation}
 The optimal control $u^*(t)$ is given by
@@ -222,8 +224,10 @@ while the optimal state $x^*$ and co-state $\lambda^*$ satisfies
 \]
 with two-point boundary condition: $x^{*}(0)=x_{0}, \lambda^{*}\left(t_{f}\right)=Q_{f} x^{*}\left(t_{f}\right)$
 \begin{itemize}
-\item Two-point boundary value problem
-\item Solved numerically using the shooting method
+\item two-point boundary value problem
+\item solved numerically using the shooting method
+\item nice form that a linear system govern both $x$ and $\lambda$
+\item use shooting method to solve it(adaptive guess)
 \end{itemize}
 
 \subsection{Connecting Riccati and Hamiltonian Solutions}

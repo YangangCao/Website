@@ -7,7 +7,7 @@
 \usepackage{enumerate}
 \usepackage{graphicx}
 \usepackage{tikz}
-% \usepackage{framed} 
+
 \date{June 10, 2019}
 \author{Baboo J. Cui}
 \title{Linear Quadratic Regulator(LQR) for Discrete-Time System}
@@ -19,7 +19,7 @@
 
 LQR is related to optimal control problem, many problems can be formulated into it. It's one of the fundamental ways to achieve optimal control.
 
-\section{Problem Formulation}
+\section{Problem Formulation and Direct Solution}
 Given a discrete LTI system:
 \[
 x[k+1] = Ax[k] + Bu[k], x[0] = x_0
@@ -37,7 +37,25 @@ J(U) = \underbrace{\sum_{k=0}^{N-1}\left(x^T[k] Qx[k] +u^T[k] Ru[k]\right)}_{\te
 	\item \textbf{terminal cost}: for time at $N$
 	\item \textbf{infinite case}: $N$ is infinity, in this case, $Q_f = 0$
 \end{itemize}
-Note that it can be generalized into time-varying cases.
+Here is the direct solution:
+\begin{itemize}
+	\item suppose value function at time $t+1$ is \textbf{quadratic}: $V_{t+1}(x)=x^TP_{t+1}x$, then value function at time $t$ is also \textbf{quadratic}:
+	\[
+	V_t(x)=x^T P_t x, \forall x\in \mathbb{R}^n
+	\]
+	\item $P_t$ can be obtained from $P_{t+1}$ according to the \textbf{Riccati recursion}:
+	\[
+	P_t=Q+A^TP_{t+1}A - A^TP_{t+1}B(R+B^TP_{t+1}B)^{-1}B^TP_{t+1}A
+	\]
+	\item minimum value of $J$ is $J^* = x_0^T P_0 x_0$
+	\item optimal control at time $t$ for the given state $x[t]=x$ is:
+	\[
+	u^*[t] = -\underbrace{(R+B^T P_{t+1} B)^{-1}B^T P_{t+1} A }_{\text{Kalman gain } K} x= - K_tx
+	\]
+	which is a \textbf{linear state feedback} control
+\end{itemize}
+Note that it can be \textbf{generalized} into time-varying cases by setting $A, B, Q, R$ into is time varying counterparts $A(t), B(t), Q(t), R(t)$. Here $A(t)$ should be used instead of $A(t+1)$.
+
 
 \section{Examples of Implementations}
 Many problem can be formulated into LQR form, and here are some examples, though they look differently in format.
@@ -58,17 +76,21 @@ Note that:
 	\item cost function try to make state trajectory stay close to zero and use the least control energy simultaneously
 	\item $\alpha$ and $\beta$ determine the emphasis, can be adjusted
 \end{itemize}
-Sometimes state cannot be obtained directly, and system output $y$ can be used for evaluating running cost. Suppose output equation($Du$ part can be eliminate) is
+Sometimes state cannot be obtained directly, and system \textbf{output} $y$ can be used for evaluating running cost. Suppose output equation($Du$ part can be eliminate) is
 \[
 y = Cx
 \]
-in this case choose $Q = \beta C^T C$. Here is the proof:
+in this case choose 
+\[
+Q = \beta C^T C
+\]
+ Here is the proof:
 \begin{align*}
 \beta \sum_{k=0}^{N} || y[k] ||^2 &=  \sum_{k=0}^{N} y^T [k] \beta I y[k]\\
 &= \sum_{k=0}^{N} (Cx[k])^T \beta I Cx[k]\\
 &= \sum_{k=0}^{N} x^T[k] C^T \beta I Cx[k] = \sum_{k=0}^{N} x^T[k] (\beta C^T C)x[k]
 \end{align*}
-this is a very import conclusion for reformation.
+this is a useful conclusion for reformation.
 
 \subsection{Minimum Energy Steering}
 Starting from $x[0] = x_0$, find control sequence $U$ to use least energy to steer the final state to $x[N] = 0$ without lost generosity, the cost is:
@@ -220,7 +242,7 @@ By setting it to $0$ can we find the optimal $\tilde{U}$ since it has only one s
 \begin{itemize}
 	\item easier to solve for shorter time horizon $N$
 	\item $(N+1)$-horizon solution related to $N$-horizon solution, iterative solution could be feasible
-	\item optimal control sequence has linear feedback form
+	\item optimal control sequence has \textbf{linear feedback form}
 \end{itemize}
 
 \section{Dynamic Programming}
@@ -354,7 +376,10 @@ The value function at any time $t\in\{0,1,...,N\}$ and state $x\in\mathbb{R}^n$ 
 \[
 V_t(x)=\min_{u[t],...,u[N-1]}\sum_{k=t}^{N-1}(x^T[k] Q x[k]+u^T[k] R u[k])+x^T[N] Q_f x[N]
 \]
-with the initial condition $x[t]=x$, namely, cost-to-go $V_t(x)$ is optimal cost of the LQR problem over the time horizon $\{t,t+1,...,N\}$, starting from $x[t]=x$.
+with the initial condition $x[t]=x$, namely, \textbf{cost-to-go} $V_t(x)$ is optimal cost of the LQR problem over the time horizon $\{t,t+1,...,N\}$, starting from $x[t]=x$(arbitrary). Note that:
+\[
+V_0(x) = J(U)
+\]
 
 \subsection{Solution of LQR Problem via Value Functions}
 Preview of results:
@@ -386,12 +411,12 @@ Optimality principle: for optimal case, cost-to-go from next state $x[t+1]$, i.e
 \draw node at (0.5,-0.5) {$t$};
 \draw node at (5.5,-0.5) {$t+1$};
 \draw node at (10.5,-0.5) {$t=N$};
-\draw node at (0.5,4.5) {$x\in\mathbb{R}^n$};
-\draw node at (5.5,4.5) {$x\in\mathbb{R}^n$};
-\draw node at (10.5,4.5) {$x\in\mathbb{R}^n$};
+\draw node at (0.5,4.5) {$x_t\in\mathbb{R}^n$};
+\draw node at (5.5,4.5) {$x_{t_1}\in\mathbb{R}^n$};
+\draw node at (10.5,4.5) {$x_N\in\mathbb{R}^n$};
 \draw node at (3, 1.6) {$u(t)$};
 \draw[->](0,2)-- node {$x(t+1)=Ax(t)+Bu(t)$}(5.3,2);
-\draw[->](5.5,2)-- node {$cost=V_{t+1}(x_{t+1})$}(10.5,2);
+\draw[->](5.5,2)-- node {$\text{cost}=V_{t+1}(x_{t+1})$}(10.5,2);
 \end{tikzpicture}
 And here is the process:
 \begin{enumerate}
@@ -407,28 +432,40 @@ And here is the process:
 	\end{aligned}
 	\]
 \end{enumerate}
-This will lead to the following general case.
+First to prove that optimal controller has linear state feed back form:
+\begin{align*}
+V_{N-1}(x) &= x^T Q x + \min_{v}[v^T R v+V_N(Ax+Bv)]\\
+&= x^T Q x + \min_{v}[v^T R v+(Ax+Bv)^T P_N (Ax+Bv)] \quad \text{quadratic expansion}\\
+&= x^T Q x + \min_{v}[v^T R v+ x^TA^TP_NAx + 2v^TB^TP_NAx + v^TB^TP_NBv] \quad \text{move out term}\\
+&=  x^T Q x + x^TA^TP_NAx + \min_{v}[v^T R v  + 2v^TB^TP_NAx + v^TB^TP_NBv] \quad \text{combine like terms}\\
+&= x^T(Q+A^TP_NA)x + \min_{v}[2v^TB^TP_NAx + v^T (R + B^TP_NB)v]
+\end{align*}
+o find the optimal $u*=v$, take derivative of the terms in $\min$ function to $v$ and set to $0$:
+\begin{align*}
+\frac{\partial}{\partial v} \left(2v^TB^TP_NAx + v^T (R + B^TP_NB)v\right) &= 0\\
+2 B^TP_NAx + 2 (R + B^TP_NB)v^*  &=0\\
+v^* &=  -(R + B^TP_NB)^{-1}B^TP_NAx \quad \text{VIP!}
+\end{align*}
+so
+\[
+(v^*)^T = -x^T A^T P_N B (R + B^TP_NB)^{-1}
+\]
+Then to prove that value function at any given time is in quadratic form:
+\begin{align*}
+V_{N-1}(x) =& x^T Q x + \min_{v}[v^T R v+V_N(Ax+Bv)]\\
+=& x^T(Q+A^TP_NA)x + \min_{v}[2v^TB^TP_NAx + v^T (R + B^TP_NB)v] \quad \text{substitute }v^*\\
+=& x^T(Q+A^TP_NA)x - 2x^T A^T P_N B (R + B^TP_NB)^{-1} B^TP_NAx + \\
+&x^T A^T P_N B \underbrace{(R + B^TP_NB)^{-1}(R + B^TP_NB)}_{\text{cancel}}(R + B^TP_NB)^{-1}B^TP_NAx\\
+=& x^T \left(Q+A^TP_NA - \underbrace{2A^T P_N B (R + B^TP_NB)^{-1} B^TP_NA+  A^T P_N B(R + B^TP_NB)^{-1}B^TP_NA}_{\text{like term}}\right) x\\
+=&x^T \left(Q+A^TP_NA - A^T P_N B (R + B^TP_NB)^{-1} B^TP_NA  \right) x \quad \text{VIP!}
+\end{align*}
+this indicate that:
+\[
+P_t=Q+A^T P_{t+1} A - A^T P_{t+1} B (R+B^TP_{t+1}B)^{-1} B^T P_{t+1} A
+\]
 
-\subsection{General Case(VIP)}
-Suppose value function at time $t+1$ is \textbf{quadratic}: $V_{t+1}(x)=x^TP_{t+1}x$, then
-\begin{itemize}
-	\item value function at time $t$ is also \textbf{quadratic}(can be proved):
-	\[
-	V_t(x)=x^T P_t x, \forall x\in \mathbb{R}^n
-	\]
-	\item $P_t$ can be obtained from $P_{t+1}$ according to the \textbf{Riccati recursion}:
-	\[
-	P_t=Q+A^TP_{t+1}A - A^TP_{t+1}B(R+B^TP_{t+1}B)^{-1}B^TP_{t+1}A
-	\]
-	\item optimal control at time $t$ for the given state $x[t]=x$ is:
-	\[
-	u^*[t] = -\underbrace{(R+B^T P_{t+1} B)^{-1}B^T P_{t+1} A }_{\text{Kalman gain } K} x= - K_tx
-	\]
-	which is a \textbf{linear state feedback} control
-\end{itemize}
-The detailed proof will be given in extra part.
 
-\section{LQR Algorithm and Properties}
+\section{LQR Algorithm and Properties(Detailed)}
 
 \subsection{Algorithm Summary}
 
@@ -491,7 +528,7 @@ the closed-loop system
 \[
 A_{cl}=A-BK_{ss}
 \] 
-is stable, which indicate that optimal is sufficient but not necessary for stable.
+is stable, which indicate that optimal is sufficient but not necessary for stability.
 
 \subsection{Infinite Horizon LQR Problem}
 

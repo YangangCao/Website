@@ -1,35 +1,34 @@
-\contentsline {section}{\numberline {1}Problem Formulation}{3}
-\contentsline {section}{\numberline {2}Examples of Implementations}{3}
-\contentsline {subsection}{\numberline {2.1}Energy Efficient Stabilization}{3}
-\contentsline {subsection}{\numberline {2.2}Minimum Energy Steering}{4}
-\contentsline {subsection}{\numberline {2.3}LQR for Tracking(VIP TOPIC)}{4}
-\contentsline {subsection}{\numberline {2.4}LQR for System with Perturbation}{5}
-\contentsline {section}{\numberline {3}Direct Approach to Solve LQR}{5}
-\contentsline {subsection}{\numberline {3.1}Reconstruct the Problem}{6}
-\contentsline {subsection}{\numberline {3.2}Directly Solve the Reconstructed Problem}{6}
-\contentsline {subsection}{\numberline {3.3}Limitations of Direct Approach}{7}
-\contentsline {subsection}{\numberline {3.4}Observations from Direct Approach}{7}
-\contentsline {section}{\numberline {4}Dynamic Programming}{7}
-\contentsline {subsection}{\numberline {4.1}Dynamic programming approach}{7}
-\contentsline {subsection}{\numberline {4.2}Motivating Example}{7}
-\contentsline {subsection}{\numberline {4.3}Direct Solution}{8}
-\contentsline {subsection}{\numberline {4.4}Value Function(VIP)}{8}
-\contentsline {subsection}{\numberline {4.5}Principle of Optimality(VIP)}{8}
-\contentsline {subsection}{\numberline {4.6}Advantages of Dynamic Programming}{9}
-\contentsline {section}{\numberline {5}Solve LQR Problem by Dynamic Programming}{9}
-\contentsline {subsection}{\numberline {5.1}Value Function of LQR Problem}{9}
-\contentsline {subsection}{\numberline {5.2}Solution of LQR Problem via Value Functions}{9}
-\contentsline {subsection}{\numberline {5.3}Recursion of Value Functions(VIP)}{10}
-\contentsline {subsection}{\numberline {5.4}General Case(VIP)}{10}
-\contentsline {section}{\numberline {6}LQR Algorithm and Properties}{11}
-\contentsline {subsection}{\numberline {6.1}Algorithm Summary}{11}
-\contentsline {subsection}{\numberline {6.2}Remarks}{11}
-\contentsline {subsection}{\numberline {6.3}Steady State Optimal Control}{12}
-\contentsline {subsection}{\numberline {6.4}Convergence of Riccati Recursion}{12}
-\contentsline {subsection}{\numberline {6.5}Infinite Horizon LQR Problem}{12}
-\contentsline {section}{\numberline {7}Example of LQR Implementation}{13}
-\contentsline {subsection}{\numberline {7.1}Direct Implementation Example}{13}
-\contentsline {section}{\numberline {8}Extra}{13}
-\contentsline {subsection}{\numberline {8.1}Matlab Functions}{13}
-\contentsline {subsection}{\numberline {8.2}Quadratic Expansion}{13}
-\contentsline {subsection}{\numberline {8.3}Matrix Calculus}{14}
+\contentsline {section}{\numberline {1}Problem Formulation and Direct Solution}{3}% 
+\contentsline {section}{\numberline {2}Examples of Implementations}{4}% 
+\contentsline {subsection}{\numberline {2.1}Energy Efficient Stabilization}{4}% 
+\contentsline {subsection}{\numberline {2.2}Minimum Energy Steering}{4}% 
+\contentsline {subsection}{\numberline {2.3}LQR for Tracking(VIP TOPIC)}{5}% 
+\contentsline {subsection}{\numberline {2.4}LQR for System with Perturbation}{5}% 
+\contentsline {section}{\numberline {3}Direct Approach to Solve LQR}{6}% 
+\contentsline {subsection}{\numberline {3.1}Reconstruct the Problem}{6}% 
+\contentsline {subsection}{\numberline {3.2}Directly Solve the Reconstructed Problem}{6}% 
+\contentsline {subsection}{\numberline {3.3}Limitations of Direct Approach}{7}% 
+\contentsline {subsection}{\numberline {3.4}Observations from Direct Approach}{7}% 
+\contentsline {section}{\numberline {4}Dynamic Programming}{7}% 
+\contentsline {subsection}{\numberline {4.1}Dynamic programming approach}{7}% 
+\contentsline {subsection}{\numberline {4.2}Motivating Example}{7}% 
+\contentsline {subsection}{\numberline {4.3}Direct Solution}{8}% 
+\contentsline {subsection}{\numberline {4.4}Value Function(VIP)}{8}% 
+\contentsline {subsection}{\numberline {4.5}Principle of Optimality(VIP)}{8}% 
+\contentsline {subsection}{\numberline {4.6}Advantages of Dynamic Programming}{9}% 
+\contentsline {section}{\numberline {5}Solve LQR Problem by Dynamic Programming}{9}% 
+\contentsline {subsection}{\numberline {5.1}Value Function of LQR Problem}{9}% 
+\contentsline {subsection}{\numberline {5.2}Solution of LQR Problem via Value Functions}{10}% 
+\contentsline {subsection}{\numberline {5.3}Recursion of Value Functions(VIP)}{10}% 
+\contentsline {section}{\numberline {6}LQR Algorithm and Properties(Detailed)}{11}% 
+\contentsline {subsection}{\numberline {6.1}Algorithm Summary}{11}% 
+\contentsline {subsection}{\numberline {6.2}Remarks}{12}% 
+\contentsline {subsection}{\numberline {6.3}Steady State Optimal Control}{12}% 
+\contentsline {subsection}{\numberline {6.4}Convergence of Riccati Recursion}{12}% 
+\contentsline {subsection}{\numberline {6.5}Infinite Horizon LQR Problem}{13}% 
+\contentsline {section}{\numberline {7}Example of LQR Implementation}{13}% 
+\contentsline {subsection}{\numberline {7.1}Direct Implementation Example}{13}% 
+\contentsline {section}{\numberline {8}Extra}{14}% 
+\contentsline {subsection}{\numberline {8.1}Matlab Functions}{14}% 
+\contentsline {subsection}{\numberline {8.2}Quadratic Expansion}{14}% 
+\contentsline {subsection}{\numberline {8.3}Matrix Calculus}{14}% 
