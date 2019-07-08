@@ -1,0 +1,129 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} 
+\date{July 8, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Lecture 2: State-Space Model vs. Input-Output Model}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Input/Output Models of C-T LTI System}
+Consider a continuous-time LTI system with zero initial state, e.g.
+\begin{itemize}
+\item Let $h(t)$, $t>0$, be the system's {\bfseries impulse response}
+\item Then, under any $u(t)$, $t\geq0$, system has the output
+\[
+y(t)=\int_{0}^{t}h(t-\tau)u(\tau)d\tau=h(t)*u(t), t\geq0
+\]
+\item Taking Laplace transform, we obtain the {\bfseries transfer function model}:
+\[
+\frac{Y(s)}{U(s)}=H(s)=\mathcal{L}[h(t)]
+\]
+\end{itemize}
+\section{Input/Output Models of D-T LTI System}
+For a discrete-time LTI system with zero initial state, e.g.
+\[
+y[k]-0.5y[k-1]+y[k-2]=u[k]-0.7u[k-1], k=0,1,...,
+\]
+with $y[-1]=y[-2]=u[-1]=0$,\\
+{\bfseries Transfer function model} obtained by taking z-transform:
+\[
+\frac{Y(z)}{U(z)}=H(z)
+\]
+\section{Internal vs. External Models}
+\begin{itemize}
+\item Transfer function models are external (or I/O) models
+\begin{itemize}
+\item Describe only how the input affects the output
+\item System viewed as a black box
+\end{itemize}
+\item State-space models are internal models
+\begin{itemize}
+\item Describe how the input affects not only the output, but also all the internal state variables
+\item More complete models suitable for complicated system
+\end{itemize}
+\item Many-to-one correspondence between the two representations
+\end{itemize}
+\section{Obtaining I/O Models from State-Space Models}
+A continuous LTI system
+\[
+\left\{\begin{array}{l}{\dot{x}(t)=A x(t)+B u(t)} \\ {y(t)=C x(t)+D u(t)}\end{array}, \quad t \geq 0\right.
+\]
+with $x\in\mathbb{R}^n$, $u\in\mathbb{R}^m$, $y\in\mathbb{R}^p$, and zero initial condition $x(0)=0$. Its transfer function (or matrix) is
+
+\section{Obtaining I/O Models from State-Space Models}
+A discrete-time LTI system
+\[
+\left\{\begin{array}{ll}{x[k+1]=A x[k]+B u[k]}  \\ {y[k]=C x[k]+D u[k]}\end{array}, \quad k=0,1, \ldots\right.
+\]
+with $x\in\mathbb{R}^n$, $u\in\mathbb{R}^m$, $y\in\mathbb{R}^p$, and zero initial condition $x[0]=0$. Its transfer function (or matrix) is
+\section{Examples}
+Example 1:
+\[
+\left[\begin{array}{l}{\dot{x}_{1}} \\ {\dot{x}_{2}}\end{array}\right]=\left[\begin{array}{cc}{-1} & {0} \\ {0} & {-2}\end{array}\right]\left[\begin{array}{l}{x_{1}} \\ {x_{2}}\end{array}\right]+\left[\begin{array}{l}{1} \\ {1}\end{array}\right] u
+\]
+\[
+y=\left[\begin{array}{ll}{-2} & {1}\end{array}\right] x
+\]
+Example 2:
+\[
+\left[\begin{array}{l}{\dot{x}_{1}} \\ {\dot{x}_{2}}\end{array}\right]=\left[\begin{array}{cc}{-3} & {-2} \\ {1} & {0}\end{array}\right]\left[\begin{array}{l}{x_{1}} \\ {x_{2}}\end{array}\right]+\left[\begin{array}{l}{1} \\ {0}\end{array}\right] u
+\]
+\[
+y=\left[\begin{array}{ll}{0} & {-1}\end{array}\right] x
+\]
+\section{State-Space Realization}
+Definition
+\begin{itemize}
+\item A continuous-time state-space model $(A,B,C,D)$ is called a realization of the transfer function $H(s)$ if $C(sI-A)^{-1}B+D=H(s)$
+\item A discrete-time state-space model $(A,B,C,D)$ is called a realization of the transfer function $H(z)$ if $C(sI-A)^{-1}B+D=H(z)$
+\item There are infinitely many realizations of a transfer function
+\end{itemize}
+\section{Obtaining Stare-Space Realizations from I/O Model}
+I/O model of a single-input single-output (SISO) system:
+\[
+\dddot{y}(t)+a_{1} \ddot{y}(t)+a_{2} \dot{y}(t)+a_{3} y(t)=b_{1} \ddot{u}(t)+b_{2} \dot{u}(t)+b_{3} u(t)
+\]
+Transfer function:
+\[
+H(s)=\frac{b_{1} s^{2}+b_{2} s+b_{3}}{s^{3}+a_{1} s^{2}+a_{2} s+a_{3}}
+\]
+\begin{itemize}
+\item We will list a few {\bfseries canonical realizations}
+\item Each realization is derived from a block diagram of $H(s)$
+\end{itemize}
+\section{Controller Canonical Form}
+\section{Controllability Canonical Form}
+\section{Observer Canonical Form}
+\section{Observability Canonical Form}
+\section{Diagonal Realization}
+Suppose $H(s)$ has distinct poles:
+\[
+\begin{aligned} H(s) &=\frac{b_{1} s^{2}+b_{2} s+b_{3}}{\left(s-\lambda_{1}\right)\left(s-\lambda_{2}\right)\left(s-\lambda_{3}\right)} \\ &=\frac{\gamma_{1}}{s-\lambda_{1}}+\frac{\gamma_{2}}{s-\lambda_{2}}+\frac{\gamma_{3}}{s-\lambda_{3}} \end{aligned}
+\]
+Diagonal realization:
+\[
+\left[\begin{array}{c}{\dot{x}_{1}} \\ {\dot{x}_{2}} \\ {\dot{x}_{3}}\end{array}\right]=\left[\begin{array}{ccc}{\lambda_{1}} & {0} & {0} \\ {0} & {\lambda_{2}} & {0} \\ {0} & {0} & {\lambda_{3}}\end{array}\right]\left[\begin{array}{c}{x_{1}} \\ {x_{2}} \\ {x_{3}}\end{array}\right]+\left[\begin{array}{c}{1} \\ {1} \\ {1}\end{array}\right] u
+\]
+\[
+y=\left[\begin{array}{lll}{\gamma_{1}} & {\gamma_{2}} & {\gamma_{3}}\end{array}\right]\left[\begin{array}{l}{x_{1}} \\ {x_{2}} \\ {x_{3}}\end{array}\right]
+\]
+\section{Example}
+Transfer function $H(s)=\frac{1}{s+1}$.
+State solution:
+\[
+x_{1}(t)=x_{1}(0) e^{-t}-2 e^{-t} * u(t)
+\]
+\[
+x_{2}(t)=(x_{2}(0)+\frac{1}{2} x_{1}(0)) e^{t}-\frac{1}{2} x_{1}(0) e^{-t}+e^{-t} * u(t)
+\]
+\end{document}
