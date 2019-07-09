@@ -1,0 +1,13 @@
+\contentsline {section}{\numberline {1}Matrix Exponential}{2}
+\contentsline {section}{\numberline {2}Computing Matrix Exponential Directly}{2}
+\contentsline {section}{\numberline {3}Computing Matrix Exponential: Method II}{2}
+\contentsline {section}{\numberline {4}Computing Matrix Exponential: Other Methods}{2}
+\contentsline {section}{\numberline {5}Properties of Matrix Exponential}{2}
+\contentsline {section}{\numberline {6}Baker-Campbell-Hausdorff Formula}{3}
+\contentsline {section}{\numberline {7}Matrix Exponential Representation of 3D Rotations}{3}
+\contentsline {section}{\numberline {8}Example:}{4}
+\contentsline {section}{\numberline {9}Time Indexed Matrix Exponential}{4}
+\contentsline {section}{\numberline {10}Time Derivative of Matrix Exponential}{4}
+\contentsline {section}{\numberline {11}Other Properties of Matrix Exponential}{4}
+\contentsline {section}{\numberline {12}Computing Time-Indexed Matrix Exponential}{5}
+\contentsline {section}{\numberline {13}Example}{5}
