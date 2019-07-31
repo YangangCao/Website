@@ -1,0 +1,18 @@
+\contentsline {section}{\numberline {1}Symmetric and Skew Symmetric Matrices}{2}
+\contentsline {section}{\numberline {2}Quadratic Forms}{2}
+\contentsline {section}{\numberline {3}Bounds of Quadratic Forms}{2}
+\contentsline {section}{\numberline {4}Positive/Negative Definite Matrices}{2}
+\contentsline {section}{\numberline {5}Characterizing Positive Definite Matrices}{3}
+\contentsline {section}{\numberline {6}Comparison of Symmetric Matrices}{3}
+\contentsline {section}{\numberline {7}Ellipsoids}{3}
+\contentsline {section}{\numberline {8}(Induced) Matrix Norm}{3}
+\contentsline {section}{\numberline {9}Properties of Induced Matrix Norm}{4}
+\contentsline {section}{\numberline {10}Characterizing $L^{2}$ Matrix Norm}{4}
+\contentsline {section}{\numberline {11}Singular Value Decomposition (SVD)}{4}
+\contentsline {section}{\numberline {12}Finding $U$ and $V$ in SVD}{4}
+\contentsline {section}{\numberline {13}Constructive Proof of SVD}{5}
+\contentsline {section}{\numberline {14}Transformation Interpretation of SVD}{5}
+\contentsline {section}{\numberline {15}Pseudo-Inverse}{5}
+\contentsline {section}{\numberline {16}Least Square Solutions of Linear Equations}{6}
+\contentsline {section}{\numberline {17}Least Norm Solutions of Linear Equations}{6}
+\contentsline {section}{\numberline {18}Lower Rank Approximations}{6}

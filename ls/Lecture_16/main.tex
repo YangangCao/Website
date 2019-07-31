@@ -1,0 +1,199 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\date{July 30, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Lecture 16: Minimality, BIBO Stability, and
+	Canonical Forms}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Kalman Decomposition}
+For any continuous-time $n$-state $m$-input $p$-output LTI system
+\[
+\dot{x}=A x+B u, \quad y=C x+D u
+\]
+Its {\bfseries Kalman Canonical Form} is $(\tilde{x}=Tx)$
+\[\dot{\tilde{x}}=\left[\begin{array}{cccc}{\tilde{A}_{co}} & {0} & {\tilde{A}_{13}} & {0} \\ {\tilde{A}_{21}} & {\tilde{A}_{c \overline{o}}} & {\tilde{A}_{23}} & {\tilde{A}_{24}} \\ {0} & {0} & {\tilde{A}_{\overline{c} 0}} & {0} \\ {0} & {0} & {\tilde{A}_{43}} & {\tilde{A}_{\overline{c} \overline{o}}}\end{array}\right]\tilde{x}+\left[\begin{array}{c}{\tilde{B}_{c o}} \\ {\tilde{B}_{c \overline{o}}} \\ {0} \\ {0}\end{array}\right]u\]
+\[
+y=\left[\begin{array}{cccc}
+{\tilde{C}_{co}} & {0} & {\tilde{C}_{\overline{c}o}}&{0}\end{array}\right]\tilde{x}+Du
+\]
+\begin{itemize}
+\item Eigenvalues if $A$ is
+\[
+\sigma(A)=\sigma(\tilde{A})=\sigma\left(\tilde{A}_{c o}\right) \cup \sigma\left(\tilde{A}_{c \overline{\sigma}}\right) \cup \sigma\left(\tilde{A}_{c \overline{o}}\right) \cup \sigma\left(\tilde{A}_{\overline{c} \overline{o}}\right)
+\]
+\item Transfer function is
+\[
+H(s)=C(sI-A)^{-1} B+D=\tilde{C}_{c o}\left(sI-\tilde{A}_{c o}\right)^{-1} \tilde{B}_{c o}+D,
+\]
+whose poles (counting multiplicity) are exactly $\sigma(\tilde{A}_{co})$
+\end{itemize}
+\section{Minimal Realizations}
+The system $(A,B,C,D)$ is a minimial realization of the transfer function $H(S)=C(sI-A)^{-1} B+D$ iff dim($A$) is the smallest possible
+\begin{itemize}
+\item Equivalnetly, iff $(A,B)$ is controllable and $(C,A)$ is observable
+\item Or equivalently, poles of $H(s)$ are exactly $\sigma(A)$
+\end{itemize}
+If the system is {\bfseries not} minimal, then
+\begin{itemize}
+\item Either $(A, B)$ is not controllable and/or $(C, A)$ is not observable
+\item Poles of $H(s)$ are a proper subset of $\sigma(A)$
+\end{itemize}
+\section{Example}
+Transfer function $H(s)=\frac{1}{s+1}$
+\section{BIBO Stability of LTI Systems}
+Definition (BIBO Stability):\\
+A continuous-time LTI system with transfer function $H(s)$ is called
+bounded-input bounded-output stable if bounded inputs lead to bounded
+outputs (with zero initial conditions).\\
+\\SISO system with impulse response $h(\cdot)$ is BIBO stable if and only if
+\[
+\underbrace{\int_{0}^{\infty}|h(\tau)| d \tau<\infty}_{\text { peak gain }}
+\]
+$\bullet$ Equivalently, all poles of $H(s)$ have negative real part
+\section{BIBO Stability of LTV Systems}
+Definition (BIBO Stability):\\
+A continuous-time LTV system is called bounded-input bounded-output 
+stable if, under zero initial conditions, there exists $K<\infty$ such that
+\[
+\sup _{t \geq 0}\|y(t)\| \leq K \cdot \sup _{t \geq 0}\|u(t)\|, \quad \forall u
+\]
+A LTV system $(A(t), B(t), C(t), D(t))$ with state transition matrix $\Phi(t, \tau)$
+is BIBO stable if and only if $D(t)$ is uniformly bounded and
+\[
+\sup _{t \geq 0} \int_{0}^{t}\|h(t, \tau)\| d \tau<\infty
+\]
+Here, $h(t, \tau)=C \Phi(t, \tau) B$
+\section{Internal vs. External Stability of LTI Systems}
+A continuous-time (resp. discrete-time) LTI system $(A, B, C, D)$ is called stable if and only if all eigenvalues of $A$ have negative real part (resp. magnitude less than one)\\
+\\$\bullet$ {\bfseries Internal} stability, defined in terms of the internal state\\
+\\With $H(s)=C(sI-A)^{-1} B+D$ (or $H(z)=C(zI-A)^{-1} B+D$ in discrete-time case),the system is called BIBO stable if all the poles of the transfer function $H$ have negative real part (magnitude less than one)\\
+\\$\bullet$ {\bfseries External} stability, defined in terms of input-output behavior
+\section{Controllability Canonical Form of SISO System}
+Suppose system $(A, b, c)$ is controllable with controllability matrix $\mathcal{C}$\\
+\\Fact:\\
+There exists a coordinate transform $x=T\tilde{x}$ so that the transformed system $(\tilde{A}, \tilde{b}, \tilde{c})$ has controllability matrix $\tilde{\mathcal{C}}=I$.\\
+\\
+Transformed system $(\tilde{A},\tilde{b},\tilde{c})$ is of the {\bfseries controllability canonical form}:
+\[\tilde{A}=T^{-1} A T=\left[\begin{array}{ccccc}{0} & {0} & {\cdots} & {0} & {-\alpha_{0}} \\ {1} & {0} & {\cdots} & {0} & {-\alpha_{1}} \\ {0} & {1} & {\cdots} & {0} & {-\alpha_{2}} \\ {\vdots} & {\vdots} & {\ddots} & {\vdots} & {\vdots} \\ {0} & {0} & {\cdots} & {1} & {-\alpha_{n-1}}\end{array}\right]\]
+\[
+\tilde{b}=T^{-1} b=\left[\begin{array}{c}{1}\\{0} \\ {\vdots} \\ {0} \\ {0}\end{array}\right]
+\]
+\[
+\tilde{c}=cT
+\]
+where $\chi_{A}(\lambda)=\chi_{\tilde{A}}(\lambda)=\lambda^{n}+\alpha_{n-1} \lambda^{n-1}+\cdots+\alpha_{1} \lambda+\alpha_{0}$
+\section{Properties of Controllability Canonical Form}
+\begin{itemize}
+\item Transfer function's poles determined by last column of $\tilde{A}$, and zeros determined by $\tilde{A}$ and $\tilde{c}$ jointly
+\[
+H(s)=\frac{\beta_{n-1} s^{n-1}+\cdots+\beta_{0}}{s^{n}+\alpha_{n-1} s^{n-1}+\cdots+\alpha_{0}}
+\]
+where $\left[\begin{array}{lll}{\beta_{n-1}} & {\cdots} & {\beta_{0}}\end{array}\right]=\tilde{c}\left[\begin{array}{ccccc}{1} & {\alpha_{n-1}} & {\alpha_{n-2}} & {\cdots} & {\alpha_{1}} \\ {} & {1} & {\alpha_{n-1}} & {\cdots} & {\alpha_{2}} \\{}&{} {} & {\ddots} & {\ddots} & {\vdots} \\ {}&{} & {} & {1} & {\alpha_{n-1}} \\ {}&{} & {} & {} & {1}\end{array}\right]$
+\item Minimal realization if and only if $(\tilde{c},\tilde{A})$ is observable, or equivalently, if and only if there is no zero-pole cancelation
+\item Extension to controllable multiple-input systems possible
+\end{itemize}
+\section{Controllability Canonical Form of Example $H(s)$}
+\[
+\left[\begin{array}{c}{\dot{x}_{1}} \\ {\dot{x}_{2}} \\ {\dot{x}_{3}}\end{array}\right]=\left[\begin{array}{ccc}{0} & {0} & {-\alpha_{0}} \\ {1} & {0} & {-\alpha_{1}} \\ {0} & {1} & {-\alpha_{2}}\end{array}\right]\left[\begin{array}{c}{x_{1}} \\ {x_{2}} \\ {x_{3}}\end{array}\right]+\left[\begin{array}{c}{1} \\ {0} \\ {0}\end{array}\right] u \quad H(s)=\frac{\beta_{2} s^{2}+\beta_{1} s+\beta_{0}}{s^{3}+\alpha_{2} s^{2}+\alpha_{1} s+\alpha_{0}}
+\]
+\[
+y=\left[\begin{array}{lll}{\tilde{c}_{1}} & {\tilde{c}_{2}} & {\tilde{c}_{3}}\end{array}\right]\left[\begin{array}{l}{x_{1}} \\ {x_{2}} \\ {x_{3}}\end{array}\right]=\left[\begin{array}{lll}{\beta_{2}} & {\beta_{1}} & {\beta_{0}}\end{array}\right]\left[\begin{array}{ccc}{1} & {\alpha_{2}} & {\alpha_{1}} \\ {0} & {1} & {\alpha_{2}} \\ {0} & {0} & {1}\end{array}\right]^{-1}\left[\begin{array}{l}{x_{1}} \\ {x_{2}} \\ {x_{3}}\end{array}\right]
+\]
+\section{Controller Canonical Form of SISO Systems}
+Suppose $(A, b, c)$ is controllable with $\chi_{A}(\lambda)=\lambda^{n}+\alpha_{n-1} \lambda^{n-1}+\cdots+\alpha_{0}$
+Using the coordinate transform $x=T \tilde{x}$ where
+\[
+T=\left[\begin{array}{cccc}{b} & {A b} & {\cdots} & {A^{n-1} b}\end{array}\right]\left[\begin{array}{ccccc}{1} & {\alpha_{n-1}} & {\alpha_{n-2}} & {\cdots} & {\alpha_{1}} \\ {} & {1} & {\alpha_{n-1}} & {\cdots} & {\alpha_{2}} \\{}&{} {} & {\ddots} & {\ddots} & {\vdots} \\ {}&{} & {} & {1} & {\alpha_{n-1}} \\ {}&{} & {} & {} & {1}\end{array}\right]
+\]
+Transformed system $(\tilde{A}, \tilde{b}, \tilde{c})$ is of the {\bfseries controller canonical form}:
+\[
+\tilde{A}=T^{-1} A T=\left[\begin{array}{ccccc}{-\alpha_{n-1}} & {-\alpha_{n-2}} & {\cdots} & {-\alpha_{1}} & {-\alpha_{0}} \\ {1} & {0} & {\cdots} & {0} & {0} \\ {0} & {1} & {\cdots} & {0} & {0} \\ {\vdots} & {\vdots} & {\ddots} & {\vdots} & {\vdots} \\ {0} & {0} & {\cdots} & {1} & {0}\end{array}\right]
+\]
+\[
+\tilde{b}=T^{-1} b=\left[\begin{array}{c}{1}\\{0} \\ {\vdots} \\ {0} \\ {0}\end{array}\right]
+\]
+\[
+\tilde{c}=c T=\left[\begin{array}{lllll}{\beta_{n-1}} & {\beta_{n-2}} & {\cdots} & {\beta_{1}} & {\beta_{0}}\end{array}\right]
+\]
+\section{Properties of Controller Canonical Form}
+\begin{itemize}
+\item Any controllable SISO system has such a form
+\item Guaranteed to be controllable with centrollability matrix
+\[
+\tilde{\mathcal{C}}=\left[\begin{array}{ccccc}{1} & {\alpha_{n-1}} & {\alpha_{n-2}} & {\cdots} & {\alpha_{1}} \\ {} & {1} & {\alpha_{n-1}} & {\cdots} & {\alpha_{2}} \\{}&{} {} & {\ddots} & {\ddots} & {\vdots} \\ {}&{} & {} & {1} & {\alpha_{n-1}} \\ {}&{} & {} & {} & {1}\end{array}\right]^{-1}
+\]
+\item Transfer function's pole determined by last column of $\tilde{A}$ , and zeros
+determined by $\tilde{c}$ only.
+\[
+H(s)=\frac{\beta_{n-1} s^{n-1}+\cdots+\beta_{0}}{s^{n}+\alpha_{n-1} s^{n-1}+\cdots+\alpha_{0}}
+\]
+\item Minimal realization if and only if $(\tilde{c}, \tilde{A})$ is observable, or equivalently, if and only if there is no zero-pole cancelation
+\item Very useful for feedback controller design (later)
+\end{itemize}
+\section{Controller Canonical Form of Example $H(s)$}
+\[
+\left[\begin{array}{c}{\dot{x}_{1}} \\ {\dot{x}_{2}} \\ {\dot{x}_{3}}\end{array}\right]=\left[\begin{array}{ccc}{-\alpha_{2}} & {-\alpha_{1}} & {-\alpha_{0}} \\ {1} & {0} & {0} \\ {0} & {1} & {0}\end{array}\right]\left[\begin{array}{c}{x_{1}} \\ {x_{2}} \\ {x_{3}}\end{array}\right]+\left[\begin{array}{c}{1} \\ {0} \\ {0}\end{array}\right] u, \quad H(s)=\frac{\beta_{2} s^{2}+\beta_{1} s+\beta_{0}}{s^{3}+\alpha_{2} s^{2}+\alpha_{1} s+\alpha_{0}}
+\]
+\[
+y=\left[\begin{array}{lll}{\beta_{2}} & {\beta_{1}} & {\beta_{0}}\end{array}\right]\left[\begin{array}{l}{x_{1}} \\ {x_{2}} \\ {x_{3}}\end{array}\right]
+\]
+\section{Observer Canonical Form of SISO Systems}
+Suppose $(A, b, c)$ is observable with $\chi_{A}(\lambda)=\lambda^{n}+\alpha_{n-1} \lambda^{n-1}+\cdots+\alpha_{0}$\\
+Its {\bfseries observer canonical form} is the dual of its controller canonical form:
+\[
+\tilde{A}=T^{-1} A T=\left[\begin{array}{ccccc}{-\alpha_{n-1}} & {1} & {0} & {\cdots} & {0} \\ {-\alpha_{n-2}} & {0} & {1} & {\cdots} & {0} \\ {\vdots} & {\vdots} & {\vdots} & {\ddots} & {\vdots} \\ {-\alpha_{1}} & {0} & {0} & {\cdots} & {1} \\ {-\alpha_{0}} & {0} & {0} & {\cdots} & {0}\end{array}\right], \tilde{b}=T^{-1} b=\left[\begin{array}{c}{\beta_{n-1}} \\ {\beta_{n-2}} \\ {\vdots} \\ {\beta_{1}} \\ {\beta_{0}}\end{array}\right]
+\]
+\[
+\tilde{c}=c T=\left[\begin{array}{lllll}{1} & {0} & {\cdots} & {0} & {0}\end{array}\right]
+\]
+\begin{itemize}
+\item Has the transfer function $H(s)=\frac{\beta_{n-1} s^{n-1}+\cdots+\beta_{0}}{s^{n}+\alpha_{n-1} s^{n-1}+\cdots+\alpha_{0}}$
+\item Minimal if and only if there is no zero-pole cancelation
+\item Very useful for output feedback state observer design (later)
+\end{itemize}
+\section{Observer Canonical Form of Example $H(s)$}
+\[
+\left[\begin{array}{c}{\dot{x}_{1}} \\ {\dot{x}_{2}} \\ {\dot{x}_{3}}\end{array}\right]=\left[\begin{array}{ccc}{-\alpha_{2}} & {1} & {0} \\ {-\alpha_{1}} & {0} & {1} \\ {-\alpha_{0}} & {0} & {0}\end{array}\right]\left[\begin{array}{l}{x_{1}} \\ {x_{2}} \\ {x_{3}}\end{array}\right]+\left[\begin{array}{c}{\beta_{2}} \\ {\beta_{1}} \\ {\beta_{0}}\end{array}\right] u
+\]
+\[
+y=\left[\begin{array}{lll}{1} & {0} & {0}\end{array}\right]\left[\begin{array}{l}{x_{1}} \\ {x_{2}} \\ {x_{3}}\end{array}\right]
+\]
+\[
+H(s)=\frac{\beta_{2} s^{2}+\beta_{1} s+\beta_{0}}{s^{3}+\alpha_{2} s^{2}+\alpha_{1} s+\alpha_{0}}
+\]
+\section{Observability Canonical Form of SISO Systems}
+Suppose $(A, b, c)$ is observable with $\chi_{A}(\lambda)=\lambda^{n}+\alpha_{n-1} \lambda^{n-1}+\cdots+\alpha_{0}$
+Its {\bfseries observability canonical form} is the dual of controllability c.f.:
+\[
+\tilde{A}=T^{-1} A T=\left[\begin{array}{ccccc}{0} & {1} & {0} & {\cdots} & {0} \\ {0} & {0} & {1} & {\cdots} & {0} \\ {\vdots} & {\vdots} & {\vdots} & {\ddots} & {\vdots} \\ {0} & {0} & {0} & {\cdots} & {1} \\ {-\alpha_{0}} & {-\alpha_{1}} & {-\alpha_{2}} & {\cdots} & {-\alpha_{n-1}}\end{array}\right], \tilde{b}=T^{-1} b
+\]
+\[
+\tilde{c}=c T=\left[\begin{array}{lllll}{1} & {0} & {0} & {\cdots} & {0}\end{array}\right]
+\]
+\begin{itemize}
+\item Observability matrix $\tilde{\mathcal{O}}=I$ is the identity
+\item Has the transfer function $H(s)=\frac{\beta_{n-1} s^{n-1}+\cdots+\beta_{0}}{s^{n}+\alpha_{n-1} s^{n-1}+\cdots+\alpha_{0}}$ where $\beta_{i}^{\prime}$ 's depend on $\tilde{A}$ and $\tilde{b}$ jointly
+\item Minimal if and only if there is no zero-pole cancelation
+\end{itemize}
+\section{Observability Canonical Form of Example $H(s)$}
+\[
+\left[\begin{array}{c}{\dot{x}_{1}} \\ {\dot{x}_{2}} \\ {\dot{x}_{3}}\end{array}\right]=\left[\begin{array}{rrr}{0} & {1} & {0} \\ {0} & {0} & {1} \\ {-\alpha_{0}} & {-\alpha_{1}} & {-\alpha_{2}}\end{array}\right]\left[\begin{array}{l}{x_{1}} \\ {x_{2}} \\ {x_{3}}\end{array}\right]+\left[\begin{array}{c}{\tilde{b}_{1}} \\ {\tilde{b}_{2}} \\ {\tilde{b}_{3}}\end{array}\right] u
+\]
+\[
+y=\left[\begin{array}{lll}{1} & {0} & {0}\end{array}\right]\left[\begin{array}{l}{x_{1}} \\ {x_{2}} \\ {x_{3}}\end{array}\right]
+\]
+\[
+\left[\begin{array}{c}{\tilde{b}_{1}} \\ {\tilde{b}_{2}} \\ {\tilde{b}_{3}}\end{array}\right]=\left[\begin{array}{ccc}{1} & {0} & {0} \\ {\alpha_{2}} & {1} & {0} \\ {\alpha_{1}} & {\alpha_{2}} & {1}\end{array}\right]^{-1}\left[\begin{array}{c}{\beta_{2}} \\ {\beta_{1}} \\ {\beta_{0}}\end{array}\right]
+\]
+\end{document}

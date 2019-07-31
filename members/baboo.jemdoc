@@ -10,7 +10,6 @@
 - Phone: (+86) 1-5-2-0-1-6-2-1-9-1-8
 - E-mail: baboo_cui AT me.c-o-m
 - Location: Beijing, China and Indiana, USA
-
 ~~~
 
 === Objective
@@ -21,30 +20,97 @@ A position in the field of electrical and computer engineering or computer scien
 /Master of Science/, Electrical and Computer Engineering 
 
 - *Purdue University*, West Lafayette, Indiana, 2014.08-2015.12 
-
 - Minor: Aviation Technology
 
 /Bachelor of Science/, Ammunition Engineering and Explosion Technology
 
 - *Beijing Institute of Technology*, Beijing, 2010.08-2014.07
 
-=== Working Experiences
+=== Full Time Working Experiences Brief
+
+- *DNV(VFine and Douban FM)* [https://vfinemusic.com/ (/Link/)] as CTO and Algorithm Engineer(2017-2019)
+
+- *Value Learning* [http://test.valuelearning.net (/Link/)] as Senior Instructor and Director(2015-2017)
+
+=== Projects(Time Reverse Order)
+
+*Dianyueda Website*[http://www.dianyueda.com (/Link/)](2019.06-2019.08)
+
+- coordinate the whole tech team and product manager to build this website
+- solve relative data problem
+
+*VFine Website*[http://www.vfinemusic.com (/Link/)](2019.03-2019.06)
+
+- lead the whole tech team to upgrade the backend from python 2 to python 3
+- upgrade the database structure
+- add elastic search and data analysis tool
+
+*Baboo Cui's Club*[http://www.baboocui.club (/Link/)](2019.03-2019.03)
+
+- build this personal website to thank people who supported me
+- take this website to share academic files and help people who in need
 
 
-*VFine Music* [https://vfinemusic.com/ (/Link/)]
+*Music Recommendation System*(2018.09-2019.03)
 
-- Algorithm Engineer ()
+- xxx
 
-*CTO* and *Senior Algorithm Engineer* 
+*Music Matching System*@VFine Music(2017.11-2018.08)
 
-- 
+- xxx
+
+*Audio Effects Design*(2017.08-2017.10)
+
+- xxx
+
+*Course Developement*@Value Learning(2015.04-2017.08)
+
+- xxx
+
+*Intelligent Path Regulator*@Purdue University(2014.08-2014.12)
+
+- xxx
 
 
+*UVA(unmanned aerial vehicle) Advanced Design*@Purdue University(2015.01-2014.05)
+
+- deduce the system dynamics
+- introduce EKF and UKF to estimate UVA state
+- introduce LQR method for target tracking optimization
+- use MPC to transfer infinite time horizon optimization problem to short-time-period counterpart
+- implement functional method to solve two-point boundary value problem
+
+*QMF(qadrature mirror filter) Based Signal Compression*@Purdue University(2014.11-2014.12)
+
+- design multi-channel perfect-reconstruct(PR) filter by Noble's identity
+- compress signal with varying degree on different channel based on index sensitivity
+
+*Auto-correlation Based Signal Matching*@Purdue University(2014.09-2014.10)
+
+- find embedded signal by auto-correlation
+- implement this algorithm for estimating object position by simulation
+
+*BTT Missile System Modeling and Control*@Beijing Institute of Technology(2014.02-2014.06)
+
+- find 6DOF system dynamics equation by Lagrange method
+- simulate the system dynamics in Simulink and apply basic control input to it
+- estimate trajectory with certain initial condition
+
+*Ballistic Simulation*@Beijing Institute of Technology(2013.11-2014.01)
+
+- find bullet dynamic character of internal and external ballistic
+- optimize initial condition by terminal constraints
 
 
+*Shaped Charge Design*@Beijing Institute of Technology(2013.09-2013.10)
 
-*Value Learning* [http://www.valuelearning.net (/Link/)]
+- simulate dynamic process of the explosion of shaped charge in Autodyn
+- optimize the jet penetration depth by varying case angle and stand off
 
-- Position: Senior Instructor ()
 
+*Air-conditioner System Optimization*@Big Splash Water Park, IN, USA(2013.07-2013.09)
 
+- work with project manager to find out the optimized system implementation
+- multi-sensor system and LQR control algorithm were used to effectively drive the system
+- an estimation of $455,000.00 annual cost are reduced
+- get experience of working in USA and international cooperation

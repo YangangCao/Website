@@ -1,0 +1,198 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+\newcommand{\watermark}[3]{\AddToShipoutPictureBG{
+		\parbox[b][\paperheight]{\paperwidth}{
+			\vfill%
+			\centering%
+			\tikz[remember picture, overlay]%
+			\node [rotate = #1, scale = #2] at (current page.center)%
+			{\textcolor{gray!70!cyan!40!red!20}{#3}};
+			\vfill}}}
+
+\author{Baboo J. Cui}
+\title{Modern Physics}
+\begin{document}
+\watermark{50}{9}{www.baboocui.club}
+\maketitle
+\tableofcontents
+
+\newpage
+Basic related concept:
+\begin{itemize}
+	\item \textbf{heat}: thermal energy transmitted from one body to another(energy in transit)
+	\item \textbf{thermal energy}: due to random motion of molecules 
+	\item \textbf{temperature}: measure of concentration of internal energy
+\end{itemize}
+
+\section{Temperature}
+Two units for temperature:
+\begin{itemize}
+	\item degree Celsius($^\circ C$): water freeze at $0 ^\circ C$, and boils at $100 ^\circ C$ in standard condition
+	\item kelvins($K$): absolute temperature scale 
+	\item Fahrenheit is almost ignored in physics
+\end{itemize}
+The relationship between these two measures:
+\[
+T(K) = T(^\circ C) + 273
+\]
+\textbf{Triple point} is the temperature that $3$ phase(liquid, solid and vapor) of a substance that coexist.
+
+\section{Heat Transfer}
+\subsection{Heat Transfer Due to Temperature Change}
+The relationship is:
+\[
+Q = mc \Delta T
+\]
+where
+\begin{itemize}
+	\item $Q$ is the heat transfered during the process, positive $Q$ represent heat coming and temperature increasing
+	\item $m$ is the mass of sample
+	\item $c$ is the specific heat(intrinsic property of an object)
+	\item $\Delta T$ is the temperature change
+\end{itemize}
+Two contacted objects will finally reach thermal equilibrium, meaning they have the same temperature. 
+
+\subsection{Heat Transfer Due to Phase Change}
+The relationship is:
+\[
+Q = mL
+\]
+where
+\begin{itemize}
+	\item $Q$ is the heat transfered during phase change, note that temperature is constant in this process
+	\item $m$ is the mass of sample
+	\item $L$ is \textbf{latent heat of transformation}, could be latent heat of fusion, vaporization, etc
+\end{itemize}
+Summary of phase changes:
+\begin{itemize}
+	\item solid to liquid: \textbf{melting}, reverse: \textbf{freezing}
+	\item liquid to gas: \textbf{vaporization}, reverse: \textbf{condensation}
+	\item solid to gas: \textbf{sublimation}, reverse: \textbf{deposition}
+\end{itemize}
+
+\subsection{Ways of Heat Transfer}
+There are three ways for heat transfer:
+\begin{itemize}
+	\item \textbf{conduction}: by contact
+	\item \textbf{convection}: by motion of fluid
+	\item \textbf{radiation}: by EM waves
+\end{itemize}
+When crystal absorbs of gives off heat, either temperature of phase changes.
+
+\section{Thermal Expansion}
+Change in temperature may lead to change in size, usually size expanded when temperature increases and shrinks as temperature goes lower. Relationship in change of length is:
+\[
+L_f - L_i = \alpha L_i(T_f- T_i)
+\]
+or in simpler form:
+\[
+\Delta L = \alpha L_i \Delta T
+\]
+where
+\begin{itemize}
+	\item $L$: length, sub $i$ represents initial and sub $f$ represents final
+	\item $\alpha$: coefficient of linear expansion
+\end{itemize}
+Similarly, relationship in change of volume is:
+\[
+\Delta V = \beta V_i \Delta T
+\]
+where $\beta$ is the \textbf{coefficient of volume expansion}. For most solid $\beta \approxeq 3\alpha$. Most substance have positive $\beta$, one exception is water from $0^\circ C$ to $4^\circ C$(maximum density).
+
+\section{Kinetic Theory of Gases}
+Pressure($P$) is defined as:
+\[
+P = \frac{F}{A}
+\]
+Avogadro's constant(number of atoms or molecules in $1$ \textbf{mole}) is:
+\[
+N_A = 6.02 \times 10^{23}
+\]
+The molar mass($M$) of an object is:
+\[
+M = m N_A \quad \text{where $m$ is th \textbf{unit mass}}
+\]
+\textbf{Idea gas law} can be expressed as equation:
+\[
+PV = nRT
+\]
+where
+\begin{itemize}
+	\item $n$: number of moles of gas
+	\item $R$: universal gas constant which is $8.314$ in SI
+	\item $T$: temperature in kelvins
+\end{itemize}
+Average translational kinetic energy of gas molecules is directly proportional to the absolute temperature:
+\[
+K_{avg} = \frac{3}{2} k_B T
+\]
+where 
+\[
+k_B = \frac{R}{N_A}
+\]
+By root-mean-square speed:
+\[
+\frac{1}{2}mv^2 = \frac{3}{2} k_B T
+\]
+RMS speed is:
+\[
+v_{rms} = \sqrt{\frac{3k_B T}{m}} = \sqrt{\frac{3RT}{M}}
+\]
+
+\section{Laws of Thermodynamics}
+
+\subsection{Zeroth Law of Thermodynamics}
+If object $1$ and $2$ are each in thermal equilibrium with object $3$, then object $1$ and $2$ are in thermal equilibrium with each other.
+
+\subsection{First Law of Thermodynamics}
+Energy is neither created nor destroyed in any thermodynamic system, mathematically:
+\[
+\Delta U = Q - W
+\]
+where
+\begin{itemize}
+	\item $\Delta U$ is the change in internal energy of the system
+	\item $Q$ is heat added to the system
+	\item $W$ is work done by the system
+\end{itemize}
+ Work done by gas(assume gas has constant pressure) is:
+ \[
+ W = P \Delta V \quad \text{or differntial form} \quad dW = PdV
+ \]
+ Two types of process:
+ \begin{itemize}
+ 	\item isothermal process: temperature remains constant($P-V$ graph is reciprocal function)
+ 	\item adiabatic process: no heat exchange between system and surrounding($P-V$ graph is steeper)
+ \end{itemize}
+
+\subsection{Second Law of Thermodynamics}
+The total \textbf{entropy} of a system plus its surrounding will never decrease. Which implies:
+\begin{itemize}
+	\item heat spontaneously go from hot to cold
+	\item a heat engine can never operate at $100\%$ efficiency
+\end{itemize}
+A heat engine is a device that use heat to produce useful work. Its efficiency($e$) is:
+\[
+e = \frac{Q_H - |Q_C|}{Q_H} = 1 - \frac{|Q_C|}{Q_H}
+\]
+The most efficient heat engine follows \textbf{Carnot} cycle:
+\begin{enumerate}
+	\item isothermal expansion
+	\item adiabatic expansion
+	\item isothermal compression
+	\item adiabatic compression
+\end{enumerate}
+it has efficiency:
+\[
+e = \frac{T_H - T_C}{T_H} = 1 - \frac{T_C}{T_H}
+\]
+\end{document}

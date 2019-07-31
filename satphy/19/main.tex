@@ -1,0 +1,244 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+\newcommand{\watermark}[3]{\AddToShipoutPictureBG{
+		\parbox[b][\paperheight]{\paperwidth}{
+			\vfill%
+			\centering%
+			\tikz[remember picture, overlay]%
+			\node [rotate = #1, scale = #2] at (current page.center)%
+			{\textcolor{gray!70!cyan!40!red!20}{#3}};
+			\vfill}}}
+
+\author{Baboo J. Cui}
+\title{Modern Physics}
+\begin{document}
+\watermark{50}{9}{www.baboocui.club}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\begin{itemize}
+	\item it's about physics in 20th century
+	\item $10$ percent of the question on exam will cover this part
+\end{itemize}
+
+\section{Rutherford Model of the Atom}
+Atoms was \textbf{wrongly} considered as \textit{raisin pudding model}. Rutherford fired \textbf{alpha particles}(helium nuclei) at extremely thin sheet of gold, if pudding model is correct, alpha particle should sail through with little deviation, however
+\begin{itemize}
+	\item most just deviated
+	\item some deflected a very large angle: positive charge is concentrated in a very tiny volume(known as nucleus surround by electron)
+\end{itemize}
+this is known as Rutherford nuclear model, which is \textit{accurate enough}.
+
+\section{Photoelectric Effect}
+Duality of light:
+\begin{itemize}
+	\item wave
+	\item particle(reveled in 20th century)
+\end{itemize}
+When metal is illuminated by EM radiation, the energy from photon can liberate electron from their bound state to fly off, these electrons are known as \textbf{photoelectrons}. And the phenomena is called \textbf{photoelectric effect}. And it has properties:
+\begin{itemize}
+	\item the effect has no time delay
+	\item increasing the intensity of light won't cause the electrons to leave with greater kinetic energy
+	\item each metal has a threshold frequency $f_0$, if less than it, no photo-electron were ejected regardless of the intensity of light
+	\item more electron are ejected by increasing intensity of light, there is a maximum photo-electron kinetic energy
+	\it
+\end{itemize}
+these can only be explained by particle property of light. The energy of photon $E$ is:
+\[
+E = hf
+\]
+where
+\begin{itemize}
+	\item $h$ is Planck's constant, it's about $6.63\times10^{-34}J \cdot s$, VIP value for future study
+	\item $f$ is the frequency of EM
+\end{itemize}
+\textbf{Work function} $\Phi$ is a certain amount of energy had to imparted to an electron to liberate it with a maximum kinetic energy $K$ with relationship:
+\[
+K = hf - \Phi
+\]
+Clearly, photon with energy less that $\Phi$ won't cause photo-electron effect(threshold frequency explanation). It is required to understand $2$ graphs:
+\begin{itemize}
+	\item $K-f$ graph: linear function with $x$ intercept $\Phi/h$
+	\item $K-\text{Intensity}$ graph: a constant function
+\end{itemize}
+\textbf{Electronvolt}($eV$) is a small energy unit:
+\[
+1 eV = 1.6 \times 10^{-19} J
+\]
+
+\section{Bohr Model of the Atom}
+From experimentation, \textbf{atomic spectra} only contains patterns of sharp lines, that means atoms emit radiation only at certain wavelengths:
+\begin{itemize}
+	\item energy levels are \textbf{quantized}
+	\item electron can be in different energy level
+	\item electron can be \textbf{excited} to higher energy level by absorbing energy
+	\item a photon is emitted when electron returns to a lower energy level(orbit)
+\end{itemize}
+For \textbf{one}-electron atoms, the energy level is
+\[
+E_n = \frac{Z^2}{n^2}(-13.6eV)
+\]
+\begin{itemize}
+	\item $n$ is the level index, goes from $1$ to $\infty$(infinitely far away from nucleus)
+	\item $Z$ is the number of protons in the atom's nucleus
+\end{itemize}
+The energy $E$ of photon emitted when electron goes from high level $h$ to low level $l$ is:
+\[
+E = E_h - E_l
+\]
+
+\section{Wave-Particle Duality}
+Wave-partial duality says that electromagnetic radiation propagates like a wave but exchanges energy like a particle.
+\begin{itemize}
+	\item wave can behave like particle
+	\item particles can behave like a wave too
+\end{itemize}
+Particles in motion can display wave characteristics:
+\[
+\lambda = \frac{h}{p} = \frac{h}{mv}
+\]
+\begin{itemize}
+	\item $\lambda$ is the wave length of moving object, known as \textbf{de Broglie wavelength}
+	\item $p$ is the momentum of the object
+\end{itemize}
+
+\section{Nuclear Physics}
+Some basic definition:
+\begin{itemize}
+	\item nucleus is composed of \textbf{nucleons}, which contains \textbf{neutron} and \textbf{proton}
+	\item \textbf{atomic number} is the number of proton, denoted by $Z$, number of neutron is denoted by $N$
+	\item \textbf{mass number} is also called nucleons number, it is $A=Z+N$
+	\item \textbf{isotope} is nuclei that contains the same number of protons but different number of neutrons
+	\item the notation for a nuclide is
+	\[
+	\sideset{^A_Z}{}{\mathop{\mathrm{X}}}
+	\]
+\end{itemize}
+
+\subsection{Nuclear Force}
+The \textbf{strong nuclear force}, which binds together neutrons and protons to form nuclei, though there is a strong repulsive Coulomb force.
+
+\subsection{Binding Energy}
+When a proton and neutron is bound to form a deuteron, the nucleus of deuterium, there is a \textbf{mass defect}, and binging energy is computed by mass-energy equation:
+\[
+E_B = (\Delta m) c^2
+\]
+Binding energy per nucleon is $E_B/A$. deuteron has lowest BEPN $1.12 MeV$, and highest is $\sideset{^{62}}{}{\mathop{\mathrm{Ni}}}$, which is $8.8MeV$.
+\begin{itemize}
+	\item \textbf{fusion} of elements to form new element before nickel release energy
+	\item \textbf{fission} of elements after nickel release energy
+\end{itemize}
+
+\section{Radioactivity}
+An unstable nucleus that will spontaneously change into a lower-energy configuration is said to be \textbf{radioactive}. Usually happened for cases:
+\begin{itemize}
+	\item nuclei is too large
+	\item bad neutron-to-proton ratio
+\end{itemize}
+
+\subsection{Alpha Decay}
+Alpha decay emits an alpha particle $\sideset{^4_2}{}{\mathop{\mathrm{He}}}$, e.g
+\[
+\sideset{^{222}_{86}}{}{\mathop{\mathrm{Rn}}} \rightarrow \sideset{^{218}_{84}}{}{\mathop{\mathrm{Po}}}+
+\sideset{^4_2}{}{\mathop{\mathrm{He}}}
+\]
+
+\subsection{Beta Decay}
+There are $3$ types of $\beta$decay:
+\begin{itemize}
+	\item $\beta^-$ decay happens when neutron to proton ratio is too large, it is the most common $\beta$ decay. In this case, neutron transforms into a proton, electron and electron-antineutrino(caused by \textbf{weak nuclear force}):
+	\[
+	\sideset{^{14}_{6}}{}{\mathop{\mathrm{C}}} \rightarrow \sideset{^{14}_{7}}{}{\mathop{\mathrm{N}}}+
+	\sideset{^0_{-1}}{}{\mathop{\mathrm{e}}}+\bar{\nu}_e
+	\]
+	\item $\beta^+$ decay happens when neutron to proton ratio is too small. In this case, proton transforms into a neutron, positron and electron-neutrino:
+	\[
+	\sideset{^{17}_{9}}{}{\mathop{\mathrm{F}}} \rightarrow \sideset{^{17}_{8}}{}{\mathop{\mathrm{O}}}+
+	\sideset{^0_{+1}}{}{\mathop{\mathrm{e}}}+\nu_e
+	\]
+	\item electron capture happens when nucleus capture an orbiting electron:
+	\[
+	\sideset{^{7}_{4}}{}{\mathop{\mathrm{Be}}}+ \sideset{^0_{-1}}{}{\mathop{\mathrm{e}}} \rightarrow \sideset{^{7}_{3}}{}{\mathop{\mathrm{Li}}}+\nu_e
+	\]
+\end{itemize}
+
+\subsection{Gamma Decay}
+Gamma decay does not alter the identity of the nucleus, it just allows the nucleus to relax and shed energy when it is in excited status:
+\[
+\sideset{^{42}_{20}}{}{\mathop{\mathrm{Ca^*}}} \rightarrow \sideset{^{42}_{20}}{}{\mathop{\mathrm{Ca}}} + \gamma
+\]
+
+\subsection{Decay Rate}
+The fraction(or proportion) of nuclei that decay per second, the \textbf{decay constant} $\lambda$(not wavelength), does not change during the process. The higher the constant, the faster the decay. And decay follow the equation:
+\[
+A = A_0 e^{\lambda t}
+\]
+which is exponential decay.
+\begin{itemize}
+	\item one disintegration per second is one \textbf{Becquerel}(Bq);
+	\item  \textbf{half-life} is defined as the time period when $A = 0.5A$
+\end{itemize}
+
+\section{Nuclear Reaction}
+It happens when:
+\begin{itemize}
+	\item radioactive decay happens
+	\item bombardment of target nuclei with subatomic particles to artificially induce radioactivity(nuclear fission)
+\end{itemize}
+Here is one example:
+\[
+\sideset{^{1}_{0}}{}{\mathop{\mathrm{n}}}
+\sideset{^{198}_{80}}{}{\mathop{\mathrm{Hg}}} \rightarrow \sideset{^{197}_{79}}{}{\mathop{\mathrm{Au}}}+\sideset{^{2}_{1}}{}{\mathop{\mathrm{H}}}
+\]
+Nuclear reaction involves absorption(\textbf{endothermic}) or emission(\textbf{exothermic}) of energy, which can be calculated by mass-energy equation with defect mass known.
+
+\section{Special Relativity}
+Two postulates:
+\begin{itemize}
+	\item all the laws of physics are the same in all inertial reference frames.
+	\item the speed of light in vacuum always has the same value, regardless of the motion of the source or observer
+\end{itemize}
+An inertial reference frame is one in which Newton’s first law holds. Here is a list of formula:
+\begin{itemize}
+	\item relative velocity:
+	\[
+	V = \frac{u+v}{1+uv/c^2}
+	\]
+	\item relative time:
+	\[
+	T = \frac{1}{\sqrt{1 - (v/c)^2}} t = \gamma t
+	\]
+	define $\gamma$ as relativistic factor:
+	\[
+	\gamma = \frac{1}{\sqrt{1 - (v/c)^2}}
+	\]
+	\item relative length:
+	\[
+	L =\frac{l}{\gamma}
+	\]
+	\item relative kinetic energy:
+	\[
+	K = (\gamma-1) mc^2
+	\]
+	note that rest energy $E_R$ is:
+	\[
+	E_R = mc^2
+	\]
+	total energy is:
+	\[
+	E = E_R + K = \gamma m c^2
+	\]
+\end{itemize}
+Summary: mass increased, length is compressed, time is slowed.
+\end{document}

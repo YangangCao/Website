@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{enumerate}
 \usepackage{listings}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
 \usepackage{xcolor}
 \definecolor{CPPLight}  {HTML} {686868}
 \definecolor{CPPSteel}  {HTML} {888888}
@@ -128,7 +129,7 @@ int a =3;
 \section{Overload}
 \begin{enumerate}[1.]
 \item When do we use overload?\\
-Funtion with different type parameters
+Funtion with different parameters types
 \item What's the key of overload?\\
 Function signature, contains three points: number, type and order of parameters, complier realize overload by name mangling
 \item How about reference in overload?\\
@@ -138,6 +139,74 @@ Compiler attempt to cast it to funtion signature already exists, if more than on
 \item How about keyword ``const'' in function signature ?\\
 Matching the corresponding function signature, if no match,  cast will happen, ``const'' signature can match modifiable and const parameter, however, signature without ``const'' only match modifiable parameter.
 \end{enumerate}
+\section{Storage and Static}
+How many porperties used to desrcibe storage modes in C\texttt{++}?
+\begin{enumerate}[1.]
+\item Storage persistence:
+\begin{itemize}
+\item Automatic storage persistence: variables defined in functions
+\item Static storage persistence: variables defined ouside functions, and defined by ``static'' 
+\item Thread storage persistence: parallel programming
+\item Dynamic storage persistence: the address of variables are allocated by ``new''
+\end{itemize}
+\item Scope
+\begin{itemize}
+	\item Global: normal functions
+	\item Local: auto variable
+	\item function prototype scope: function prototype
+	\item Namespace
+	\item Class
+\end{itemize}
+\item Linkage
+\begin{itemize}
+	\item External: shared between files, need ``extern'' in other files
+	\item Internal: shared in functions in one file
+	\item None: just in one function in ine file, such as: auto variables
+\end{itemize}
+\end{enumerate}
+A example code:
+\begin{lstlisting}
+...
+int global = 1000; // static dutation, global, external linkage
+static int one_file = 50; // static duration, global, internal linkage
+const int fingers = 10; // static duration, global, internal linkage
+extern const int states = 50; // static duration, global, external linkage
+int main()
+{
+...
+}
+
+void funct1(int n) // static duration, global, external linkage
+{
+    static int count = 0; // static dutation, local,no linkage
+    int llama = 0; // automatic dutation, local, no linkage, 
+...
+}
+
+static void funct2(int n) // static duration, global, internal linkage
+{
+...
+}
+\end{lstlisting}
+
+\begin{table}
+
+\centering
+\begin{tabular}{ccc}
+	\hline
+	Porperties &\tabincell{c}{Static\\member\\functions}&\tabincell{c}{Normal\\member\\functions}\\
+	\hline
+    Count& Only one& One per object\\
+    Depend on object? & No & Yes\\
+    Have ``this'' pointer?&No&Yes\\
+	Call by ``class::function''?&Yes&No\\
+	Call by ``object.function''?&Yes&Yes\\
+	Assess normal member variables?&No&Yes\\
+	Assess static member variables?&Yes&Yes\\
+	\hline
+\end{tabular}
+\caption{Static and normal member functions in class}
+\end{table}
 \section{Function Template}
 \begin{enumerate}[1.]
 \item How to understand function template?\\
@@ -177,10 +246,10 @@ template <>
 void swap(job &a, job &b);
 
 \end{lstlisting}
-\item How to understand explicit instantiattion?\\
+\item How to understand explicit instantiation?\\
 Generate a function from template directly, less detection, more efficient
 \begin{lstlisting}
-// explicit instantiattion for the job type in main()
+// explicit instantiation for the job type in main()
 template 
 void swap(char &a, char &b);
 
@@ -431,7 +500,7 @@ winner = olaf1; // assignment
 \end{lstlisting}
 \end{itemize}
 \section{Public Inheritance Polymorphism}
-In this section, keyword ``vitual'' is introduced. 
+Two kinds of polymorphism: redefining and virtual method
 \begin{lstlisting}
 class Brass // base class
 {
@@ -447,15 +516,266 @@ class BrassPlus: public Brass // derived class
 {
 ...
 public:
-	void ViewAcct() const;
-    virtual void Withdraw(double amt);
+    void ViewAcct() const; // redefining
+    virtual void Withdraw(double amt); // vitual method
 ...
 }
 \end{lstlisting}
-Two kinds of Polymorphism
-Keyword ``{\bfseries vitual}'' means two different in base and derived class.
+Polymorphism is associated with reference and pointer. The redefined member function is chosen according to the type of reference and pointer, the virtual member function is chosen according to the type of reference and pointer point to. Both of them is chosen according to the object type when object calls them directly.
 \begin{lstlisting}
-Brass::ViewAcct();
-BrassPlus::ViewAcct();
+Brass dom ("Dominic Banker", 11224, 4183.45);
+BrassPlus dot("Dorothy Banker", 12118, 2592.00);
+
+// Objects call redefining and virtual method directly
+dom.ViewAcct(); // use Brass::ViewAcct()
+dot.ViewAcct(); // use BrassPlus::ViewAcct()
+
+dom.Withdraw(); // use Brass::Withdraw()
+dot.Withdraw(); // use BrassPlus::Withdraw()
+
+// References call redefining method, as well pointer
+Brass & b = dom;
+Brass & bp = dot;
+b.ViewAcct(); // use Brass::ViewAcct()
+bp.ViewAcct(); // use Brass::ViewAcct()
+
+// Reference call virtual method, as well pointer
+Brass & b = dom;
+Brass & bp = dot;
+b.Withdraw(); // use Brass::Withdraw()
+bp.Withdraw(); // use BrassPlus::Withdraw()
 \end{lstlisting}
+\section{Protected}
+\begin{lstlisting}
+class Brass
+{
+...
+protected:
+    double balance
+...
+}
+\end{lstlisting}
+The ``protected'' members in base class are same as ``public'' members to derived class, ``private'' members to external class, however, ``protected'' data members are useless, only ``protected'' member functions are useful.
+\section{Containment and Private Inheritance(has-a)}
+Two kinds of ``has-a'' relationship: containment and private inheritance.\\
+Containment (composition or layering) means that data members in class are objects of anothor class. Public iheritance can get API, containment can't get API, it's a part of ``has-a''.
+\begin{lstlisting}
+class Student
+{
+private:
+    string name; // use a string object for name
+    valarray<double> scores; // use a valarray<double> object for scores
+...
+}
+\end{lstlisting}
+Private inheritance means than all members in base class become private in derived class.
+\begin{lstlisting}
+class Student: private std::string, private std::valarray<double>
+{
+public:
+...
+}
+\end{lstlisting}
+\section{Mutiple Inheritance(is-a)}
+Mutiple inheritance means that derived from more than one base class, naturally, some problems appear.
+\begin{lstlisting}
+class SingingWaiter: public Waiter, public Singer {...};
+class SingingWaiter: public Waiter, Singer {...}; // Singer is private base
+\end{lstlisting}
+To solve some probems in MI, virtual base class is introduced, it makes a class which is derived from multiple classes (they share the same base class) inherite only one base class object.
+\begin{lstlisting}
+class Singer: virtual public Worker {...};
+class Waiter: public virtual Worker {...}; // order changing is OK
+
+class SingingWaiter: public Singer, public Waiter {...};
+\end{lstlisting}
+To no-virtual base class, the construtors maybe like this:
+\begin{lstlisting}
+class A
+{
+    int a;
+public:
+    A(int n = 0): a(n) {}
+    ...
+}
+
+class B: public A
+{
+    int b;
+public:
+    B(int m = 0, int n = 0): A(n), b(m) {}
+    ...
+}
+
+class C: public B
+{
+    int c;
+public:
+    C(int q = 0, int m = 0, int n = 0): B(m, n), c(q) {}
+    ...
+};
+\end{lstlisting}
+To virtual base class, however, it not works:
+\begin{lstlisting}
+SingingWaiter(const Worker &wr, int p = 0, int v = Singer::other): Waiter(wk, p), Singer(wk, v) {} // not OK
+\end{lstlisting}
+It must be like this: (it' not ok for no-virtual base class)
+\begin{lstlisting}
+SingingWaiter(const Worker &wr, int p = 0, int v = Singer::other): Waiter(wk), Waiter(wk, p), Singer(wk, v) {} // OK
+\end{lstlisting}
+Which method will be used?\\
+It's ambiguous:
+\begin{lstlisting}
+SingingWaiter newhire("Elise Hawks",2005, 6, soprano);
+newhire.Show(); // ambiguous
+\end{lstlisting}
+We can use this:
+\begin{lstlisting}
+SingingWaiter newhire("Elise Hawks",2005, 6, soprano);
+newhire.Signer::Show();
+\end{lstlisting}
+A better way:
+\begin{lstlisting}
+void SingingWaiter::Show()
+{
+    Singer::Show();
+}
+\end{lstlisting}
+\section{Class Template}
+Class templates are useful to containers, the grammer is shown in following code:
+\begin{lstlisting}
+template <typename T>
+class Stack
+{
+private:
+    T items[10];
+    ...
+public:
+    Stack();
+    bool pop(T &item);
+    ...
+};
+
+template <typename T>
+Stack<T>::Stack()
+{
+...
+}
+
+template <typename T>
+bool Stack<T>::pop(T & item)
+{
+...
+}
+...
+
+Stack<int> kernels;
+Stack<string> colonels;
+\end{lstlisting}
+Specialization of class template (similar as function template):
+\begin{lstlisting}
+ArrayTP<int, 100> stuff; // a example class template
+\end{lstlisting}
+\begin{itemize}
+\item Inplicit instantiation: generate a class declaration only when an object is needed.
+\begin{lstlisting}
+ArrayTP<double, 30> *pt; // a pointer, no object needed yet
+pt = new ArrayTP<double, 30>; // now an object is needed
+\end{lstlisting}
+\item Explicit instantiation: generate a class declaration directly
+\begin{lstlisting}
+template
+class ArrayTP<string, 100>;
+\end{lstlisting}
+\item Explicit specialization: declaration for specialized type
+\begin{lstlisting}
+template <>
+class ArrayTP<specialized type>
+{
+...
+};
+\end{lstlisting}
+\item Partial specializaiton: limitting partial generality of template
+\begin{lstlisting}
+template <typename T1, typename T2> class Pair {...}; // general template
+template<typename T1> class Pair<T1, int> {...}; // partial specialization, set T2 to int
+
+// if we do this, it becomes  explicit specialization
+template<> class Pair<int, int> {...};
+\end{lstlisting}
+\end{itemize}
+\section{Friend  in Class}
+\begin{itemize}
+\item {\bfseries Friend class}: All the member functions in friend class can assess private and protect members in original class.
+\begin{lstlisting}
+class TV
+{
+public:
+    friend class Remote; // can also put elsewhere
+    ...
+};
+
+class Remote
+{
+// something about TV, so the class Remote declaration should behind of class TV, unless forward declaration
+};
+\end{lstlisting}
+\item {\bfseries Friend member function}: Sometime, we want to only some member functions rather than all of them become the friend functions of original class, friend member function is introduced.
+\begin{lstlisting}
+class TV
+{
+friend void Remote::setChan(Tv &t, int c); // friend member function
+}
+\end{lstlisting}
+{\bfseries VIP}: If we use friend member function, class $Remote$ should be defined before class TV, otherwise the complier doesn't know $Remote$ is a class. In the other hand, the parameters of $Remote::setChan$ contain reference of class $Tv$, so the class $Tv$ should be defined first. To solve this problem, {\bfseries forward declaration} is introduced.
+\begin{lstlisting}
+// Must obey the following order !!!
+class Tv; // forward declaration
+class Remote {...}; // just declaration, no definition
+class Tv {...}; // declaration 
+... // class Remote definition, inline or something
+\end{lstlisting}
+\item {\bfseries Friend mutually}:
+\begin{lstlisting}
+class Tv
+{
+friend class Remote;
+....
+};
+
+class Remote
+{
+friend class Tv;
+....
+};
+\end{lstlisting}
+\item {\bfseries Common friend}:
+\begin{lstlisting}
+class Analyzer; // forward declaration
+
+class Probe
+{
+    friend void sync(Analyzer &a, const Probe &p); // sync a to p
+    friend void sync(Probe &p, const Analyzer &a); // sync p to a
+    ...
+};
+
+class Analyzer
+{
+    friend void sync(Analyzer &a, const Probe &p); // sync a to p
+    friend void sync(Probe &p, const Analyzer &a); // sync p to a
+    ...
+};
+
+// define the friend functions
+inline void sync(Analyzer &a, const Probe &p)
+{
+...
+}
+inline void sync(Probe &p, const Analyzer &a)
+{
+...
+}
+\end{lstlisting}
+\end{itemize}
 \end{document}

@@ -1,0 +1,120 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\date{July 30, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Lecture 15: Observability II}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{C-T LTI Systems}
+A continuous-time $n$-state $m$-state $p$-output LTI system
+\[
+\begin{array}{l}{\dot{x}=A x+B u} \\ {y=C x+D u}\end{array}
+\]
+\begin{itemize}
+\item Matrices $A \in \mathbb{R}^{n \times n}, B \in \mathbb{R}^{n \times m}, C \in \mathbb{R}^{p \times n}, D \in \mathbb{R}^{p \times m}$ are known
+\item Can we determine $x(0)$ from $u$ and $y$ over the time interval $[0, t] ?$
+\end{itemize}
+Definition (Observability):\\
+The C-T LTI system is observable (at time $t>0$) if the initial condition
+$x(0)$ can be uniquely determined based on $u(\tau)$ and $y(\tau), 0 \leq \tau \leq t$.
+\section{Characterizing C-T Observability}
+Consider derivatives of $y$:
+\[
+\begin{array}{l}{y=C x+D u} \\ {\dot{y}=C \dot{x}+D \dot{u}=C A x+C B u+D \dot{u}} \\ {\ddot{y}=C A^{2} x+C A B u+C B \dot{u}+D \ddot{u}}\\{\vdots}\end{array} \Rightarrow\left[\begin{array}{c}{y} \\ {\dot{y}} \\ {\vdots} \\ {y^{(n-1)}}\end{array}\right]=\mathcal{O}_{n}x+\mathcal{T}_{n}\left[\begin{array}{c}{u} \\ {\dot{u}} \\ {\vdots} \\ {u^{(n-1)}}\end{array}\right]
+\]
+Here, the same matrices in the D-T case are encountered:
+\[
+\mathcal{O}_{n}=\underbrace{\left[\begin{array}{c}{C} \\ {C A} \\ {\vdots} \\ {C A^{n-1}}\end{array}\right]}_{\text { observability matrix } \mathcal{O}}, \quad \mathcal{T}_{n}=\left[\begin{array}{cccc}{D} & {0} & {\cdots} & {0} \\ {C B} & {D} & {\ddots} & {\vdots} \\ {} & {\ddots} & {\ddots} & {0} \\ {C A^{n-2} B} & {} & {C B} & {D}\end{array}\right]
+\]
+\section{Characterizing C-T Observability (cont.)}
+At time $t=0$, rewrite the above as
+\[
+\mathcal{O} x(0)=\left[\begin{array}{c}{y(0)} \\ {\dot{y}(0)} \\ {\vdots} \\ {y^{(n-1)}(0)}\end{array}\right]-\mathcal{T}\left[\begin{array}{c}{u(0)} \\ {\dot{u}(0)} \\ {\vdots} \\ {u^{(n-1)}(0)}\end{array}\right]
+\]
+\begin{itemize}
+\item $x(0)$ can be uniquely determined iff $\mathcal{O}$ is injective, i.e., $\mathcal{N}(\mathcal{O})=\{0\}$
+\item {\bfseries Unobservable subspace} $\mathcal{N}(\mathcal{O})$ gives ambiguity in determining $x(0)$
+\item Suppose $u\equiv0$. If $x(0) \in \mathcal{N}(\mathcal{O}),$ then $y \equiv 0$
+\end{itemize}
+Effect of $u$ can be substract out. Hence we can assume $u\equiv0$:
+\[
+\begin{array}{l}{\dot{x}=A x} \\ {y=C x}\end{array}
+\]
+\section{Observability Condition}
+Theorem:\\
+The C-T LTI system $(A,B,C,D)$, or simply $(C,A)$, is observable (at any time $t>0$) if the observability matrix $\mathcal{O}$ is injective, or equivalently, full (column) rank $n$
+\section{Equivalent Observability Condition}
+The C-T system $(\tilde{A}, \tilde{B}, \tilde{C}, \tilde{D})$ with $\tilde{A}=A^{T}, \tilde{B}=C^{T}, \tilde{C}=B^{T},$ and
+$\tilde{D}=D^{T}$ is called the dual of the $C-T$ system $(A, B, C, D)$.\\
+\\
+Proposiyion (Controllability-Observability Duality):\\
+C-T system $(A,B,C,D)$ is observable (resp. controllable) if and only if its dual system $(\tilde{A},\tilde{B},\tilde{C},\tilde{D})$ is controllable (resp. observable).\\
+\\
+Theorem:\\
+Equivalent conditions for the C-T system $(A,B,C,D)$ to be observable:
+\begin{itemize}
+\item The observability matrix $\mathcal{O}$ is full rank
+\item {\bfseries PBH Rank Test}: For any $\lambda \in \mathbb{C}, \operatorname{rank}\left[\begin{array}{c}{\lambda I-A} \\ {c}\end{array}\right]=n$
+\item {\bfseries Eigenvector Test}: For any right eigenvector $v\in\mathbb{C}^n$ of A, $Cv\neq0$
+\item The matrix $\int_{0}^{t} e^{A^{t} \tau} C^{T} C e^{A \tau} d \tau$ is nonsingular for some $t>0$
+\end{itemize}
+\section{Quantitative Observability}
+Suppose C-T system $(A, B, C, D)$ is {\bfseries stable} and observable, and $u \equiv 0$ .
+Starting from $x(0)$ , the output energy over time interval $[0, t]$ is
+\[
+\int_{0}^{t}\|y(\tau)\|^{2} d \tau=x(0)^{T} \underbrace{\left(\int_{0}^{t} e^{A^{T} \tau} C^{T} C e^{A \tau} d \tau\right)}_{W_{o}(t)} x(0)
+\]
+\[
+\int_{0}^{\infty}\|y(\tau)\|^{2} d \tau=x(0)^{T} \underbrace{\left(\int_{0}^{\infty} e^{A^{T} \tau} C^{T} C e^{A \tau} d \tau\right)}_{C-T \text { Observability Gramian } W_{o}} x(0)
+\]
+$\bullet$ The larger the output energy, the ``easier'' it is to estimate $x(0)$
+\section{Kalman Observable Form}
+There exists a coordinate transform $T$ such that
+\[
+\tilde{A}=T^{-1} A T=\left[\begin{array}{cc}{\tilde{A}_{11}} & {0} \\ {\tilde{A}_{21}} & {\tilde{A}_{22}}\end{array}\right]
+\]
+\[
+\tilde{C}={C T}=\left[\begin{array}{ll}{\tilde{C}_{1}} & {0}\end{array}\right]
+\]
+$(\tilde{C}, \tilde{A})$ is called the {\bfseries Kalman Observable Form}
+\[
+\sigma(\tilde{A})=\sigma(\tilde{A}_{11}) \cup \sigma(\tilde{A}_{22})
+\]
+{\bfseries Unobservable modes}: system modes corresponding to eigenvalues of $\tilde{A}_{22}$
+\section{Minimality}
+Definition:\\
+A system $(A,B,C,D)$ is called {\bfseries minimal} if among all the realizations of its transfer function $C(sI-A)^{-1} B+D,$ it has the smallest state dimension\\
+\\$\bullet$ A given transfer function $H(s)$ have infinite many minimal realizations\\
+\\Theorem:\\
+A system $(A,B,C,D)$ is minimal if and only if it is both controllable and observable.
+\section{Proof}
+\section{Kalman Decomposition}
+For a general system $(A,B,C,D)$, a coordinate transform $\tilde{x}=Tx$ exists that can transform the system to its {\bfseries Kalman Canonical Form}:
+\[\dot{\tilde{x}}=\left[\begin{array}{cccc}{\tilde{A}_{co}} & {0} & {\tilde{A}_{13}} & {0} \\ {\tilde{A}_{21}} & {\tilde{A}_{c \overline{o}}} & {\tilde{A}_{23}} & {\tilde{A}_{24}} \\ {0} & {0} & {\tilde{A}_{\overline{c} 0}} & {0} \\ {0} & {0} & {\tilde{A}_{43}} & {\tilde{A}_{\overline{c} \overline{o}}}\end{array}\right]\tilde{x}+\left[\begin{array}{c}{\tilde{B}_{c o}} \\ {\tilde{B}_{c \overline{o}}} \\ {0} \\ {0}\end{array}\right]u\]
+\[
+y=\left[\begin{array}{cccc}
+{\tilde{C}_{co}} & {0} & {\tilde{C}_{\overline{c}o}}&{0}\end{array}\right]\tilde{x}+Du
+\]
+Block diagram:
+\section{Kalman Decomposition (cont.)}
+Controllable and observable subsystem:
+\[
+\begin{aligned} \dot{\tilde{x}}_{c o} &=\tilde{A}_{c c} \tilde{x}_{c o}+\tilde{B}_{c o} u \\ y &=\tilde{C}_{c c} \tilde{x}_{c o}+D u \end{aligned}
+\]
+
+Fact:\\
+The original system and above subsystem have the same transfer function:
+\[
+C(sI-A)^{-1} B+D=\tilde{C}(s l-\tilde{A})^{-1} \tilde{B}+D=\tilde{C}_{c o}\left(sI-\tilde{A}_{c o}\right)^{-1} \tilde{B}_{c o}+D
+\]
+\end{document}

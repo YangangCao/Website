@@ -6,6 +6,9 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 
+\usepackage{tikz}
+\usepackage{textcomp}
+\usetikzlibrary{shapes,arrows}
 
 \author{Baboo J. Cui}
 \title{Systems and State Variables}
@@ -13,6 +16,18 @@
 \begin{document}
 \maketitle
 \tableofcontents
+
+\tikzset{
+	delay/.style    = {draw, thick, rectangle, minimum height = 2em,
+		minimum width = 2em},
+	sum/.style      = {draw, circle, node distance = 2cm}, 
+	prod/.style     = {draw, circle, node distance = 2cm},
+	input/.style    = {coordinate}, % Input
+	output/.style  = {coordinate} % Output
+}
+% Defining string as labels of certain blocks.
+\newcommand{\product}{$\displaystyle \times$}
+\newcommand{\delay}{\large$z^{-1}$}
 
 \newpage
 
@@ -37,14 +52,14 @@ There are many systems around us, here are some examples:
 \end{itemize}
 
 \subsection{System Models}
-System essentially is a signal \textbf{processor}:
+System essentially is a (signal) \textbf{processor}:
 \[
 y = \mathcal{T}(u)
 \]
 \begin{itemize}
 	\item $u$: \textbf{input}
 	\item $y$: \textbf{output}
-	\item $\mathcal{T}$: IO \textbf{mapping}, could be described by \textbf{ODE}(ordinary), \textbf{PDE}(partial), \textbf{SDE}(stochastic) or difference equations.
+	\item $\mathcal{T}$: IO \textbf{mapping}, could be described by \textbf{ODE}(ordinary), \textbf{PDE}(partial), \textbf{SDE}(stochastic) or difference equations, etc.
 \end{itemize}
 
 \subsection{Signals}
@@ -66,13 +81,13 @@ Mathematically a mapping can be written in $2$ ways:
 \end{itemize}
 \textbf{Admissible signals} are allowed to put into systems, the admissible input set $\mathcal{U}$ must have the following properties for space state systems:
 \begin{itemize}
-	\item it is a vector space
+	\item it is a vector space(close to scalar multiplication and addition)
 	\item closed to time right shift operation(delay)
 \end{itemize}
 For transfer function approach, the system must be
 \begin{itemize}
 	\item casual
-	\item exponentially bounded
+	\item exponentially bounded(related to Laplace transformation)
 \end{itemize} 
 
 \subsection{Classification of Systems}
@@ -90,25 +105,20 @@ This part is explained in details in DSP class, here is a quick summary:
 		\[
 		\mathcal{T}(\lambda_1 u_1 + \lambda_2 u_2) = \lambda_1 \mathcal{T} (u_1) +  \lambda_2 \mathcal{T}(u_2)
 		\]
+		a quick test to linearity is that it satisfy ZIZO
 		\item nonlinear otherwise
-	\end{itemize}
-	\item \textbf{discrete} vs \textbf{continuous}-time system: 
-	\begin{itemize}
-		\item continuous if both IO are continuous signal
-		\item discrete if both IO are discrete signal
-		\item \textbf{hybrid} if IO have both types of signals
 	\end{itemize}
 	\item \textbf{time varying} vs \textbf{time invariant} system: 
 	\begin{itemize}
 		\item invariant: if $\forall u \in \mathcal{U}$ and $\tau \in \mathcal{I}$:
 		\[
-		y(\cdot) = \mathcal{T}(u(\cdot)) \Longrightarrow y(\cdot - \tau)  \quad = \quad \mathcal{T}(u(\cdot - \tau))
+		y(\cdot) = \mathcal{T}(u(\cdot)) \quad \Longrightarrow \quad  y(\cdot - \tau) = \mathcal{T}(u(\cdot - \tau))
 		\]
 		\item varying: otherwise
 	\end{itemize}
 	\item \textbf{causal} vs \textbf{non-causal} system: 
 	\begin{itemize}
-		\item causal: if  output only depends on past input
+		\item causal: if  output only depends on past input, namely $t-\tau$ may occur, $t+\tau$ cannot be since it is future time
 		\item non-causal:  otherwise
 	\end{itemize}
 	\item \textbf{lump} vs \textbf{distributed} system: 
@@ -131,6 +141,7 @@ A new IO relation can be obtained by introducing state variables:
 \[
 y(t) | _{t \geq t_0} = \mathcal{T} \left(u(t) | _{t\geq t_0} , x(t_0)\right)
 \]
+this indicate that the state variables summarize the past.
 
 \subsection{Decomposition of Response}
 The response of a linear system can be decomposed as:
@@ -171,7 +182,7 @@ Suppose the system has state variable $x \in \mathbb{R}^n$, input $u \in \mathbb
 	\[
 	\left\{
 	\begin{array}{ll}
-	\frac{dx(t)}{dt} = A(t)x(t) + B(t)u(t)\\
+	\dot{x}(t) = A(t)x(t) + B(t)u(t)\\
 	y(t) = C(t)x(t) + D(t)u(t)\\
 	\end{array}\right.
 	\]
@@ -184,7 +195,7 @@ Suppose the system has state variable $x \in \mathbb{R}^n$, input $u \in \mathbb
 	\end{array}\right.
 	\]
 \end{itemize}
-Note that the general $f$ and $g$ now is a function linear to $x$ and $u$.
+Note that the general $f$ and $g$ is reduced to a function linear to $x$ and $u$.
 
 \subsection{State-Space Model of Lumped Linear Time-Invariant(LTI) System}
 Suppose the system has state variable $x \in \mathbb{R}^n$, input $u \in \mathbb{R}^m$ and output $\mathbb{R}^p$:
@@ -193,10 +204,32 @@ Suppose the system has state variable $x \in \mathbb{R}^n$, input $u \in \mathbb
 	\[
 	\left\{
 	\begin{array}{ll}
-	\frac{dx(t)}{dt} = Ax(t) + Bu(t)\\
+	\dot{x}(t) = Ax(t) + Bu(t)\\
 	y(t) = Cx(t) + Du(t)\\
 	\end{array}\right.
 	\]
+	\begin{tikzpicture}[auto, thick, node distance=0.6cm, >=latex', scale = 0.75]
+	\draw
+	node at (0,0) [delay] (b) {$B$}
+	node at (2,0)[sum] (s1) {$+$}
+	node at (4,0)[delay] (i) {$\int$}
+	node at (8,0) [delay] (c) {$C$}
+	node at (10,0) [sum] (s2) {$+$}
+	node at (4,2) [delay] (a) {$A$} 
+	node at (4,-2) [delay] (d) {$D$};
+	\draw[->](-2,0) -- node {$u$}(b);
+	\draw[->](b) -- node {} (s1);
+	\draw[->](s1) -- node{$\dot{x}$}(i);
+	\draw[-](i) -- node {$x$} (6,0);
+	\draw[->](6,0) -- node{} (c);
+	\draw[->](c) -- node {} (s2);
+	\draw[->](s2) -- node {$y$} (12,0);
+	\draw[->](6,0) |- node {} (a);
+	\draw[->](a) -| node {} (s1);
+	\draw[->](-1,0) |- node {} (d);
+	\draw[->](d) -| node {} (s2);
+	\end{tikzpicture}
+	
 	\item a discrete system:
 	\[
 	\left\{
@@ -205,8 +238,30 @@ Suppose the system has state variable $x \in \mathbb{R}^n$, input $u \in \mathbb
 	y(k) = Cx[k] + Du[k])\\
 	\end{array}\right.
 	\]
+	\begin{tikzpicture}[auto, thick, node distance=0.6cm, >=latex', scale = 0.75]
+	\draw
+	node at (0,0) [delay] (b) {$B$}
+	node at (2,0)[sum] (s1) {$+$}
+	node at (4,0)[delay] (i) {$z^{-1}$}
+	node at (8,0) [delay] (c) {$C$}
+	node at (10,0) [sum] (s2) {$+$}
+	node at (4,2) [delay] (a) {$A$} 
+	node at (4,-2) [delay] (d) {$D$};
+	\draw[->](-2,0) -- node {$u[k]$}(b);
+	\draw[->](b) -- node {} (s1);
+	\draw[->](s1) -- node{\tiny$x[k+1]$}(i);
+	\draw[-](i) -- node {\tiny$x[k]$} (6,0);
+	\draw[->](6,0) -- node{} (c);
+	\draw[->](c) -- node {} (s2);
+	\draw[->](s2) -- node {$y[k]$} (12,0);
+	\draw[->](6,0) |- node {} (a);
+	\draw[->](a) -| node {} (s1);
+	\draw[->](-1,0) |- node {} (d);
+	\draw[->](d) -| node {} (s2);
+	\end{tikzpicture}
+	
 \end{itemize}
-Note that the $(A, B, C, D)$ are constants. Here are $2$ important processor in graphical representation:
+Note that the $(A, B, C, D)$ are \textbf{constants}. Here are $2$ important processor in graphical representation:
 \begin{itemize}
 	\item integration for CT system:
 	\[
@@ -217,7 +272,7 @@ Note that the $(A, B, C, D)$ are constants. Here are $2$ important processor in 
 	\[
 	z^{-1}
 	\]
-	usually, the input is term whose index is  $k+1$  and output with index $k$
+	usually, the input is term whose index is  $k+1$  and output with index $k$(state variable in DT)
 \end{itemize}
 
 \section{Extension}

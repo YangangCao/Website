@@ -1,0 +1,170 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\date{July 31, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Lecture 18: Output Feedback Observer Designer}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{State Observer Problem}
+A continuous-time (or discrete-time) LTI system
+\[
+\left\{\begin{array}{ll}{\dot{x}=A x} & {\text { or }} \\ {y=c_{x}}\end{array} \quad \text { or } \quad\left\{\begin{array}{l}{x[k+1]=A x[k]} \\ {y[k]=C x[k]}\end{array}\right.\right.
+\]
+Problem:
+\begin{itemize}
+\item $A$ and $C$ are known
+\item Input $u$ and output $y,$ but not state $x,$ can be measured
+\item Design an observer to obtain an estimate $\hat{x}$ of the state
+\end{itemize}
+Strategy I:
+\begin{itemize}
+\item Run system up to a finite time $T$
+\item Use measurements of $u$ and $y$ up to time $T$ to find an estimate $\hat{x}(0)$
+\item Simulate system from $\hat{x}(0)$ to obtain state estimate $\hat{x}(t), \forall t \geq 0$
+\end{itemize}
+\section{Feedback Observer}
+Strategy II (Feedback Observer Design):
+\begin{itemize}	
+\item Built a simulator of original system with a guess of initial condition:
+\[
+\left\{\begin{array}{l}{\dot{x}=A \hat{x}},\quad\hat{x}(0)=\text{guess}  \\ {\hat{y}=C \hat{x}}\end{array}\right.
+\]
+\item Detect error in guess by comparing $y(t)$ and $\hat{y}(t)$
+\item Use error $y(t)-\hat{y}(t)$ to improve guess $\hat{x}(t)$ so that $\hat{x}(t) \rightarrow x(t)$
+\end{itemize}
+\section{A Naive Observer Design}
+Original system with unknown $x(0)$:
+\[
+\dot{x}=A x, \quad y=Cx
+\]
+{\bfseries Simulator} with a guess (say, $0$) of initial state:
+\[
+\dot{\hat{x}}=A \hat{x}, \quad \hat{x}(0)=0, \quad \hat{y}=C \hat{x}
+\]
+Then, {\bfseries state-observer error} is simply $e=x-\hat{x}$, and satisfies
+\[
+\dot{e}=A e, \quad e(0)=x(0)
+\]
+If original system is stable, then $e(t) \rightarrow 0$; simulator works (trivially).
+\section{Linear Feedback Observer}
+{\bfseries Original system} with unknown $x(0)$:
+\[
+\begin{array}{l}{\dot{x}=A x} \\ {y=C x}\end{array}
+\]
+{\bfseries Simulator} with linear feedback
+\[
+\dot{\hat{x}}=A \hat{x}+L(y-\hat{y}), \quad \hat{x}(0)=0
+\]
+\[
+\hat{y}=C\hat{x}
+\]
+\section{Designing Observer Feedback Gain $L$}
+Problem:
+\begin{itemize}
+\item For what system $(C,A)$ can we find $L$ such that $A-LC$ is stable?
+\item For what system $(C,A)$ can we use $L$ to arbitrarily re-assign the eigenvalues of $A-LC$?
+\end{itemize}
+{\bfseries Idea}: Consider dual system $(\hat{A}=A^T, \hat{B}=C^T)$
+\section{Re-assigning Eigenvalues of Error Dynamics}
+Fact:\\
+For an observable system $(C, A)$, all the eigenvalues of $A-LC$ can be arbitrarily re-assigned by proper choices of $L$.\\
+\begin{itemize}
+\item For single-output case, transform to observer canonical form, e.g.
+\[
+\dot{x}_{0}=\left[\begin{array}{ccc}{-\alpha_{2}} & {1} & {0} \\ {-\alpha_{1}} & {0} & {1} \\ {-\alpha_{0}} & {0} & {0}\end{array}\right] x_{0}, \quad y=\left[\begin{array}{ccc}{1} & {0} & {0}\end{array}\right] x_{0}
+\]
+\item For multi-output case, first find feedback matrix $L_{0}$ to make system observable from a single output; then apply single-output result
+\end{itemize}
+\section{Kalman Observable Form}
+Use coordinate transform $x=T \tilde{x}$ to obtain Kalman observable form:
+\[
+\dot{\tilde{x}}=\underbrace{\left[\begin{array}{cc}{\tilde{A}_{11}} & {0} \\ {\tilde{A}_{21}} & {\tilde{A}_{22}}\end{array}\right]}_{\tilde{A}=T^{-1} A T} \tilde{x}, \quad y=\underbrace{\left[\begin{array}{cc}{\tilde{C}_{1}} & {0}\end{array}\right]}_{\tilde{C}=CT} \tilde{x}
+\]
+In the new coordinate system, observer feedback gain $\tilde{L}=T^{-1} L=\left[\begin{array}{c}{\tilde{L}_{1}} \\ {\tilde{L}_{2}}\end{array}\right]$
+\[
+\tilde{A}-\tilde{L} \tilde{C}=\left[\begin{array}{ll}{\tilde{A}_{11}-\tilde{L}_{1} \tilde{C}_{1}} & {0} \\ {\tilde{A}_{21}-\tilde{L}_{2} \tilde{C}_{1}} & {\tilde{A}_{22}}\end{array}\right]
+\]
+Thus, the eigenvalues
+\[
+\sigma(A-L C)=\sigma(\tilde{A}-\tilde{L} \tilde{C})=\sigma\left(\tilde{A}_{11}-\tilde{L}_{1} \tilde{C}_{1}\right) \cup \underbrace{\sigma\left(\tilde{A}_{22}\right)}_{\text { fixed }}
+\]
+\section{Detectability}
+Definition (Detectability):\\
+System $(C, A)$ is called {\bfseries detectable} if there exists a cbserver feedback
+matrix $L$ such that $A=LC$ is stable.\\
+\begin{itemize}
+\item If A is stable itself, $(C, A)$ is stabilizable
+\item If $(C, A)$ is observable, it is detectable as well
+\item If $(C, A)$ is not observable, it could still be detectable
+\end{itemize}
+Theorem:\\
+System $(C, A)$ is detectable if all its unobservable medes are stable (i.e. $\tilde{A}_{22}$ is stable in the Kalman observable form).
+\begin{itemize}
+\item If system has some unobservable modes that are unstable, then no
+feedback gain $L$ can make $A-L C$ stable; thus linear feedback
+(indeed, any output feedback) observer will not work
+\end{itemize}
+\section{Example I}
+\[
+\dot{x}(t)=\left[\begin{array}{ccccccc}{-1} & {1} & {0} & {0} & {0} & {0} & {0} \\ {0} & {-1} & {0} & {0} & {0} & {0} & {0} \\ {0} & {0} & {-1} & {0} & {0} & {0} & {0} \\ {0} & {0} & {-1} & {-1} & {0} & {0} & {0} \\ {0} & {0} & {0} & {0} & {0} & {0} & {0} \\ {0} & {0} & {0} & {0} & {1} & {0} & {0} \\ {0} & {0} & {0} & {0} & {0} & {1} & {0}\end{array}\right] x(t)+\left[\begin{array}{c}{0} \\ {1} \\ {-1} \\ {1} \\ {1} \\ {0} \\ {2}\end{array}\right] u(t)
+\]
+\[
+y(t)=\left[\begin{array}{lllllll}{1} & {0} & {2} & {0} & {0} & {0} & {0} \\ {0} & {0} & {0} & {2} & {3} & {0} & {0}\end{array}\right] x(t)
+\]
+\section{Example II}
+\[
+\dot{x}=\underbrace{\left[\begin{array}{ccc}{1} & {0} & {0} \\ {2} & {-1} & {0} \\ {5} & {-4} & {2}\end{array}\right]}_{A} \times+\underbrace{\left[\begin{array}{l}{1} \\ {1} \\ {2}\end{array}\right]}_{B} u
+\]
+\[
+y=\underbrace{\left[\begin{array}{lll}{1} & {0} & {0}\end{array}\right]}_{C} x
+\]
+\section{State Feedback Control Using Observer}
+We have previously studied state feedback control with gain matrix $K$
+What if the state can only be estimated?
+\begin{itemize}
+\item Get an estimate $\hat{x}$ of the state by designing a suitable observer (i.e.,
+by linear feedback observer with gain $L )$
+\item State feedback control using estimated state $\hat{x}$ with a state-feedback
+gain matrix $K$ to both original system and simulator
+\item This is called an {\bfseries Observer-Based Controller} or {\bfseries OBC}
+\end{itemize}
+Question:
+\begin{itemize}
+\item Will this scheme work?
+\item How do we design $K$ and $L$?
+\item What are the poles of the closed-loop system?
+\end{itemize}
+\section{Observer-Based Controllers Diagram}
+\section{Observer-Based Controllers Analysis}
+Closed-loop equations:
+\[
+\left\{\begin{array}{l}{\dot{x}=A x-B K \hat{x}} \\ {\dot{\hat{x}}=A \hat{x}+L(y-\hat{y})-B K \hat{x}}\end{array}\right.
+\]
+The aggregated system is:
+\[
+\frac{d}{d t}\left[\begin{array}{l}{x} \\ {\hat{x}}\end{array}\right]=\left[\begin{array}{cc}{A} & {-B K} \\ {L C} & {A-L C-B K}\end{array}\right]\left[\begin{array}{l}{x} \\ {\hat{x}}\end{array}\right]
+\]
+\section{Separation Principle of OBC Design}
+The closed-loop system under observer-based controller has eigenvalues.
+\[
+\sigma(A-B K) \cup \sigma(A-L C)
+\]
+\begin{itemize}
+\item $\sigma(A-B K)$ characterizes the state dynamics
+\item $\sigma(A-B K)$ characterizes the state estimation error dynamics
+\item If the system is both controllable and observable (i.e. minimal), then the eigenvalues of the closed-loop system can be arbitrarily assigned by proper $K$ and $I$
+\item If the system is both stabilizable and detectable, then by some proper $K$ and $L$, the closed-loop system with states $x$ and $e$ will be stable
+\item Good choices of $K$ can be obtained via optimal control
+\item Good choices of $L$ can be obtained via Kalman filtering (other courses)
+\end{itemize}
+\end{document}

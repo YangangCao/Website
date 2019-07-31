@@ -1,0 +1,14 @@
+\contentsline {section}{\numberline {1}Continuous-Time Autonomous LTI Systems}{2}
+\contentsline {section}{\numberline {2}State Transition Matrix}{2}
+\contentsline {section}{\numberline {3}Solution Space}{2}
+\contentsline {section}{\numberline {4}System Modes (Diagonalizable $A$)}{2}
+\contentsline {section}{\numberline {5}Decomposition of Solution into Modes}{2}
+\contentsline {section}{\numberline {6}Real and Complex Modes}{3}
+\contentsline {section}{\numberline {7}LTI System After a Change of Coordinates}{3}
+\contentsline {section}{\numberline {8}Decoupled Form for Diagonalizable $A$}{3}
+\contentsline {section}{\numberline {9}General Case}{3}
+\contentsline {section}{\numberline {10}System Modes for General $A$}{4}
+\contentsline {section}{\numberline {11}Example}{4}
+\contentsline {section}{\numberline {12}Decoupled Form for General LTI Systems}{4}
+\contentsline {section}{\numberline {13}Discrete-Time Autonomous LTI Systems}{4}
+\contentsline {section}{\numberline {14}Modes of Discrete-Time LTI Systems}{4}

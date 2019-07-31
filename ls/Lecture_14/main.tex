@@ -1,0 +1,154 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} 
+\date{July 30, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Lecture 14: Observability I}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Motivation: State Estimation of D-T LTI Systems}
+A discrete-time $n$-state $m$-input $p$-output LTI system
+\[
+\begin{aligned} x[k+1] &=A x[k]+B u[k], \quad x[0]=x_{0} \\ y[k] &=C x[k]+D u[k] \end{aligned}
+\]
+\begin{itemize}
+\item Matrices $A \in \mathbb{R}^{n \times n}, B \in \mathbb{R}^{n \times m}, C \in \mathbb{R}^{p \times n}, D \in \mathbb{R}^{p \times m}$ are known
+\item Input and output are observed over times $0,1, \ldots, k-1$:
+\[
+u[0], \ldots, u[k-1], y[0], \ldots, y[k-1]
+\]
+\item {\bfseries Objective}: Estimate unknown initial condition $x[0]$
+\end{itemize}
+Definition (Observability):\\
+The D-T LTI system is {\bfseries observable at time} $k$ if the initial condition $x[0]$ can be uniquely determined from any given $u[0],...,u[k-1]$ and $y[0],...,y[k-1]$. It is {\bfseries observable} if observable at a large enough time $k$.
+\section{Characterizing Observability}
+From system dynamics, we have
+\[
+\left[\begin{array}{c}{y[0]} \\ {\vdots} \\ {y[k-1]}\end{array}\right]=
+\underbrace{\left[\begin{array}{c}{C} \\ {C A} \\ {\vdots} \\ {CA^{k-1}}\end{array}\right]}_{\mathcal{O}_{k}}x[0]+\underbrace{\left[\begin{array}{cccc}{D} & {0} & {\cdots} & {0} \\ {C B} & {D} & {\ddots} & {\vdots} \\ {} & {\ddots} & {\ddots} & {0} \\ {C A^{k-2} B} & {} & {C B} & {D}\end{array}\right]}_{\mathcal{T}_k}\left[\begin{array}{c}{u[0]} \\ {\vdots} \\ {u[k-1]}\end{array}\right]
+\]
+Therefore, {\bfseries system is observable at time $k$ if $\mathcal{O}_k$ is injective}
+\begin{itemize}
+\item Null space $\mathcal{N}\left(\mathcal{O}_{k}\right)$ gives ambiguity in determining $x[0]$
+\item If $x[0] \in \mathcal{N}\left(\mathcal{O}_{k}\right)$ and $u \equiv 0,$ output is zero over times $0, \ldots, k-1$
+\item Input $u$ does not affect observability: it can be subtracted out
+\end{itemize}
+Hence, we can assume $u\equiv0$, and consider simplified system $(C,A)$:
+\[
+\begin{aligned} x[k+1] &=A x[k] \\ y[k] &=C x[k] \end{aligned}
+\]
+\section{Observability Matrix}
+Proposition:\\
+The null space $\mathcal{N}\left(\mathcal{O}_{k}\right)$ of matrices $\mathcal{O}_{k}$ satisfy:
+\[
+\mathcal{N}\left(\mathcal{O}_{1}\right) \supseteq \mathcal{N}\left(\mathcal{O}_{2}\right) \supseteq \cdots \supseteq \mathcal{N}\left(\mathcal{O}_{n}\right)=\mathcal{N}\left(\mathcal{O}_{n+1}\right)=\cdots
+\]
+The {\bfseries observability matrix} is defined as $\mathcal{O} :=\mathcal{O}_{n}=\left[\begin{array}{c}{C} \\ {C A} \\ {\vdots} \\ {C A^{n-1}}\end{array}\right]$\\
+\\Theorem:\\
+The D-T LTI system $(A,B,C,D)$, or simply $(C,A)$, is observable if the observability matrix $\mathcal{O}$ is injective, or equivalently, full (column) rank $n$.
+\section{Unobservable Subspace}
+{\bfseries Unobservable subspace} is the null space $\mathcal{N(O)}$ of observability matrix
+\begin{itemize}
+\item Describes the ambiguity in determining state from input and output
+\item System is observable if the unobsevable subspace is trivial $\{0\}$
+\end{itemize}
+Fact:\\
+Unobservable subspace {\bfseries $\mathcal{N(O)}$} is A-invariant: $A \mathcal{V}(\mathcal{O}) \subseteq \mathcal{N}(\mathcal{O})$\\
+\\Example:
+\begin{itemize}
+\item $
+A=\left[\begin{array}{ll}{2} & {0} \\ {0} & {2}\end{array}\right], C=\left[\begin{array}{ll}{1} & {1}\end{array}\right]
+$
+\item $
+A=\left[\begin{array}{ll}{2} & {0} \\ {0} & {1}\end{array}\right], C=\left[\begin{array}{ll}{1} & {1}\end{array}\right]
+$
+\end{itemize}
+\section{Observability-Controllability Duality}
+Definition (Dual System):\\
+The system $(\tilde{A}, \tilde{B}, \tilde{C}, \tilde{D})$ with $\tilde{A}=A^{T}, \tilde{B}=C^{T}, \tilde{C}=B^{T},$ and $\tilde{D}=D^{T}$ is called the {\bfseries dual} of system $(A,B,C,D)$
+\begin{itemize}
+\item Controllability matrix $\tilde{\mathcal{C}}=\mathcal{O}^{T}$
+\item Observability matrix $\tilde{\mathcal{O}}=\mathcal{C}^{T}$
+\end{itemize}
+Theorem:\\
+System $(A,B,C,D)$ is observable (resp. controllable) if and only if its dual system $(\tilde{A}, \tilde{B}, \tilde{C}, \tilde{D})$ is controllable (resp. observable).\\
+\\$\bullet$ Furthermore, $\mathcal{N}(\mathcal{O})=\mathcal{R}(\tilde{\mathcal{C}})^{\perp}$, and $\mathcal{R}(\mathcal{C})=\mathcal{N}(\tilde{\mathcal{O}})^{\perp}$
+\section{Observability Conditions}
+Theorem:\\
+For the system $(A, B, C, D),$ the following are equivalent:
+\begin{itemize}
+\item The system is observable
+\item The observability matrix $\mathcal{O}$ is full rank
+\item {\bfseries PBH Rank Test}: For any $\lambda\in\mathbb{C}$,
+\[
+\operatorname{rank}\left[\begin{array}{c}{\lambda I-A} \\ {C}\end{array}\right]=n
+\]
+\item {\bfseries PBH Eigenvector Test}: for any right eigenvector $v\in\mathbb{C}^n$ of $A$,
+\[
+Cv \neq0
+\]
+\item The matrix $\sum_{i=0}^{n-1}\left(A^{T}\right)^{i} C^{T} C A^{i}$ is nonsingular
+\end{itemize}
+\section{Example}
+\[
+\begin{aligned}
+x[k+1]&=\left[\begin{array}{ccccccc}{-1} & {1} & {0} & {0} & {0} & {0} & {0} \\ {0} & {-1} & {0} & {0} & {0} & {0} & {0} \\ {0} & {0} & {-1} & {0} & {0} & {0} & {0} \\ {0} & {0} & {-1} & {-1} & {0} & {0} & {0} \\ {0} & {0} & {0} & {0} & {0} & {0} & {0} \\ {0} & {0} & {0} & {0} & {1} & {0} & {0} \\ {0} & {0} & {0} & {0} & {0} & {1} & {0}\end{array}\right]x[k]+\left[\begin{array}{c}{0} \\ {1} \\ {-1} \\ {1} \\ {1} \\ {0} \\ {2}\end{array}\right] u[k] \\ y[k]&=\left[\begin{array}{ccccccc}{1} & {0} & {2} & {0} & {0} & {0} & {0} \\ {0} & {0} & {0} & {2} & {3} & {0} & {0}\end{array}\right] x[k] \end{aligned}
+\]
+\section{Quantitative Observability}
+Suppose system $(A, B, C, D)$ observable, and $u \equiv 0$.\\
+Starting from initial condition $x[0]$, the output energy over time $[0, k-1]$ is
+\[
+\sum_{i=0}^{k-1}\|y[i]\|^{2}=x[0]^{T} \underbrace{\left(\sum_{i=0}^{k-1}\left(A^{T}\right)^{i} C^{T} C A^{i}\right)}_{W_{o}(k]} x[0]
+\]
+If further $A$ is stable, the following limit exists:
+\[
+\sum_{i=0}^{\infty}\|y[i]\|^{2}=x[0]^{T}\underbrace{\left(\sum_{i=0}^{\infty}\left(A^{T}\right)^{i} C^{T} C A^{i}\right)}_{\text{Observability Gramian $W_o$}} x[0] \quad(a s\quad k \rightarrow \infty)
+\]
+$\bullet$ The larger the output energy, the ``easier'' it is to estimate $x[0]$
+\section{State Observer with Perfect Measurements}
+Suppose system $(A, B, C, D)$ is observable at time $k : \operatorname{rank}\left(\mathcal{O}_{k}\right)=n$\\
+Under zero input $u \equiv 0,$ we can deduce $x[0]$ from $y[0], \ldots, y[k-1]$:
+\[
+\left[\begin{array}{c}{y[0]} \\ {\vdots} \\ {y[k-1]}\end{array}\right]=\mathcal{O}_{k}x[0] \Rightarrow x[0]=\mathcal{O}_{k}^{\dagger}\left[\begin{array}{c}{y[0]} \\ {\vdots} \\ {y[k-1]}\end{array}\right]
+\]
+$\bullet$ Since $\mathcal{O}_{k}$ is one-to-one, $\mathcal{O}_{k}^{\dagger}=\left(\mathcal{O}_{k}^{T} \mathcal{O}_{k}\right)^{-1} \mathcal{O}_{k}^{T}$
+\section{State Observer with Noisy Measurements}
+Suppose now output measurements are corrupted by noises $w[k]$:
+\[
+\begin{array}{l}{x[k+1]=A x[k]} \\ {\hat{y}[k]=C x[k]+w[k]}\end{array}
+\]
+We have: $\mathcal{O}_{k}x[0]=\left[\begin{array}{c}{y[0]} \\ {\vdots} \\ {y[k-1]}\end{array}\right]=\left[\begin{array}{c}{\hat{y}[0]} \\ {\vdots} \\ {\hat{y}[k-1]}\end{array}\right]-\left[\begin{array}{c}{w[0]} \\ {\vdots} \\ {w[k-1]}\end{array}\right]$
+\section{Observer Error}
+Suppose sensor noises $w[k]$ are Gaussian white noises:
+\begin{itemize}
+\item $w[k]$ and $w[\ell]$ are independent for different $k$ and $\ell$
+\item $\mathrm{E}\left(w[k] w[k]^{T}\right)=I_{p},$ i.e., $w[k] \sim \mathcal{N}(0, l)$
+\end{itemize}
+Then, covariance of estimation error $e$ is
+\section{Infinite Horizon Error Covariance}
+Let the time horizon $k \rightarrow \infty .$ Then matrix
+\[
+P=\left(\sum_{i=0}^{\infty}\left(A^{T}\right)^{i} C^{T} C A^{i}\right)^{-1}=W_{o}^{-1}
+\]
+gives error covariance in estimating $x[0]$ from $u,y$ over $\infty$ time horizon
+\begin{itemize}
+\item $\mathrm{E}\left\|\hat{x}_{\mathrm{ls}}[0]-x[0]\right\|^{2}=\operatorname{tr} P$
+\item If $A$ is stable, $P \succ 0,$ i.e., can't estimate $x[0]$ perfectly even with infinite number of measurements $u[k]$, $y[k]$ (memory of $x[0]$ fades)
+\item If $A$ is not stable. $P$ has nonzero null space: $Pv=0$ for $v\neq0$. Hence projection of $x[0]$ along $v$ can be exactly determined eventually:
+\[
+E\left[\left(\hat{x}_{1 s}[0]-x[0]\right)^{T} v\right]^{2} \rightarrow 0 \quad \text { as } k \rightarrow \infty
+\]
+\item Eigenvectors of $P$ divide state-space into directions with varying degrees of ``ease'' of observability
+\end{itemize}
+
+\end{document}

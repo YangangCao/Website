@@ -1,0 +1,132 @@
+%\documentclass[10pt,a4paper,oneside]{article}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{amsmath}
+%\usepackage{amsfonts}
+%\usepackage{amssymb}
+%\usepackage{graphicx}
+%\usepackage{enumerate}
+%\usepackage{multirow}
+%\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} 
+
+
+
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\date{July 8, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+
+\title{State-Space Model vs. Input-Output Model}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Internal vs. External Models}
+\begin{itemize}
+	\item Transfer function models are external (or I/O) models
+	\begin{itemize}
+		\item Describe only how the input affects the output
+		\item System viewed as a black box
+	\end{itemize}
+	\item State-space models are internal models
+	\begin{itemize}
+		\item Describe how the input affects not only the output, but also all the internal state variables
+		\item More complete models suitable for complicated system
+	\end{itemize}
+\end{itemize}
+Many state-space model may correspond to one transfer function.
+
+\section{IO Model}
+\subsection{IO Models of CT LTI System}
+Consider a continuous-time LTI system with \textbf{zero initial state}, let $h(t)$, $t>0$ be the system's \textbf{impulse response}, then, under any $u(t) , t\geq0$, system has the output
+\[
+y(t)=\int_{0}^{t}h(t-\tau)u(\tau)d\tau=h(t)*u(t), t\geq0
+\]
+Taking Laplace transform, we obtain the\textbf{ transfer function model}:
+\[
+\frac{Y(s)}{U(s)}=H(s)=\mathcal{L}[h(t)]
+\]
+
+\subsection{IO Models of DT LTI System}
+For a discrete-time LTI system with zero initial state, \textbf{transfer function model} can be obtained by taking z-transform:
+\[
+\frac{Y(z)}{U(z)}=H(z)
+\]
+recall that $ay[k-n]$ has z-transform $az^{-n}Y(z)$
+
+\subsection{IO Models from CT State-Space Models}
+A continuous LTI system with $x\in\mathbb{R}^n$, $u\in\mathbb{R}^m$, $y\in\mathbb{R}^p$, and zero initial condition $x(0)=0$. Its transfer function (or matrix) can be deduced by taking Laplace transformation:
+\begin{align*}
+	sX(s) &= AX(s)+BU(s)\\
+	Y(s) &= CX(s)+DU(s)
+\end{align*}
+which lead to
+\[
+Y(s) = \underbrace{[C(sI - A)^{-1}B + D]}_{H(s)}U(s)
+\]
+
+\subsection{IO Models from DT State-Space Models}
+A discrete-time LTI system with $x\in\mathbb{R}^n$, $u\in\mathbb{R}^m$, $y\in\mathbb{R}^p$, and zero initial condition $x[0]=0$. Its transfer function (or matrix) can be deduced by taking z-transformation:
+\begin{align*}
+zX(z) &= AX(z)+BU(z)\\
+Y(z) &= CX(z)+DU(z)
+\end{align*}
+which lead to
+\[
+Y(z) = \underbrace{[C(sI - A)^{-1}B + D]}_{H(z)}U(z)
+\]
+Example:
+\begin{align*}
+	\left[\begin{array}{l}{\dot{x}_{1}} \\ {\dot{x}_{2}}\end{array}\right] &= \left[\begin{array}{cc}{-1} & {0} \\ {0} & {-2}\end{array}\right]\left[\begin{array}{l}{x_{1}} \\ {x_{2}}\end{array}\right]+\left[\begin{array}{l}{1} \\ {1}\end{array}\right] u\\
+	y &= \left[\begin{array}{ll}{-2} & {1}\end{array}\right] x
+\end{align*}
+has transfer function
+\[
+H(s) = -\frac{2}{s+1} + \frac{1}{s+2}
+\]
+
+\section{State-Space Realization}
+\begin{itemize}
+\item A continuous-time state-space model $(A,B,C,D)$ is called a realization of the transfer function $H(s)$ if $C(sI-A)^{-1}B+D=H(s)$
+\item A discrete-time state-space model $(A,B,C,D)$ is called a realization of the transfer function $H(z)$ if $C(zI-A)^{-1}B+D=H(z)$
+\end{itemize}
+There are \textbf{infinitely many} realizations of a transfer function.
+
+\subsection{Obtaining State-Space Realizations from IO Model}
+IO model of a single-input single-output (SISO) system can be written in difference equation form:
+\[
+\sum_{i=0}^{n} a_i y^{(i)}(t) = \sum_{i=0}^{m} b_i u^{(i)}(t)
+\]
+Transfer function can be directly obtained by Laplace transformation.
+
+\subsection{Controller Canonical Form}
+Should be able to draw block diagram and write system dynamics.
+
+\subsection{Controllability Canonical Form}
+Should be able to draw block diagram and write system dynamics.
+
+\subsection{Observer Canonical Form}
+Should be able to draw block diagram and write system dynamics.
+
+\subsection{Observability Canonical Form}
+Should be able to draw block diagram and write system dynamics.
+
+\subsection{Diagonal Realization}
+Suppose $H(s)$ has distinct poles:
+\[
+\begin{aligned} H(s) &=\frac{b_{1} s^{2}+b_{2} s+b_{3}}{\left(s-\lambda_{1}\right)\left(s-\lambda_{2}\right)\left(s-\lambda_{3}\right)} \\ &=\frac{\gamma_{1}}{s-\lambda_{1}}+\frac{\gamma_{2}}{s-\lambda_{2}}+\frac{\gamma_{3}}{s-\lambda_{3}} \end{aligned}
+\]
+Diagonal realization will be:
+\begin{align*}
+	\left[\begin{array}{c}{\dot{x}_{1}} \\ {\dot{x}_{2}} \\ {\dot{x}_{3}}\end{array}\right] &= \left[\begin{array}{ccc}{\lambda_{1}} & {0} & {0} \\ {0} & {\lambda_{2}} & {0} \\ {0} & {0} & {\lambda_{3}}\end{array}\right]\left[\begin{array}{c}{x_{1}} \\ {x_{2}} \\ {x_{3}}\end{array}\right]+\left[\begin{array}{c}{1} \\ {1} \\ {1}\end{array}\right] u\\
+	y &= \left[\begin{array}{lll}{\gamma_{1}} & {\gamma_{2}} & {\gamma_{3}}\end{array}\right]\left[\begin{array}{l}{x_{1}} \\ {x_{2}} \\ {x_{3}}\end{array}\right]
+\end{align*}
+\end{document}

@@ -1,0 +1,14 @@
+\contentsline {section}{\numberline {1}State Observer Problem}{2}
+\contentsline {section}{\numberline {2}Feedback Observer}{2}
+\contentsline {section}{\numberline {3}A Naive Observer Design}{2}
+\contentsline {section}{\numberline {4}Linear Feedback Observer}{3}
+\contentsline {section}{\numberline {5}Designing Observer Feedback Gain $L$}{3}
+\contentsline {section}{\numberline {6}Re-assigning Eigenvalues of Error Dynamics}{3}
+\contentsline {section}{\numberline {7}Kalman Observable Form}{3}
+\contentsline {section}{\numberline {8}Detectability}{4}
+\contentsline {section}{\numberline {9}Example I}{4}
+\contentsline {section}{\numberline {10}Example II}{4}
+\contentsline {section}{\numberline {11}State Feedback Control Using Observer}{5}
+\contentsline {section}{\numberline {12}Observer-Based Controllers Diagram}{5}
+\contentsline {section}{\numberline {13}Observer-Based Controllers Analysis}{5}
+\contentsline {section}{\numberline {14}Separation Principle of OBC Design}{5}

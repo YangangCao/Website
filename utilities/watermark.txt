@@ -1,0 +1,19 @@
+Code to create watermark in Latex:
+
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+\newcommand{\watermark}[3]{\AddToShipoutPictureBG{
+		\parbox[b][\paperheight]{\paperwidth}{
+			\vfill%
+			\centering%
+			\tikz[remember picture, overlay]%
+			\node [rotate = #1, scale = #2] at (current page.center)%
+			{\textcolor{gray!70!cyan!40!red!20}{#3}};
+			\vfill}}}
+
+Example to add watermark in document:
+
+\begin{document}
+\watermark{50}{9}{www.baboocui.club}
+\maketitle
