@@ -1,0 +1,115 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} 
+\date{July 18, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Lecture 10: Lumped Nonlinear Systems}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Lumped Nonlinear Systems}
+Lumped continuous-time nonlinear system:
+\[
+\frac{d}{d t} x(t)=f(x, u, t), \quad y(t)=g(x, u, t)
+\]
+Lumped discrete-time nonlinear system:
+\[
+x[k+1]=f(x[k], u[k], k), \quad y[k]=g(x[k], u[k], k)
+\]
+$\bullet$ For $m$-input, $n$-state, $p$-output systems,
+\[
+f : \mathbb{R}^{n} \times \mathbb{R}^{m} \times \mathbb{R} \rightarrow \mathbb{R}^{n}, \quad g : \mathbb{R}^{n} \times \mathbb{R}^{m} \times \mathbb{R} \rightarrow \mathbb{R}^{p}
+\]
+\section{Autonomous Time-lnvariant Nonlinear System}
+\[
+\frac{d}{d t} x(t)=f(x(t)), \quad \text { where } f : \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}
+\]
+\begin{itemize}
+\item {\bfseries Equilibrium points}: solutions $x_{e}$ to $f(x)=0$
+\[
+f\left(x_{\mathrm{e}}\right)=0
+\]
+\item Let $\delta x(t)=x(t)-x_{\mathrm{e}} .$ The dynamics of $\delta x(t)$ is approximated by
+\[
+\frac{d}{d t} \delta x(t) \approx \underbrace{  \operatorname{Df}\left(x_{\mathrm{e}}\right)}_{\text { Jacobian }} \delta x(t)
+\]
+\end{itemize}
+\section{Example: Simple Pendulum}
+Dynamics: $\ddot{\theta}=-m g \ell \sin \theta-\eta \dot{\theta}$\\
+Define state as $\left[\begin{array}{l}{x_{1}} \\ {x_{2}}\end{array}\right]=\left[\begin{array}{l}{\theta} \\ {\dot{\theta}}\end{array}\right]$\\
+State equation:
+$\frac{d}{d t}\left[\begin{array}{l}{x_{1}} \\ {x_{2}}\end{array}\right]=\left[\begin{array}{c}{x_{2}} \\ {-m g \ell \sin x_{1}-\eta x_{2}}\end{array}\right]$
+\section{Stability of Autonomous Nonlinear Systems}
+Definition:\\
+$\frac{d}{d t} x(t)=f(x(t))$ is locally asymptotically stable near the equilibrium point $x_e$ if there exists some $r>0$ such that
+\[
+\left\|x(0)-x_{e}\right\|<r \Rightarrow \lim _{t \rightarrow \infty}\left\|x(t)-x_{e}\right\| \rightarrow 0
+\]
+\begin{itemize}
+\item All solutions starting in a ball of radius $r$ around $x_e$ converge to it
+\item If $r$ can be chosen to be $\infty,$ we get global asymptotic stability
+\end{itemize}
+\section{Sufficient Condition for (In)stability}
+Theorem (Hartman-Gorbman Theorem):\\
+For a nonlinear system $\dot{x}=f(x)$ with an equilibrium point $x_{\mathrm{e}}$, let $\frac{d}{d t} \delta x=D f\left(x_{e}\right) \delta x$ be its linearization around $x_{e}$
+\begin{itemize}
+\item If $D f\left(x_{e}\right)$ has all eigenvalues with negative real part, then nonlinear system $\dot{x}=f(x)$ is asy. stable around the equilibrium point $x_e$
+\item If $D f\left(x_{e}\right)$ has all eigenvalues with positive real part, then nonlinear system $\dot{x}=f(x)$ is unstable around the equilibrium point $x_e$
+\end{itemize}
+\section{Inconclusive Results from Linearization}
+\begin{itemize}
+\item When sufficient stability/instability conditions fail, can have either
+stability or instability
+\item Example: $\dot{x}=-x^{3}$
+\item Example: $\dot{x}=x^{3}$
+\item Simple pendulum at $x_{\mathrm{e}}=\left[\begin{array}{l}{0} \\ {0}\end{array}\right]$
+\end{itemize}
+\section{Example: Lotka-Volterra Model}
+Population model of two species:
+\begin{itemize}
+\item $x_1$: population of prey
+\item $x_2$: population of predator
+\end{itemize}
+Assumptions:
+\begin{itemize}
+\item Unlimited food supply
+\item Predator total dependence on prey
+\[
+\left\{\begin{array}{l}{\frac{d x_{1}}{d t}=4 x_{1}-2 x_{1} x_{2}} \\ {\frac{d x_{2}}{d t}=-x_{2}+x_{1} x_{2}}\end{array}\right.
+\]
+\end{itemize}
+Equilibrium points: $x_{e, 1}=\left[\begin{array}{l}{0} \\ {0}\end{array}\right], x_{e, 2}=\left[\begin{array}{l}{1} \\ {2}\end{array}\right]$
+\section{Phase Plot of Lotka-Volterra Model}
+\section{Linearization of Controlled NLTI Systems}
+A controlled nonlinear time-invaraint system
+\[
+\dot{x}(t)=f(x(t), u(t))
+\]
+\begin{itemize}
+\item $x_e$ is an equilibrium if it satisfies
+\[
+f(x_e,0)=0
+\]
+\item For small initial deviation $\delta x=x-x_e$, and small input $u$:
+\[
+\frac{d}{d t} \delta x(t) \simeq \underbrace{D_{x} f\left(x_{e}, 0\right)}_{A} \delta x(t)+\underbrace{D_{u} f\left(x_{e}, 0\right)}_{B} u(t)
+\]
+\end{itemize}
+\section{Linearization of NLTV Systems around a Trajectory}
+Suppose the controlled nonlinar time-varying system
+\[
+\frac{d}{d t} x(t)=f(x, u, t), \quad x(0)=x_{0}, \quad y(t)=g(x, u, t)
+\]
+has a solution $x^{*}(t)$ and $y^{*}(t)$ under the input $u^{*}(t)$\\
+Suppose input is perturbed by a small perturbation: $u(t)=u^{*}(t)+\delta u(t)$\\
+The resulting $x(t)=x^{*}(t)+\delta x(t)$ and $y(t)=y^{*}(t)+\delta y(t)$ satisfy
+\end{document}

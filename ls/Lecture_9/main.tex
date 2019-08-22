@@ -1,0 +1,162 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} 
+\date{July 16, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Lecture 9: Solution of Controlled Linear Systems}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Continuous-Time Controlled LTI Systems}
+A continuous-time LTI system with input:
+\[
+\dot{x} = Ax+Bu
+\]
+\[
+y=Cx+Du
+\]
+where $x\in\mathbb{R}^n$ is the state, $u\in\mathbb{R}^m$ is the input, $y\in\mathbb{R}^p$ is the output.
+\begin{itemize}
+\item $A\in\mathbb{R}^{n\times n}$ is the state dynamics matrix
+\item $B\in\mathbb{R}^{n\times m}$ is the input matrix
+\item $C\in\mathbb{R}^{p\times n}$ is the output matrix
+\item $D\in\mathbb{R}^{p\times m}$
+\end{itemize}
+\section{Solutions of C-T Controlled LTI Systems}
+When $u\neq0$, tje system output is:
+\[
+y(t)=\underbrace{C e^{A t} x(0)}_{\text { zero-input response }}+\underbrace{C \int_{0}^{t} e^{A(t-\tau)} B u(\tau) d \tau+D u(t)}_{\text { zero-state response }}, \quad t \geq 0
+\]
+\begin{itemize}
+\item Zero-input response: the response due to the initial state $x(0)$
+\item Zero-output response: the response due to the input $u(t)$
+\end{itemize}
+\section{LTI Solutions by Laplace Transform}
+Take the Laplace transform of the LTI system equations:
+\[
+\left\{\begin{array}{l}{\dot{x}=A x+B u} \\ {y=C x+D u}\end{array} \Rightarrow\left\{\begin{array}{l}{s X(s)-x(0)=AX(s)+BU(s)} \\ {Y(s)=CX(s)+DU(s)}\end{array}\right.\right.
+\]
+\section{Examples}
+\[
+\left\{\begin{array}{l}{\dot{x}=\left[\begin{array}{cc}{-1} & {1} \\ {-1} & {1}\end{array}\right] x+\left[\begin{array}{l}{1} \\ {1}\end{array}\right] u} \\ {y=\left[\begin{array}{cc}{1} & {-1}\end{array}\right] x}\end{array}\right.
+e^{A t}=\left[\begin{array}{cc}{1-t} & {t} \\ {-t} & {1+t}\end{array}\right]
+\]
+\[
+\left\{\begin{array}{l}{\dot{x}=\left[\begin{array}{cc}{-1} & {0} \\ {1} & {1}\end{array}\right] x+\left[\begin{array}{c}{-2} \\ {1}\end{array}\right] u} \\ {y=\left[\begin{array}{ll}{0} & {1}\end{array}\right] x}\end{array}\right.
+e^{A t}=\left[\begin{array}{cc}{e^{-t}} & {0} \\ {\frac{e^{t}-e^{-t}}{2}} & {e^{t}}\end{array}\right]
+\]
+\section{Transfer Function of LTI-System}
+Assume zero initial state $x(0)=0 .$ The zero-state response is
+\[
+Y(s)=C\left(s l_{n}-A\right)^{-1} B U(s)+D U(s)=H(s) U(s)
+\]
+where $H(s)$ is the transfer function (or matrix)
+\[
+H(s)=C\left(s l_{n}-A\right)^{-1} B+D
+\]
+\section{I/O Equivalent Systems}
+Theorem:\\
+Two LTI  system $(A,B,C,D)$ and $(\tilde{A}, \tilde{B}, \tilde{C}, \tilde{D})$ have the same transfer function (hence the same zero-state response) if and only if
+\[
+\begin{aligned} D &=\tilde{D} \\ C B &=\tilde{C} \tilde{B} \\ C A B &=\tilde{C} \tilde{A} \tilde{B} \\ & \vdots \\ C A^{k} B &=\tilde{C} \tilde{A}^{k} \tilde{B} \\\vdots\end{aligned}
+\]
+\section{Equivalent C-T LTI Systems}
+An LTI system $\left\{\begin{array}{l}{\dot{x}=A x+B u} \\ {y=C x+D u}\end{array}\right.$ after a change of coordinates $x=T\tilde{x}$:
+\[
+\left\{\begin{array}{l}{\dot{\tilde{x}}=\tilde{A} \tilde{x}+\tilde{B} u=\left(T^{-1} A T\right) \tilde{x}+\left(T^{-1} B\right) u} \\ {y=\tilde{C} \tilde{x}+\tilde{D} u=(C T) \tilde{x}+D u}\end{array}\right.
+\]
+\begin{itemize}
+\item LTI systems $(A,B,C,D)$ and $\left(T^{-1} A T, T^{-1} B, CT, D\right)$ are (algebraically equivalent)
+\item Matlab command $\mathbf{[A p, B p, C p, D p]=\operatorname{ss} 2 \sec (A, B, C, D, P)}$
+\item Two equivalent systems have the same transfer function $H(s)=\tilde{H}(s)$
+\end{itemize}
+\section{Discrete-Time Controlled LTI System}
+A discrete-time LTI system with input:
+\[
+x[k+1]=A x[k]+B u[k]
+\]
+\[
+y[k]=C x[k]+D u[k]
+\]
+where $x \in \mathbb{R}^{n}, u \in \mathbb{R}^{m}, y \in \mathbb{R}^{p}, A, B, C, D$ are of proper dimensions
+\section{Solutions of D-T Controlled LTI Systems}
+For general input $u\neq0$:
+\[
+y[k]=\underbrace{C A^{k} x[0]}_{\text { zero-input response }}+\underbrace{C \sum_{i=0}^{k-1} k^{k-1-i} B u[i] +D u[k]}_{\text { zero-state response }}, \quad k=0,1,2,...
+\]
+\begin{itemize}
+\item Zero-input response: the response due to the initial state $x[0]$
+\item Zero-state response: the response due to the input $u[k]$
+\end{itemize}
+\section{Solutions by $z$-Transform}
+Take the $z$ -transform of the D-T LTI system equations to obtain
+\[
+X(z)=\left(z I_{n}-A\right)^{-1} z x[0]+\left(z I_{n}-A\right)^{-1} B U(z)
+\]
+\[
+Y(z)=\underbrace{C\left(z I_{n}-A\right)^{-1} z x[0]}_{\text { zero-input response }}+\underbrace{C\left(zI_{n}-A\right)^{-1} B U(z)+D U(z)}_{\text { zero-state response }}
+\]
+In particular, assuming $x[0]=0,$ the zero-state response is
+\[
+Y(z)=\underbrace{\left[C\left(z I_{n}-A\right)^{-1} B+D\right]}_{\text { Transfer (matrix) function } H(z)} U(z)
+\]
+Theorem:\\
+Two systems $(A, B, C, D)$ and $(\tilde{A}, \tilde{B}, \tilde{C}, \tilde{D})$ realize the same transfer function if $D=\tilde{D}$ and $C A^{k} B=\tilde{C} \tilde{A}^{k} \tilde{B}$ for $k=0,1, \ldots$
+\section{Equivalent D-T LTI System}
+LTI system $\left\{\begin{array}{l}{x[k+1]=A x[k]+B u[k]} \\ {y[k] \quad=C x[k]+D u[k]}\end{array}\right.$ after a change of coordinates $x=T\tilde{x}$:
+\[
+\left\{\begin{array}{l}{\tilde{x}[k+1]=\tilde{A} \tilde{x}[k]+\tilde{B} u[k]=\left(T^{-1} A T\right) \tilde{x}[k]+\left(T^{-1} B\right) u[k]} \\ {y[k] \quad=\tilde{C} \tilde{x}[k]+\tilde{D} u[k]=(C T) \tilde{x}[k]+D u[k]}\end{array}\right.
+\]
+\begin{itemize}
+\item LTI systems $(A, B, C, D)$ and $\left(T^{-1} A T, T^{-1} B, C T, D\right)$ are
+(algebraically) equivalent
+\item Two equivalent systems have the same transfer function $H(z)=\tilde{H}(z)$
+\end{itemize}
+\section{Discretization of C-T LTI Systems}
+Given a continuous-time LTI system $\left\{\begin{array}{l}{\dot{x}=A x+B u} \\ {y=C x+D u}\end{array}\right.$, suppose
+\begin{itemize}
+\item input, state, and output are sampled every $T$ time:
+\[
+u[k]=u(k T), \quad x[k]=x(k T), \quad y[k]=y(k T), \quad k=0,1, \ldots
+\]
+\item input $u$ is kept constant during each sampling time interval
+\end{itemize}
+\section{Continuous-Time Controlled LTV Systems}
+A continuous-time LTV system with input:
+\[
+\dot{x}(t)=A(t) x(t)+B(t) u(t)
+\]
+\[
+y(t)=C(t) x(t)+D(t) u(t)
+\]
+$x \in \mathbb{R}^{n}, u \in \mathbb{R}^{m}, y \in \mathbb{R}^{p}, A(t), B(t), C(t), D(t)$ of proper dimensions
+\section{Solutions of C-T Controlled LTV Systems}
+For general $u\neq0$, the solution of the LTV system is
+\[
+x(t)=\Phi(t) x(0)+\int_{0}^{t} \Phi(t, \tau) B(\tau) u(\tau) d \tau
+\]
+\[
+y(t)=\underbrace{C(t) \Phi(t) x(0)}_{\text { zero-input resonse }}+\underbrace{C(t) \int_{0}^{t} \Phi(t, \tau) B(\tau) u(\tau) d \tau+D(t) u(t)}_{\text { zero-state response }}
+\]
+\section{Discrete-Time Controlled LTV Systems}
+Solution of the discrete-time LTV system
+\[
+\begin{aligned} x[k+1] &=A[k] x[k]+B[k] u[k] \\ y[k] &=C[k] x[k]+D[k] u[k] \end{aligned}
+\]
+under general input $u$ is
+\[
+x[k]=\Phi[k] x[0]+\sum_{i=0}^{k-1} \Phi[k, i+1] B[i] u[i]
+\]
+\[
+y[k]=C[k] \Phi[k] x[0]+C[k] \sum_{i=0}^{k-1} \Phi[k, i+1] B[i] u[i]+D[k] u[k]
+\]
+\end{document}

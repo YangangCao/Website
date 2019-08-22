@@ -157,14 +157,14 @@ The rank of a matrix $A \in \mathbb{R}^{m \times n}$ is its maximum number of li
 \subsection{Matrix Transpose}
 When $A \in \mathbb{R}^{m \times n}$ is considered as a linearmap from $\mathbb{R}^{n}$ to $\mathbb{R}^{m}$ , its
 transpose $A^{T} \in \mathbb{R}^{n \times m}$ is a linear map from $\mathbb{R}^{m}$ back to $\mathbb{R}^{n}$\\
-\\The following statements are equivalent:
+\\The following are equivalent:
 \begin{itemize}
 \item $A$ is one-to-one
 \item $A^{T}$ is onto
 \item $\operatorname{det} A^{T} A \neq 0$
 \item $A^{T} A \in \mathbb{R}^{n \times n}$ is bijective
 \end{itemize}
-The following statements are equivalent:
+The following are equivalent:
 \begin{itemize}
 \item $A$ is onto
 \item $A^{T}$ is one-to-one
@@ -176,11 +176,10 @@ More generally, for any $A\in \mathbb{R}^{m\times n}$
 \item $\mathcal{R}\left(A^{T}\right)=\mathcal{N}(A)^{\perp}$
 \item $\mathcal{N}\left(A^{T}\right)=\mathcal{R}(A)^{\perp}$
 \end{itemize}
-
 \section{Inner Product on Euclidean Space}
 For $x, y \in \mathbb{R}^{n},$ their inner product is
 \[
-\langle x, y\rangle := x^{T} y = y^T x=x_{1} y_{1}+\cdots+x_{n} y_{n}
+\langle x, y\rangle := x^{T} y=x_{1} y_{1}+\cdots+x_{n} y_{n}
 \]
 For $x, y, z \in \mathbb{R}^{n}$:
 \begin{itemize}
@@ -192,40 +191,29 @@ For $x, y, z \in \mathbb{R}^{n}$:
 \|x\| :=\sqrt{x^{T} x}=\sqrt{x_{1}^{2}+\cdots+x_{n}^{2}}
 \]
 \end{itemize}
-Cauchy-Schwartz Inequality:
+Theorem (Cauchy-Schwartz Inequality):
 \[
 |\langle x, y\rangle| \leq\|x\| \cdot\|y\|, \quad \forall x, y \in \mathbb{R}^{n}
 \]
-
-\section{Finite Dimensional Vector Space vs $\mathbb{R}^n$}
-There is a \textbf{bijection} between any finite dimensional vector space $V$ and $\mathbb{R}^n$ with 
-\[
-n=\dim V
-\]
-Proof: coordinate of a vector with basis change.
-
-\section{More about Matrix}
-\subsection{Matrix Representation of Linear Maps}
-Any linear $\operatorname{map} f : V \rightarrow W$ between two finite dimensional vector spaces can be represented as a matrix $A\in\mathbb{R}^{m\times n}$ with $n=\dim V, m=\dim W$. Example:
+\section{Finite Dimensional Vector Space vs. $\mathbb{R}^n$}
+Theorem:\\
+There is a bijection between any finite dimensional vector space $V$ and $\mathbb{R}^n$ with $n=\dim V$.\\
+\\
+Proof:\\
+$\rho_{V} : v \in V \mapsto$ its coordinate in a basis $\left\{v_{1}, \ldots, v_{n}\right\}$ of $V$.
+\section{Matrix Representation of Linear Maps}
+Theorem:\\
+Any linear $\operatorname{map} f : V \rightarrow W$ between two finite dimensional vector spaces can be represented as a matrix $A\in\mathbb{R}^{m\times n}$ with $n=\dim V, m=\dim W$.
+\section{Examples}
 \begin{itemize}
 \item For $A\in\mathbb{R}^{m\times n}$, the map $x \in \mathbb{R}^{n} \mapsto A x \in \mathbb{R}^{m}$ viewed in standard basis
 \[
 \mathbb{R}^{n} \stackrel{A}{\longrightarrow} \mathbb{R}^{m}
 \]
-\item $\frac{d}{d \lambda} : p(\lambda) \in \mathcal{P}_{n} \mapsto \frac{d p(\lambda)}{d \lambda} \in \mathcal{P}_{n-1}$, the matrix is:
-\[
-\begin{bmatrix}
-0 & 1 & 0 & \cdots & 0 \\ 
-0 & 0 & 2 & \cdots & 0 \\ 
-\vdots & \vdots & \vdots &\ddots & \vdots \\ 
-0 & 0 & 0 & \cdots & n-1 \\ 
-0 & 0 & 0 & \cdots & 0
-\end{bmatrix} 
-\]
+\item $\frac{d}{d \lambda} : p(\lambda) \in \mathcal{P}_{n} \mapsto \frac{d p(\lambda)}{d \lambda} \in \mathcal{P}_{n-1}$
 \end{itemize}
-
-\subsection{Determinant and Inverse of Square Matrices}
-For any square matrix $A\in\mathbb{R}^{n\times n}$, its \textbf{determinant} is defined recursively as
+\section{Determinant and Inverse of Square Matrices}
+For any square matrix $A\in\mathbb{R}^{n\times n}$, its {\bfseries determinant} is defined recursively as
 \[
 \operatorname{det} A :=\sum_{i=1}^{n} a_{i j} c_{i j}
 \]
@@ -238,22 +226,27 @@ For nonsingular matrices ($\det A\neq0$), the {\bfseries inverse matrix} of $A\i
 \[
 A^{-1}=\frac{\operatorname{Adj} A}{\operatorname{det} A}=\frac{\left[c_{i j}\right]^{T}}{\operatorname{det} A}
 \]
-
-\subsection{Spectrum of Square Matrices}
-The \textbf{characteristic polynomial} of a square matrix $A \in \mathbb{R}^{n \times n}$ is
+\section{Spectrum of Square Matrices}
+The characteristic polynomial of a square matrix $A \in \mathbb{R}^{n \times n}$ is
 \[
 \chi_{A}(\lambda) :=\operatorname{det}\left(\lambda I_{n}-A\right) \in \mathcal{P}_{n}
 \]
-The $n$ roots (counting multiplicity, possibly complex) of $\chi_{A}(\lambda)$ are the \textbf{eigenvalues} of $A$. The {\bfseries spectrum} of $A$ is the set $\sigma(A)$ of all its eigenvalues. For each eigenvalue $\lambda_i\in\mathbb{C}$ of $A$,
+Definition (Spectrum of $A$):\\
+The $n$ roots (counting multiplicity, possibly complex) of $\chi_{A}(\lambda)$ are the eigenvalues of $A$. The {\bfseries spectrum} of $A$ is the set $\sigma(A)$ of all its eigenvalues.\\
+\\
+For each eigenvalue $\lambda_i\in\mathbb{C}$ of $A$,
 \begin{itemize}
-\item $v_{i} \in \mathbb{C}^{n}$ is called a (right) \textbf{eigenvector} if $A v_{i}=\lambda_{i} v_{i}$
-\item $w_{i} \in \mathbb{C}^{n}$ is called a \textbf{left eigenvector} if $w_{i}^{T} A=\lambda_{i} w_{i}^{T}$
+\item $v_{i} \in \mathbb{C}^{n}$ is called a (right) eigenvector if $A v_{i}=\lambda_{i} v_{i}$
+\item $w_{i} \in \mathbb{C}^{n}$ is called a left eigenvector if $w_{i}^{T} A=\lambda_{i} w_{i}^{T}$
 \end{itemize}
-
-\section{Change of Basis in $\mathbb{R}^n$}
-A vector $x=[x_1\cdots x_n]^T\in \mathbb{R}^n$ in standard basis has the coordinate in new basis \{$t_1,\cdots,t_n$\}:
+Example:
 \[
-\tilde{x}=T^{-1} x=\left[\begin{array}{lll}{t_{1}} & {\cdots} & {t_{n}}\end{array}\right]^{-1} x \quad \text{this is $T^{-1}$}
+\left[\begin{array}{cc}{0.4} & {0.6} \\ {0.7} & {0.3}\end{array}\right] \qquad\left[\begin{array}{cc}{a} & {b} \\ {-b} & {a}\end{array}\right]
+\]
+\section{Change of Basis in $\mathbb{R}^n$}
+A vector $x=[x_1\cdots x_n]^T\in R^n$ in standard basis has the following coordinate in new basis \{$t_1,\cdots,t_n$\}:
+\[
+\tilde{x}=T^{-1} x=\left[\begin{array}{lll}{t_{1}} & {\cdots} & {t_{n}}\end{array}\right]^{-1} x
 \]
 $A \in \mathbb{R}^{n \times n}$ as a linear map in standard basis when viewed in a different
 basis $\left\{t_{1}, \ldots, t_{n}\right\}$ has matrix representation:
@@ -263,29 +256,37 @@ basis $\left\{t_{1}, \ldots, t_{n}\right\}$ has matrix representation:
 \[
 \begin{array}{l}{\mathbb{R}^{n} \stackrel{A}{\longrightarrow} \mathbb{R}^{n}} \\ {\downarrow T^{-1} \quad\downarrow T^{-1}} \\ {\mathbb{R}^{n} \stackrel{\tilde{A}}{\longrightarrow} \mathbb{R}^{n}}\end{array}
 \]
+\section{Similarity Transformations}
 Two matrices $A, \tilde{A} \in \mathbb{R}^{n \times n}$ are {\bfseries similar} if there exists a nonsingular matrix $T \in \mathbb{R}^{n \times n}$ such that
 \[
 \tilde{A}=T^{-1} A T
 \]
 \begin{itemize}
-\item representing the same linear map viewed in different bases
-\item determinant is invariant: $\det A=\det \tilde{A}$
-\item spectrum is invariant: $\sigma(A)=\sigma(\tilde{A})$
+\item Representing the same linear map viewed in different bases
+\item Determinant is invariant: $\det A=\det \tilde{A}$
+\item Spectrum is invariant: $\sigma(A)=\sigma(\tilde{A})$
 \end{itemize}
-Matrix $A\in\mathbb{R}^{n\times n}$ is called \textbf{diagonalizable} if there exists a nonsingular matrix $T\in\mathbb{C}^{n\times n}$ such that $T^{-1}AT=\Lambda\in\mathbb{C}^{n\times n}$ is diagonal.
+\section{Diagonalizable Matrices}
+Definition (Diagonalizable Matrix):\\
+Matrix $A\in\mathbb{R}^{n\times n}$ is called diagonalizable if there exists a nonsingular matrix $T\in\mathbb{C}^{n\times n}$ such that $T^{-1}AT=\Lambda\in\mathbb{C}^{n\times n}$ is diagonal.
 \begin{itemize}
 \item Diagonal entries of $\Lambda=\operatorname{diag}\left(\lambda_{1}, \ldots, \lambda_{n}\right)$ are the eigenvalues of $A$
 \item Column of $T=\left[\begin{array}{ccc}{v_{1}} & {\cdots} & {v_{n}}\end{array}\right]$ are the right eigenvectors of $A$
 \item Rows of $T^{-1}=\left[\begin{array}{ccc}{w_{1}} & {\dots} & {w_{n}}\end{array}\right]^{T}$ are (the transpose of) the left
 eigenvectors of $A$
 \end{itemize}
-Diagonalizable matrix $A \in \mathbb{R}^{n \times n}$ with $T^{-1} A T=\Lambda$ can be decomposed by Dyadic expansion as
+\section{Dyadic Expansion of Diagonalizable Matrices}
+Diagonalizable matrix $A \in \mathbb{R}^{n \times n}$ with $T^{-1} A T=\Lambda$ can be decompesed as
 \[
 A=\lambda_{1} v_{1} w_{1}^{T}+\lambda_{2} v_{2} w_{2}^{T}+\cdots \lambda_{n} v_{n} w_{n}^{T}
 \]
-which is the sum of $n$ rank-one matrices.
-
+$\bullet$ Sum of $n$ rank-one matrices\\
+Example:
+\[
+\underbrace{\left[\begin{array}{cc}{\frac{7}{13}} & {\frac{6}{13}} \\ {1} & {-1}\end{array}\right]}_{T^{-1}} \underbrace{\left[\begin{array}{cc}{0.4} & {0.6} \\ {0.7} & {0.3}\end{array}\right]}_{A} \underbrace{\left[\begin{array}{cc}{1} & {\frac{6}{13}} \\ {1} & {-\frac{7}{13}}\end{array}\right]}_{T}=\underbrace{\left[\begin{array}{cc}{1} & {0} \\ {0} & {0.3}\end{array}\right]}_{\Lambda}
+\]
 \section{Jordan Canonical Form}
+Theorem (Jordan Canonical Form):\\
 For any $A\in\mathbb{R}^{n\times n}$, there exists a nonsingular $T\in\mathbb{C}^{n\times n}$ such that
 \[
 T^{-1} A T=J=\left[\begin{array}{lll}{J_{1}} & {} & {} \\ {} & {\ddots} & {} \\ {} & {} & {J_{q}}\end{array}\right], \quad J_{i}=\left[\begin{array}{cccc}{\lambda_{i}} & {1} & {} & {} \\ {} & {\ddots} & {\ddots} & {} \\ {} & {} & {\ddots} & {1} \\ {} & {} & {} & {\lambda_{i}}\end{array}\right] \in \mathbb{C}^{n_{i} \times n_{i}}
@@ -294,29 +295,39 @@ T^{-1} A T=J=\left[\begin{array}{lll}{J_{1}} & {} & {} \\ {} & {\ddots} & {} \\ 
 \item Unique up to permutation of Jordan blocks
 \item Diagonalizable matrices are special cases with all $n_i=1$
 \end{itemize}
-The \textbf{algebraic multiplicity} of an eigenvalue $\lambda_i$ is \textbf{the sum of the sizes} of all Jordan blocks corresponding to it, its \textbf{geometric multiplicity} is the number of all such Jordan blocks.
+Definition (Algebraic and Geometric Multiplicity):
+The {\bfseries algebraic multiplicity} of an eigenvalue $\lambda_i$ is the sum of the sizes of all Jordan blocks correpsonding to it; its {\bfseries geometric multiplicity} is the number of all such Jordan blocks.
 \section{Geometric Characterization of Jordan Block Sizes}
 Given $A\in R^n$ with an eigenvalue $\lambda$, construct a cascade of subspaces:
 \[
-\mathcal{N}\left(A-\lambda I_{n}\right) \subset \mathcal{N}\left[\left(A-\lambda I_{n}\right)^{2} \right] \subset \mathcal{N}\left[(A-\lambda I_n)^{3}\right] \subset \cdots
+\mathcal{N}\left(A-\lambda I_{n}\right) \subset \mathcal{N}\left(A-\lambda I_{n}\right)^{2} \subset \mathcal{N}(A-\lambda I_n)^{3} \subset \cdots
 \]
-The geometric multiplicity of eigenvalue $\lambda$ is
+{\bfseries Fact}: the geometric multiplicity ( $\#$ of Jordan blocks) of eigenvalue $\lambda$ is
 \begin{itemize}
 \item $\operatorname{dim} \mathcal{N}\left(A-\lambda I_{n}\right)$
 \item The number of linearly independent eigenvectors corresponding to $\lambda$
 \end{itemize}
-In general, the number of Jordan blocks of $\lambda$ with size at least $k$ is
+In general, $\#$ of Jordan blocks of $\lambda$ with size at least $k$ is
 \[
-\operatorname{dim} \mathcal{N} \left[\left(A-\lambda I_{n}\right)^{k}\right]-\operatorname{dim} \mathcal{N}\left[\left(A-\lambda I_{n}\right)^{k-1}\right]
+\operatorname{dim} \mathcal{N}\left(A-\lambda I_{n}\right)^{k}-\operatorname{dim} \mathcal{N}\left(A-\lambda I_{n}\right)^{k-1}
 \]
-An example should be added here(coming soon)!
-
+\section{Example}
+Suppose that $\lambda_{1}$ is an eigenvalue of the matrix $A \in \mathbb{R}^{10 \times 10}$ , and that the dimensions of the null space of $\left(A-\lambda_{1} I\right)^{k}$ for $k=1,2,3,4$ and 5 are:
+$3,6,8,9$ and $9,$ respectively.
+\begin{itemize}
+\item How many Jordan blocks are associated with $\lambda_{1} ?$
+\item What are the sizes of these Jordan blocks?
+\item Does $A$ have other eigenvalues? If yes, what are their multiplicities?
+\end{itemize}
 \section{Generalized Eigenvectors}
+Definition (Generalized Eigenvector):\\
 Vector $v$ is a generalized eigenvector of $A$ of grade $d$ if
 \[
 v \in \mathcal{N}(A-\lambda I_n)^{d} \quad \text { and } \quad v \notin \mathcal{N}(A-\lambda I_n)^{d-1}
 \]
-When $d=1$, this reduces to the definition of eigenvectors, here is an example $(d=3) :$ A chain of generalized eigenvectors of length 3:
+$\bullet$ When $d=1$, this reduces to the definition of eigenvectors\\
+\\
+Example $(d=3) :$ A chain of generalized eigenvectors of length 3:
 \[
 \{v_{3} :=v, v_{2} :=\left(A-\lambda_{n}\right) v, v_{1} :=\left(A-\lambda l_{n}\right)^{2} v\}
 \]
@@ -324,9 +335,9 @@ which satisfies
 \[
 A v_{1}=\lambda v_{1}, A v_{2}=v_{1}+\lambda v_{2}, A v_{3}=v_{2}+\lambda v_{3}
 \]
-$v_{1}, v_{2}, v_{3}$ are the columns of $T$ corresponding to a Jordan block of size 3.
-
+$v_{1}, v_{2}, v_{3}$ are the columns of $T$ corresponding to a Jordan block of size 3
 \section{Real Jordan Canonical Form}
+Theorem (Real Jordan Canonical Form):
 For any $A \in \mathbb{R}^{n \times n}$ , there exists a nonsingular $T \in \mathbb{R}^{n \times n}$ such that:
 \[
 T^{-1} A T=J=\left[\begin{array}{ccc}{J_{1}} \\ {} & {\ddots} \\ {} & {} &{} {J_{q}}\end{array}\right],

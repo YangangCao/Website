@@ -1,0 +1,143 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} 
+\date{July 10, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Lecture 6: Autonomous LTI Systems}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Continuous-Time Autonomous LTI Systems}
+The autenomous linear time-invariant (LTI) system
+\[
+\dot{x}=Ax, \quad t\geq0
+\]
+with the initial condition $x(0)$ has the solution:
+\[
+x(t)=e^{A t} x(0),\quad t\geq0
+\]
+\section{State Transition Matrix}
+State transition matrix $\Phi(t)$ of the LTI  system:
+\[
+\Phi(t) :=e^{A t}
+\]
+\begin{itemize}
+\item $\Phi(t)$ propagates an initial state along the LTI solution $t$ time forward
+\item $\Phi\left(t_{1}+t_{2}\right)=\Phi\left(t_{1}\right) \Phi\left(t_{2}\right)=\Phi\left(t_{2}\right) \Phi\left(t_{1}\right), \forall t_{1}, t_{2}$
+\end{itemize}
+\section{Solution Space}
+{\bfseries Solution space} $\mathbb{X}$ of the LTI system is the set of all its solutions:
+\[
+\mathbb{X} :=\{x(t), t \geq 0 | \dot{x}=A x\}
+\]
+\begin{itemize}
+\item $\mathbb{X}$ is a vector space
+\item Dimension of $\mathbb{X}$ is $n$ (state space dimension) due to the bijection
+\[
+x(t) \in \mathbb{X} \quad \leftrightarrow \quad x(0) \in \mathbb{R}^{n}
+\]
+\item Basis of $\mathbb{X}$
+\end{itemize}
+\section{System Modes (Diagonalizable $A$)}
+Suppose $A \in \mathbb{R}^{n \times n}$ is diagonalizable: $A=T \Lambda T^{-1}$
+\begin{itemize}
+\item Diagonal entries of $\Lambda=\operatorname{diag}\left(\lambda_{1}, \ldots, \lambda_{n}\right)$ are the eigenvalues of $A$
+\item Column of $T=\left[\begin{array}{lll}{v_{1}} & {\cdots} & {v_{n}}\end{array}\right]$ are (right) eigenvectors of $A$
+\item Rows of $T^{-1}=\left[\begin{array}{lll}{w_{1}} & {\cdots} & {w_{n}}\end{array}\right]^{T}$ are  left eigenvectors of $A$
+\end{itemize}
+A {\bfseries mode} of the LTI system $\dot{x}=A x$ is its solution from an eigenvector of $A$:
+\[
+x(t)=e^{A t} v_{i}=e^{\lambda_{i} t} v_{i}
+\]
+$\bullet$ The $n$ modes (possibly repeat) from a basis of the solution space $\mathbb{X}$
+\section{Decomposition of Solution into Modes}
+Assume $A=T \Lambda T^{-1}$ is diagonalizble.\\
+Solution to $\dot{x}=A x$ from an arbitrary $x(0)$
+\section{Real and Complex Modes}
+The mode $e^{\lambda_{i} t} v_{i}$ corresponding to a real eigenvalue $\lambda_{i}$ as $t \rightarrow \infty$
+\begin{itemize}
+\item If $\lambda_i<0$, the mode converges to zero along $v_i$ (stable)
+\item If $\lambda_{i} > 0,$ the mode diverges to infinity along $v_{i}$ (unstable)
+\item If $\lambda_{i}=0,$ the mode is stationary $(\text { marginally stable })$
+\end{itemize}
+For a complex $\lambda_{i}=\sigma_{i}+j \omega_{i} \in \mathbb{C}$ with $v_{i}=p_{i}+j q_{i} \in \mathbb{C}^{n}$
+\begin{itemize}
+\item The mode $e^{\lambda_{i} t} v_{i}$ is complex, and there is another mode $e^{\overline{\lambda}_{i} t} \overline{v}_{i}$
+\item Suppose $a=\left\langle x(0), w_{i}\right\rangle=\alpha+ j \beta .$ Then a real solution in $\mathbb{X}$ is
+\[
+2 \cdot \operatorname{Re}\left[a e^{\lambda_{i} t} v_{i}\right]=\left[\begin{array}{cc}{p_{i}} & {q_{i}}\end{array}\right] e^{\sigma_{i} t}\left[\begin{array}{cc}{\cos \left(\omega_{i} t\right)} & {\sin \left(\omega_{i} t\right)} \\ {-\sin \left(\omega_{i} t\right)} & {\cos \left(\omega_{i} t\right)}\end{array}\right]\left[\begin{array}{l}{\alpha} \\ {\beta}\end{array}\right]
+\]
+with the initial condition $x(0)=\alpha p_{i}+\beta q_{i}$
+\end{itemize}
+\section{LTI System After a Change of Coordinates}
+Change of coordinates by a nonsingular $T \in \mathbb{R}^{n \times n} : \tilde{x}=T^{-1} x$ coordinates
+\begin{itemize}
+\item Columns $t_{1}, \ldots, t_{n}$ form the new basis of $\mathbb{R}^{n}$
+\item $\tilde{x}$ is the coordinate of the vector $x$ in this new basis
+\end{itemize}
+LTI system $\dot{x}=A x$ in the new coordinate system:
+\[
+\dot{\tilde{x}}=\tilde{A} \tilde{x} :=\left(T^{-1} A T\right) \tilde{x}, \quad \tilde{x}(0)=T^{-1} x(0)
+\]
+\section{Decoupled Form for Diagonalizable $A$}
+LTI system $\dot{x}=A x$ with diagonalizable $A=T\Lambda T^{-1}$
+\section{General Case}
+In general, $A$ has the Jordan canonical form
+\[
+A=T J T^{-1}=\left[\begin{array}{lll}{T_{1}} & {\cdots} & {T_{r}}\end{array}\right]\left[\begin{array}{lll}{J_{1}} & {} \\ {} & {\ddots} & {} \\ {} & {} & {J_{r}}\end{array}\right]\left[\begin{array}{c}{S_{1}^{T}} \\ {\vdots} \\ {S_{r}^{T}}\end{array}\right]
+\]
+\begin{itemize}
+\item $J_{i} \in \mathbb{R}^{n_{i} \times n_{i}}$ is a Jordan block of size $n_{i}$ for the eigenvalue $\lambda_{i}$
+\item Columns of $T_{i}$: generalized eigenvectors of $A$ corresponding to $\lambda_{i}$
+\end{itemize}
+\section{System Modes for General $A$}
+The solution to $\dot{x}=A x$ with any initial condition $x(0)$ is
+\[
+x(t)=e^{A t} x(0)=T e^{J t} T^{-1} x(0)= \sum_{i=1}^{r} T_{i} e^{J_{i} t}\left(S_{i}^{T} x(0)\right)
+\]
+\begin{itemize}
+\item Solution are linear combinations of the columns of $T_{i} e^{J_{i} t}$
+\item Columns of $T_{i} e^{J_{i} t}$ are {\bfseries modes} corresponding to eigenvalue $\lambda_{i}$
+\end{itemize}
+\section{Example}
+\[A=\left[\begin{array}{rr}{-3} & {1} \\ {-1} & {-1}\end{array}\right]=\left[\begin{array}{ll}{-1} & {1} \\ {-1} & {0}\end{array}\right]\left[\begin{array}{cc}{-2} & {1} \\ {0} & {-2}\end{array}\right]\left[\begin{array}{rr}{-1} & {1} \\ {-1} & {0}\end{array}\right]^{-1}\]
+Modes of $\dot{x}=Ax$:
+\section{Decoupled Form for General LTI Systems}
+If $A$ has the Jordan canonical form: $A=T \operatorname{diag}\left(J_{1}, \ldots, J_{r}\right) T^{-1}$ , after a change of coordinates $\tilde{x}=T^{-1} x$ , the LTI system becomes:
+\[
+\left\{\begin{array}{l}{\dot{\tilde{x}}_{1}=J_{1} \tilde{x}_{1}} \\ {\vdots} \\ {\dot{\tilde{x}}_{r}=J_{r} \tilde{x}_{r}}\end{array}\right.
+\]
+\section{Discrete-Time Autonomous LTI Systems}
+Discrete-time LTI system
+\[
+x[k+1]=A x[k]
+\]
+with initial condition $x[0]$ has the solution
+\[
+x[k]=A^kx[0]:=\Phi[k] x[0], \quad k=0,1, \ldots
+\]
+where the {\bfseries state transition matrix} $\Phi[k] :=A^{k}$ has the property
+\[
+\Phi[k+\ell]=\Phi[k] \cdot \Phi[\ell]=\Phi[\ell] \cdot \phi[k], \quad k, \ell \in \mathbb{N}
+\]
+$\bullet$ The solution space also has dimension $n$
+\section{Modes of Discrete-Time LTI Systems}
+For diagonalizable $A=T \Lambda T^{-1}$ , the solution with initial condition $x[0]$ is
+\[
+x[k]=A^{k} x[0]=T \Lambda^{k} T^{-1} x[0]=\left\langle x[0], w_{1}\right\rangle \lambda_{1}^{k} v_{1}+\cdots+\left\langle x[0], w_{n}\right\rangle \lambda_{n}^{k} v_{n}
+\]
+\begin{itemize}
+\item $\lambda_{1}^{k} v_{1}, \ldots, \lambda_{n}^{k} v_{n}$ are the $n$ {\bfseries modes} of the system
+\item Any solution is a linear combination of these $n$ modes
+\end{itemize}
+For general $A$ with JCF $A=TJT^{-1}$, the modes are:
+\end{document}

@@ -7,25 +7,22 @@
 \usepackage{graphicx}
 \usepackage{enumerate}
 \usepackage{multirow}
-\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} 
+
 \date{July 9, 2019}
 \author{Baboo J. Cui, Yangang Cao}
-\title{Lecture 4: Functions of Square Matrices}
-\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\title{Functions of Square Matrices}
+
 \begin{document}
 \maketitle
 \tableofcontents
+
 \newpage
-\section{Functions of Scalars}
-Examples of functions of a scalar $\lambda \in \mathbb{R} :$
+\section{Functions and Polynomial of Matrix}
+We can define functions of square matrices $A \in \mathbb{R}^{n \times n}$ like:
 \[
-f(\lambda)=\lambda^{k}, \sqrt{\lambda}, e^{\lambda}, \ln \lambda, \frac{1}{1-\lambda}
+f(A)=A^{k}, A^{\frac{1}{2}}, e^{A}, \ln (A),\left(I_{n}-A\right)^{-1}
 \]
-Can we define functions of square matrices $A \in \mathbb{R}^{n \times n} ?$
-\[
-f(A)=A^{k}, A^{\frac{1}{2}}, e^{A}, \ln (A),\left(l_{n}-A\right)^{-1}
-\]
-(Real) analytic functions:
+Real analytic functions has the properties:
 \begin{itemize}
 \item $f(\lambda)$ is infinitely differentiable
 \item At any $\lambda_{0}$ where $f(\cdot)$ is defined, its Taylor expansion converges locally:
@@ -33,46 +30,36 @@ f(A)=A^{k}, A^{\frac{1}{2}}, e^{A}, \ln (A),\left(l_{n}-A\right)^{-1}
 f(\lambda)=f\left(\lambda_{0}\right)+f^{\prime}\left(\lambda_{0}\right)\left(\lambda-\lambda_{0}\right)+\frac{1}{2 !} f^{\prime \prime}\left(\lambda_{0}\right)\left(\lambda-\lambda_{0}\right)^{2}+\cdots
 \]
 \end{itemize}
-\section{Polynomials of Square Matrices}
 For polynomials $f(\lambda)=a_{k} \lambda^{k}+a_{k-1} \lambda^{k-1}+\cdots+a_{0},$ the extension is easy:
 \[
-f(A)=a_{k} A^{k}+a_{k-1} A^{k-1}+\cdots+a_{0} l_{n} \in \mathbb{R}^{n \times n}, \quad \forall A \in \mathbb{R}^{n \times n}
+f(A)=a_{k} A^{k}+a_{k-1} A^{k-1}+\cdots+a_{0} I_{n} \in \mathbb{R}^{n \times n}, \quad \forall A \in \mathbb{R}^{n \times n}
 \]
 \begin{itemize}
-\item Replace every occurrence of $\lambda$ by $A$
-\item Replace constant term $a_0$ by $a_0I_n$
+\item replace every occurrence of $\lambda$ by $A$
+\item replace constant term $a_0$ by $a_0 I_n$
 \end{itemize}
+
 \section{Polynomials of Matrices via JCF}
 Suppose $A \in \mathbb{R}^{n\times n}$ has Jordan Canonical Form $(\mathrm{JCF})$:
 \[
 A=T J T^{-1}=T\left[\begin{array}{lll}{J_{1}} & {} \\ {} & {\ddots} & {} \\ {} & {} & {J_{q}}\end{array}\right] T^{-1}
 \]
-For a polynomial function $f(\lambda), f(A)$ can be computed via $(\mathrm{JCF})$.
-\section{Ploynomials of Jordan Blocks}
-Each Jordan block $J_{i}$ of size $n_{i}$ can be decomposed as $J_{i}=\lambda_{i} I+N_{i}$
+Clearly, $A^k = T J^k T^{-1}$, and for a polynomial function $f(\lambda), f(A)$ can be computed via JCF. Each Jordan block $J_{i}$ of size $n_{i}$ can be decomposed as $J_{i}=\lambda_{i} I+N_{i}$
 \begin{itemize}
 \item $\lambda_{i} I$ and $N_{i}$ commute
 \item $N_{i}$ is nilpotent: $\left(N_{i}\right)^{n_{i}}=0$
 \end{itemize}
 Polynomial function of $J_{i}$ can be computed using these properties.
-\section{Characteristic Polynomial of Jordan Blocks}
-Let $\chi_{A}(\lambda)=\operatorname{det}(\lambda l-A)$ be the characteristic polynomial of $A$\\
-\\
-Lemma:\\
-For any Jordan block $J_{i}$ of $A, \chi_{A}\left(J_{i}\right)=0$.
-\section{Cayley-Hamilton Theorem}
-Theorem (Cayley-Hamilton Theorem):\\
-For any matrix $A\in \mathbb{R}^{n\times n}$, $\chi_{A}(A)=0$.\\
-\\
-Proof:\\
+Let $\chi_{A}(\lambda)=\operatorname{det}(\lambda l-A)$ be the \textbf{characteristic polynomial} of $A$, for any Jordan block $J_{i}$ of $A$,
+\[
+\chi_{A}\left(J_{i}\right)=0
+\]
+\textbf{Cayley-Hamilton Theorem}: for any matrix $A\in \mathbb{R}^{n\times n}$, $\chi_{A}(A)=0$, since:
 \[
 \chi_{A}(A)=T\left[\begin{array}{ccc}{\chi_{A}\left(J_{1}\right)} & {} & {} \\ {} & {\ddots} & {} \\ {} & {} & {\chi_{A}\left(J_{q}\right)}\end{array}\right] T^{-1}=0
 \]
-\section{Minimal Polynomials}
-Definition:\\
-The minimal polynomial of $A \in \mathbb{R}^{n \times n}$ is the polynomial $\mu_{A}(\lambda)$ with the minimum degree satisfying $\mu_{A}(A)=0$ .\\
-\\
-Using the JCF, the minimal polynomial is
+\section{Minimal Polynomials(Very Useful)}
+The minimal polynomial of $A \in \mathbb{R}^{n \times n}$ is the polynomial $\mu_{A}(\lambda)$ with the \textbf{minimum degree} satisfying $\mu_{A}(A)=0$. Using the JCF, the minimal polynomial is
 \[
 \mu_{A}(\lambda)=\left(\lambda-\lambda_{1}\right)^{d_{1}} \cdots\left(\lambda-\lambda_{\ell}\right)^{d_{\ell}}
 \]
@@ -80,8 +67,10 @@ Using the JCF, the minimal polynomial is
 \item $\lambda_{1}, \ldots, \lambda_{\ell}$ are the distinct eigenvalues of $A$
 \item $d_{i}$ is the largest size of Jordan blocks associated with $\lambda_{i}$
 \end{itemize}
-\section{Implication of C-H Theorem: I}
-Corollary:\\
+
+\section{Implication of C-H Theorem}
+
+\subsection{Part 1}
 Given a square matrix $A\in \mathbb{R}^{n\times n}$
 \begin{itemize}
 \item $A^{k} \in \operatorname{span}\left\{I_{n}, A, A^{2}, \ldots, A^{n-1}\right\},$ for $k=0,1,2, \ldots$
@@ -89,13 +78,14 @@ Given a square matrix $A\in \mathbb{R}^{n\times n}$
 \[
 f(A) \in \operatorname{span}\left\{I_{n}, A, A^{2}, \ldots, A^{n-1}\right\}
 \]
+which indicate that
 \[
-\Rightarrow f(A)=h(A) \text { for some polynomial } h(\lambda) \text { of } \text {degree} \leq n-1
+f(A)=h(A) \text { for some polynomial } h(\lambda) \text { of } \text {degree} \leq n-1
 \]
 \end{itemize}
-\section{Implication of C-H Theorem: II}
-Theorem:\\
-Given a square matrix $A\in\mathbb{R}^{n\times n}$ and a polynomial function $f(\lambda)$,
+
+\subsection{Part 2}
+Given a square matrix $A\in\mathbb{R}^{n\times n}$ and a polynomial function $f(\lambda)$ so that
 \[
 f(A)=h(A)
 \]
@@ -105,23 +95,25 @@ for a polynomial $h(\lambda)$ of degree at most $n-1$ satisfying
 \]
 \begin{itemize}
 \item $\lambda_{1}, \ldots, \lambda_{\ell}$ are the distinct eigenvalues of $A$
-\item $m_{1}, \ldots, m_{\ell}$ are their algebraic multiplicities
+\item $m_{1}, \ldots, m_{\ell}$ are their \textbf{algebraic} multiplicities
 \item $f(\lambda)$ and $h(\lambda)$ agree on the spectrum $\sigma(A)$ of matrix $A$
 \end{itemize}
+
 \section{General Functions of Square Matrices}
 Given an analytical function $f(\lambda)$ that is defined at $\lambda=0$
 \[
 \begin{aligned} f(\lambda) &=f(0)+f^{\prime}(0) \lambda+\frac{1}{2 !} f^{\prime \prime}(0) \lambda^{2}+\cdots \\ \Rightarrow \quad f(A) &=f(0) I+f^{\prime}(0) A+\frac{1}{2 !} f^{\prime \prime}(0) A^{2}+\cdots \end{aligned}
 \]
-Definition (Function of Square Matrix):\\
 The general function of the square matrix $A \in \mathbb{R}^{n \times n}$ is defined as
 \[
 f(A)=h(A)
 \]
 where $h(\lambda)$ is a polynomial of degree at most $n-1$ that agrees with $f(\lambda)$
-on the spectrum $\sigma(A)$ of $A$ (see eq (1) for definition).
-\section{Example}
+on the spectrum $\sigma(A)$ of $A$.
+
+\subsection*{Example}
 Find $f(A)=e^{A}$ for $A_{1}=\left[\begin{array}{cc}{0.4} & {0.6} \\ {0.7} & {0.3}\end{array}\right], \quad A_{2}=\left[\begin{array}{ccc}{\lambda_{1}} & {1} & {} \\ {} & {\lambda_{1}} & {1} \\ {} & {} & {\lambda_{1}}\end{array}\right]$
+
 \section{General Functions of Matrices via JCF}
 Suppose $A \in \mathbb{R}^{n \times n}$ has Jordan Canonical Form (JCF):
 \[
@@ -129,9 +121,13 @@ A=T\left[\begin{array}{lll}{J_{1}} & {} & {} \\ {} & {\ddots} & {} \\ {} & {} & 
 \]
 For each Jordan block $J_i$:
 \[
-f(J_i)=\left[\begin{array}{ccccc}{f\left(\lambda_{i}\right)} &{f^{\prime}\left(\lambda_{i}\right)}&{\frac{1}{2 !}f^{\prime\prime}\left(\lambda_{i}\right)}&\cdots&{\frac{1}{(n_i-1)!}f^{(n_i-1)}(\lambda_i)}\\{f\left(\lambda_{i}\right)} & {f^{\prime}\left(\lambda_{i}\right)} & {\ddots}  &{}& {\vdots} \\ {} & {f\left(\lambda_{i}\right)} & {\ddots} &{}& {\frac{1}{2 !} f^{\prime \prime}\left(\lambda_{i}\right)} \\ {} & {} & {\ddots} &{}& {f^{\prime}\left(\lambda_{i}\right)} \\ {} & {} & {} &{}& {f\left(\lambda_{i}\right)}\end{array}\right]
+f(J_i)=\left[\begin{array}{ccccc}{f\left(\lambda_{i}\right)} &{f^{\prime}\left(\lambda_{i}\right)}&{\frac{1}{2 !}f^{\prime\prime}\left(\lambda_{i}\right)}&\cdots&{\frac{1}{(n_i-1)!}f^{(n_i-1)}(\lambda_i)}\\
+{} & {f\left(\lambda_{i}\right)} & {f^{\prime}\left(\lambda_{i}\right)} & {\ddots}  & {\vdots} \\ 
+{} & {} & {f\left(\lambda_{i}\right)} & {\ddots} & {\frac{1}{2 !} f^{\prime \prime}\left(\lambda_{i}\right)} \\ 
+{} & {} & {} & {\ddots} & {f^{\prime}\left(\lambda_{i}\right)} \\
+ {} & {} & {} &{}& {f\left(\lambda_{i}\right)}\end{array}\right]
 \]
-\section{Example}
+\subsection*{Example}
 Consider $A=\left[\begin{array}{lll}{\lambda_{1}} & {1} \\ {} & {\lambda_{1}} & {1} \\ {} & {} & {\lambda_{1}}\end{array}\right]$
 \begin{itemize}
 \item $f_{1}(\lambda)=\lambda^{1000}$, $f_{1}(A)=A^{1000}$

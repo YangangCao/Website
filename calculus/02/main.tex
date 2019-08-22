@@ -7,10 +7,22 @@
 \usepackage{graphicx}
 
 
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+\newcommand{\watermark}[3]{\AddToShipoutPictureBG{
+		\parbox[b][\paperheight]{\paperwidth}{
+			\vfill%
+			\centering%
+			\tikz[remember picture, overlay]%
+			\node [rotate = #1, scale = #2] at (current page.center)%
+			{\textcolor{gray!70!cyan!40!red!20}{#3}};
+			\vfill}}}
 
 \author{Baboo J. Cui}
-\title{Topic 02 - Limits and Derivatives}
+\title{Limits and Derivatives}
 \begin{document}
+\watermark{50}{9}{www.baboocui.club}
 \maketitle
 \tableofcontents
 
@@ -169,25 +181,130 @@ Similar definition can be applied to negative infinite limit.
 
 \section{Continuity of Functions }
 
+\subsection{Definition}
+A function $f$ is continuous at number $a$ if
+\[
+\lim_{x \rightarrow a} f(x) = a
+\]
+this indicate $3$ conditions:
+\begin{itemize}
+	\item $f(a)$ is defined at $a$
+	\item limit of $f$ at $a$ exists
+	\item limit equals to $f(a)$
+\end{itemize}
+A function is continuous on an interval if it is continuous at every number in the interval. Also a function can be either continuous from left or right.
 
+\subsection{Types of Discontinuity}
+There are $3$ types:
+\begin{itemize}
+	\item \textbf{removable}: one point problem
+	\item \textbf{infinite}: reach infinity at certain point
+	\item\textbf{jump}: left limit doesn't equal to right limit
+\end{itemize}
 
+\subsection{Theorems of Continuity}
+\begin{itemize}
+	\item if $f$ and $g$ are continuous at $a$ and $c$ is a constant, then $f \pm g$, $cf$, $fg$, $f/g \text{, where } g\neq 0$ are also continuous at $a$
+	\item polynomials are continuous on $\mathbb{R}$
+	\item any rational function is continuous wherever it is defined(denominator is not zero)
+	\item the following function are continuous everywhere in their domains: polynomials, rational function, root, trig, inverse trig, exponential, logarithmic functions.
+	\item if $f$ is continuous at $b$ and
+	\[
+	\lim_{x \rightarrow a} g(x) = b
+	\]
+	then
+	\[
+	\lim_{x \rightarrow a} f(g(x)) = f \left(\lim_{x \rightarrow a} g(x)\right) = f(b)
+	\]
+	\item if $g$ is continuous at $a$ and $f$ is continuous at $g(a)$, then $f\circ g$ is continuous at $a$
+	\item \textbf{intermediate value theorem}: suppose $f$ is continuous on interval $[a, b]$ and let $N$ be any number between $f(a)$ and $f(b)$ where $f(a) \neq f(b)$, then there exist a number $c \in (a, b)$ such that $f(c)=N$, this is the foundation for finding root of polynomial $P(x)$ in $(a, b)$ if $P(a)pP(b)<0$
+\end{itemize}
 
+\section{Limits at Infinity and Horizontal Asymptote}
+The line $y = L$ is called a \textbf{horizontal asymptote} of the curve $y = f(x)$ if either
+\[
+\lim_{x \rightarrow \infty} = L \quad \text{or} \quad  \lim_{x \rightarrow -\infty} = L
+\]
+Example:
+\[
+\lim_{x \rightarrow -\infty} \tan^{-1}x = -\frac{\pi}{2} \quad \text{and } \quad \lim_{x \rightarrow \infty} \tan^{-1} x = \frac{\pi}{2}
+\]
+Here is one useful theorem: if $r>0$ is a rational number, then
+\[
+\lim_{x \rightarrow \infty} \frac{1}{x^r} = 0
+\]
+If $x^r$ is defined for all $x$, then
+\[
+\lim_{x \rightarrow -\infty} \frac{1}{x^r} = 0
+\]
+And here is the precise definition for \textbf{bound limit} as $x$ reach infinity: let $f$ be a function defined on some interval $(a, +\infty)$, then
+\[
+\lim_{x \rightarrow \infty} f(x) = L
+\]
+means that for every $\epsilon>0$, there is a corresponding $N$ such that if $x>N$, then
+\[
+| f(x) - L | < \epsilon
+\]
+similar definition works for $x$ approaches $-\infty$.  For \textbf{unbound} limit as $x$ reach infinity: let $f$ be a function defined on some interval $(a, +\infty)$, then
+\[
+\lim_{x \rightarrow \infty} f(x) = \infty
+\]
+means that for every positive number $M$ there is a corresponding number $N$ such that if $x>N$, then $f(x)>M$.
 
+\section{Derivatives and Rate of Change}
+\subsection{Tangent Line}
+The tangent line to the curve $y = f(x)$ at point $P(a, f(a))$ is the line through $P$ with \textbf{slope}
+\[
+m = \lim_{x \rightarrow a} \frac{f(x) - f(a)}{x-a}
+\]
+provided that this limit exists.
 
+\subsection{Velocity}
+\begin{itemize}
+	\item velocity can be considered as slope of position function
+	\item acceleration can be considered as slope of velocity function
+\end{itemize}
 
+\subsection{Derivative}
+The derivative of a function $f$ at a number $a$, denoted by $f'(a)$, is
+\[
+f'(a) = \lim_{h \rightarrow 0} \frac{f(a+h) - f(a)}{h} = \lim_{x \rightarrow a} \frac{f(x)-f(a)}{x-a}
+\]
+the tangent line to $y=f(x)$ at $(a, f(a))$ is the line through $(a, f(a))$ whose slope equals to $f'(a)$. And derivative can also be considered as instantaneous rate of change of a function at certain value.
 
+\section{Derivative as Functions}
+The derivative of function $f$ is defined by:
+\[
+f'(x) = \lim_{h \rightarrow 0} \frac{f(x+h) - f(x)}{h}
+\] 
+here is some common alternative notation:
+\[
+f'(x) = y' = \frac{dy}{dx} = \frac{df}{dx} = \frac{d}{dx}f(x) = D f(x) = D_x f(x)
+\]
+A function is differentiable at $a$ if $f'(a)$ exists and it is differentiable on an open interval $I$ if it is differentiable at every number in the interval.
 
+\subsection{Differentiable vs Continuous}
+If $f$ is differentiable at $a$ then it is continuous at $a$, the reverse may not be true. Meaning differentiability requires a \textbf{higher} condition than continuity.
 
+\subsection{Function Fail to be Differentiable}
+\begin{itemize}
+	\item a sharp corner, $y = |x|$
+	\item discontinuity, $y = 1/x$
+	\item vertical tangent, $y = \sqrt[3]{x}$
+\end{itemize}
 
-
-
-
-
-
-
-
-
-
+\subsection{Higher Derivative}
+The derivative of a function is a function, which may have its own derivative.
+\begin{itemize}
+	\item second derivative: $f''$
+	\item third derivative: $f'''$ 
+\end{itemize}
+Example:
+\begin{itemize}
+	\item \textbf{velocity} is the (first) derivative of position function
+	\item \textbf{acceleration} is the second derivative of position function
+	\item \textbf{jerk} is the third derivative of position function
+\end{itemize}
 
 \section{Extra}
 

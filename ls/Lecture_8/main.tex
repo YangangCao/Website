@@ -1,0 +1,137 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} 
+\date{July 11, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Lecture 8: Stability of Linear Systems}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Stability of C-T Autonomous Linear Systems}
+A continuous-time autononous linear system
+\begin{equation}
+\dot{x}(t)=A(t) x(t)
+\end{equation}
+Definition (Asymptotic Stability):\\
+The linear system $(1)$ is called asymptotically stable at $x_{e}=0$ if its solution $x(t)$ starting from any initial condition $x(0) \in \mathbb{R}^{n}$ satisfies
+\[
+x(t) \rightarrow 0 \text { as } t \rightarrow \infty
+\]
+Definition (Exponential Stability):\\
+The linear system $(1)$ is called exponentially stable at $x_{e}=0$ if its solution
+$x(t)$ starting from any initial condition $x(0) \in \mathbb{R}^{n}$ satisfies
+\[
+\|x(t)\| \leq K e^{-r}\|x(0)\|, \quad \forall t \geq 0,
+\]
+for some constants $K, r>0$.
+\section{Stability of C-T LTI Systems}
+Theorem:\\
+For a C-T LTI system $\dot{x}=A x,$ the following statements are equivalent
+\begin{enumerate}
+\item System is asymptotically stable
+\item System is exponentially stable
+\item All eigenvalues of $A$ are in the open left half of the complex plane $\mathbb{C}$
+\end{enumerate}
+\section{Phase Portraits of Stable 2D Systems}
+\section{Unstable Systems}
+Definition:\\
+The LTI system $\dot{x}=Ax$ is unstable if, starting from some $x(0)$, the solution $x(t)$ will deverge to infinity.\\
+\\
+Theorem:\\
+The LTI system is unstable if either of the following is true:
+\begin{enumerate}
+\item $A$ has eigenvalues on the open right half plane of $\mathbb{C}$
+\item $A$ has a defective eigenvalues on the $j\omega$-axis
+\end{enumerate}
+$\bullet$ An eigenvalue is defective if at least one of its Jordan blocks has size greater than one
+\section{Phase Portraits of Unstable 2D Systems}
+\section{Marginally Stable Systems}
+Definition:\\
+The LTI system $\dot{x}=Ax$ is marginally stable if, starting from some $x(0)$, the solution $x(t)$ will neither converge to zero nor diverge to infinity.\\
+\\
+Theorem:\\
+The LTI system is marginally stable if both of the following hold:
+\begin{enumerate}
+\item All eigen of $A$ are in the closed left half of the complex plane $\mathbb{C}$
+\item There are some eigenvalues of $A$ on the $j\omega$-axis, and all the Jordan blocks associated with such eigenvalues have size one
+\end{enumerate}
+\section{Phase Portraits of Marginally Stable 2D Systems}
+\section{Phase Portraits of 3D Systems}
+\section{Stability of C-T LTV Systems}
+For LTV system $\dot{x}(t)=A(t)x(t)$, its solution is $x(t) = \Phi(t)x(0),t\geq0$\\
+\\
+Theorem:
+\begin{itemize}
+\item LTV system is asymptotically stable if $\Phi(t)\rightarrow0$ as $t\rightarrow\infty$
+\item LTV system is exponentially stable if there exist $C$, $r>0$ such that
+\[
+||\Phi(t)||\leq Ce^{-rt}, \forall t\geq 0
+\]
+\end{itemize}
+\section{Stability of D-T Autonomous Linear Systems}
+A discrete-time LTV system
+\[
+x[k+1]=A[k] x[k], \quad k=0,1, \ldots
+\]
+Definition (Asymptotic Stability):\\
+LTV system is {\bfseries asymptotically stable at time} $k_{0}$ if its solution $x[k]$
+starting from any initial condition $x\left[k_{0}\right]$ at time $k_{0}$ satisfies
+\[
+x[k] \rightarrow 0 \text { as } k \rightarrow \infty
+\]
+Definition(Exponential Stability):\\
+LTV system is {\bfseries exponentially stable at time} $k_{0}$ if its solution $x[k]$
+starting from any initial condition $x\left[k_{0}\right]$ at time $k_{0}$ satisfies
+\[
+\|x[k]\| \leq K r^{k-k_{0}}\left\|x\left[k_{0}\right]\right\|, \quad \forall k=k_{0}, k_{0}+1, \ldots
+\]
+for some constants $K>0, 0\leq r<1$
+\section{Stability of D-T LTV Systems}
+For LTV system $x[k+1]=A[k] x[k], \quad k=0,1, \ldots$
+\begin{itemize}
+\item LTV system is asymptotically stable at time $k_{0}$ if
+\[
+\Phi\left[k, k_{0}\right] \rightarrow 0 \text { as } k \rightarrow \infty
+\]
+\item LTV system is exponentially stable at time $k_0$ if there exist $C\geq0$,
+\[
+\left\|\Phi\left[k, k_{0}\right]\right\| \leq C r^{k-k_{0}}, \quad \forall k \geq k_{0}
+\]
+\item Asymptotic stability is {\bfseries not equivalent} to exponential stability
+\item The starting time $k_0$ {\bfseries does matter}
+\end{itemize}
+\section{Stability of D-T LTI Systems}
+Consider the discrete-time LTI system
+\[
+x[k+1] = Ax[k], k=0,1,...
+\]
+Theorem:\\
+The following statements are equivalent
+\begin{enumerate}
+\item The LTI system is asymptetically stable
+\item The LTI system is exponentially stable
+\item All the eigenvalues of $A$ are inside the open unit disk of the complex plane $\mathbb{C}$
+\end{enumerate}
+$\bullet$ For LTI systems, the starting time $k_0$ does not matter
+\section{Marginal Stability of D-T LTI Systems}
+Given a LTI system $x[k+1]=Ax[k]$
+The LTI system is {\bfseries marginally stable} if both of the following hold:
+\begin{enumerate}
+\item All the eigenvalues of $A$ are inside the closed unit disk of $\mathbb{C}$
+\item There are some non-defective eigenvalues of $A$ on the unit circle
+\end{enumerate}
+The LTI system is {\bfseries unstable} if either of the following is true:
+\begin{enumerate}
+\item $A$ has eigenvalues outside the closed unit disk of $\mathbb{C}$
+\item $A$ has a defective eigenvalues on the unit circle
+\end{enumerate}
+\end{document}

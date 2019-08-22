@@ -6,17 +6,221 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+\newcommand{\watermark}[3]{\AddToShipoutPictureBG{
+		\parbox[b][\paperheight]{\paperwidth}{
+			\vfill%
+			\centering%
+			\tikz[remember picture, overlay]%
+			\node [rotate = #1, scale = #2] at (current page.center)%
+			{\textcolor{gray!70!cyan!40!red!20}{#3}};
+			\vfill}}}
 
-\author{Baboo J. Cui}
-\title{Topic - XXX}
+\author{Yangang Cao}
+\date{August 1, 2019}
+\title{Differentiation Rules}
 \begin{document}
+%\watermark{50}{9}{www.baboocui.club}
 \maketitle
 \tableofcontents
 
 \newpage
 
-\section{a}
-
-\subsection{b}
-
+\section{Derivatives of Polynomials and Exponential Functions}
+\subsection{Derivative of a Constant Function}
+If $c$ is a constant number
+\[
+\frac{d}{dx}(c)=0
+\]
+\subsection{The Power Rule}
+If $n$ is any real number, then
+\[
+\frac{d}{dx}(x^n)=nx^{n-1}
+\]
+\subsection{The Constant Multiple Rule}
+If $c$ is a constant and $f$ is a differentiable function, then
+\[
+\frac{d}{dx}[cf(x)]=c\frac{d}{dx}f(x)
+\]
+\subsection{The Sum Rule}
+If $f$ and $g$ are both differentiable , then
+\[
+\frac{d}{dx}[f(x)+g(x)]=\frac{d}{dx}f(x)+\frac{d}{dx}g(x)
+\]
+\subsection{The Difference Rule}
+If $f$ and $g$ are both differentiable, then
+\[
+\frac{d}{dx}[f(x)-g(x)]=\frac{d}{dx}f(x)-\frac{d}{dx}g(x)
+\]
+\subsection{The Exponential Functions}
+If $f(x)=a^x$, then
+\[
+\frac{d}{dx}(a^x)=a^x\ln a
+\]
+For natural expontential number $e$, the definition is
+\[
+\lim\limits_{h\rightarrow0}\frac{e^h-1}{h}=0
+\]
+Derivative of the natural expontential function
+\[
+\frac{d}{dx}e^x=e^x
+\]
+\section{The Product and Quotient Rules}
+\subsection{The Product Rule}
+If $f$ and $g$ are both differentiable, then
+\[
+\frac{d}{dx}[f(x)g(x)]=f(x)\frac{d}{dx}[g(x)]+g(x)\frac{d}{dx}[f(x)]
+\]
+\subsection{The Quotient Rule}
+If $f$ and $g$ are both differentiable, then
+\[
+\frac{d}{dx}[\frac{f(x)}{g(x)}]=\frac{g(x)\frac{d}{dx}[f(x)]-f(x)\frac{d}{dx}[g(x)]}{[g(x)]^2}
+\]
+\section{Derivatives of Trigonometric Functions}
+\[
+\frac{d}{dx}(\sin x)=\cos x\quad\frac{d}{dx}(\csc x)=-\csc x\cot x
+\]
+\[
+\frac{d}{dx}(\cos x)=-\sin x\quad\frac{d}{dx}(\sec x)=\sec x\tan x
+\]
+\[
+\frac{d}{dx}(\tan x)= \sec^2x\quad\frac{d}{dx}(\cot x)=-\csc^2x
+\]
+\section{The Chain Rule}
+\subsection{The Chain Rule}
+If $g$ is differentiable at $x$ and $f$ is differentiable at $g(x)$, then the composite function $F=f\circ g$ defined by $F(x)=f(g(x))$ is differentiable at $x$ and $F'$ is given by the product
+\[
+F'(x)=f'(g(x))\cdot g'(x)
+\]
+In Leibniz notation, if $y=f(u)$ and $u=g(x)$ are both differentiable functions, then
+\[
+\frac{dy}{dx}=\frac{dy}{du}\frac{du}{dx}
+\]
+\subsection{The Power Rule Combined with the Chain Rule}
+If $n$ is any real number and $u=g(x)$ is differentiable, then
+\[
+\frac{d}{dx}(u^n)=nu^{n-1}\frac{du}{dx}
+\]
+Alternatively,
+\[
+\frac{d}{dx}[g(x)]^n=n[g(x)]^{n-1}\cdot g'(x)
+\]
+\section{Implicit Differentiation}
+\subsection{A Example About Implicit Differentiation}
+Find $y'$ if $x^3+y^3=6xy$\\
+\\
+Differentiating both sides of $x^3+y^3=6xy$ with respect to $x$, regarding $y$ as a function of $x$, and using the Chain Rule on the term $y^3$ and the Product Rule on the term $6xy$, we get
+\[
+3x^2+3y^2y'=6xy'+6y
+\]
+or
+\[
+x^2+y^2y'=2xy'+2y
+\]
+We now solve for $y'$:
+\[
+y^2y'-2xy'=2y-x^2
+\]
+\[
+(y^2-2x)y'=2y-x^2
+\]
+\[
+y'=\frac{2y-x^2}{y^2-x2}
+\]
+\subsection{Derivatives of Inverse Trigonometric Functions}
+\[
+\frac{d}{dx}(\sin^{-1}x)=\frac{1}{\sqrt{1-x^2}}\quad\frac{d}{dx}(\csc^{-1}x)=-\frac{1}{x\sqrt{x^2-1}}
+\]
+\[
+\frac{d}{dx}(\cos^{-1}x)=-\frac{1}{\sqrt{1-x^2}}\quad\frac{d}{dx}(\sec^{-1}x)=\frac{1}{x\sqrt{x^2-1}}
+\]
+\[
+\frac{d}{dx}(\tan^{-1}x)=\frac{1}{1+x^2}\quad\frac{d}{dx}(\cot^{-1}x)=-\frac{1}{1+x^2}
+\]
+\section{Derivatives of Logarithmic Functions}
+\subsection{Basic}
+\[
+\frac{d}{dx}(\log_ax)=\frac{1}{x\ln a}
+\]
+\[
+\frac{d}{dx}(\ln x)=\frac{1}{x}
+\]
+\[
+\frac{d}{dx}\ln|x|=\frac{1}{x}
+\]
+\subsection{A Example About Logarithmic Differentiation}
+Differentiate $y=\frac{x^{3/4}\sqrt{x^2+1}}{(3x+2)^5}$\\
+\\
+We take logarithms of both sides of the equation and use the Laws of Logarithms to simplify:
+\[
+\ln y = \frac{3}{4}\ln x+\frac{1}{2}\ln(x^2+1)-5\ln(3x+2)
+\]
+Differentiating implicitly with respect to $x$ gives
+\[
+\frac{1}{y}\frac{dy}{dx}=\frac{3}{4}\cdot\frac{1}{x}+\frac{1}{2}\cdot\frac{2x}{x^2+1}-5\cdot\frac{3}{3x+2}
+\]
+Solving for $dy/dx$, we get
+\[
+\frac{dy}{dx}=y(\frac{3}{4x}+\frac{x}{x^2+1}-\frac{15}{3x+2})
+\]
+Because we have an explicit expression for $y$, we can substitute and write
+\[
+\frac{dy}{dx}=\frac{x^{3/4}\sqrt{x^2+1}}{(3x+2)^5}\left(\frac{3}{4x}+\frac{x}{x^2+1}-\frac{15}{3x+2}\right)
+\]
+\section{Hyperbolic Functions}
+\subsection{Definition}
+\[
+\sinh x=\frac{e^x-e^{-x}}{2}\quad \operatorname{csch}x=\frac{1}{\sinh x}
+\]
+\[
+\cosh x=\frac{e^x+e^{-x}}{2}\quad \operatorname{sech}x=\frac{1}{\cosh x}
+\]
+\[
+\tanh x=\frac{\sinh x}{\cosh x}\quad \operatorname{coth}x=\frac{\cosh x}{\sinh x}
+\]
+\subsection{Identities}
+\[
+\sinh(-x)=-\sinh x\quad \cosh(-x)=\cosh x
+\]
+\[
+\cosh^2x-\sinh^2x=1\quad1-\tanh^2x=\operatorname{sech}^2x
+\]
+\[
+\sinh(x+y)=\sinh x\cosh y+\cosh x\sinh y
+\]
+\[
+\cosh(x+y)=\cosh x \cosh y+\sinh x\sinh y
+\]
+\subsection{Derivatives of Hyperbilic Functions}
+\[
+\frac{d}{dx}(\sinh x)=\cosh x\quad \frac{d}{dx}(\operatorname{csch}x)=-\operatorname{csch}x\coth x
+\]
+\[
+\frac{d}{dx}(\cosh x)=\sinh x\quad \frac{d}{dx}(\operatorname{sech}x)=-\operatorname{sech}x\tanh x
+\]
+\[
+\frac{d}{dx}(\tanh x)=\operatorname{sech}^2 x\quad \frac{d}{dx}(\operatorname{coth}x)=-\operatorname{csch}^2x
+\]
+\subsection{Inverse Hyperbolic Functions}
+\[
+\sinh^{-1}x=\ln(x+\sqrt{x^2+1})\quad x\in\mathbb{R}
+\]
+\[
+\cosh^{-1}x=\ln(x+\sqrt{x^2-1})\quad x\geqslant1
+\]
+\[
+\tanh^{-1}x=\frac{1}{2}\ln\left(\frac{1+x}{1-x}\right)\quad-1<x<1
+\]
+\subsection{Derivatives of Inverse Hyperbolic Functions}
+\[
+\frac{d}{dx}(\sinh^{-1}x)=\frac{1}{\sqrt{1+x^2}}\quad\frac{d}{dx}(\operatorname{csch}^{-1}x)=-\frac{1}{|x|\sqrt{x^2+1}}
+\]
+\[
+\frac{d}{dx}(\cosh^{-1}x)=\frac{1}{\sqrt{x^2-1}}\quad\frac{d}{dx}(\operatorname{sech}^{-1}x)=-\frac{1}{x\sqrt{1-x^2}}
+\]
+\[
+\frac{d}{dx}(\tanh^{-1}x)=\frac{1}{1-x^2}\quad\frac{d}{dx}(\operatorname{coth}^{-1}x)=\frac{1}{1-x^2}
+\]
 \end{document}

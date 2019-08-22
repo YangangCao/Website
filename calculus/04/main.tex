@@ -1,0 +1,150 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+\newcommand{\watermark}[3]{\AddToShipoutPictureBG{
+		\parbox[b][\paperheight]{\paperwidth}{
+			\vfill%
+			\centering%
+			\tikz[remember picture, overlay]%
+			\node [rotate = #1, scale = #2] at (current page.center)%
+			{\textcolor{gray!70!cyan!40!red!20}{#3}};
+			\vfill}}}
+
+\author{Yangang Cao}
+\date{August 2, 2019}
+\title{Integrals}
+\begin{document}
+%\watermark{50}{9}{www.baboocui.club}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{The Definite Integral}
+When we compute an area, a limit of form is arised
+\[
+\lim\limits_{n\rightarrow\infty}\sum_{i=1}^{n}f(x^*_i)\Delta x=\lim\limits_{n\rightarrow\infty}[f(x^*_1)\Delta x+f(x^*_2)\Delta x+\cdots+f(x^*_i)\Delta x]
+\]
+If $f$ is a function defined for $a\geqslant x\geqslant b$, we divide the interval $[a,b]$ into $n$ subintervals of equal width $\Delta x = \frac{b-a}{n}$. We let $x_0(=a),x_1,x_2,...,x_n(=b)$ be the endpoints of thses subintervals and we let $x_1^*,x_2^*,...,x_n^*$ be any {\bfseries sample points} in these subintervals, so $x_i^*$ lies in the $i$th subinterval $[x_{i-1},x_i]$. Then the {\bfseries definite integral of $f$ from $a$ to $b$} is
+\[
+\int_{a}^{b}f(x)dx=\lim\limits_{n\rightarrow\infty}\sum_{i=1}^{n}f(x^*_i)\Delta x
+\]
+provided that this limit exists and gives the same value for all possible choices of sample points. If it does exist, we say that $f$ is {\bfseries integrable} on $[a,b]$.\\
+\\If $f$ is continuous on $[a,b]$, or if $f$ has only a finite number of jump discontinuities, then $f$ is intergrable on $[a,b]$; that is, the definite integral $\int_{a}^{b}f(x)dx$ exists.
+\section{Properties of the Definite Integral}
+\subsection{Properties of the Integral}
+\[
+\int_{a}^{b}[f(x)+g(x)]dx=\int_{a}^{b}f(x)dx+\int_{a}^{b}g(x)dx
+\]
+\[
+\int_{a}^{b}[f(x)-g(x)]dx=\int_{a}^{b}f(x)dx-\int_{a}^{b}g(x)dx
+\]
+If we reverse $a$ and $b$
+\[
+\int_{a}^{b}f(x)dx=-\int_{b}^{a}f(x)dx
+\]
+If $a=b$
+\[
+\int_{a}^{b}f(x)dx=\int_{a}^{a}f(x)dx=0
+\]
+If $c$ is any constant number
+\[
+\int_{a}^{b}cdx=c(b-a)
+\]
+\[
+\int_{a}^{b}cf(x)dx=c\int_{a}^{b}f(x)dx
+\]
+\[
+\int_{a}^{c}f(x)dx+\int_{c}^{b}f(x)dx=\int_{a}^{b}f(x)dx
+\]
+\subsection{Comparison Properties of the Integral}
+If $f(x)\geqslant0$ for $a\leqslant x\leqslant b$
+\[
+\int_{a}^{b}f(x)dx\geqslant 0
+\]
+If $f(x)\geqslant g(x)$ for $a\leqslant x\leqslant b$
+\[
+\int_{a}^{b}f(x)dx\geqslant\int_{a}^{b}g(x)dx
+\]
+If $m\leqslant f(x)\leqslant M$ for $a\leqslant x\leqslant b$
+\[
+m(b-a)\leqslant\int_{a}^{b}f(x)dx\leqslant M(b-a)
+\]
+\section{The Fundamental Theorem of Calculus}
+If $f$ is continuous on $[a,b]$, then the function $g$ defined by
+\[
+g(x)=\int_{a}^{x}f(t)dt\quad a\leqslant x\leqslant b
+\]
+is continuous on $[a,b]$ and differentiable on $(a,b)$, and $g'(x)=f(x)$.\\
+\\If $f$ is continuous on $[a,b]$, then 
+\[
+\int_{a}^{b}f(x)dx=F(b)-F(a)
+\]
+where $F$ is any antiderivative of $f$, that is, a function such that $F'=f$.
+\section{Indefinite Integrals and the Net Change Theorem}
+\subsection{Indefinite Integrals}
+We need a convenient notation for antiderivative that makes them easy to work with, the notation $\int f(x)dx$ is traditionally used for an antiderivative of $f$ and is called an {\bfseries indefinite Integral}. Thus
+\[
+\int f(x)dx=F(x)\quad \text{means}\quad F'(x)=f(x)
+\]
+and
+\[
+\int_{a}^{b} f(x) d x=\int f(x) d x ]_{a}^{b}
+\]
+\subsection{Table of Indefinite Integrals}
+\[
+\int c f(x) d x=c \int f(x) d x \quad \int[f(x)+g(x)] d x=\int f(x) d x+\int g(x) d x
+\]
+\[
+\int k d x=k x+C
+\]
+\[
+\int x^{n} d x=\frac{x^{n+1}}{n+1}+C \quad(n \neq-1) \quad \int \frac{1}{x} d x=\ln |x|+C
+\]
+\[
+\int e^{x} d x=e^{x}+C \quad \int a^{x} d x=\frac{a^{x}}{\ln a}+C
+\]
+\[
+\int \sin x d x=-\cos x+C \quad \int \cos x d x=\sin x+C
+\]
+\[
+\int \sec ^{2} x d x=\tan x+C \quad \int \csc ^{2} x d x=-\cot x+C
+\]
+\[
+\int \sec x \tan x d x=\sec x+C \quad \int \csc x \cot x d x=-\csc x+C
+\]
+\[
+\int \frac{1}{x^{2}+1} d x=\tan ^{-1} x+C \quad \int \frac{1}{\sqrt{1-x^{2}}} d x=\sin ^{-1} x+C
+\]
+\[
+\int \sinh x d x=\cosh x+C \quad \int \cosh x d x=\sinh x+C
+\]
+\[
+\int \tan x d x=\ln|\sec x|+C
+\]
+
+\section{The Substitution Rule}
+\subsection{The Substitution Rule for Definite Integrals}
+If $g'$ is continuous on $[a,b]$ and $f$ is continuous on the range of $u=g(x)$, then
+\[
+\int_{a}^{b}f(g(x))g'(x)dx=\int_{g(a)}^{g(b)}f(u)du
+\]
+\subsection{Integrals of Symmetry Functions}
+Suppose $f$ is continuous on $[-a,a]$.\\
+If $f$ is even $[f(-x)=f(x)]$, then 
+\[
+\int_{-a}^{a}f(x)dx=2\int_{0}^{a}f(x)dx
+\]
+If $f$ is odd $[f(-x)=-f(x)]$, then
+\[
+\int_{-a}^{a}f(x)dx=0
+\]
+
+\end{document}

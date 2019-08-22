@@ -2,7 +2,7 @@
 \contentsline {section}{\numberline {2}Pointer}{2}
 \contentsline {section}{\numberline {3}Overload}{3}
 \contentsline {section}{\numberline {4}Storage and Static}{3}
-\contentsline {section}{\numberline {5}Function Template}{4}
+\contentsline {section}{\numberline {5}Function Template}{5}
 \contentsline {section}{\numberline {6}Copy Contructor}{6}
 \contentsline {section}{\numberline {7}Return Object}{7}
 \contentsline {section}{\numberline {8}Class Inheritance(is-a)}{8}

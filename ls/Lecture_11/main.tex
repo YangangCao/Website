@@ -1,0 +1,224 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} 
+\date{July 18, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Lecture 11: Quadratic Forms and Singular Value
+	Decomposition}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Symmetric and Skew Symmetric Matrices}
+$A \in \mathbb{R}^{n \times n}$ is {\bfseries symmetric} if $A^{T}=A$.\\
+\\Fact:\\
+For a symmetric matrix $A$ , all of its eigenvalues are real and all of its eigenvectors are orthogenal.
+$\bullet$ Symmetric $A$ can be diagonalized by an orthogonal matrix $Q$:
+\[
+Q^{-1} A Q=Q^{T} A Q=\operatorname{diag}\left(\lambda_{1}, \ldots, \lambda_{n}\right)
+\]
+$A$ is {\bfseries skew symmetric} if $A^{T}=-A$.\\
+\\Fact:\\
+For a skew symmetric matrix $A,$ all of its eigenvalues are purely imaginary.
+\begin{itemize}
+\item If $n$ is odd, then $A$ has at least a zero eigenvalue
+\item Skew symmetric $A$ can be diagonalized (by a unitary matrix)5
+\end{itemize}
+\section{Quadratic Forms}
+Quadratic form corresponding to a symmetric $A \in \mathbb{R}^{n \times n}$ is the function
+\[
+f(x)=\langle x, A x\rangle=x^{T} A x, \forall x \in \mathbb{R}^{n}
+\]
+\begin{itemize}
+\item {\bfseries Uniqueness of matrix representation}: For symmetric $A$, $\tilde{A}\in\mathbb{R}^{n\times n}$
+\[
+x^{T} A x=x^{T} \tilde{A} x, \forall x \in \mathbb{R}^{n} \quad \Leftrightarrow \quad A=\tilde{A}
+\]
+\item Why limiting to symmetric $A$?
+\end{itemize}
+\section{Bounds of Quadratic Forms}
+Given $A=A^{T} \in \mathbb{R}^{n \times n},$ with sorted (real) eigenvalues $\lambda_{\min } \leq \cdots \leq \lambda_{\max }$\\
+\\Fact:\\
+$\lambda_{min}||x||^2\leq x^TAx\leq\lambda_{max}||x||^2$, $\forall x\in\mathbb{R}^n$
+\section{Positive/Negative Definite Matrices}
+A symmetric matrix $A \in \mathbb{R}^{n \times n}$ is called
+\begin{itemize}
+\item {\bfseries positive semidefinite} if $x^{T} A x \geq 0$ for all $x \in \mathbb{R}^{n}$\\
+$\bullet$ Denoted $A \succeq 0$
+\item {\bfseries positive definite} if $x^{T} A x>0$ for all $x \in \mathbb{R}^{n}, x \neq 0$\\
+$\bullet$ Denoted $A\succ0$
+\item {\bfseries negative semidefinite} if $-A\succeq0$\\
+$\bullet$ Denoted $A\preceq0$
+\item {\bfseries negative definite} if $-A\succ0$\\
+$\bullet$ Denoted $A\prec0$
+\end{itemize}
+\section{Characterizing Positive Definite Matrices}
+That $A=A^{T}$ is positive semidefinite $(A \succeq 0)$ is equivalent to
+\begin{itemize}
+\item All eigenvalues of $A$ are nonnegative
+\item All principal minors of $A$ are nonnegative
+\item $A=B B^{T}$ for some $B \in \mathbb{R}^{n \times m}$
+\end{itemize}
+\section{Comparison of Symmetric Matrices}
+Given two symmetric matrices $A$ and $\tilde{A}$ of the same dimension
+\begin{itemize}
+\item Denote $A \succeq \tilde{A}$ if $A-\tilde{A} \succeq 0$
+\item Denote $A\succ\tilde{A}$ if $A-\tilde{A}\succ0$
+\item Denote $A \preceq \tilde{A}$ if $A-\tilde{A} \preceq 0$
+\item Denote $A\prec\tilde{A}$ if $A-\tilde{A}\prec0$
+\item $A \succeq \tilde{A}$ means the quadratic forms $x^{T} A x \geq x^{T} \tilde{A} x, \forall x$
+\item $A \succ \tilde{A}$ means the quadratic forms $x^{T} A x>x^{T} \tilde{A} x, \forall x \neq 0$
+\item These relations are transitive, e.g., $A \succeq B$ and $B \succeq C \Rightarrow A \succeq C$
+\end{itemize}
+\section{Ellipsoids}
+Each $A\succ0$ is represented by an ellipsoid in $\mathbb{R}^{n}$ centered at the origin:
+\[
+\mathcal{E}_{A} :=\left\{x \in \mathbb{R}^{n} | x^{T} A x \leq 1\right\}
+\]
+\begin{itemize}
+\item Eigenvectors $v_{i}, i=1, \ldots, n,$ determine directions of semi-axes
+\item Eigenvalues $\lambda_{i}, i=1, \ldots, n,$ determine lengths of semi-axes:
+semi-axis along $v_{i}$ has length $\left(\frac{1}{\sqrt{\lambda}_{i}}\right)$
+\end{itemize}
+\section{(Induced) Matrix Norm}
+Given $A \in \mathbb{R}^{m \times n}$ and the Euclidean vector norms $\|\cdot\|$ on $\mathbb{R}^{n}$ and $\mathbb{R}^{m}$\\
+\\Definition (Induced Matrix Norm):\\
+The norm of the matrix $A \in \mathbb{R}^{m \times n}$ induced from the vector norm $\|\cdot\|$ is:
+\[
+\|A\| :=\sup _{x \in \mathbb{R}^{n}, x \neq 0} \frac{\|A x\|}{\|x\|}
+\]
+$\bullet$ Induced matrix norm is called the spectrum norm (or $L^{2}$ norm)
+\section{Properties of Induced Matrix Norm}
+Induced matrix norm is a norm on the vector space $\mathbb{R}^{m \times n}$:
+\begin{itemize}
+\item $\|\alpha A\|=|\alpha|\|A\|, \forall \alpha \in \mathbb{R}$
+\item $\|A+B\| \leq\|A\|+\|B\|$ (Triangle Inequality)
+\item $\|A\|=0$ if and only if $A=0$
+\end{itemize}
+Moreover, it has the additional properties:
+\begin{itemize}
+\item $\|A x\| \leq\|A\|\|x\|, \forall x \in \mathbb{R}^{n}$
+\item $\|A B\| \leq\|A\| \cdot\|B\|$ (assume the product makes sense)
+\end{itemize}
+\section{Characterizing $L^{2}$ Matrix Norm}
+For $A \in \mathbb{R}^{m \times n},\|A\|^{2}=\sup _{x \neq 0} \frac{\|A x\|^{2}}{\|x\|^{2}}=\sup _{x \neq 0} \frac{x^{\top} A^{T} A x}{x^{T} x}=\lambda_{\max }\left(A^{T} A\right)$\\
+\\Fact:\\
+The $L^{2}$ norm of matrix $A \in \mathbb{R}^{m \times n}$ is
+\[
+\|A\|=\sqrt{\lambda_{\max }\left(A^{T} A\right)}
+\]
+\section{Singular Value Decomposition (SVD)}
+Any matrix $A \in \mathbb{R}^{m \times n}$ can be decomposed as
+\[
+A=U \Sigma V^{T}
+\]
+\begin{itemize}
+\item $U=\left[\begin{array}{lll}{u_{1}} & {\dots} & {u_{m}}\end{array}\right] \in \mathbb{R}^{m \times m}$ is orthogonal: $U^{T} U=U U^{T}=I_{m}$
+\item $V=\left[\begin{array}{lll}{v_{1}} & {\cdots} & {v_{n}}\end{array}\right] \in \mathbb{R}^{n \times n}$ is orthogonal: $V^{T} V=V V^{T}=I_{n}$
+\item $\Sigma=\left[\begin{array}{cc}{\Sigma_{+}} & {0} \\ {0} & {0}\end{array}\right] \in \mathbb{R}^{m \times n}$ where $\Sigma_{+}=\operatorname{diag}\left(\sigma_{1}, \ldots, \sigma_{r}\right)$ with $\sigma_{1} \geq \cdots \geq \sigma_{r}>0$ and ${r}=\operatorname{rank}(A)$
+\end{itemize}
+\section{Finding $U$ and $V$ in SVD}
+\[
+{A^{T} A}=V \Sigma^{T} \Sigma V^{T}, \quad A A^{T}=U \Sigma \Sigma^{T} U^{T}
+\]
+Fact:\\
+The $L^{2}$ norm of $A \in \mathbb{R}^{m \times n}$ is its largest singular value:
+\[
+\|A\|=\sigma_{\max }(A)=\sqrt{\lambda_{\max }\left(A A^{T}\right)}=\sqrt{\lambda_{\max }\left(A^{T} A\right)}
+\]
+\section{Constructive Proof of SVD}
+\section{Transformation Interpretation of SVD}
+\[
+A=\left[\begin{array}{ll}{U_{1}} & {U_{2}}\end{array}\right]\left[\begin{array}{cc}{\Sigma_{+}} & {0} \\ {0} & {0}\end{array}\right]\left[\begin{array}{ll}{V_{1}} & {V_{2}}\end{array}\right]^{T}=U_{1} \Sigma_{+} V_{1}^{T}=\sum_{i=1}^{r} \sigma_{r} u_{i} v_{i}^{T}
+\]
+Considered as a linear map from $\mathbb{R}^{n}$ to $\mathbb{R}^{m}$
+\begin{itemize}
+\item maps $v_{1}$ to $\sigma_{1} u_{1}$ (most sensitive input/output direction)
+\item ...
+\item $\operatorname{maps} v_{r}$ to $\sigma_{r} u_{r}$
+\item maps $v_{r+1}, \dots, v_{n}$ to 0
+\item The range space of $A$ is $\mathcal{R}(A)=\mathcal{R}\left(U_{1}\right)=\operatorname{span}\left\{u_{1}, \ldots, u_{r}\right\}$
+\item The null space of $A$ is $\mathcal{N}(A)=\mathcal{R}\left(V_{2}\right)=\operatorname{span}\left\{v_{r+1}, \ldots, v_{n}\right\}$
+\end{itemize}
+\section{Pseudo-Inverse}
+For any $A \in \mathbb{R}^{m \times n}$ with the SVD
+\[
+A=\left[\begin{array}{ll}{U_{1}} & {U_{2}}\end{array}\right]\left[\begin{array}{cc}{\Sigma_{+}} & {0} \\ {0} & {0}\end{array}\right]\left[\begin{array}{ll}{V_{1}} & {V_{2}}\end{array}\right]^{T}=U_{1} \Sigma_{+} V_{1}^{T}
+\]
+its {\bfseries pseudo-inverse} (or {\bfseries Moore-Penrose} inverse) is defined as
+\[
+A^{\dagger} :=\left[\begin{array}{ll}{V_{1}} & {V_{2}}\end{array}\right]\left[\begin{array}{cc}{\Sigma_{+}^{-1}} & {0} \\ {0} & {0}\end{array}\right]\left[\begin{array}{ll}{U_{1}} & {U_{2}}\end{array}\right]^{T}=V_{1} \Sigma_{+}^{-1} U_{1}^{T} \in \mathbb{R}^{n \times m}
+\]
+{\bfseries Properties of pseudo-inverse}:
+\begin{itemize}
+\item $\left(A^{\dagger}\right)^{\dagger}=A$
+\item $(\alpha A)^{\dagger}=\alpha^{-1} A^{\dagger}$ for $\alpha \neq 0$
+\item $\left(A^{T}\right)^{\dagger}=\left(A^{\dagger}\right)^{T}$
+\item $A A^{\dagger}$ is the projection matrix onto $\mathcal{R}(A)$
+\item $A^{\dagger} A$ is the projection matrix onto $\mathcal{N}(A)^{\perp}$
+\item $A A^{\dagger} A=A,$ and $A^{\dagger} A A^{\dagger}=A^{\dagger}$
+\item For nonsingular square matrix $A, A^{\dagger}=A^{-1}$
+\end{itemize}
+\section{Least Square Solutions of Linear Equations}
+For $A \in \mathbb{R}^{m \times n},$ consider the linear equation
+\[
+A x=y
+\]
+Its {\bfseries least square solution} is defined as
+\[
+x^{*}=\operatorname{argmin}_{x}\|A x-y\|^{2}
+\]
+Fact:\\
+A least square solution is given by $x^{*}=A^{\dagger} y$\\
+\\
+In the special case when $A$ is one-to-one $(\text { tall, } m \geq n, \text { and full rank, } r=n)$
+\[
+A^{\dagger}=\left(A^{T} A\right)^{-1} A^{T}
+\]
+\begin{itemize}
+\item In this case, $A^{\dagger}$ is a left inverse of $A :\left(A^{\dagger} A\right)=I_{n}$
+\item $x^{*}$ is the only least square solution
+\end{itemize}
+\section{Least Norm Solutions of Linear Equations}
+For $A \in \mathbb{R}^{m \times n},$ consider the linear equation
+\[
+Ax=y
+\]
+Assume $y \in \mathcal{R}(A)$ . The {\bfseries least norm solution} is defined as
+\[
+x^{*}=\operatorname{argmin}_{x \text { such that } A x=y}\|x\|
+\]
+Fact:\\
+The least norm solution is given by $x^{*}=A^{\dagger} y$\\
+\\
+If in particular $A$ is onto, i.e., $A$ is fat $(m \leq n)$ and full rank $(r=m)$
+\[
+A^{\dagger}=A^{T}\left(A A^{T}\right)^{-1}
+\]
+$\bullet$ In this case, $A^{\dagger}$ is a right inverse of $A :\left(A A^{\dagger}\right)=I_{m}$
+\section{Lower Rank Approximations}
+Suppose $A \in \mathbb{R}^{m \times n}, \operatorname{rank}(A)=r,$ has $\mathrm{SVD}$
+\[
+A=U \Sigma V^{T}=\sum_{i=1}^{r} \sigma_{i} u_{i} v_{i}^{T}
+\]
+{\bfseries Problem}: Find a lower rank matrix $\hat{A}, \operatorname{rank}(\hat{A})=p<r,$ such that $\hat{A} \simeq A$ in the sense that $\hat{A}$ is the solution of the following optimization problem:
+\[
+\min _{\hat{A}}\|A-\hat{A}\|
+\]
+{\bfseries Solution}: The optimal rank-p approximator of $A$ is
+\[
+\hat{A}=\sum_{i=1}^{p} \sigma_{i} u_{i} v_{i}^{T}
+\]
+{\bfseries Interpretation of singular values}: singular value $\sigma_{i}, i=1, \ldots, r,$ is the distance of $A$ to the nearest rank-$(r-i)$ matrix:
+\[
+\sigma_{i}=\min \{\|A-\hat{A}\| | \operatorname{rank}(\hat{A})=r-i\}
+\]
+\end{document}

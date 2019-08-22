@@ -1,0 +1,131 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} 
+\date{July 10, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Lecture 7: Autonomous LTV Systems}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Continuous-Time Autonomous LTV Systems}
+Consider an autonomous linear time-varying (LTV) system
+\[
+\dot{x}(t)=A(t)x(t),\quad t\geq0,\quad \text{with initial condition $x(0)\in\mathbb{R}^n$}
+\]
+$\bullet$ $A(t) \in \mathbb{R}^{n \times n}$ is a function $\operatorname{of} t  \geq 0$\\
+\\
+Theorem (Existence and Uniqueness of Solutions):\\
+If $A(t)$ is a piecewise continuous function of $t,$ then starting from any $x(0)$, the LTV system has a unique solution $x(t)$ for all $t \geq 0$.
+\section{Scalar Autonomous LTV Systems}
+Consider the scalar case with $x(t), a(t)\in\mathbb{R}$:
+\[
+\dot{x}(t)=a(t) x(t), \quad x(0) \in \mathbb{R}
+\]
+\section{Solution Space}
+The solution space $\mathbb{X}$ of the LTV system is the set of all its solutions:
+\[
+\mathbb{X} :=\{x(t), t \geq 0 | \dot{x}(t)=A(t) x(t)\}
+\]
+$\bullet$ The solution space $\mathbb{X}$ is a vector space of dimension $n$
+\section{Fundamental Matrix}
+Define the fundamental matrix $\Phi(t)$, $t\geq0$, as
+\[
+\Phi(t) :=\left[\phi_{1}(t) \ldots \phi_{n}(t)\right] \in \mathbb{R}^{n \times n}, \quad t \geq 0.
+\]
+\begin{itemize}
+\item $\phi_{i}(t)$ is the solution with intial condition $x(0)=e_{i}, i=1, \ldots, n$
+\item Solution from any initial condition $x(0)$ can be written as
+\[
+x(t)=\Phi(t) x(0), \quad t \geq 0
+\]
+\end{itemize}
+\section{Properties of Fundamental Matrix}
+Fundamental matrix $\Phi(t) \in \mathbb{R}^{n \times n}$ solves the matrix differential equation:
+\[
+\dot{\Phi}(t)=A(t) \Phi(t), \quad \Phi(0)=I_{n}
+\]
+$\bullet$ $\Phi(t)$ is nonsingular at all time $t\geq0$ due to uniqueness of solutions
+\section{State Transition Matrix}
+Definition (State Transition Matrix):\\
+The state transition matrix $\Phi(t, s) \in \mathbb{R}^{n \times n}, s.t \geq 0,$ for the LTV system is defined from the fundamental matrix $\Phi(t)$ by
+\[
+\Phi(t, s)=\Phi(t) \Phi(s)^{-1}
+\]
+\begin{itemize}
+\item It relates the state solution at different times: for any solution $x(t)$,
+\[
+x\left(t_{2}\right)=\Phi\left(t_{2}, t_{1}\right) x\left(t_{1}\right), \quad \forall t_{1}, t_{2} \geq 0.
+\]
+\item For any $t_1,t_2,t_3\geq0$,
+\[
+\Phi\left(t_{3}, t_{2}\right) \Phi\left(t_{2}, t_{1}\right)=\Phi\left(t_{3}, t_{1}\right)
+\]
+\end{itemize}
+\section{Example I}
+Consider the LTV system: $\dot{x}(t)=\left[\begin{array}{ll}{0} & {1} \\ {0} & {t}\end{array}\right] x(t)$
+\section{Example II}
+Consider the LTV system: $\dot{x}(t)=A(t) x(t)=\left[\begin{array}{cc}{0} & {\omega(t)} \\ {-\omega(t)} & {0}\end{array}\right] x(t)$, Note that $A(t), t \geq 0,$ can be diagonalized by the same transformation:
+\[
+A(t)=\left[\begin{array}{cc}{0} & {\omega(t)} \\ {-\omega(t)} & {0}\end{array}\right]=\left[\begin{array}{cc}{j} & {-j} \\ {-1} & {1}\end{array}\right]\left[\begin{array}{cc}{-j \omega(t)} & {} \\ {} & {j\omega(t)}\end{array}\right]\left[\begin{array}{cc}{j} & {-j} \\ {-1} & {1}\end{array}\right]^{-1}
+\]
+
+\section{A Useful Special Case}
+Proposition:\\
+If $A(s)$ and $A(t)$ commute for all $s.t.\geq0$, then
+\[
+\Phi(t)=e^{\int_{0}^{t} A(\tau) d \tau}, \quad t \geq 0
+\]
+\begin{itemize}
+\item State transition matrix becomes
+\[
+\Phi(t, s)=e^{\int_{s}^{t} A(\tau) d \tau}, \quad \forall s, t \geq 0
+\]
+\item Solution to the LTV system is
+\[
+x(t)=e^{\int_{0}^{t} A(\tau) d \tau} x(0), \quad t \geq 0
+\]
+\end{itemize}
+\section{Example III}
+Consider the LTV system: $\dot{x}(t)=A(t) x(t)=\left[\begin{array}{cc}{-e^{-t}} & {\frac{1}{t+1}} \\ {0} & {-e^{-t}}\end{array}\right] x(t)$
+\section{Time-Reversed System}
+Given a LTV system $\dot{x}(t)=A(t) x(t),$ its {\bfseries time-reversed system} is
+\[
+\dot{\hat{x}}(t)=\hat{A}(t) \hat{x}(t)=-A(-t) \hat{x}(t)
+\]
+\section{Discrete-Time Autonomous LTV Systems}
+Discrete-Time LTV system
+\[
+x[k+1]=A[k] x[k], \quad k=0,1, \ldots
+\]
+with the initial condition $x[0] \in \mathbb{R}^{n}$\\
+Solution $x[k]$ is
+\[
+x[k]=\underbrace{A[k-1] A[k-2] \cdots A[0]}_{\phi[k]} \cdot x[0], \quad k=0,1, \ldots
+\]
+where $\Phi[k] \in \mathbb{R}^{n \times n}$ is the fundamental matrix
+\begin{itemize}
+\item Unlike C-T case, {\bfseries fundamental matrix} $\Phi[k]$ {\bfseries may be singular}.
+\item No time reversal in general, unless every $A[k]$ is nonsingular
+\item For D-T LTI system, $\Phi[k]=A^{k}$
+\end{itemize}
+\section{Discrete-Time State Transition Matrix}
+Definition (State Transition Matrix):\\
+The state transition matrix $\Phi[k, \ell] \in \mathbb{R}^{n \times n}, k \geq \ell,$ for the discrete-time LTV system is defined as
+\[
+\Phi[k, \ell]=A[k-1] \cdots A[\ell]| \quad k \geq \ell
+\]
+\begin{itemize}
+\item $\Phi[k, \ell]$ is defined only for $k \geq \ell$
+\item $\Phi[k, k]=I_{n}$ for all $k=0,1, \ldots$
+\item $\Phi\left[k_{3}, k_{2}\right] \Phi\left[k_{2}, k_{1}\right]=\Phi\left[k_{3}, k_{1}\right]$ for all $k_{3}>k_{2} \geq k_{1}$
+\end{itemize}
+\end{document}

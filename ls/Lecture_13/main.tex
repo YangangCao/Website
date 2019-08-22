@@ -1,0 +1,115 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} 
+\date{July 24, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Lecture 13: Controllability II}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Controllability of C-T LTI Systems}
+A continuous-time $n$-state $m$-input LTI system
+\begin{equation}
+\dot{x}=A x+B u, \quad x(0)=x_{0}
+\end{equation}
+Definition:
+\begin{itemize}
+\item The LTI system is called {\bfseries controllable at time} $t_f>0$ if for any initial state $x_0\in\mathbb{R}^n$ and any target state $x_f\in\mathbb{R}^n$, a control $u(t)$ exists that can steer the system from $x_0$ to $x_f$ over the time interval $[0, t_f]$
+\item It is called {\bfseries reachable} at time $t_f>0$ if $x_0=0$ in the above definition
+\end{itemize}
+$\bullet$ Above two definition are equivalent\\
+$\bullet$ Reachable subspace at time $t_f$:
+\[
+\mathcal{R}_{t_{f}}=\left\{\int_{0}^{t_{f}} e^{A\left(t_{f}-\tau\right)} B u(\tau) d \tau | u :\left[0, t_{f}\right] \rightarrow \mathbb{R}^{m}\right\}
+\]
+\section{Continuous-Time Reachability}
+Proposition:\\
+At any $t_{f}>0,$ the reachable subspace is $\mathcal{R}_{t f}=\mathcal{R}=\mathcal{R}(\mathcal{C}),$ where
+\[
+\mathcal{C}=\left[\begin{array}{lll}{B} & {A B} & {\cdots A^{n-1} B}\end{array}\right]
+\]
+is the controllability matrix of the system $(A, B)$\\
+\\
+Theorem:\\
+The continuous-time system $(A, B)$ is reachable/controllable (at any time
+$t_{f} )$ if and only if its controllability matrix $\mathcal{C}$ is onto (full rank).
+\section{Proof}
+\section{Equivalent Conditions of C-T Controllability}
+Theorem:\\
+The continuous-time LTI system $(A,B)$ is controllable if and only if
+\begin{enumerate}
+\item The controllability matrix $\mathcal{C}=\left[\begin{array}{llll}{B} & {A B} & {\cdots} & {A^{n-1} B}\end{array}\right]$ is full rank
+\item  {\bfseries PBH Rank Test}: For any $\lambda \in \mathbb{C},$ rank $[\lambda I-A  \quad B ]=n$
+\item {\bfseries Eigenvector Test}: For any left eigenvector $w\in\mathbb{C}^n$ of $A$, $w^TB\neq0$
+\item For any $t_{f}>0,$ the following matrix is nonsingular:
+\[
+W_{r}\left(t_{f}\right) :=\int_{0}^{t_{f}} e^{A \tau} B B^{T} e^{A^{T} \tau} d \tau
+\]
+\end{enumerate}
+\section{C-T Reachability Gramian}
+Definition (Reachability Garmian):\\
+Given a C-T system $\dot{x}=A x+B u$ with $A$ stable, its reachability (or
+controllability) Gramian is the matrix
+\[
+W_{r} :=\lim _{t_{f} \rightarrow \infty} W_{r}\left(t_{f}\right)=\int_{0}^{\infty} e^{A \tau} B B^{T} e^{A^{T} \tau} d \tau \in \mathbb{R}^{n \times n}
+\]
+\section{Minimum-Energy Input for Reachability}
+Suppose the system $\dot{x}=A x+B u$ is controllable\\
+{\bfseries Minimun-energy input} is the input $u^*$ that steers the system from $x(0)=0$ to $x(t_f)=x_d$ with minimal energy $\int_{0}^{t_{f}}\|u(\tau)\|^{2} d \tau$\\
+The minimum-energy input is given by
+\[
+u^{*}(\tau)=B^{T} e^{A^{T}\left(t_{f}-\tau\right)}\left(\int_{0}^{t_{f}} e^{A \tau} B B^{T} e^{A^{T} \tau} d \tau\right)^{-1} x_{d}, \quad \tau \in\left[0, t_{f}\right]
+\]
+and the minimum energy needed is
+\[
+\mathcal{E}_{\min }=\int_{0}^{t_{f}}\left\|u^{*}(\tau)\right\|^{2} d \tau=x_{d}^{T} \underbrace{\left(\int_{0}^{t_{f}} e^{A \tau} B B^{T} e^{A^{T} \tau} d \tau\right)^{-1}}_{W_{r}\left(t_{f}\right)} x_{d}
+\]
+As $t_f\rightarrow\infty$, minimum energy required over infinite horizon is
+\[
+\mathcal{E}_{\mathrm{min}}^{\infty}=x_{d}^{T} W_{r}^{-1} x_{d}
+\]
+\section{D-T Reachability Gramian}
+Definition (Reachability Gramian):\\
+Given a D-T system $x[k+1]=Ax[k]+Bu[k]$ with $A$ stable. Its reachability (or controllability) Gramian is the matrix
+\[
+W_{r} :=\sum_{i=0}^{\infty} A^{i} B B^{T}\left(A^{T}\right)^{i} \in \mathbb{R}^{n \times n}
+\]
+\section{Controllability Under Coordinate Transformations}
+Original (continuous-time or discrete-time) system $(A,B)$\\
+New system $(\tilde{A},\tilde{B})$ after a coordination transform $\tilde{x}=T^{-1}x$:
+\[
+\check{A}=T^{-1} A T, \quad \tilde{B}=T^{-1} B
+\]
+Fact:\\
+$(A, B)$ is controllable if and only if $\left(T^{-1} A T, T^{-1} B\right)$ is controllable
+\section{Kalman Controllable Form}
+Fact (Kalman Controllable Form):\\
+For any C-T system $\dot{x}=A x+B u,$ there exists a coordinate transform $T$ such that the transformed system $(\tilde{A},\tilde{B})$ is of the form:
+\[
+\tilde{A}=T^{-1} A T=\left[\begin{array}{ll}{\tilde{A}_{11}} & {\tilde{A}_{12}} \\ {0} & {\tilde{A}_{22}}\end{array}\right]
+\]
+\[
+\tilde{B}=T^{-1} B=\left[\begin{array}{l}{\tilde{B}_{1}} \\ {0}\end{array}\right]
+\]
+where $\tilde{A}_{11} \in \mathbb{R}^{r \times r}$ with $r=\text{rand}(\mathcal{C}),$ and $\left(\tilde{A}_{11}, \tilde{B}_{1}\right)$ is controllable
+\section{Proof of Kalman Controllable Form}
+Fact (Kalman Controllable Form):\\
+For any C-T system $\dot{x}=Ax+Bu$, there exists a coordinate transform $T$ such that the transformed system $(\tilde{A},\tilde{B})$ is of the form:
+\[
+\tilde{A}=T^{-1} A T=\left[\begin{array}{ll}{\tilde{A}_{11}} & {\tilde{A}_{12}} \\ {0} & {\tilde{A}_{22}}\end{array}\right]
+\]
+\[
+\tilde{B}=T^{-1} B=\left[\begin{array}{c}{\tilde{B}_{1}} \\ {0}\end{array}\right]
+\]
+where $\tilde{A}_{11} \in \mathbb{R}^{r \times r}$ with $r=\operatorname{rank}(\mathcal{C})$, and $\left(\tilde{A}_{11}, \tilde{B}_{1}\right)$ is controllable.
+\section{Proof of Kalman Controllable Form}
+\end{document}

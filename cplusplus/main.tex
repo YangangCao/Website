@@ -52,7 +52,7 @@
     
 \date{June 25, 2019}
 \author{Yangang Cao}
-\title{C{}\texttt{++} Q\&A}
+\title{C\texttt{++} Q\&A}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -64,6 +64,7 @@
 	\hline
 	Type& Size in Xcode\\
 	\hline
+	*&8\\
 	bool& 1\\
 	char& 1\\
 	wchar\_t&4\\
@@ -106,10 +107,10 @@ return 0;
 \begin{enumerate}[1.]
 \item Why do we need pointer?
 \begin{itemize}
-\item 8 byte for any type in 64-bit system, 4 byte in 32-bit system
-\item CallByPtr can change the parameters or not
+\item 8 bytes for any type in 64-bit system, 4 bytes in 32-bit system
+\item CallByPtr can change the parameters
 \item Using ``new'' to allocate memory for dynamic memory
-\item Faster than callByVal for comlpex type
+\item Faster than CallByVal for comlpex types
 \end{itemize}
 \item How to allocate and free memory using ``new'' and ``delete''?\\
 \begin{lstlisting}
@@ -122,7 +123,7 @@ delete pointerName;
 int *p = new int; // return memory address
 *p = 10; // assignment directly
 delete p; // free memory
-int a =3;
+int a = 3;
 *p = &a; // OK
 \end{lstlisting}
 \end{enumerate}

@@ -1,53 +1,53 @@
-\contentsline {section}{\numberline {1}Sequence}{3}% 
-\contentsline {subsection}{\numberline {1.1}Limit and Convergence of Sequences}{3}% 
-\contentsline {subsection}{\numberline {1.2}Precise Definition of Limit of Sequence}{3}% 
-\contentsline {subsection}{\numberline {1.3}Limit of a Sequence by Function}{3}% 
-\contentsline {subsection}{\numberline {1.4}Limit Laws for Sequences}{4}% 
-\contentsline {subsection}{\numberline {1.5}Squeeze Theorem}{4}% 
-\contentsline {subsection}{\numberline {1.6}Absolute Convergence}{4}% 
-\contentsline {subsection}{\numberline {1.7}Convergence of a Sequence Applied to Function}{4}% 
-\contentsline {subsection}{\numberline {1.8}Convergence of Exponential Sequence(DT Signal)}{4}% 
-\contentsline {subsection}{\numberline {1.9}Monotonic Sequence}{4}% 
-\contentsline {subsection}{\numberline {1.10}Bounded Sequence}{5}% 
-\contentsline {subsection}{\numberline {1.11}Monotonic Sequence Theorem}{5}% 
-\contentsline {section}{\numberline {2}Series}{5}% 
-\contentsline {subsection}{\numberline {2.1}Partial Sum and Convergence}{5}% 
-\contentsline {subsection}{\numberline {2.2}Geometric Series}{5}% 
-\contentsline {subsection}{\numberline {2.3}Harmonic Series}{6}% 
-\contentsline {subsection}{\numberline {2.4}Properties of Convergence for Series}{6}% 
-\contentsline {subsection}{\numberline {2.5}Combination of Series}{6}% 
-\contentsline {subsection}{\numberline {2.6}Rearrangement}{6}% 
-\contentsline {section}{\numberline {3}Integral Test and Estimations of Sum}{6}% 
-\contentsline {subsection}{\numberline {3.1}Integral Test}{7}% 
-\contentsline {subsection}{\numberline {3.2}p-Series}{7}% 
-\contentsline {subsection}{\numberline {3.3}Reminder Estimation(VIP for Numerical Analysis)}{7}% 
-\contentsline {section}{\numberline {4}Comparison}{7}% 
-\contentsline {subsection}{\numberline {4.1}Comparison Tests}{8}% 
-\contentsline {subsection}{\numberline {4.2}Limit Comparison Test }{8}% 
-\contentsline {subsection}{\numberline {4.3}Estimate Sum by Comparison}{8}% 
-\contentsline {section}{\numberline {5}Alternating Series}{8}% 
-\contentsline {subsection}{\numberline {5.1}Alternating Series Test}{8}% 
-\contentsline {subsection}{\numberline {5.2}Alternating Series Estimation Theorem}{9}% 
-\contentsline {section}{\numberline {6}Absolute vs Conditional Convergence}{9}% 
-\contentsline {section}{\numberline {7}Ration and Root Test}{9}% 
-\contentsline {subsection}{\numberline {7.1}Ratio Test}{9}% 
-\contentsline {subsection}{\numberline {7.2}Root Test}{9}% 
-\contentsline {section}{\numberline {8}Strategy for Testing Series}{10}% 
-\contentsline {section}{\numberline {9}Power Series}{10}% 
-\contentsline {subsection}{\numberline {9.1}Definition}{10}% 
-\contentsline {subsection}{\numberline {9.2}Convergence of Power Series}{10}% 
-\contentsline {section}{\numberline {10}Function as Power Series and Taylor Expansion}{11}% 
-\contentsline {subsection}{\numberline {10.1}An Important Case: $1/(1-x)$}{11}% 
-\contentsline {subsection}{\numberline {10.2}Differentiation and Integration of Power Series}{11}% 
-\contentsline {subsection}{\numberline {10.3}Taylor and Maclaurin Series}{12}% 
-\contentsline {subsection}{\numberline {10.4}Decompose Taylor Series to Partial Sum and Reminder}{12}% 
-\contentsline {subsection}{\numberline {10.5}Equality Constraint}{13}% 
-\contentsline {subsection}{\numberline {10.6}Taylor's Inequality}{13}% 
-\contentsline {subsection}{\numberline {10.7}Important Taylor Expansion List}{13}% 
-\contentsline {section}{\numberline {11}Extra}{14}% 
-\contentsline {subsection}{\numberline {11.1}Fibonacci Sequence}{14}% 
-\contentsline {subsection}{\numberline {11.2}Convert a Rational Number into Fraction}{14}% 
-\contentsline {subsection}{\numberline {11.3}Proof of Alternating Series Test}{15}% 
-\contentsline {subsection}{\numberline {11.4}Proof of Taylor's Inequality}{15}% 
-\contentsline {subsection}{\numberline {11.5}Application in Einstein' s Theory of Special Relativity}{15}% 
-\contentsline {subsection}{\numberline {11.6}Application in Optics}{15}% 
+\contentsline {section}{\numberline {1}Sequence}{3}
+\contentsline {subsection}{\numberline {1.1}Limit and Convergence of Sequences}{3}
+\contentsline {subsection}{\numberline {1.2}Precise Definition of Limit of Sequence}{3}
+\contentsline {subsection}{\numberline {1.3}Limit of a Sequence by Function}{3}
+\contentsline {subsection}{\numberline {1.4}Limit Laws for Sequences}{4}
+\contentsline {subsection}{\numberline {1.5}Squeeze Theorem}{4}
+\contentsline {subsection}{\numberline {1.6}Absolute Convergence}{4}
+\contentsline {subsection}{\numberline {1.7}Convergence of a Sequence Applied to Function}{4}
+\contentsline {subsection}{\numberline {1.8}Convergence of Exponential Sequence(DT Signal)}{4}
+\contentsline {subsection}{\numberline {1.9}Monotonic Sequence}{4}
+\contentsline {subsection}{\numberline {1.10}Bounded Sequence}{5}
+\contentsline {subsection}{\numberline {1.11}Monotonic Sequence Theorem}{5}
+\contentsline {section}{\numberline {2}Series}{5}
+\contentsline {subsection}{\numberline {2.1}Partial Sum and Convergence}{5}
+\contentsline {subsection}{\numberline {2.2}Geometric Series}{5}
+\contentsline {subsection}{\numberline {2.3}Harmonic Series}{6}
+\contentsline {subsection}{\numberline {2.4}Properties of Convergence for Series}{6}
+\contentsline {subsection}{\numberline {2.5}Combination of Series}{6}
+\contentsline {subsection}{\numberline {2.6}Rearrangement}{6}
+\contentsline {section}{\numberline {3}Integral Test and Estimations of Sum}{6}
+\contentsline {subsection}{\numberline {3.1}Integral Test}{7}
+\contentsline {subsection}{\numberline {3.2}p-Series}{7}
+\contentsline {subsection}{\numberline {3.3}Reminder Estimation(VIP for Numerical Analysis)}{7}
+\contentsline {section}{\numberline {4}Comparison}{7}
+\contentsline {subsection}{\numberline {4.1}Comparison Tests}{8}
+\contentsline {subsection}{\numberline {4.2}Limit Comparison Test }{8}
+\contentsline {subsection}{\numberline {4.3}Estimate Sum by Comparison}{8}
+\contentsline {section}{\numberline {5}Alternating Series}{8}
+\contentsline {subsection}{\numberline {5.1}Alternating Series Test}{8}
+\contentsline {subsection}{\numberline {5.2}Alternating Series Estimation Theorem}{9}
+\contentsline {section}{\numberline {6}Absolute vs Conditional Convergence}{9}
+\contentsline {section}{\numberline {7}Ration and Root Test}{9}
+\contentsline {subsection}{\numberline {7.1}Ratio Test}{9}
+\contentsline {subsection}{\numberline {7.2}Root Test}{9}
+\contentsline {section}{\numberline {8}Strategy for Testing Series}{10}
+\contentsline {section}{\numberline {9}Power Series}{10}
+\contentsline {subsection}{\numberline {9.1}Definition}{10}
+\contentsline {subsection}{\numberline {9.2}Convergence of Power Series}{10}
+\contentsline {section}{\numberline {10}Function as Power Series and Taylor Expansion}{11}
+\contentsline {subsection}{\numberline {10.1}An Important Case: $1/(1-x)$}{11}
+\contentsline {subsection}{\numberline {10.2}Differentiation and Integration of Power Series}{11}
+\contentsline {subsection}{\numberline {10.3}Taylor and Maclaurin Series}{12}
+\contentsline {subsection}{\numberline {10.4}Decompose Taylor Series to Partial Sum and Reminder}{12}
+\contentsline {subsection}{\numberline {10.5}Equality Constraint}{13}
+\contentsline {subsection}{\numberline {10.6}Taylor's Inequality}{13}
+\contentsline {subsection}{\numberline {10.7}Important Taylor Expansion List}{13}
+\contentsline {section}{\numberline {11}Extra}{14}
+\contentsline {subsection}{\numberline {11.1}Fibonacci Sequence}{14}
+\contentsline {subsection}{\numberline {11.2}Convert a Rational Number into Fraction}{14}
+\contentsline {subsection}{\numberline {11.3}Proof of Alternating Series Test}{15}
+\contentsline {subsection}{\numberline {11.4}Proof of Taylor's Inequality}{15}
+\contentsline {subsection}{\numberline {11.5}Application in Einstein' s Theory of Special Relativity}{15}
+\contentsline {subsection}{\numberline {11.6}Application in Optics}{15}

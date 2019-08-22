@@ -1,0 +1,182 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} 
+\date{July 22, 2019}
+\author{Baboo J. Cui, Yangang Cao}
+\title{Lecture 12: Controllability I}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Controllability of C-T LTI Systems}
+A continuous-time $n$-state $m$-input LTI system
+\begin{equation}
+\dot{x}=Ax+Bu,\quad x(0)=x_0
+\end{equation}
+
+Given a terminal time $t_{f}>0$. Over the time interval $\left[0, t_{f}\right]$, the control
+input $u(t), 0 \leq t \leq t_{f}$, steers (or transfers) the state from $x_{0}$ to
+\[
+x_{f} :=x\left(t_{f}\right)=e^{A t_{f}} x_{0}+\int_{0}^{t_{f}} e^{A\left(t_{f}-\tau\right)} B u(\tau) d \tau
+\]
+Definition:
+\begin{itemize}
+\item The LTI system is called {\bfseries controllable at time} $t_f>0$ if for any initial state $x_0\in\mathbb{R}^n$ and any target state $x_f\in\mathbb{R}^n$, a control $u(t)$ exists that can steer the system from $x_0$ to $x_f$ over the time interval $[0, t_f]$.
+\item It is called {\bfseries controllable} if it is controllable at a large enough $t_f$
+\end{itemize}
+\section{A Example}
+State equation:
+\[
+\frac{d}{d t}\left[\begin{array}{l}{i_{1}} \\ {i_{2}}\end{array}\right]=\left[\begin{array}{ll}{0} & {0} \\ {0} & {0}\end{array}\right]\left[\begin{array}{l}{i_{1}} \\ {i_{2}}\end{array}\right]+\left[\begin{array}{l}{1} \\ {1}\end{array}\right] u
+\]
+Assume unit inductances, and zero initial current $x(0)=\left[\begin{array}{l}{i_{1}(0)} \\ {i_{2}(0)}\end{array}\right]=\left[\begin{array}{l}{0} \\ {0}\end{array}\right]$
+\section{Question Related to Controllability}
+\begin{itemize}
+\item Where can $x_{0}$ be transferred to over the time period $\left[0, t_{f}\right] ?$
+\item If doable, how do we find $u$ that transfers $x_{0}$ to $x_{f} ?$
+\item How quickly can $x_{0}$ be transferred to $x_{f} ?$
+\item How do we find ``efficient'' $u$ that transfers $x_{0}$ to $x_{f} ?$
+\end{itemize}
+\section{Reachable Set}
+To study the controllability of the LTI system $\dot{x}=A x+B u,$ we first consider the special case when $x_{0}=0 .$ Then at a terminal time $t_{f}>0$
+\[
+x_{f} :=x\left(t_{f}\right)=\int_{0}^{t_{f}} e^{A\left(t_{f}-\tau\right)} B u(\tau) d \tau
+\]
+Definition (Reachable Set):\\
+The reachable set at time $t_{f}>0$ of the LTI system is the set of states
+the system can be steered to using arbitrary control inputs over $\left[0, t_{f}\right]$:
+\[
+\mathcal{R}_{t_{f}} :=\left\{\int_{0}^{t_{f}} e^{A\left(t_{f}-\tau\right)} B u(\tau) d \tau | u(t), 0 \leq t \leq t_{f}\right\}
+\]
+\begin{itemize}
+\item $\mathcal{R}_{t_f}$ is a subspace of $\mathbb{R}^{n}$ since it is the image of the linear map
+\[
+u(t), 0 \leq t \leq t_{f} \mapsto x_{f}=\int_{0}^{t_{f}} e^{A\left(t_{f}-\tau\right)} B u(\tau) d \tau
+\]
+\item $\mathcal{R}_{t_{f}} \subset \mathcal{R}_{\tilde{t}_{f}}$ whenever $t_{f}<\tilde{t}_{f}(\text { can reach more states given more time })$
+\end{itemize}
+\section{Reachability of C-T LTI Systems}
+Definition (Reachability):\\
+System is called {\bfseries reachable} at time $t_f>0$ if $\mathcal{R}_{t_{f}}=\mathbb{R}^{n}$, i.e., if it is can be steer from $x_0=0$ to any $x_f\in\mathbb{R}^n$ over the time interval $[0, t_f]$.\\
+\\
+Proposition (Reachability = Controllability):\\
+At any $t_{f}>0,$ the LTI system is controllable if and only if is reachable.
+\section{Controllability of D-T LTI Systems}
+A discrete-time $n$-state $m$-input LTI system
+\begin{equation}
+x[k+1]=A x[k]+B u[k], \quad x[0]=x_{0}
+\end{equation}
+Definition:
+\begin{itemize}
+\item The LTI system (2) is {\bfseries controllable at time} $k_f>0$ if for any $x_0$, $x_f\in\mathbb{R}^n$, a control $u[k]$, $k=0,...,k_f-1$, exists that can steer the system from $x_0$ at time 0 to $x_f$ at time $k_f$
+\item It is {\bfseries controllable} if it is controllable at a large enough time $k_f$
+\end{itemize}
+\section{Reachability of D-T LTI System}
+Definition (Reachable Set):\\
+The {\bfseries reachable set} at time $k_{f}>0$ is the set of states the system (2)
+starting from $x_{0}=0$ can be steered to at time $k_{f}$:
+\[
+\mathcal{R}_{k_{f}} :=\left\{\sum_{i=0}^{k_{f}-1} A^{k_{f}-1-i} B u[i] | u(k), k=0,1, \ldots, k_{f}-1\right\}
+\]
+$\bullet$ System is {\bfseries reachable at time} $k_f>0$ if $\mathcal{R}_{k_{f}}=\mathbb{R}^{n}$\\
+\\Proposition (Reachability = Controllability):\\
+The D-T LTI system is controllable if and only if it is reachable (at any $k_f$)
+\section{Controllability Matrix}
+For the D-T system $x[k+1]=A x[k]+B u[k]$ with $x[0]=0$,
+\[
+x[k]=\underbrace{\left[B \quad A B \cdots A^{k-1} B\right]}_{C_{k}}\left[\begin{array}{c}{u[k-1]} \\ {\vdots} \\ {u[0]}\end{array}\right]
+\]
+\begin{itemize}
+\item Reachable set at time $k$ is the range of the matrix $\mathcal{C}_{k}$ i.e., $\mathcal{R}\left(\mathcal{C}_{k}\right)$
+\item {\bfseries Observation}: $\mathcal{R}\left(\mathcal{C}_{k}\right)=\mathcal{R}\left(\mathcal{C}_{n}\right)$ for $k \geq n$
+\end{itemize}
+Definition (Controllability Matrix):\\
+The controllability matrix of the system is
+\[
+\mathcal{C} :=\mathcal{C}_{n}=\left[\begin{array}{llll}{B} & {A B} & {\cdots} & {A^{n-1} B}\end{array}\right]
+\]
+\section{Characterizing Controllability}
+Proposition:\\
+The reachable subspace of the D-T LTI system $(A,B)$ is the range of its controllability matrix  $\mathcal{C}=\left[\begin{array}{llll}{B} & {A B} & {\cdots} & {A^{n-1} B}\end{array}\right]$:
+\[
+\mathcal{R}=\mathcal{R}(\mathcal{C})
+\]
+Theorem:\\
+The D-T LTI system $(A,B)$ is controllable (reachable) if and only if its controllability matrix $\mathcal{C}$ is onto, or equivalently, full (row) rank
+\section{Example}
+\begin{enumerate}
+\item $x[k+1]=\left[\begin{array}{ll}{0} & {0} \\ {0} & {0}\end{array}\right] x[k]+\left[\begin{array}{l}{1} \\ {1}\end{array}\right] u[k]$
+\item $x[k+1]=\left[\begin{array}{ll}{2} & {0} \\ {0} & {2}\end{array}\right] x[k]+\left[\begin{array}{l}{1} \\ {1}\end{array}\right] u[k]$
+\item $x[k+1]=\left[\begin{array}{ll}{2} & {0} \\ {0} & {1}\end{array}\right] x[k]+\left[\begin{array}{l}{1} \\ {1}\end{array}\right] u[k]$
+\end{enumerate}
+\section{Equivalent Condition for Controllability}
+Recall that $\mathcal{C}$ is onto if and only if $\mathcal{CC}^T$ is nonsingular\\
+\\
+Theorem:\\
+The D-T LTI system $(A,B)$ is controllable if and only if 
+\[
+\mathcal{C C}^{T}=\sum_{k=0}^{n-1} A^{k} B B^{T}\left(A^{T}\right)^{k}
+\]
+is nonsingular
+\section{PHB Tests of Controllability}
+Theorem (Popov-Belevitch-Hautus):\\
+The D-T LTI system $(A, B)$ is controllable if and only if
+\begin{enumerate}
+\item {\bfseries Rank Test}: for any $\lambda\in\mathbb{C}$
+\[
+\operatorname{rank}[\lambda I-A \quad B]=n
+\]
+\item {\bfseries Eigenvector Test}: for any left eigenvector $w\in\mathbb{C}^n$ of $A$,
+\[
+w^{T} B \neq 0
+\]
+\end{enumerate}
+\section{Proof of PBH Tests}
+\section{Example}
+\begin{enumerate}
+\item $x[k+1]=\left[\begin{array}{ll}{2} & {0} \\ {0} & {2}\end{array}\right] \times[k]+\left[\begin{array}{l}{1} \\ {1}\end{array}\right] u[k]$
+\item $x[k+1]=\left[\begin{array}{ll}{2} & {0} \\ {0} & {1}\end{array}\right] \times[k]+\left[\begin{array}{l}{1} \\ {1}\end{array}\right] u[k]$
+\item $A = \left[\begin{array}{ccccccc}{-1} & {1} & {0} & {0} & {0} & {0} & {0} \\ {0} & {-1} & 0 & {0} & {0} & {0} & {0} \\ {0} & {0} & {-1} & {1} & {0} & {0} & {0} \\ {0} & {0} & {0} & {-1} & {0} & {0} & {0} \\ {0} & {0} & {0} & {0} & {0} & {1} & {0} \\ {0} & {0} & {0} & {0} & {0} & {0} & {1} \\ {0} & {0} & {0} & {0} & {0} & {0} & {0}\end{array}\right]$, $B = \left[\begin{array}{cc}0&0\\-2&2\\2&0\\1&-1\\0&0\\0&0\\0&3\end{array}\right]$
+\end{enumerate}
+\section{Example}
+Consider the composite system by the negative feedback connection of two matching linear systems $\left(A_{1}, B_{1}, C_{1}\right)$ and $\left(A_{2}, B_{2}, C_{2}\right)$:
+\[
+\tilde{A}=\left[\begin{array}{cc}{A_{1}} & {-B_{1} C_{2}} \\ {-B_{2} C_{1}} & {A_{2}}\end{array}\right], \quad \tilde{B}=\left[\begin{array}{cc}{B_{1}} & {0} \\ {0} & {B_{2}}\end{array}\right]
+\]
+Fact:\\
+The composite system $(\tilde{A}, \tilde{B})$ is controllable if and only if both subsystems $\left(A_{1}, B_{1}\right)$ and $\left(A_{2}, B_{2}\right)$ are controllable.
+\section{Minimum Energy Input for Reachability}
+Suppose system $(A,B)$ is controllable, and $k\geq n$
+{\bfseries Minimum energy input} is the input $u^{*}[0], \ldots, u^{*}[k-1]$ that can steer the system from $x[0]=0$ to $x_d$ at time $k$ with the least energy $\sum_{i=0}^{k-1}\|u[i]\|^{2}$
+\begin{itemize}
+\item Minimum energy input is
+\[
+u^{*}=\left[\begin{array}{c}{u^{*}[k-1]} \\ {\vdots} \\ {u^{*}[0]}\end{array}\right]=\mathcal{C}_{k}^{T}\left(\mathcal{C}_{k} \mathcal{C}_{k}^{T}\right)^{-1} x_{d}
+\]
+\item Minimun energy required to reach $x_d$ is
+\[
+\mathcal{E}_{\min }=\left\|u^{*}\right\|^{2}=x_{d}^{T}\left(\mathcal{C}_{k} \mathcal{C}_{k}^{T}\right)^{-1} x_{d}=x_{d}^{T}\left(\sum_{i=0}^{k-1} A^{i} B B^{T}\left(A^{T}\right)^{i}\right)^{-1} x_{d}
+\]
+\end{itemize}
+\section{Example}
+\[
+x[k+1]=\left[\begin{array}{cc}{1.75} & {0.8} \\ {-0.95} & {0}\end{array}\right] x[k]+\left[\begin{array}{l}{1} \\ {0}\end{array}\right] u[k], \text { with } x[0]=0, x_{d}=\left[\begin{array}{l}{1} \\ {1}\end{array}\right]
+\]
+\section{Minimum Energy Over Infinite Horizon}
+If $(A, B)$ is controllable, the following matrix always exists:
+\[
+P=\lim _{k \rightarrow \infty}\left(\sum_{i=0}^{k-1} A^{i} B B^{T}\left(A^{T}\right)^{i}\right)^{-1}
+\]
+The minimun energy required to reach a point $x_d$ with no limit on $k$ is
+\[
+\mathcal{E}_{\min }=x_{d}^{T} P x_{d}
+\]
+\end{document}

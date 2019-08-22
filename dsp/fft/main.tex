@@ -1,0 +1,106 @@
+\documentclass[10pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage{tikz} % system block diagram
+\usepackage{textcomp}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{shapes,arrows} % system block diagram
+\usepackage{booktabs}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} % matlab code block
+\author{Yangang Cao}
+\date{Aug 21, 2019}
+\newcommand{\degree}{^\circ}
+\tikzset{
+	delay/.style    = {draw, thick, rectangle, minimum height = 3em,
+		minimum width = 3em},
+	sum/.style      = {draw, circle, node distance = 2cm}, 
+	prod/.style     = {draw, circle, node distance = 2cm},
+	input/.style    = {coordinate}, % Input
+	output/.style  = {coordinate} % Output
+}
+% Defining string as labels of certain blocks.
+\newcommand{\product}{$\displaystyle \times$}
+\newcommand{\delay}{\large$z^{-1}$}
+\begin{document}
+
+\title{FFT}
+\maketitle 
+\tableofcontents
+\newpage
+\section{Fourier Series (FS)}
+$x(t)$ is a continuous-time periodic signal, we suppose that
+\[
+x(t)=\sum_{k=-\infty}^{\infty}c_k\mathrm{e}^{j2\pi kF_0t}
+\]
+\[
+c_k=\frac{1}{T_p}\int_{T_p}x(t)\mathrm{e}^{j2\pi kF_0t}\mathrm{dt}
+\]
+\[
+P_x=\frac{1}{T_p}\int_{T_p}|x(t)|^2\mathrm{dt}=\sum_{k=-\infty}^{\infty}|c_k|^2
+\]
+\section{Fourier Transform (FT)}
+$x(t)$ is a continuous-time aperiodic signal
+\[
+c_k=\frac{1}{T_p}\int_{-\infty}^{\infty}x(t)\mathrm{e}^{j2\pi kF_0t}\mathrm{dt}
+\]
+we define
+\[
+X(F)=\int_{-\infty}^{\infty}x(t)\mathrm{e}^{-j2\pi Ft}\mathrm{dt}
+\]
+we have
+\[
+c_k=\frac{1}{T_p}X(kF_0)
+\]
+\[
+E_x=\int_{-\infty}^{\infty}|x(t)|^2\mathrm{dt}=\int_{-\infty}^{\infty}|X(F)|^2\mathrm{dF}
+\]
+\[
+S_{xx}(F)=|X(F)|^2
+\]
+\section{Discrete Time Fourier Series (DTFS)}
+$x(n)$ is a discrete-time periodic signal
+\[
+x(n+N)=x(n)
+\]
+\[
+x(n)=\sum_{k=0}^{N-1}c_k\mathrm{e}^{j2\pi kn/N}
+\]
+\[
+c_k=c_{k+N}=\frac{1}{N}\sum_{n=0}^{N-1}x(n)\mathrm{e}^{-j2\pi kn/N}
+\]
+\[
+P_x=\frac{1}{N}\sum_{n=0}^{N-1}|x(n)|^2=\sum_{k=0}^{N-1}|c_k|^2
+\]
+\section{Discrete Time Fourier Transform (DTFT)}
+$x(n)$ is a discrete-time aperiodic signal
+\[
+X(\omega)=\sum_{n=-\infty}^{\infty}x(n)\mathrm{e}^{-j\omega n}
+\]
+\[
+X(\omega+2\pi k)=X(\omega)
+\]
+\[
+E_x=\sum_{n=-\infty}^{\infty}|x(n)|^2=\frac{1}{2\pi}\int_{-\pi}^{\pi}|X(\omega m)|^2
+\]
+\section{Discrete Fourier Transform (DFT)}
+\[
+X(k)=\sum_{n=0}^{N-1}x(n)\mathrm{e}^{-j2\pi kn/N}\quad k=0,1,\dots,N-1
+\]
+\[
+X(k+N)=X(k)
+\]
+we suppose $x(n)$ is real series
+\[
+X(N-k)=X^*(k)=X(-k)
+\]
+\[
+|X(N-k)|=|X(k)|
+\]
+\[
+\angle X(N-k)=-\angle X(k)
+\]
+\end{document}
