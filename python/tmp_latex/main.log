@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2019.3.25)  21 JUN 2019 12:05
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018) (preloaded format=xelatex 2019.3.25)  30 AUG 2019 14:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -171,75 +171,57 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [1
 
 ] [2]
-Missing character: There is no “ in font ec-lmr10!
-Missing character: There is no ” in font ec-lmr10!
-Missing character: There is no “ in font ec-lmr10!
-Missing character: There is no ” in font ec-lmr10!
-Missing character: There is no “ in font ec-lmr10!
-Missing character: There is no ” in font ec-lmr10!
-Missing character: There is no “ in font ec-lmr10!
-Missing character: There is no ” in font ec-lmr10!
-Missing character: There is no “ in font ec-lmr10!
-Missing character: There is no ” in font ec-lmr10!
-Missing character: There is no … in font ec-lmr10!
-Missing character: There is no … in font ec-lmr10!
- [3]
-Missing character: There is no “ in font ec-lmr10!
-Missing character: There is no ” in font ec-lmr10!
- [4] [5]
-Missing character: There is no ’ in font ec-lmr10!
- [6] [7]
-Overfull \hbox (74.05502pt too wide) in paragraph at lines 252--254
+Overfull \hbox (74.05502pt too wide) in paragraph at lines 79--81
 \T1/lmr/m/n/10 Use form CLASS_NAME = type(`NAME', (BASE_CLASS,), dic(METHOD1=FU
 NC1,...)),
  []
 
-[8]
-Overfull \hbox (23.05556pt too wide) in paragraph at lines 272--274
+[3]
+Overfull \hbox (23.05556pt too wide) in paragraph at lines 99--101
 \T1/lmr/m/n/10 By call-ing type.__new__(mcs, name, bases, at-trs), it is the re
 -turn of __new__()
  []
 
+[4]
 Missing character: There is no ’ in font ec-lmr10!
 Missing character: There is no ’ in font ec-lmr10!
-[9]
 Missing character: There is no ’ in font ec-lmr10!
- [10] [11]
-Overfull \hbox (13.37952pt too wide) in paragraph at lines 386--388
+ [5] [6]
+Overfull \hbox (13.37952pt too wide) in paragraph at lines 213--215
 []\T1/lmr/m/n/10 What does as-ser-tRaises() do? Has form with self.assertRaises
 (ERROR_TYPE):
  []
 
-[12]
+[7]
 Missing character: There is no — in font ec-lmr10!
 
-Overfull \hbox (26.33382pt too wide) in paragraph at lines 412--414
+Overfull \hbox (26.33382pt too wide) in paragraph at lines 239--241
 \T1/lmr/m/n/10 Use com-mand $ vir-tualenv no-site-packages ENV_NAME, where the 
 ENV_NAME
  []
 
-[13]
+[8]
 Missing character: There is no — in font ec-lmr10!
- [14]
-Overfull \hbox (1.96822pt too wide) in paragraph at lines 479--481
+ [9]
+Overfull \hbox (1.96822pt too wide) in paragraph at lines 306--308
 \T1/lmr/m/n/10 Use state-ment But-ton(self, text=``TEXT'', com-mand=self.COMMAN
 D), and
  []
 
 
-Overfull \hbox (56.7768pt too wide) in paragraph at lines 483--485
+Overfull \hbox (56.7768pt too wide) in paragraph at lines 310--312
 \T1/lmr/m/n/10 First im-port tk-in-ter.messagebox as mes-sage-box, and fol-low 
 mes-sage-box.showinfo(`TITLE',
  []
 
-[15] (./main.aux) ) 
+[10] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 1806 strings out of 492970
- 20995 string characters out of 6133938
+ 1805 strings out of 492970
+ 20987 string characters out of 6133938
  84967 words of memory out of 5000000
- 5810 multiletter control sequences out of 15000+600000
+ 5809 multiletter control sequences out of 15000+600000
  30986 words of font info for 48 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 27i,6n,25p,221b,209s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,6n,25p,221b,208s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.pdf (15 pages).
+Output written on main.pdf (10 pages).

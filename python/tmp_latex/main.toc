@@ -1,11 +1,10 @@
-\contentsline {section}{\numberline {1}Python Itself}{2}
-\contentsline {section}{\numberline {2}Pythob Basics}{2}
-\contentsline {section}{\numberline {3}Functions}{7}
-\contentsline {section}{\numberline {4}OOP-Object Oriented Programming}{7}
-\contentsline {section}{\numberline {5}Metaclass}{8}
-\contentsline {section}{\numberline {6}Enum}{10}
-\contentsline {section}{\numberline {7}Error, Debug and Test}{10}
-\contentsline {section}{\numberline {8}Others}{13}
-\contentsline {subsection}{\numberline {8.1}Virtual Environment}{13}
-\contentsline {subsection}{\numberline {8.2}GUI}{14}
-\contentsline {section}{\numberline {9}PyCharm}{15}
+\contentsline {section}{\numberline {1}Python Basics}{2}
+\contentsline {section}{\numberline {2}Functions}{2}
+\contentsline {section}{\numberline {3}OOP-Object Oriented Programming}{2}
+\contentsline {section}{\numberline {4}Metaclass}{3}
+\contentsline {section}{\numberline {5}Enum}{5}
+\contentsline {section}{\numberline {6}Error, Debug and Test}{5}
+\contentsline {section}{\numberline {7}Others}{8}
+\contentsline {subsection}{\numberline {7.1}Virtual Environment}{8}
+\contentsline {subsection}{\numberline {7.2}GUI}{9}
+\contentsline {section}{\numberline {8}PyCharm}{10}
